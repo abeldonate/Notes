@@ -1,0 +1,459 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\newcommand{\prob}[2]{\fbox{\parbox{\textwidth}{\textbf{#1} #2}}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Problems Abstract Algebra \\ \Large{First List}}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\prob{1}{Let $f$ be a morphism in a category  $\mathcal{C}$. Prove the following:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item[(a)] If $f$ an isomorphism then $f$ is a monomorphism and an epimorphism.
+	\item[(b)] The inclusion of $\mathbb{Z}$ in $\mathbb{Q}$ is a monomorphism and an epimorphism in the category of rings but not an isomorphism.
+  \end{enumerate}\vspace{0.5em}
+}
+
+We begin with the proof of $(a)$. Since  $f:A\to B$ is an isomorphism, that means there exist  $g:B \to A$ such that both $g \circ f = Id_A $ and $f\circ g = Id_B$. 
+
+Let $h, k$ morphisms of the category that fulfill $f\circ h=f\circ k$. Then by composing from the left with $g$ we have
+\[
+g\circ f\circ h = g\circ f \circ k \Rightarrow Id_A\circ h = Id_A\circ k \Rightarrow h=k
+\]
+so we conclude $f$ is a monomorphism.
+
+Let $h, k$ morphisms of the category that fulfill $h \circ f=k\circ f$. Then by composing from the right with $g$ we have
+\[
+h\circ f\circ g=k\circ f\circ g \Rightarrow h\circ Id_B = k\circ Id_B \Rightarrow h=k
+\]
+so we conclude $f$ is an epimorphism.
+
+We move to the proof of $(b)$. Let $i:\mathbb{Z} \to \mathbb{Q}$ the inclusion in $\mathbb{Q}$ ($i:n \mapsto n$). Now let $h, k \in \Hom_{rings}(A, \mathbb{Z})$ such that  $i\circ h = i\circ k$. It is clear that, since $i(n)=n\ \forall n\in \mathbb{Z}$, then $h(a)=k(a)\ \forall a\in A$, concluding $h=k$ and  $i$ monomorphism.
+
+Now let $h, k \in \Hom_{rings}(\mathbb{Z}, A)$ such that  $h\circ i = k\circ i$. It is clear that, since $i(n)=n\ \forall n\in \mathbb{Z}$, then $h(i(a))=k(i(a)) \Rightarrow  h(a)=k(a)\ \forall a\in A$, concluding $h=k$ and  $i$ epimorphism.
+
+Suppose $i$ is an isomorphism. Thus, it must exists  $g:\mathbb{Q}\to \mathbb{Z}$ such that $i\circ g = Id_\mathbb{Q}$ and $g\circ i = Id_\mathbb{Z}$. Let $a\in \mathbb{Z}$ such that $g(\frac{1}{2})=a$. Then $i\circ g (\frac{1}{2}) = i(a)=a \neq \frac{1}{2}$, so $i\circ g \neq Id_{\mathbb{Q}}$, concluding $f$ is not an isomorphism.
+
+
+\prob{2}{Show that in the category of finite dimensional vector spaces over a field $\mathbb{K}$ we have a natural equivalence of functors between the identity $Id$ and the bidual  $(-)^{**}$}
+
+We must prove that the following diagram commutes:
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzEsMCwiWF57Kip9Il0sWzAsMSwiWSJdLFsxLDEsIlleeyp9Il0sWzAsMSwiXFx0YXUiXSxbMiwzLCJcXHRhdSJdLFswLDIsImYiLDJdLFsxLDMsIkcoZikiXV0=
+\[\begin{tikzcd}
+	X & {X^{**}} \\
+	Y & {Y^{**}}
+	\arrow["\tau_X", from=1-1, to=1-2]
+	\arrow["\tau_Y", from=2-1, to=2-2]
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["{G(f)=f^{* *}}", from=1-2, to=2-2]
+\end{tikzcd}\]
+
+We will see that for the map $\tau _X(v)(w) = w(v)$ it holds. This is also call evaluation morphism $\tau_X (v): w \mapsto w(v)$, that maps each element $v\in X$ into the evaluation in itself of the element in the dual space $w\in X^{*}$.
+
+The morphisms $f, f^*$ and $f^{* *}$ are given by
+
+\begin{minipage}{0.3\textwidth}
+\begin{align*}
+f:X&\to  Y\\
+v&\mapsto f(v)
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{align*}
+f^*:Y^*&\to  X^*\\
+w&\mapsto f^*(w)=w\circ f
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{align*}
+  f^{* *}:X ^{* *}&\to  Y ^{* *} \\
+  v&\mapsto f^{* *}(v)=v\circ f^*
+\end{align*}
+\end{minipage}
+
+Now we see that the diagram commutes taking both paths. For $v\in X, w\in Y^*$
+\begin{align*}
+  &(\tau_Y\circ f)(v)(w) = \tau _Y(f(v))(w) = w(f(v)) \\
+  &(f ^{* *} \circ \tau _X ) (v) (w) = \tau _X (v)\circ f^*(w) = \tau _X (v) (w\circ f) = w(f(v))
+\end{align*}
+proving that the diagram commutes. Thus, we have a natural equivalence.
+
+
+
+
+\begin{comment}
+  
+We consider the map $\tau_X :X\to X^{* *}$ that sends $v \mapsto \text{eval}(v)$, where eval$(v)\in \Hom(\Hom(X, \mathbb{R}), \mathbb{R})$ is the evaluation in $v$ morphism.
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzEsMCwiWF57Kip9Il0sWzAsMSwiWSJdLFsxLDEsIlleeyp9Il0sWzAsMSwiXFx0YXUiXSxbMiwzLCJcXHRhdSJdLFswLDIsImYiLDJdLFsxLDMsIkcoZikiXV0=
+\[\begin{tikzcd}
+	X & {X^{**}} \\
+	Y & {Y^{**}}
+	\arrow["\tau_X", from=1-1, to=1-2]
+	\arrow["\tau_Y", from=2-1, to=2-2]
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["{G(f)=f^{* *}}", from=1-2, to=2-2]
+\end{tikzcd}\]
+
+Now we have to see that the diagram commutes. We will see that the construction $G(f):\text{eval}(v)\mapsto \text{eval}(f(v))$ works. If we pick $v\in X$, then
+\[
+G(f)(\tau (v))= \text{eval}(f(v)) = \text{eval}(w) = \tau (f(v)) \quad \Rightarrow \tau \circ f = G(f)\circ \tau 
+\] 
+Proving the commutativity of the diagram. Now we left to proof that $\tau $ is an isomorphism $\ \forall X$, but this is immediate since we can construct the inverse $\tau ^{-1} : \text{eval}(v)\to v$ provided every element of $X^{* *}$ is of the form  $\text{eval}(v)$ (recall we are working in a finite dimensional vector space).
+\end{comment}
+
+\prob{3}{Show that two categories $\mathcal{B}$ and $\mathcal{C}$ are naturally equivalent if and only if there exists a fully faithful and essentially surjective covariant functor $F:\mathcal{B}\to \mathcal{C}$.
+}
+\fbox{$\Rightarrow$} Suppose $F$ defines an equivalence of categories. Then, there exists a $G: \mathcal{C}\to \mathcal{B}$ such that we have $F\circ G \simeq Id_{\mathcal{C}}$ and $G\circ F \simeq Id_{\mathcal{B}}$.
+
+To prove that is essentially surjective we choose $M'\in \mathbb{C}$ and
+ \[
+M = G(M') \Rightarrow F(M) = F\circ G(M') \simeq M'
+\] 
+
+We prove now that is faithful considering $f_1, f_2:M\to N$ with $M, N\in \mathcal{B}$ such that $F(f_1)=F(f_2)$. Since we have the isomorphisms $u_M: M \to G(F(M))$ and $u_N: N \to G(F(M))$ with the commuting diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzAsMSwiTiJdLFsxLDAsIkcoRihNKSkiXSxbMSwxLCJHKEYoTikpIl0sWzAsMSwiZl9pIiwyXSxbMCwyLCJ1X00iXSxbMSwzLCJ1X04iLDJdLFsyLDMsIkcoRihmX2kpKSJdXQ==
+\[\begin{tikzcd}
+	M & {G(F(M))} \\
+	N & {G(F(N))}
+	\arrow["{f_i}"', from=1-1, to=2-1]
+	\arrow["{u_M}", from=1-1, to=1-2]
+	\arrow["{u_N}"', from=2-1, to=2-2]
+	\arrow["{G(F(f_i))}", from=1-2, to=2-2]
+\end{tikzcd}\]
+
+So we have $f_i = u_N^{-1}\circ G(F(f_i))\circ u_M$ and $G(F(f_1))=G(F(f_2))\Rightarrow f_1= u^{-1}_N\circ G(F(f_1))\circ u_M = u^{-1}_N\circ G(F(f_2))\circ u_M  = f_2$, proving that is faithful.
+
+Last thing we have to prove is that $F$ is full, that is, for all morphism  $f':F(M)\to F(N)$ exists $f: M\to N$ that makes the diagram commutative
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJNIl0sWzAsMSwiTiJdLFsxLDAsIkcoRihNKSkiXSxbMSwxLCJHKEYoTikpIl0sWzMsMCwiTSJdLFszLDEsIk4iXSxbNCwwLCJHKEYoTSkpIl0sWzQsMSwiRyhGKE4pKSJdLFsxLDMsInVfTiJdLFswLDIsInVfTSJdLFswLDEsImYiLDJdLFsyLDMsIkcoZicpIl0sWzQsNSwiZiIsMl0sWzQsNiwidV9NIl0sWzUsNywidV9OIl0sWzYsNywiRyhGKGYpKSJdXQ==
+\[\begin{tikzcd}
+	M & {G(F(M))} && M & {G(F(M))} \\
+	N & {G(F(N))} && N & {G(F(N))}
+	\arrow["{u_N}", from=2-1, to=2-2]
+	\arrow["{u_M}", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["{G(f')}", from=1-2, to=2-2]
+	\arrow["f"', from=1-4, to=2-4]
+	\arrow["{u_M}", from=1-4, to=1-5]
+	\arrow["{u_N}", from=2-4, to=2-5]
+	\arrow["{G(F(f))}", from=1-5, to=2-5]
+\end{tikzcd}\]
+
+But setting $f=u_N^{-1}\circ G(f')\circ u_M$ we have $G(F(f))=G(f')$, but since  $G$ is faithful we have  $F(f)=f'$.
+
+\fbox{$\Leftarrow$} We start with $M'\in \mathcal{C}$. Since $F$ is full we have  $M\in \mathcal{B}$ such that there exists an isomorphism $u_{M'}: M'\to F(M)$. Let $G(M')=M$.
+
+Let now a morphism $f':M'\to N'$. Defining $f=G(f')$ such that the following diagram commutes
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNJyJdLFswLDEsIk4nIl0sWzEsMCwiRyhGKE0nKSkiXSxbMSwxLCJHKEYoTicpKSJdLFswLDEsImYnIiwyXSxbMCwyLCJ1X3tNJ30iXSxbMSwzLCJ1X3tOJ30iLDJdLFsyLDMsIkcoRihmJykpPUYoZikiXV0=
+\[\begin{tikzcd}
+	{M'} & {G(F(M'))} \\
+	{N'} & {G(F(N'))}
+	\arrow["{f'}"', from=1-1, to=2-1]
+	\arrow["{u_{M'}}", from=1-1, to=1-2]
+	\arrow["{u_{N'}}"', from=2-1, to=2-2]
+	\arrow["{G(F(f'))=F(f)}", from=1-2, to=2-2]
+\end{tikzcd}\]
+
+in such a way that $F(f)=u_{N'}\circ f'\circ u_{M'}^{-1}$ by construction. Since $F$ is fully faithful, there exists a unique morphism  $f:M\to N$ accomplishing the condition, and thus $G(f')=f$ is well defined.
+
+We prove now that $G$ behaves like a functor, that is $G(g'\circ f')=G(g')\circ G(f')$. Since $F$ is full, it is equivalent to show that $F\circ G$ is a functor. Considering the following diagram:
+% https://q.uiver.app/#q=WzAsNixbMSwxLCJOJyJdLFsyLDEsIkYoTikiXSxbMCwwLCJNJyJdLFswLDIsIlAnIl0sWzMsMCwiRihNKSJdLFszLDIsIkYoUCkiXSxbMiwwLCJmJyJdLFszLDUsInVfe1AnfSIsMl0sWzQsNSwiRihHKGcnXFxjaXJjIGYnKSkiXSxbMiw0LCJ1X3tNJ30iXSxbMiwzLCJnJ1xcY2lyYyBmJyIsMl0sWzMsMCwiZyciLDJdLFswLDEsInVfe04nfSIsMl0sWzEsNCwiRihHKGYnKSkiLDJdLFsxLDUsIkYoRyhnJykpIiwxXV0=
+\[\begin{tikzcd}
+	{M'} &&& {F(M)} \\
+	& {N'} & {F(N)} \\
+	{P'} &&& {F(P)}
+	\arrow["{f'}", from=1-1, to=2-2]
+	\arrow["{u_{P'}}"', from=3-1, to=3-4]
+	\arrow["{F(G(g'\circ f'))}", from=1-4, to=3-4]
+	\arrow["{u_{M'}}", from=1-1, to=1-4]
+	\arrow["{g'\circ f'}"', from=1-1, to=3-1]
+	\arrow["{g'}", from=2-2, to=3-1]
+	\arrow["{u_{N'}}"', from=2-2, to=2-3]
+	\arrow["{F(G(f'))}"', from=1-4, to=2-3]
+	\arrow["{F(G(g'))}"', from=2-3, to=3-4]
+\end{tikzcd}\]
+it can be deduced the functorial nature of $F\circ G$ and, thus, of $G$.
+
+The last thing we have to do is the construction of the functorial isomorphisms of $F\circ G$ and $G\circ F$. But considering the first diagram of the exercise, te goal now is to construct the isomorphisms $u_M$ and  $u_N$ for the diagram to commute. But, since $F$ is full the only thing to check is 
+ \[
+F(G(F(f)))\circ F(u_{M}) = F(u_{M})\circ F(f)
+\] 
+which is true by definition of $F(f)$.
+
+\prob{4}{
+\textit{Pullbacks in the category of abelian groups:} Let $A$ and  $B$ be abelian groups together with homomorphisms $f:A\to S$ and $g:B\to S$. Prove that 
+\[
+  A \times_SB = \{(a,b)\in A\times B | f(a)=g(b)\} 
+\] 
+}
+
+Let $U=\{(a,b)\in A\times B|f(a)=g(b)\}$. We will show that the pullback $A\times _SB$ is, in fact, $U$. We construct the following diagram:
+
+% https://q.uiver.app/#q=WzAsNSxbMSwxLCJVIl0sWzEsMiwiQiJdLFsyLDEsIkEiXSxbMiwyLCJTIl0sWzAsMCwiQyJdLFswLDIsIlxccGlfQSJdLFswLDEsIlxccGlfQiIsMl0sWzEsMywiZyIsMl0sWzIsMywiZiJdLFs0LDAsImgiXSxbNCwyLCJoX0EiLDAseyJjdXJ2ZSI6LTJ9XSxbNCwxLCJoX0IiLDAseyJjdXJ2ZSI6Mn1dXQ==
+\[\begin{tikzcd}
+	C \\
+	& U & A \\
+	& B & S
+	\arrow["{\pi_A}", from=2-2, to=2-3]
+	\arrow["{\pi_B}"', from=2-2, to=3-2]
+	\arrow["g"', from=3-2, to=3-3]
+	\arrow["f", from=2-3, to=3-3]
+	\arrow["h", from=1-1, to=2-2]
+	%\arrow["{h_A}", curve={height=-12pt}, from=1-1, to=2-3]
+	\arrow["{h_A}", bend left,from=1-1, to=2-3]
+	\arrow["{h_B}", bend right,from=1-1, to=3-2]
+\end{tikzcd}\]
+
+We first construct the morphisms $\pi_A$ and $\pi_B$ that make the square commute. Those are
+\[
+  \begin{cases}
+    \pi_A((a,b))=a\\
+    \pi_B((a,b))=b
+  \end{cases} \Rightarrow f\circ \pi_A ((a,b)) = f(a) = g(b) = g\circ \pi_B((a,b)) \ \forall (a,b)\in U
+\]
+thus, the square commutes.
+
+Now we construct $h$ from  $h_A$ and  $h_B$. Note that, for the two triangular diagrams to commute, the $h$ must fulfill:
+\[
+\begin{cases}
+  \pi_A(h(c))=h_A(c)\\
+  \pi_B(h(c))=h_B(c)
+\end{cases} \ \forall c\in C \quad \Rightarrow \quad h = (h_A, h_B)
+\]
+and the $h$ is unique. We also note that the resulting set $U$ has an abelian group strucutre, since it is close under the operation, every element has an inverse and is commutative
+\begin{align*}
+(a_1, b_1), (a_2, b_2)\in  A\times _SB \Rightarrow f(a_1)=g(b_1), f(a_2)=g(b_2)\Rightarrow f(a_1+a_2)=g(b_1+b_2) \\
+(a, b) \in A\times _SB \Rightarrow f(a)=g(b)\Rightarrow f(a^{-1})=g(b^{-1})\Rightarrow (a, b)^{-1}:=(a^{-1}, b^{-1})\in A\times _SB
+\end{align*}
+concluding the proof.
+
+\prob{5}{
+\textit{Pushouts in the category of abelian groups:} Let $A$ and  $B$ be abelian groups together with homomorphisms $f:S\to A$ and $g:S\to B$. Prove that 
+\[
+A \sqcup_SB = \frac{A \oplus B}{W}
+\] 
+where $W$ is the subgroup generated by $(f(s), -g(s))$ with  $s\in S$.
+}
+
+Let $U=\frac{A\oplus B}{W}$. We will show that the pushout $A\sqcup_S B $ is, in fact,  $U$. We construct the following diagram:
+
+% https://q.uiver.app/#q=WzAsNSxbMSwxLCJVIl0sWzEsMiwiQiJdLFsyLDEsIkEiXSxbMiwyLCJTIl0sWzAsMCwiQyJdLFsyLDAsImkiLDJdLFsxLDAsImoiXSxbMywxLCJnIl0sWzMsMiwiZiIsMl0sWzAsNCwiaCIsMl0sWzIsNCwiaF9BIiwyLHsiY3VydmUiOjJ9XSxbMSw0LCJoX0IiLDIseyJjdXJ2ZSI6LTJ9XV0=
+\[\begin{tikzcd}
+	C \\
+	& U & A \\
+	& B & S
+	\arrow["i"', from=2-3, to=2-2]
+	\arrow["j", from=3-2, to=2-2]
+	\arrow["g", from=3-3, to=3-2]
+	\arrow["f"', from=3-3, to=2-3]
+	\arrow["h"', from=2-2, to=1-1]
+	\arrow["{h_A}"', bend right, from=2-3, to=1-1]
+	\arrow["{h_B}"', bend left, from=3-2, to=1-1]
+\end{tikzcd}\]
+
+We first construct the morphisms $i, j$ such that the  square diagram commutes. We propose 
+ \[
+  i(a)=[(a,0)] \qquad  j(b)=[(0,b)]
+\] 
+and we check for commutativity for all $s\in S$
+\[
+  \begin{cases}
+  i\circ f (s) = [(f(s),0)]\\
+  j\circ g (s) = [(0,g(s))]
+  \end{cases} \text{ but } 
+  [(0,g(s))]=[(0,g(s))+(f(s),-g(s))]=[(f(s),0)] \Rightarrow i\circ f = j\circ g \ \forall s\in S
+\] 
+so we have proved the square commutes.
+
+Now we construct the morphism $h$ through  $h_A$ and  $h_B$. We construct it in the following way:
+\[
+  \begin{cases}
+	h([(a,0)])=h_A(a)\\
+	h([(0,b)])=h_B(b)
+  \end{cases} \Rightarrow h([(a,b)])=h([(a,0)]+[(0,b)])=h([(a,0)])+h([(0,b)]) = h_A(a)+h_B(b)
+\] 
+and clearly this is well defined and unique as morphism in the category of abelian groups, so the other triangular diagrams commute as well.
+
+Finally we check that $U$ is, in fact, an abelian group. Obviously is closed, has an inverse and is commutative by inheritance of $A$ and  $B$, so it is abelian.
+
+\prob{6}{\textit{Inverse limits in the category of sets / groups / abelian groups / modules}: Let $(\{A_i\}, \{f_{ji}\})$ be an inverse system over a preordered set $I$. Prove that
+  \[
+	\varprojlim A_i = \{(a_i)\in \prod A_i | f_{ji}(a_j)=a_i \ i\le j\}
+  \] 
+}
+
+Let $U=\{(a_i)\in \prod A_i | f_{ji}(a_j)=a_i \ i\le j\}$. We will prove that this is, in fact, the inverse limit we are looking for through the following diagram:
+
+% https://q.uiver.app/#q=WzAsNCxbMCwxLCJCIl0sWzEsMSwiVSJdLFsyLDAsIkFfaSJdLFsyLDIsIkFfaiJdLFswLDEsImgiXSxbMSwyLCJcXGxhbWJkYV9pIiwyXSxbMSwzLCJcXGxhbWJkYV9qIl0sWzMsMiwiZl97aml9IiwyXSxbMCwyLCJmX2kiXSxbMCwzLCJmX2oiLDJdXQ==
+\[\begin{tikzcd}
+	&& {A_i} \\
+	B & U \\
+	&& {A_j}
+	\arrow["h", from=2-1, to=2-2]
+	\arrow["{\lambda_i}"', from=2-2, to=1-3]
+	\arrow["{\lambda_j}", from=2-2, to=3-3]
+	\arrow["{f_{ji}}"', from=3-3, to=1-3]
+	\arrow["{f_i}", bend left, from=2-1, to=1-3]
+	\arrow["{f_j}"', bend right, from=2-1, to=3-3]
+\end{tikzcd}\]
+
+We can easily check the commutativity of the right part of the diagram because $f_{ji}\circ \lambda_j((a_k))=f_{ji}(a_j)=a_i = \lambda_i((a_k))$.
+
+We now prove that the morphism $h$ is unique.  $h$ must be of the form  $h(c)=(h_k(c))$, but, since the upper and lower part of the diagram must commute, we have $\lambda_i\circ h(c)=f_i(c)\Rightarrow h_i=f_i$, so the morphism we are looking form is $h=(h_k)$, and is unique.
+
+Finally we must prove that the structure of $U$ is the same than the structure in  $A_i$. For sets is trivial. For groups 
+\begin{align*}
+   (a_i), (b_i)\in U \Rightarrow f_{ji}(a_j)=a_i, f_{ji}(b_j)=b_i \Rightarrow f_{ji}(a_j+b_j)=a_i+b_i \Rightarrow (a_i)+(b_i)\in U\\
+   (a_i)\in U \Rightarrow f_{ji}(a_j)=a_i \Rightarrow f_{ji}(a_j^{-1}) = a_i^{-1} \Rightarrow (a_i)^{-1}\in U
+\end{align*}
+
+
+\prob{7}{ \textit{Direct limits in the category of sets / groups / abelian groups / modules / rings with unit}: Let $(\{A_i\}, \{f_ij\})$ be a direct system over a directed set  $I$. Prove that
+   \[
+   \varinjlim A_i = \bigsqcup A_i / \sim    
+  \] 
+  where $a_i\sim a_j \iff f_{il}(a_i)=f_{jl}(a_j)$ for $i,j\le l$
+}
+
+Let $U = \bigsqcup A_i / \sim $. We will prove that this is, in fact, the direct limit we are looking for through the following diagram:
+
+% https://q.uiver.app/#q=WzAsNCxbMCwxLCJCIl0sWzEsMSwiVSJdLFsyLDAsIkFfaSJdLFsyLDIsIkFfaiJdLFsxLDAsImgiLDJdLFsyLDEsIlxcbGFtYmRhX2kiXSxbMywxLCJcXGxhbWJkYV9qIiwyXSxbMywyLCJmX3tqaX0iLDJdLFsyLDAsImZfaSIsMl0sWzMsMCwiZl9qIl1d
+\[\begin{tikzcd}
+	&& {A_i} \\
+	B & U \\
+	&& {A_j}
+	\arrow["h"', from=2-2, to=2-1]
+	\arrow["{\lambda_i}", from=1-3, to=2-2]
+	\arrow["{\lambda_j}"', from=3-3, to=2-2]
+	\arrow["{f_{ji}}"', from=3-3, to=1-3]
+	\arrow["{f_i}"', bend right, from=1-3, to=2-1]
+	\arrow["{f_j}", bend left, from=3-3, to=2-1]
+\end{tikzcd}\]
+
+We have to check first that the right triangle of the diagram commutes. Since $\lambda_i:a_i \mapsto  [a_i]$, we have that
+\[
+  \lambda_j\circ  f_{ij}(a_i) = \lambda_j(a_j)=[a_j] = [a_i] = \lambda_i(a_i) \Rightarrow \lambda_j\circ f_{ij}=\lambda_i
+\] 
+where we have set $l=j$, so $f_{ij}(a_i)=a_j = f_{jj}(a_j) \Rightarrow a_i\sim a_j \Rightarrow [a_j]=[a_i]$.
+
+Now we check the commutativity of the $h: [a_i] \mapsto f_i(a_i)$. First we have to ensure that it is well defined. That is, if $a_i\sim  a_j \Rightarrow f_i(a_i)=f_j(a_j)$. We suppose by symmetry that  $j>i$, then  by definition $a_i\sim a_j \iff f_{il}(a_i)=f_{jl}(a_j)$ for $i, j\le l$. Setting $l = j$ we get  $f_{ij}(a_i)=f_{jj}(a_j)=a_j$. Now, for the big diagram $f_j(f_{ij}(a_i))=f_i(a_i) \Rightarrow f_j(a_j)= f_i(a_i)$ as desired. 
+
+Note that $h([a_i])=f_i(a_i)$ is the only possible choice we could have done in order to assure the commutativity of the upper diagram.
+
+
+
+
+\prob{8}{Show that in an abelian category we have:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item[(a)] $f$ is a monomorphism  $\iff \ker(f)=0$ 
+	\item[(b)] $f$ is an epimorphism $\iff \coker(f)=0$ 
+	\item[(c)] A monomorphism is the kernel of its cokernel
+	\item[(d)] An epimorphism is the cokernel of its kernel
+	\item[(e)] Every morphism can be expressed as the composition of an epimorphism and a monomorphism
+	\item[(f)] $f$ is an isomorphism  $\iff f$ is an epimorphism and a monomorphism
+  \end{enumerate}
+  \vspace{1em}
+}
+
+We draw our commutative diagram. For being abelian the morphism $\overline{g}$ must be unique for all $g$ and the morphism $\overline{h}$ must be unique for all $h$. Furthermore $\overline{f}$ must be an isomorphism for all  $f$.
+
+% https://q.uiver.app/#q=WzAsOCxbMSwwLCJBIl0sWzIsMCwiQiJdLFszLDAsIlxcdGV4dHtDb2tlcn0iXSxbMiwxLCJcXHRleHR7SW19Il0sWzEsMSwiXFx0ZXh0e0NvaW19Il0sWzAsMCwiXFx0ZXh0e2tlcn0iXSxbMCwxLCJDIl0sWzMsMSwiRCJdLFs1LDAsImkiXSxbMCwxLCJmIl0sWzEsMiwiXFxwaSJdLFszLDEsImoiXSxbMCw0LCJcXHRhdSJdLFs0LDMsIlxcYmFye2Z9Il0sWzYsMCwiZyJdLFs2LDUsIlxcYmFye2d9Il0sWzEsNywiaCJdLFsyLDcsIlxcYmFye2h9Il1d
+\[\begin{tikzcd}
+	{\text{ker}} & A & B & {\text{Coker}} \\
+	C & {\text{Coim}} & {\text{Im}} & D
+	\arrow["i", from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["\pi", from=1-3, to=1-4]
+	\arrow["j", from=2-3, to=1-3]
+	\arrow["\tau", from=1-2, to=2-2]
+	\arrow["{\bar{f}}", from=2-2, to=2-3]
+	\arrow["g", from=2-1, to=1-2]
+	\arrow["{\bar{g}}", from=2-1, to=1-1]
+	\arrow["h", from=1-3, to=2-4]
+	\arrow["{\bar{h}}", from=1-4, to=2-4]
+\end{tikzcd}\]
+
+\textbf{(a)}
+
+\fbox{$\Rightarrow$} If $f$ is mono, that means  $f\circ k =f\circ l \Rightarrow k=l$. Let $k = i, l = 0$, then $0=f\circ i=f\circ 0\Rightarrow i=0$. Since there exists a unique morphism $\overline{g}:C\to \ker f$, then $\ker f$ is the unique terminal element of the abelian category $0$.
+
+\fbox{$\Leftarrow$}
+\[
+  (f\circ g = f\circ h \Rightarrow f\circ (g-h) ) \quad \iff \quad (f\circ (g-h)=0 \Rightarrow g-h=0 ) \quad \iff \quad (f\circ k =0 \Rightarrow k=0)
+\] 
+
+So proving that $f$ is mono is the same as proving that $f\circ g = 0 \Rightarrow g=0$. But if $\ker f = 0$, that means the morphism  $i=0$ is the zero morphism, and since the category is abelian  $\ \forall g:C\to A$ such that $f\circ g=0$ there exists a $\overline{g}$ such that $i\circ \overline{g}=g$. But since $i=0 \Rightarrow g=0$ proving $f\circ g =0 \Rightarrow g=0$ and then $f$ is mono.
+
+
+\textbf{(b)}
+
+\fbox{$\Rightarrow$} If $f$ is mono, that means  $k\circ f =l\circ f \Rightarrow k=l$. Let $k = \pi, l = 0$, then $0=\pi\circ f=0\circ f\Rightarrow \pi=0$. Since there exists a unique morphism $\overline{h}:\coker f\to D$, then $\coker f$ is the unique initial element of the abelian category $0$.
+
+\fbox{$\Leftarrow$} it is completely analogous to (a).
+
+\textbf{(e)} 
+
+Since $\tau $ is epi, $j$ is mono and  $\overline{f}$ is iso, then $\overline{f}\circ \tau $ is epi, and following the diagram $f = j\circ \overline{f} \circ \tau  = j\circ (\overline{f}\circ \tau)$, which is the desired composition. a 
+
+
+\end{document}
+

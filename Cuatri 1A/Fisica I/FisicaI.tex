@@ -1,0 +1,173 @@
+\documentclass[12pt]{article}
+
+\title{Física}
+\author{Abel Doñate}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Cinemática}
+\subsection{MRU}
+\[\bar{a}=\bar{0},  \ \ \ \bar{x}=\bar{x_0}+\bar{v}t\]
+
+\subsection{MRUA}
+\[\bar{a} \ constante,  \ \ \ \bar{x}=\bar{x_0}+\bar{v_0}t+\frac{1}{2}\bar{a}t^2\]
+
+\subsection{a no constante, modulo de a constante}
+\[\bar{a}=\frac{d}{dt}(\frac{ds}{dt}\hat{\tau})=\frac{d^2s}{dt^2}\hat{\tau}+\frac{ds}{dt}\frac{d\hat{\tau}}{dt}=\frac{d^2s}{dt^2}\hat{\tau}+\frac{v^2}{\rho}\hat{n}=a_t\hat{\tau}+a_n\hat{n}\]
+
+
+
+\begin{align*}
+\hat{\tau} &=  \frac{\bar{v}}{v} \\
+\bar{a_t} &=  (\bar{a}\cdot \hat{\tau})\hat{\tau} \\
+\bar{a_n} &= \bar{a} - \bar{a_t} \\
+\hat{n}  &=\frac{\bar{a_n}}{a_n}
+\end{align*}
+
+\subsection{MCUA}
+\[ \text{Tenemos variables como } \phi=\frac{x}{R}, \ \ \omega=\frac{v}{R}, \  \alpha=\frac{a}{R} \text{ que cumplen las mismas relaciones que } x,v,a.\]
+\\
+\\
+En un MCUA $a_t = \alpha$ y $a_n=\frac{v^2}{R}=\omega^2R$
+
+\section{Fuerzas y ecuaciones del movimiento de una partícula}
+	\subsection{Leyes de Newton}
+\begin{itemize}
+	\item Toda partícula aislada tiene $v$ constante.
+	\item La $a$ de un curpo es proporcional a la $F$ que actúa sobre él.
+	\item Toda $F$ de acción conlleva una de reacción con el mismo módulo y sentido contrario.
+\end{itemize}
+
+\subsection{Fuerzas de contacto}
+\subsubsection{Reacción Normal}
+Causada por la interacción molecular. Siempre perpendicular a la superficie.
+\subsubsection{Tensiones en cuerdas}
+Suponiendo una curda sin masa, entonces la tensión a ambos lados de la cuerda es la misma.
+\subsubsection{Fricción en sólidos}
+
+
+
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = left,
+    xlabel = $F$,
+    ylabel = {$F_r$},
+    legend style={at={(0.2,0.2)},anchor=west}
+]
+%Below the red parabola is defined
+\addplot [
+    domain=0:4, 
+    samples=100, 
+    color=red,
+]
+{x};
+\addlegendentry{$F_r=F$ if $F<F_{femax}$}
+%Here the blue parabloa is defined
+\addplot [
+    domain=4:8,
+    samples=100,
+    color=blue,
+    ]
+    {3};
+\addlegendentry{$F_{r}=F_{fd}$ if $F>F_{femax}$}
+
+\end{axis}
+\end{tikzpicture}
+
+\begin{align*}
+	F_{femax} &= \mu_eN \\
+	F_{fd} &= \mu_dN \\
+	\mu_d&<\mu_e
+\end{align*}
+
+\subsubsection{Fricción en fluidos}
+\[\bar{F_D}(\bar{v})=-(k_1v+k_2v^2)\hat{v} \ \ \ \left\{
+\begin{array}{c}
+	k_1 \mbox{ término viscoso} \\
+	k_2 \mbox{término de presión}
+\end{array}\right. \]
+
+\section{Teoremas de conservación y movimientos angulares}
+	\subsection{Comparación movimientos lineales y angulares}
+	\begin{table}[h!]
+\begin{tabular}{ll}
+\underline{Lineales} & \underline{Angulares} \\
+$x$ & $\theta$  \\
+$v$ & $\omega$ \\
+$a$ & $\alpha$ \\
+$m$ & $I=mr^2$ \\
+$F$ & $\tau=r \times F$\\
+$p$ & $L=r \times p$
+\end{tabular}
+\end{table}
+	\subsection{Trabajo y Energía}
+	Definimos el trabajo como 
+	\[W=\int_{r_a}^{r_b}{\bar{F}\cdot d\bar{r}}\]
+	De aquí podemos deducir las Energías cinética y potencial gravitatoria y elástica
+	\[E_c=\frac{1}{2}mv^2, \ \ \ \ U=mgh, \ \ \ \ U=\frac{1}{2}kx^2\]
+	Definiremos el impulso $I$ como:
+	\[I=\int_{t_1}^{t_2}{Fdt}=\Delta p\]
+	Tenemos también que en un campo conservativo:
+	\[\bar{F}=-\nabla U\]
+	Introducimos también la Potencia:
+	\[P=\frac{dW}{dt}=Fv\]
+	\subsection{Conservación de variables}	
+	En un sistema cerrado se conservan:
+	\begin{itemize}
+		\item $E_m=E_c+U$ (Energía mecánica)
+		\item $p$ (Momento lineal)
+		\item $L$ (Momento angular)
+	\end{itemize}
+	Si el sistema no es conservativo podemos separar su energía mecánica:
+	\[E_{m_f}=E_{m_0}+W_{nc} \ \ \implies \ \ W_{nc}=\Delta E_c + \Delta U\]
+	
+\section{Oscilaciones}
+	\[m\ddot{x} +b\dot{x}+kx=F_0cos(\omega t)\]
+	\[\omega_0=\sqrt{\frac{k}{m}}, \ \ \ \gamma=\frac{b}{2m},\ \ \ \omega_1 = \sqrt{\omega_0^2-\gamma_0^2}, \ \ \ D=m\sqrt{(\omega_0^2-\omega^2)^2+(2\gamma \omega)^2}\] 
+	\subsection{Tipos de osciladores}
+	\textbf{1) Oscilador débilmente amortiguado ($\omega_0>\gamma$)}
+	\[x=Ae^{-\gamma t}cos(\omega_1t+\phi)\]\\
+	\textbf{2) Oscilador críticamente amortiguado ($\omega_0=\gamma$)}
+	\[x=(A+Bt)e^{-\gamma t}\] \\
+	\textbf{3) Oscilador fuertemente amortiguado ($\omega_0<\gamma$)}
+	\[x=Ae^{(-\gamma+\sqrt{\gamma^2-\omega_0^2})t} + Be^{(-\gamma-\sqrt{\gamma^2-\omega_0^2})t}\] \\	
+	\textbf{4) Oscilador forzado ($F_{ext}=F_0cos(\omega t)$)}\\
+	$x(t)$ se puede expresar como la suma de la homogénea mas la particular $x=x_h+x_p$
+	\[x_p=A_pcos(\omega t +\theta-\beta) \ \ \ \text{donde} \ \ \ tan\beta=\frac{2 \gamma \omega}{\omega_0^2-\omega^2}, \ \ \ A=\frac{F_0}{D}, \ \ \ Z=\frac{D}{\omega}\]
+	
+	\subsection{Variables de calidad}
+	Las valiables mas comunes para ver la calidad de un oscilador débilmente amortiguado oscilador son:
+	\begin{itemize}
+		\item $\tau_E=\frac{1}{2\gamma}$ el tiempo que pasa de tener $E$ a $E/e$
+		\item $n=\frac{\tau_E}{T}$ las oscilaciones antes de $\tau_E$
+		\item $Q=\frac{2\pi}{|\frac{\Delta E}{E}|_T}=\frac{\omega_1}{2\gamma}=2\pi n$
+	\end{itemize}
+	
+\section{Gravitación}
+	Con un planeta en órbita tenemos:
+	\[F(\bar{r})=-\frac{GMm}{r^2}\hat{r}, \ \ \ \ U=-\frac{GMm}{r} \ \text{es un campo conservativo} \]
+	En cuanto a las variables angulares:
+	\[\bar{\tau}=r\times F=0 \ \ \ \ \implies \ \ \ \ \bar{L}=const.\]
+	
+	\subsection{Órbitas elípticas}
+	\[L_0=mr^2\dot{\theta} \ \ \ \ \alpha=\frac{L_0^2}{GMm^2}\ \ \ \ \varepsilon = \sqrt{1+\frac{2\alpha E}{GMm}}\]
+	Entonces la función de la órbita es:
+	\[r(\theta) = \frac{\alpha}{1 + \varepsilon cos(\theta)}\]
+	
+	
+	
+
+\end{document}
+

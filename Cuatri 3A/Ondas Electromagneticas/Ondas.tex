@@ -1,0 +1,123 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{esint}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Ondas Electromagnéticas}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ondas en el vacío (densidades de carga y corriente nulas)}
+\subsection{Ecuaciones de Maxwell}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Ley de Gauss & $\nabla\cdot \mathcal{E} = 0$  & $\displaystyle\oiint \mathcal{E} \cdot  dS = 0$ \\
+\hline
+Ley de Gauss & $\nabla\cdot \mathcal{H} = 0$ & $\displaystyle \oiint \mathcal{H} \cdot  dS = 0$ \\
+\hline
+Ley de Maxwell-Faraday & $\displaystyle\nabla\times \mathcal{E} = -\mu_0 \frac{\partial \mathcal{H}}{\partial t}$ & $\displaystyle\oint \mathcal{E} \cdot  dl = -\mu_0 \frac{d}{dt} \iint \mathcal{H}\cdot dS$ \\
+\hline
+Ley de Ampere & $\displaystyle\nabla\times \mathcal{H} = \varepsilon _0 \frac{\partial \mathcal{E}}{\partial t}$ & $\displaystyle\oint \mathcal{H}\cdot dl = \varepsilon _0 \frac{d}{dt} \iint \mathcal{E} \cdot dS$ \\
+\hline
+\end{tabular}
+\end{center}
+
+De las ecuaciones de maxwell se pueden derivar las ecuaciones de onda donde $\displaystyle c = \frac{1}{\sqrt{\mu_0 \varepsilon _0} }$
+\[
+\nabla^2\mathcal{E} - \frac{1}{c^2} \frac{\partial \mathcal{E}}{\partial^2 t} = 0, \qquad 
+\nabla^2\mathcal{H} - \frac{1}{c^2} \frac{\partial \mathcal{H}}{\partial^2 t} = 0
+\] 
+
+Si hacemos la asunción $\mathcal{E}(r, t) = \mathcal{E}_{x} (z, t)$ tenemos la ecuación de d'Alembert
+\[
+\frac{\partial}{}
+\] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

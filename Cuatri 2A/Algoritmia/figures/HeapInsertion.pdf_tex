@@ -1,0 +1,109 @@
+%% Creator: Inkscape 1.1.1 (3bf5ae0d25, 2021-09-20, custom), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'HeapInsertion.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{588.71368566bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.24721114)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{HeapInsertion.pdf}}%
+    \put(0.22022109,0.15411195){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\implies$\\\end{tabular}}}}%
+    \put(0.09948987,0.21593576){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$50$\end{tabular}}}}%
+    \put(0.06009891,0.15158383){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$30$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{HeapInsertion.pdf}}%
+    \put(0.14883416,0.08302264){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$8$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{HeapInsertion.pdf}}%
+    \put(0.09304018,0.08550863){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10$\end{tabular}}}}%
+    \put(0.16245513,0.15019373){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$20$\end{tabular}}}}%
+    \put(0.19868111,0.08326137){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$16$\end{tabular}}}}%
+    \put(0.03323514,0.08234851){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$15$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{HeapInsertion.pdf}}%
+    \put(0.01967134,0.01996965){\color[rgb]{0.66666667,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$60$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{HeapInsertion.pdf}}%
+    \put(0.47702929,0.1629989){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\implies$\\\end{tabular}}}}%
+    \put(0.35896037,0.21710599){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$50$\end{tabular}}}}%
+    \put(0.31956943,0.15275405){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$30$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{HeapInsertion.pdf}}%
+    \put(0.40830465,0.08419286){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$8$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{HeapInsertion.pdf}}%
+    \put(0.35251069,0.08667885){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10$\end{tabular}}}}%
+    \put(0.42192564,0.15136395){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$20$\end{tabular}}}}%
+    \put(0.45815162,0.08443159){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$16$\end{tabular}}}}%
+    \put(0.29270563,0.08351872){\color[rgb]{0.83137255,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$60$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{HeapInsertion.pdf}}%
+    \put(0.27914184,0.02113987){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$15$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{HeapInsertion.pdf}}%
+    \put(0.73100188,0.15808758){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\implies$\\\end{tabular}}}}%
+    \put(0.59482193,0.2162008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$50$\end{tabular}}}}%
+    \put(0.55518993,0.15218346){\color[rgb]{0.83137255,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$60$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{HeapInsertion.pdf}}%
+    \put(0.64512288,0.0826791){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$8$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{HeapInsertion.pdf}}%
+    \put(0.58999294,0.08431512){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10$\end{tabular}}}}%
+    \put(0.65733889,0.15178782){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$20$\end{tabular}}}}%
+    \put(0.69541359,0.08175881){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$16$\end{tabular}}}}%
+    \put(0.53067635,0.08258517){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$30$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{HeapInsertion.pdf}}%
+    \put(0.51554631,0.02019012){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$15$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{HeapInsertion.pdf}}%
+    \put(0.81260375,0.15278248){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$50$\end{tabular}}}}%
+    \put(0.84951497,0.21802272){\color[rgb]{0.83137255,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$60$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{HeapInsertion.pdf}}%
+    \put(0.90323591,0.08498125){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$8$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{HeapInsertion.pdf}}%
+    \put(0.84744198,0.08746722){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10$\end{tabular}}}}%
+    \put(0.91685689,0.15215232){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$20$\end{tabular}}}}%
+    \put(0.95308284,0.08521998){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$16$\end{tabular}}}}%
+    \put(0.78763685,0.08430711){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$30$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{HeapInsertion.pdf}}%
+    \put(0.76787463,0.01879552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$15$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{HeapInsertion.pdf}}%
+  \end{picture}%
+\endgroup%

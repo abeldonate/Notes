@@ -1,0 +1,563 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\fn}{\{f_n\}_n}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+
+\pdfsuppresswarningpagegroup=1
+
+\title{a}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Sucesiones de funciones}
+\begin{definition}
+  Decimos que $\fn \to f$ converge puntualmente si
+  \[
+	\lim_{n \to \infty} f_n(x) = f(x) \ \forall x \in E 
+  \]
+\end{definition}
+Observamos que esta definición de convergencia es bastante débil, ya que
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+  \item $f_k$ continuas  $\not\implies f$ continua \\
+  \item $\displaystyle\frac{d}{dx} f \neq  \lim \frac{d}{dx} f_n$ 
+  \item $\displaystyle\int_a^b f \neq  \lim \int_a^b f_n dx$
+\end{itemize}
+
+\begin{definition}
+  Decimos que $\fn \to f$ converge uniformemente si
+\[
+\ \forall \varepsilon > 0 \ \exists n_0(\varepsilon) : \text{ si } n\ge n_0 \implies \sup  | f_n(x)-f(x)|<\varepsilon
+\] 
+\end{definition}
+
+\begin{definition}
+$f_n$ cumple el criterio de Cauchy si
+ \[
+\forall \varepsilon >0 \ \exists N : \forall n, m>N \ |f_n-f_m | <\varepsilon 
+\] 
+\end{definition}
+
+Si $f_n$ es de Cauchy y converge a  $f$ puntualmente  $\implies$ $f_n \to f$ uniformemente
+
+Al contrario que con la convergencia puntual, la monótona nos asegura:
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+  \item $f_n$ continua  $\implies f$ continua
+  \item $\displaystyle\int_a^b f =  \lim \int_a^b f_n dx$
+\end{itemize}
+
+
+\begin{theorem}
+Teorema de Dini. $f_n \to f$ puntualmente sobre un compacto  $A$, con $f, f_n$ continuas. $f_n$ puntualmente monótona  $\implies$ $f_n\to f $ uniformemente en $A$.
+\end{theorem}
+
+\subsection{Criterios de convergencia}
+\begin{proposition}
+ Criterio de Weierstrass. Sea $f_n$ tal que  $\forall n \ \exists M_n : |f_n|\le M_n$
+
+ Si $\sum M_n$ es convergente  $\implies \sum f_n$ converge uniformemente
+\end{proposition}
+
+\begin{proposition}
+Fórmula de sumación de Abel. Sean $a_n, b_n, s_n := \sum_{i=0}^n a_i$. Podemos expresar las sumas como:
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item $\displaystyle\sum a_kb_k = s_nb_{n+1} - \sum s_k(b_{k+1}-b_k)$ 
+  \item $\displaystyle\sum a_kb_k = s_nb_1 + \sum (s_n-s_k)(b_{k+1}-b_k)$ 
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+Test de Abel. Sean las funciones $f, g$ cumpliendo
+ \begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item $\sum f_n\to f$ uniformemente
+  \item  $\ \forall n \ |g_n| <M$
+  \item $g_n$ monótona decreciente
+\end{enumerate}
+Entonces $\sum f_ng_n$ converge uniformemente
+\end{proposition}
+
+\subsection{Series de potencias}
+Una serie de potencias es una suma definida como $\displaystyle \sum_0^\infty a_nx^n$. Analizaremos la convergencia en función de la sucesión $a_n$
+\begin{proposition}
+Caracterización de la convergencia.
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item Si $\sum a_n$ converge en $x_0\neq 0 \implies $ converge absolutamente en $(-x_0, x_0)$ y uniformemente en $[a, b]$ con  $a>-x_0, b<x_0$
+  \item Si  $\sum a_n$ diverge en $x_0 \implies$ diverge en $\mathbb{R}-[-x_0, x_0]$
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+Definimos el radio de convergencia como
+\[
+R = \frac{1}{\limsup \sqrt[n]{a_n} }
+\] 
+\end{definition}
+
+\begin{theorem}
+Teorema de Abel. Sea $R$ el radio de convergencia de la serie  $\sum_{n\ge 0} a_nx^n$
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item Si $\sum_{n\ge 0} a_nR^n$ converge $\implies$ $\sum_{n\ge 0} a_nx^n$ converge uniformemente en $[0, R]$
+  \item Si  $\sum_{n\ge 0} a_nR^n=A \implies \lim_{x\to R^-} \sum_{n\ge 0} a_nx^n = A$  
+\end{enumerate}
+\end{theorem}
+
+Propiedades de las series de potencias. Sea $f(x) = \sum_{n\ge 0} a_nx^n$ con radio de convergencia $R$
+ \begin{itemize}[topsep=0pt, itemsep=0pt]
+  \item $f$ derivable en  $(-R, R)$ y $f'$ tiene el mismo radio de convergencia
+  \item $f$ integrable en  $(-R, R)$ y $f'$ tiene el mismo radio de convergencia
+  \item Unicidad. Si $f=g$ en un abierto que contiene el origen $ \implies a_n = b_n$
+\end{itemize}
+
+\subsection{Series de Taylor}
+\begin{theorem}
+Teorema de Taylor. Si $\sum_{n\ge 0} a_nx^n$ converge en $(-R, R)$ y  $c\in (-R, R)$.
+\[
+f(x) = \sum_{n\ge 0} \frac{f^{(n)}(c)}{n!}(x-c)^n
+\] 
+\end{theorem}
+
+\begin{proposition}
+Condición suficiente para que una función tenga serie de Taylor.
+
+Si podemos acotar sus derivadas por $|f^{(n)}(x)|<\gamma M^n \implies$ podemos definir la serie de Taylor 
+\end{proposition}
+
+\section{Espacios de funciones continuas}
+En todo el tema $K$ compacto. $\mathcal{F} = \{f_n\}\subset C(A, \mathbb{R})$
+\begin{definition}
+Espacio de funciones continuas.
+\[
+\mathcal{C(A, \mathbb{R}} ) = \{f:A\to R, f \text{ continua en }A\}
+\] 
+\end{definition}
+
+\begin{theorem}
+  $\mathcal{C}(K, \mathbb{R}) $ con la norma del supremo es un espacio de Banach (normado y completo)
+\end{theorem}
+
+\subsection{Equicontinuidad}
+
+\begin{definition}
+$\mathcal{F}$ es \textbf{puntualmente acotado} si $\mathcal{F}_x = \{f(x): f\in \mathcal{F}\}$ es acotado $\ \forall x$
+
+$\mathcal{F}$ es \textbf{uniformemente acotado} si $\ \exists \alpha : \|f\|<\alpha \ \forall f\in \mathcal{F}$
+\end{definition}
+
+\begin{theorem}
+$\mathcal{F}$ es \textbf{equicontinua} si 
+\[
+\ \forall \varepsilon >0 \ \exists \delta >0 : |x-y| \implies |f(x)-f(y)| < \varepsilon \ \forall f\in \mathcal{F}
+\] 
+\end{theorem}
+
+\begin{proposition}
+Si $f_n$ converge uniformemente en $\mathcal{C}(K, \mathbb{R})$ $\implies \mathcal{F} = \{f_n\}$ es uniformemente acotada y equicontinua
+\end{proposition}
+
+\begin{theorem}
+\textbf{Arzela-Ascoli}. Son equivalentes:
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item La familia $\mathcal{F}$ es puntualmente acotada y equicontinua en $K$
+  \item De cada sucesión de elementos de $\mathcal{F}$ se puede extraer una parcial uniformemente convergente
+\end{enumerate}
+\end{theorem}
+Podemos generalizar ahora el teorema de Heine-Borel, que nos dice que en $\mathbb{R}^n$ un conjunto cerrado y acotado $\iff$ compacto
+\begin{theorem}
+Sea $K\subset \mathbb{R}$ compacto y $\mathcal{F}\subset C(K, \mathbb{R})$. Entonces
+\[
+  \mathcal{F} \text{ compacto } \iff \mathcal{F} \begin{cases} 
+	\text{cerrada}\\
+	\text{equicontinua}\\
+	\text{puntualmente acotada}
+  \end{cases}
+\] 
+\end{theorem}
+
+\begin{theorem}
+\textbf{Aproximación de Weierstrass}. Dada $f\in \mathcal{C}(K, \mathbb{R})$ y un $\varepsilon >0$
+\[
+\ \exists  p(x) \in \mathbb{R}[x] \text{ tal que } \|f-g\|=\sup_{x\in [a, b]}|f(x)-g(x)|<\varepsilon 
+\] 
+\end{theorem}
+
+Definimos $\begin{cases}
+  (f\vee g) = \max\{f(x), g(x)\} \\
+  (f\wedge g) = \min\{f(x), g(x)\} 
+\end{cases}  \implies \begin{cases}
+  f\vee g = \frac{f+g}{2}+\frac{|f-g|}{2} \\ 
+  f\wedge g= \frac{f+g}{2}-\frac{|f-g|}{2}
+\end{cases}$ 
+
+\begin{definition}
+$\mathcal{B}\subset \mathcal{C}([a, b], \mathbb{R})$ es un \textbf{retículo} si es cerrado por las operaciones $\vee, \wedge$
+\end{definition}
+
+\begin{theorem}
+\textbf{Aproximación de Stone}. Sea $\mathcal{B}$ un retículo:
+\[
+\ \forall x\neq y \in [a,b] \ \forall \alpha , \beta \in \mathbb{R} \implies \ \exists f\in \mathcal{B} : f(x) = \alpha , f(y)=\beta 
+\] 
+\end{theorem}
+
+\begin{theorem}
+Stone-Weierstrass. Si $B\subseteq \mathcal{C}([a,b], \mathbb{R})$ es una subálgebra que contiene constantes y separa puntos, entonces $\overline{B} = \mathcal{C}([a,b], \mathbb{R})$ ($B$ es denso en las funciones continuas).
+\end{theorem}
+
+
+\section{Series de Fourier}
+Al igual que en un espacio vectorial finito, en un espacio de funciones también podemos construir una base ortonormal. En este capítulo se tratarán las bases llamadas de Fourier.
+
+\begin{proposition}
+Observamos que el espacio $\mathcal{C}([a, b], \mathbb{R})$ con la norma $\|\cdot\|_{2}$ \textbf{no es completo}.
+
+Como consecuencia, las normas $\|\cdot \|_2$ y $\|\cdot\|_\infty$ no son equivalentes
+\end{proposition}
+
+\begin{proposition}
+Si $(f_n)$ es una sucesión de funciones integrables riemman que tienden a $f$ con la norma del supremo, entonces también tienden a $f$ en la norma cuadrática. El recíproco es falso.
+\end{proposition}
+
+\begin{definition}
+Un \textbf{Espacio de Hilbert} es un espacio vectorial dotado de un producto escalar que induce una norma $\langle \cdot , \cdot  \rangle $.
+\end{definition}
+
+\begin{definition}
+Forman una base ortonormal (completar)
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\displaystyle\varphi_0 = \frac{1}{\sqrt{\pi} }, \varphi_n = \frac{\cos(nx)}{\sqrt{\pi} }, \psi _n  \frac{\sin(nx)}{\sqrt{\pi} }$ en $\mathcal{C}(-\pi, \pi)$
+  \item $\displaystyle\varphi_0 = \frac{1}{\sqrt{\pi} }, \varphi_n = \frac{\cos(n\frac{2\pi}{L}x)}{\sqrt{\pi} }, \psi _n  \frac{\sin(n\frac{2\pi}{L}x)}{\sqrt{\pi} }$ en $\mathcal{C}(-\frac{L}{2}, \frac{L}{2})$
+  \item $\displaystyle\varphi _n = \sqrt{\frac{2}{\pi}}\sin(nx) $ en $\mathcal{C}$
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+Sea  $\{\varphi _n\}$ un sistema ortonormal, $f \in  E, a_n = \langle f, \varphi _n \rangle $. Definimos 
+\[
+f_n = \sum_{k\ge 1} a_k\varphi_k, \quad \sum_{k\ge 1} b_k\varphi _k, \quad b_i \in \mathbb{R}
+\] 
+Entonces $\|f_n-f\|_2\le \|g_n-f\|_2$ con igualdad si y solo si $b_i=a_i \ \forall i$ 
+\end{proposition}
+
+\begin{theorem}
+Sea $\mathcal{S} = (\varphi_n)$ y $f_n=\sum_{k= 1}^{n} a_k\varphi _n$ con $a_k = \langle f, \varphi_k  \rangle $. Entonces
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Desigualdad de Bessel} $\sum_{k\ge 1} $ converge y satisface $\sum_{k\ge 1} a_k^2\le \|f\|_{2}^2 $
+  \item \textbf{Identidad de Parseval} Si además $\lim_{n}\|f-f_n\|_2=0 \implies  \sum_{k\ge 1} a_k^2 = \|f\|_2^2  $
+\end{enumerate}
+\end{theorem}
+
+\begin{definition} Consideramos las familias de funciones:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Funciones continuas a trozos} $\mathcal{PC}[a, b]$ funciones continuas excepto en un número finito de puntos
+  \item \textbf{Funciones suaves} $\mathcal{PS}[a, b]$ funciones tal que $f, f' \in \mathcal{PC}[a, b]$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+La \textbf{Serie de Fourier trigonométrica} de $f\in \mathcal{PS}[-\pi, \pi]$ es
+\[
+S_f(x) = \lim S_f^n = \frac{a_0}{2} +  \sum_{k = 1}^n \left( a_n \cos(nx) + b_n\sin(nx)  \right)  
+\] 
+donde 
+\[
+a_0 = \frac{1}{\pi} \int_{-\pi}^\pi f(x) dx, \quad a_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)dx, \quad b_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)dx
+\] 
+\end{definition}
+
+\begin{definition}
+La \textbf{Serie de Fourier compleja} de $f\in \mathcal{PS}[-\pi, \pi]$ es
+\[
+SC_f(x) = \lim SC_f^n (x) = \sum_{k \in \mathbb{Z}} c_{k}e^{ikx} 
+\] 
+donde 
+\[
+c_k = \frac{1}{2\pi} \int_{-\pi}^\pi f(x)e^{-ikx}dx
+\] 
+\end{definition}
+
+\begin{theorem}[Teorema de Dirichlet]
+Sea $f\in \mathcal{PS}[-\pi, \pi]$ y consideramos su extensión periódica a $\mathbb{R}$. Entonces
+\[
+\lim SC_{f}(x) = \frac{1}{2}\left( f(x^+) + f(x^-) \right) 
+\] 
+\end{theorem}
+
+\begin{definition}
+El \textbf{Núcleo de Dirichlet} es la función
+ \[
+D_N (x) = \frac{1}{2\pi}\sum_{n\in \mathbb{Z}}e^{inx}
+\] 
+\end{definition}
+
+Esta función tiende a la delta de Dirac en el límite.
+
+\begin{theorem}[Convergencia uniforme de serie de Fourier]
+  Si $f\in \mathcal{PS}[-\pi, \pi]$ tal que la extensión periódica es continua, entonces $(SC_f^N)$ converge uniformemente a $f$.
+\end{theorem}
+
+\begin{theorem}[Identidad de Parseval] Si $f\in \mathcal{PS}[-\pi, \pi]$:
+  \[
+  \|f\|_2^2 = \int_{-\pi}^\pi |f(x)|^2dx = 2\pi \sum_{k\in Z} |c_k|^2 = \pi \left( \frac{a_0}{2} + \sum_{n\ge 1} a_n^2 + b_n^2 \right) 
+  \] 
+\end{theorem}
+
+
+
+
+\section{Teoría de la medida}
+\begin{definition}[$\sigma -$álgebra]. Sea $X$ un conjunto. Una  $\sigma -$álgebra sobre $X$ es una  $\mathcal{X} \subseteq \mathcal{P}(X)$ que cumple los axiomas:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\emptyset, X \in \mathcal{X}$
+	\item Si $A\in \mathcal{X} \implies \overline{A}\in \mathcal{X}$ 
+	\item Si $A_i \in \mathcal{X} \implies \bigcup_{i\ge 0}A_i \in \mathcal{X}$
+  \end{enumerate}
+\end{definition}
+
+Llamaremos a $(X, \mathcal{X})$ un \textbf{espacio mesurable}
+
+\begin{definition}[Álgebra de Borel] Es la $\sigma -$álgebra $\mathcal{B}$ generada por los intervalos abiertos $(a,b)$.
+\end{definition}
+
+Se demuestra que el álgebra de Borel tambien contiene los intervalos de la forma $(a, b], [a, b), [a, b]$
+
+\begin{definition}[Función mesurable] Sea $f:X \to \mathbb{R}$. $f$ es mesurable si
+   \[
+ f^{-1}(B)\in \mathcal{X} \quad \ \forall B \in \mathcal{B}
+  \] 
+\end{definition}
+
+Las siguientes son equivalentes a que una función $f$ sea mesurable
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $A_{\alpha} = \{x \in X : f(x)>\alpha \}\in \mathcal{X} \ \forall \alpha \in \mathbb{R}$
+  \item $A_{\alpha} = \{x \in X : f(x)<\alpha \}\in \mathcal{X} \ \forall \alpha \in \mathbb{R}$
+  \item $A_{\alpha} = \{x \in X : f(x) \ge \alpha \}\in \mathcal{X} \ \forall \alpha \in \mathbb{R}$
+  \item $A_{\alpha} = \{x \in X : f(x)\le \alpha \}\in \mathcal{X} \ \forall \alpha \in \mathbb{R}$
+\end{enumerate}
+
+Si $f, g$ son mesurables, entonces son mesurables $cf, f^2, f+g, fg, |f|$
+
+$f$ es mesurable  $\iff f^+, f^-$ son mesurables
+
+\begin{definition}
+  Sea $(f_n)$ una sucesión con  $f_i\in \mathcal{M}(X, \mathcal{X})$ definimos
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $f(x) =  \inf f_n(x)$
+    \item $F(x) =  \sup f_n(x)$
+    \item $f^*(x) =  \lim \inf f_n(x)$
+    \item $F^*(x) =  \lim \inf f_n(x)$
+  \end{itemize}
+  Entonces $f, F, f^*, F^* \in \mathcal{M}(X, \mathcal{X})$
+\end{definition}
+
+\subsection{Medida}
+\begin{definition}[Mesura] Una mesura es una función $\mu : \mathcal{X}\to \mathbb{R}^*$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\mu(\emptyset) = 0$
+	\item  $\mu(E)\ge 0 \ \forall E \in \mathcal{X}$ 
+	\item Si $E_i \cap E_j = \emptyset$ con $i\neq j \implies \displaystyle \mu\left( \bigcup_{i\ge 1} E_i \right) = \sum_{i\ge 1}\mu(E_{i})  $
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Espacio de mesura] Es un triplete $(X, \mathcal{X}, \mu)$ donde $(X, \mathcal{X})$ es un espacio mesurable y $\mu$ es una mesura sobre $\mathcal{X}$
+\end{definition}
+
+\subsection{Medida exterior}
+\begin{definition}[Álgebra de conjuntos]
+La familia $\mathcal{A}$ de subconjuntos de $X$ es un álgebra si
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\emptyset \in \mathcal{A}$ 
+  \item Si $E\in \mathcal{A}\implies \overline{E} \in \mathcal{A}$ 
+  \item Si $E_i \in \mathcal{A}, i\le n\implies \bigcup E_i \in A$
+\end{enumerate}
+\end{definition}
+La diferencia con una $\sigma $-algebra es que el algebra es cerrada bajo uniones finitas y la $\sigma$-algebra bajo contables.
+
+\begin{definition}[Mesura] Una mesura sobre el álgebra $\mathcal{A}$ es una función $\mu : \mathcal{X}\to \mathbb{R}^*$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\mu(\emptyset) = 0$
+	\item  $\mu(E)\ge 0 \ \forall E \in \mathcal{A}$ 
+	\item Si $E_i \cap E_j = \emptyset$ con $i\neq j$ y $\bigcup_{n=1}^\infty E_n\in \mathcal{A} \implies \displaystyle \mu\left( \bigcup_{i\ge 1} E_i \right) = \sum_{i\ge 1}\mu(E_{i})  $
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Mesura exterior]
+Definimos $\displaystyle \mu^*(B) = \inf \sum\mu(E_j)$ sobre las colecciones $B\subseteq \bigcup E_j$. Entonces 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\mu^*(\emptyset) = 0$
+  \item $\mu^*(B)\ge 0 \ \forall B\in \mathcal{P}(X)$
+  \item $A\subseteq B \implies \mu^*(A) \le \mu^* (B)$
+  \item $B\in A \implies \mu^*(B) = \mu(B)$
+  \item $(B_n)\subseteq \mathcal{P}(X) \implies \displaystyle \mu^* \left( \bigcup_{n=1}^\infty B_n \right) \le \sum_{n=1}^\infty \mu^*(B_n) $
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Condición de Caratheodory] Decimos que un conjunto $E$ es $\mu^*-$mesurable si satisface
+\[
+\mu^*(A) = \mu^*(A \cap E) + \mu^*(A-E) \ \forall A\subseteq X
+\] 
+La colección de conjuntos $\mu^*$-mesurables es $\mathcal{A}^*$
+\end{definition}
+
+\begin{theorem}[Teorema de extensión de Caratheodory]
+$\mathcal{A}^*$ es una $\sigma-$álgebra que contiene $A$, y por tanto  $(X, \mathcal{A}^*)$ es un espacio mesurable. Si $E_n$ es disjunta de  $\mathcal{A}^*$:
+\[
+\mu^*\left( \bigcup_{n=1}^\infty E_n \right) = \sum_{n=1}^\infty \mu^*(E_n)
+\] 
+
+\end{theorem}
+
+\subsection{Mesura de Lebesgue}
+Queremos fabricar una mesura $l^*=\lambda$ en $\mathbb{R}$ que coincida con las longitudes de los intervalos.
+
+Comenzamos con el álgebra generada por los intervalos $\underline{\sigma }(\mathcal{I})$ y su mesura $l$ que coincide con los intervalos. La mesura exterior + la concición de Caratheodory nos dan la mesura de Lebesgue.
+
+\begin{definition}[Conjuntos mesurables Lebesgue]$ \mathcal{L} =  \{A\subseteq \mathbb{R}: A \text{ cumple Caratheodory}\}$. Entonces
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\mathcal{L}$ es una $\sigma-$álgebra
+	\item $l^*=\lambda$ es una mesura sobre $(\mathbb{R}, \mathcal{L})$
+  \end{enumerate}
+
+  Tenemos por tanto $\mathcal{I} \subsetneq \mathcal{B} \subsetneq \mathcal{L} \subsetneq \mathcal{P}(\mathbb{R}) $
+
+\end{definition}
+
+\subsection{Integral de Lebesgue}
+\begin{definition}[Función simple]
+Es una función $\varphi : X \to \mathbb{R}$ con imagen finita $\varphi = \sum_{j=1}^n a_j \mathbb{I}_{E_j}$
+\end{definition}
+
+\begin{proposition}
+Monotonicidad de la integral de Lebesgue 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $f\le g \implies \int f \le \int g$
+  \item $E\subseteq F \implies \int_E f\le \int_F f$
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}[Teorema de la Convergencia monótona (TCM)]
+Sea $(f_n) \in M^+(X, \mathcal{X})$ una sucesión monótona creciente que converge a $f$ puntualmente. Entonces:
+\[
+\int f= \lim \int f_n
+\] 
+Es generalizable a funciones convergentes puntualmente $\mu$-g.a.
+\end{theorem}
+
+\begin{theorem}[Lema de Fatou]
+Sea $(f_n) \in M^+(X, \mathcal{X})$ sucesión, entonces:
+\[
+\int \lim \inf f_n \le \lim \inf \int f_n
+\] 
+\end{theorem}
+
+\begin{proposition} Sea $(g_n) \in M^+(X, \mathcal{X})$. Entoces
+  \[
+ \int \left( \sum_{n=1}^\infty \right)  =\sum_{n=1}^\infty \int g_n
+  \] 
+\end{proposition}
+
+\begin{theorem} Una función mesurable $f$ es de $L \iff  |f|\in L$. Entonces
+  \[
+|\int f|\le \int |f|  
+  \] 
+\end{theorem}
+
+\begin{theorem}[Convergencia Dominada (TCD)]
+Sea $(f_n)$ mesurables que convergen $\mu$-g.a. a $f$. Si existe una función integlable $g: |f_n|\le g \ \forall n \implies f$ integrable y
+\[
+\int f = \lim \int f_n
+\] 
+\end{theorem}
+
+\begin{theorem} Si $f$ es integrable Riemann en $[a, b] \implies f\in L(\mathbb{R}, \mathcal{B}, \lambda )$ y las integrales coinciden
+\end{theorem}
+
+\subsection{Espacios $L^p$}
+\begin{theorem}[Riesz-Fischer]
+ El espacio $(L_p, \|\cdot \|_{p}), 1\le p <\infty$ es normado y completo $\implies$ es un espacio de Banach.
+\end{theorem}
+
+
+\begin{proposition}
+El espacio $L^2(-\pi, \pi)$ es un espacio de Hilbert donde podemos realizar la serie de Fourier, ya que la familia $\{1, \sin(nx), \cos(nx)\}$ es completa en $L^2(-\pi, \pi)$
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

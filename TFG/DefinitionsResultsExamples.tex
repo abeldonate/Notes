@@ -1,0 +1,209 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Example}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+\DeclareMathOperator{\Hom}{\mathnormal{Hom}}
+\DeclareMathOperator{\ord}{\mathnormal{ord}}
+
+\pdfsuppresswarningpagegroup=1
+
+\title{Definitions, results and examples}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Rings}
+\begin{definition}[Krull dimension] Supremum of the lengths of all chains of prime ideals. \[
+\mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \ldots \subsetneq \mathfrak{p}_n  \Rightarrow \dim R = n
+\] 
+
+\end{definition}
+
+\begin{definition}[Regular ring] The minimal number of generators of its maximal ideal is the Krull dimension.
+
+\end{definition}
+
+\begin{definition}[Simple ring] Ring with no two-sided ideal besides zero and itself.
+\end{definition}
+
+
+\section{Modules}
+\begin{definition}[Projective module] $P$ is projective if and only if for every surjective homomorphism $f:N\to M$ and every homomorphism $g:P\to M$, there exists a lifting $h:P\to N$ with the diagram commuting:
+  % https://q.uiver.app/#q=WzAsMyxbMCwxLCJQIl0sWzEsMSwiTSJdLFsxLDAsIk4iXSxbMiwxLCJmIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsMSwiZyJdLFswLDIsImgiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	& N \\
+	P & M
+	\arrow["f", two heads, from=1-2, to=2-2]
+	\arrow["g", from=2-1, to=2-2]
+	\arrow["h", dashed, from=2-1, to=1-2]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{proposition}[Characterizations of projective modules] The following are equivalent:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $P$ is projective.
+  \item The SES $0\to A \to B\to P\to 0$ splits.
+  \item $Hom(P, -)$ is an exact functor.
+  \item $P$ is the direct sum of free modules.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}[Flat module] $M$ is flat if and only if for every injective homomorphism $f:K\to L$, the map $f \otimes _R id : K\otimes _{R} M \to L\otimes _R M$ is injective, that is:
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJLIl0sWzAsMSwiTCJdLFsyLDAsIktcXG90aW1lc19STSJdLFsxLDAsIlxcUmlnaHRhcnJvdyJdLFsxLDEsIlxcUmlnaHRhcnJvdyJdLFsyLDEsIkxcXG90aW1lcyBfUiBNIl0sWzAsMSwiZiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsNSwiZlxcb3RpbWVzIGlkIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XV0=
+\[\begin{tikzcd}
+	K & \Rightarrow & {K\otimes_RM} \\
+	L & \Rightarrow & {L\otimes _R M}
+	\arrow["f", hook, from=1-1, to=2-1]
+	\arrow["{f\otimes id}", hook, from=1-3, to=2-3]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{proposition}[Characterizations of flat modules] The following are equivalent:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $M$ is flat.
+  \item $\otimes _RM$ is an exact functor.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}[Torsion-free module] $M$ is torsion free if and only if its torsion submodule (the module with all the zero-divisors) is \{0\}:
+
+\end{definition}
+
+\begin{proposition}
+In general we have the following implications of modules
+\[
+\text{Free} \Rightarrow \text{Projective} \Rightarrow \text{Flat} \Rightarrow \text{Torsion-free}
+\] 
+\end{proposition}
+
+\begin{example}[Counterexamples of implications] Some counterexamples
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Projective $\nRightarrow$ Free. $\mathbb{Z} / 2\mathbb{Z}$ as  $\mathbb{Z} / 6\mathbb{Z}$-module.
+  \item Flat $\nRightarrow$ Projective. $\mathbb{Q}$ as $\mathbb{Z}-$module.
+  \item Torsion-free $\nRightarrow$ Flat. The ideal $I=(x,y)$ as $K[x, y]-$module.
+\end{itemize}
+\end{example}
+
+
+
+
+\section{D-modules}
+
+\begin{definition}[Ring / Module/ Weyl algebra] $A_n = \{\mathbb{C} \langle x_1, \ldots, x_n, \partial_1, \ldots, \partial_n \rangle \}$ that has the structure of a ring a module or an algebra.
+
+\end{definition}
+
+\begin{proposition} $A_n$ is:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item A simple ring
+	\item Noetherian
+  \end{itemize}
+\end{proposition}
+
+\begin{proposition}
+  Set of monomials $\mathcal{B}= \{x^\alpha \partial^\beta: \alpha , \beta \in \mathbb{N}^n\}$  is a basis of $A_n$. Then we can write every element as
+  \[
+	P = \sum_{\alpha , \beta } p_{\alpha \beta }x^\alpha \partial^\beta = \sum_{\beta } p_\beta (x) \partial^\beta 
+  \] 
+\end{proposition}
+
+We denote $|\beta |=\sum \beta _i$.
+
+\begin{definition}[Order and total order].
+	\[
+  \begin{tabular}{ccc}
+	\text{Order} & \ord(P) = \max \beta  & \sigma (P) = \sum_{|\beta| = \ord(P) }p_{\beta }(x) \xi ^\beta \\
+	\text{Total Order} & \ord^T = \max |\alpha +\beta | & \sigma (P)=\sum _{|\alpha +\beta |=\ord^T(P)} p_{\alpha \beta } x^\alpha \xi^\beta  
+  \end{tabular}
+	\] 
+\end{definition}
+
+\begin{definition}[Filtrations] Respectively Order and Total order filtrations:
+  \[
+	F_k(A_n)=\{P\in A_n : \ord(P)\le k\} , \qquad
+	B_k(A_n)=\{P\in A_n : \ord^T(P)\le k\}
+  \] 
+\end{definition}
+
+\section{F-modules}
+For all this section $R$ is a commutative Noetherian ring with prime characteristic $p$.
+\begin{definition}[Frobenius endomorphism] homomorphism $f:R\to R $ where $f(r)=r^p$
+\end{definition}
+
+\begin{definition}[Frobenius module] $M^{(e)}$ is the $R$-module $M$ endowed with the action  $r\cdot m= f^{e}(r)m$. We denote $M':=M^{(1)}$.
+\end{definition}
+
+\begin{definition}[Frobenius functor] The application $F$ that sends $M\to R'\otimes _RM$ and $\varphi :M\to N$ to $Id\otimes \varphi : R'\otimes _R M \to R'\otimes _RN $ is a functor.
+\end{definition}
+
+\begin{definition}[Frobenius powers] If $I=(x_1, \ldots, x_n)$ is an ideal or $R$. We define
+   \[
+	 I^{[p^e]}:= (x_1^{p^e}, \ldots, x_n^{p^e})R
+  \] 
+\end{definition}
+
+\begin{proposition} $F^e(R / I)\cong  R / I^{[p^e]}$ 
+\end{proposition}
+
+
+
+
+
+
+
+\end{document}

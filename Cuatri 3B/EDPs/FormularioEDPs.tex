@@ -1,0 +1,207 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{stix}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Formulario EDPs}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ecuación del transporte}
+
+\begin{definition}[Ecuación del transporte]
+Para $c$ constante
+\[
+\begin{cases}
+  u_t+cu_x = 0\\ 
+  u(x, 0)=g(x)
+\end{cases} \Rightarrow u(x,t) = g(x-ct)
+\] 
+Para $c$ variable no homogéneo
+\[
+\begin{cases}
+  u_t+(cu)_x = f(x,t)\\ 
+  u(x, 0)=g(x)
+\end{cases} 
+\]
+\end{definition}
+
+\begin{theorem}[Curvas características]
+  \begin{align*}
+a(x,t)u_t + b(x,t)u_x + d(x, t)u + f(x,t)=0 \quad \Rightarrow \quad \begin{pmatrix} x'(s)\\ t'(s) \end{pmatrix} = \begin{pmatrix} b(x(s),t(s))\\ a(x(s), t(s)) \end{pmatrix}  \\
+v(s) := u(x(s), t(s)), \quad v'(s) = bu_x+au_t = -f(x(s),t(s)) - d(x(s),t(s))v(s)
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Fórmula de Duhamel] $T$ semigrupo de la homogénea, $F(u)=f(x,t)$ 
+  \[
+  u(x,t) = (T_tg)(x) + \int_0^t (T_{t-s}f(\cdot , s))(x)ds
+  \] 
+\end{theorem}
+
+\section{Espacios de Banach, Operadores y Semigrupos}
+Ejemplos espacios de Banach
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $K\subseteq \mathbb{R}^n$ compacto, $E=\mathcal{C}^0(K)$ con la norma $\|u\|_{\infty}=sup_{x\in K}|u(x)|$ es Banach
+  \item $E=L^2([a,b])$ con la norma  $\|u\|_{2}$ es Banach
+\end{itemize}
+
+\begin{theorem}[Punto fijo de Banach] $E$ Banach
+ \[
+T:\overline{B_M}(u) \to   \overline{B_M}(u) \text{ contracción } \|Tu-Tv\|\le \lambda \|u-v\|, \lambda<1 \quad \Rightarrow \quad T  \text{ tiene un único punto fijo}
+\] 
+\end{theorem}
+
+\begin{proposition} $E, F$ Banach,  $A:E\to F$ operador lineal. Son equivalentes:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $A$ continuo
+  \item  $A$ acotado, es decir  $\|Au\|_{F}\le C\|u\|_E \ \forall u\in E$ 
+\end{enumerate} 
+\end{proposition}
+
+\section{Ecuación del Calor / Difusión}
+\begin{definition}[Ecuación del calor] Condiciones de Dirichlet
+\[
+\begin{cases}
+  u_t = u_{x x}\\
+  u(x,0) = g(x) = \sum b_k \sin(\frac{k\pi}{L}x)\\
+  u(0,t) = u(L, t)
+\end{cases} \quad \Rightarrow \quad 
+u(x, t) = \sum b_ke^{-( \frac{k\pi}{L})^2t}\sin\left( \frac{k\pi}{L} x\right)
+\] 
+\end{definition}
+
+Tenemos además la siguiente cota $\|u(\cdot, t)\|_{L^2(0,\pi)}\le e^{-t}\|g\|_{L^2(0,\pi)}$
+
+(cosas de sturm Liouvulle)
+
+\begin{definition}[Ecuación del calor no homogénea] Condiciones de Dirichlet
+\[
+\begin{cases}
+  u_t = u_{x x}+f(x,t)\\
+  u(x,0) = g(x) = \sum b_k \sin(\frac{k\pi}{L}x)\\
+  u(0,t) = u(L, t)
+\end{cases} \quad \Rightarrow \quad u(x,t) = \sum c_k(t)\sin(\frac{k\pi}{L} x)
+\] 
+\end{definition}
+
+Introduciendo el semigrupo $T: (T_tg)(x) = \sum b_k e^{-k^2t}\sin(kx)$, que es una contracción, usando la fórmula de Duhamel
+\[
+  u(x,t) = (T_tg)(x) + \int_0^t T_{t-s}f(\cdot, s)(x)ds
+\] 
+
+\section{El Laplaciano. Funciones armónicas}
+\begin{definition}[Ecuación de Poisson]
+\[
+\begin{cases}
+  -\Delta u = f(x) & \text{en } \Omega  \\
+  u=g(x)   & \text{en } \partial  \Omega 
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Funciones armónicas] la función $u$ es:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item \textbf{Armónica} si $\Delta u = 0$
+	\item \textbf{Subarmónica} si $-\Delta u \le  0$
+	\item \textbf{Superarmónica} si $-\Delta u \ge  0$
+  \end{itemize}
+\end{definition}
+
+El laplaciano se puede representar de las siguientes maneras dependiendo de las coordenadas:
+\[
+  (\text{cartesianas})\ \Delta u = u_{x x} + u_{yy} + u_{zz} \qquad (\text{polares}) \ \Delta u = u_{rr} + \frac{u_r}{r} + \frac{u_{\theta  \theta }}{r^2} = \frac{(ru_r)_r}{r} + \frac{u_{\theta \theta }}{r^2}
+\] 
+(PROBABILIDADES)
+
+\begin{theorem}[Propiedad de la mediana] Sea $u$ armónica. Entonces para todo  $x_0$ y  $\overline{B}_r(x_0) \subseteq \Omega $ tenemos
+\[
+u(x_0) = \intbar_{\partial B_r(x_0)} u(y)dy = \intbar_{B_r(x_0)}u(y)dy
+\] 
+\end{theorem}
+
+\begin{proposition}Principio del máximo y del mínimo. Sea $u\in \mathcal{}{C}^2(\Omega )\cap \mathcal{C}(\overline{\omega })$, entonces 
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item Si $-\Delta \le 0$, entonces $u$ tiene el máximo en  $\partial \Omega $ 
+	\item Si $-\Delta \ge  0$, entonces $u$ tiene el mínimo en  $\partial \Omega $ 
+	\item Si $\Delta u = 0$, entonces $u$ satisface 1) y 2)
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}[Frontera parabólica]
+La frontera parabólica de $Q_T = \Omega \times (0,T)$ es 
+\[
+  \partial_pQ_T = (\overline{\Omega }\times \{0\})\cup (\partial \Omega \times [0,T])
+\] 
+Es decir, la unión de la tapa inferior y la frontera lateral.
+\end{definition}
+
+\begin{definition}[Función subcalórica] $u$ es subcalórica si $u_t-\Delta u\le 0$ en $Q_T$
+\end{definition}
+
+\begin{proposition} Principio del máximo para la ecuación de difusión. Sea $u$ subcalórica. Entonces $u$ tiene el máximo en $\partial_pQ_T$
+\end{proposition}
+
+
+
+(SUBSOLUCIÓN y SUPERSOLUCION)
+
+
+
+\end{document}

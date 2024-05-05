@@ -1,0 +1,145 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{tikz}
+
+\def\env@matrix{\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{*\c@MaxMatrixCols c}}
+  
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\X}{X}
+\newcommand{\h}{\hspace{1em}}
+\newcommand{\w}[1]{\text{#1}}
+\renewcommand{\t}[1]{\text{#1}}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Furmulario Discreta}
+\author{Abel Donate}
+
+\begin{document}
+\noindent
+\section{Probabilidad Discreta}
+\textbf{Teorema de Bayes }\\
+\[P(A|_B) = \frac{P(A\cap B)}{P(B)} \implies P(A) = \sum_{B \text{ part. de } \Omega} P(A|_{B_i})P(B_i) \implies P(B|_A) = \frac{P(A|_B)P(B)}{P(A)}\]
+\noindent
+\textbf{Inclusión-Exclusión}
+\[{\displaystyle P \left(\bigcup _{i=1}^{n}A_{i}\right)=\sum _{k=1}^{n}\left((-1)^{k-1}\sum _{I\subseteq \{1,\ldots ,n\} \atop |I|=k}P (A_{I})\right),}\]
+\textbf{Esperanza}
+\[E(\X)=\sum xP(\X=x), \h E(\X + Y) = E(\X) + E(Y), \h E((X-m)^k)=\sum (x-m)^kP(X=x)\]
+\textbf{Varianza}
+\[Var(X)=E((X-m)^2)=E(X^2)-(E(X))^2, \h Var(aX+b)=a^2Var(X), \h \text{desv. tipica } \sigma = \sqrt{Var(X)}\]
+\textbf{Desigualdades}
+\[\text{Markov } P(X\geq a)\leq \frac{E(X)}{a}, \h \text{Chebychev } P(|X-E(X)|\geq a)\leq \frac{Var(X)}{a^2} \]
+\textbf{Funciones generadoras}\\
+\[G_X(z)=\sum P(X=n)z^n, \h E(X)=G'_X(1), \h G_{X+Y}(z)=G_X(z)G_Y(z)\]
+\textbf{Modelos de distribución}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        \textbf{Distribución} & $\mathbf{P(\X = k)}$ & $\mathbf{E(\X)}$ & $\mathbf{Var(X)}$ & $\mathbf{F. Gen}$ & \textbf{Definición}\\
+        \textbf{Uniforme} $U(n)$ &  $1/n$ & & & & n bolas diferentes\\ 
+        \textbf{Bernoulli} $B(p)$ & $p$ & $p$ & $p(p-1)$ & $(1-p)+pz$ & weighted coin\\
+        \textbf{Binomial} $Bin(n,p)$ & $\binom{n}{k}p^kq^{n-k}$ & $np$ & $npq$ & $((1-p)+pz)^n$ & n weighted coins\\
+        \textbf{Poisson} $Poiss(\lambda)$& $\frac{\lambda^ke^{-\lambda}}{k!}$ & $\lambda$ & $\lambda$ & $e^{-\lambda (1-z)}$\\
+        \textbf{Geométrica} $Geom(p)$& $q^{k-1}p$ & $1/p$ & $q/p^2$ & $\frac{pz}{1-(1-p)z}$ & Binomial hasta el éxito\\
+        \textbf{Binomial negativa}
+    \end{tabular}
+\end{table}
+
+\section{Teoría de Grafos}
+\textbf{Definición}
+\[G(V, E), \h |V|=n, \h |E|=m, \h G_1\cong G_2 \iff \exists \text{ biyección } f \text{ entre las aristas} \]
+\textbf{Tipos}\\
+\[K_n \text{ completo},\h \Bar{K}_n \text{ vacío},\h C_n \text{ ciclo},\h P_n \text{ camino} \]
+\textbf{Grados}
+\[d(x)=|N(x)|, \h \Delta(G)=\max d(x), \h \delta(G)=\min d(x), \h \sum d(v)= 2m\]
+\textbf{Conexión}
+\[u\sim v \iff u, v \text{ conectados (componente conexa)}, \h G \text{ conexo} \iff \text{solo 1 comp.conexa}\]
+\[m\geq n-1\]
+\textbf{Distancia}
+\[d(u,v)= \min{|E(P)|}, P\subset G \text{ camino}, \h d(x, z)\leq d(x,y)+d(y,z)\]
+\textbf{Diámetro, radio, excentricidad}
+\[\begin{cases} 
+D(G)=\max{d(x, y)} \\
+r(G)=\min_y{\max_x{d(x,y)}} \\
+Exe(x) = \max{d(x,y)}
+\end{cases} \h n\leq 1+\Delta\left( \frac{(\Delta-1)^D-1}{\Delta -2} \right)\]
+\textbf{Matriz de adyacencia}
+\[A:(a_{ij})=\begin{cases} 1 \text{ si } x_ix_j\in E \\ 0 \text{ si } x_ix_j\notin E  \end{cases}, \h A_{ij}^k=\# \text{recorridos long. k entre } x_i, x_j\]
+\textbf{Arbol}
+\[|L(T)|=2 + \sum_{x:d(x)\geq 3}(d(x)-2) , \h \textbf{Prüfer }
+\begin{tikzpicture}
+  [scale=.18,auto=left,every node/.style={circle,fill=white!20}]
+  \node (n6) at (0,-5) {6};
+  \node (n4) at (10,0)  {4};
+  \node (n5) at (5,-5)  {5};
+  \node (n1) at (5,5) {1};
+  \node (n2) at (0,0)  {2};
+  \node (n3) at (5,0)  {3};
+
+  \foreach \from/\to in {n1/n2, n1/n3, n1/n4, n2/n6, n3/n5}
+    \draw (\from) -- (\to);
+
+\end{tikzpicture} 
+\iff (1,3,1,2) \implies \# T=n^{n-2}
+\]
+\[\t{Si los grados son } d_1, \ldots , d_n \implies \#T = \binom{n-2}{d_1-1, \ldots , d_n-1} \]
+\textbf{Arbres arrelats}
+\[\t{ Arboles por capas etiquetados con orden} \implies \#T=C_n \]
+\textbf{Grafo Euleriano (Aristas)}
+\[\t{Tma Euler: }G \t{ es Euleriano} \iff d(x) \t{ es par }\forall x\]
+\textbf{Grafo Hamiltoniao (Vértices)}
+$$
+\t{Dirac: } \delta(G)\geq\dfrac{n}{2} \implies G \text{ Hamiltoniano}, \h \t{Ore: } \t{Si } xy \notin E, d(x) + d(y)\geq n  \implies G \text{ Hamiltoniano}
+$$
+\textbf{Apareamiento}
+$$
+\text{Grafo regular de grado } d(M)=1, \h \textbf{Hall: } G bipartit \text{ tiene apareamiento } M \iff \forall U\subseteq V_1, |N(U)| \geq | U| 
+$$
+\textbf{Número de recubrimiento}
+$$\begin{cases}
+\nu(G) = \min\{|U|: U\subset V \text{ recubrimiento por vértices}\} \text{ (toda arista tiene un vértice en }U)  \\
+\nu'(G) = \min\{|L|: L\subset E \text{ recubrimiento por aristas}\}  \text{ (todo vértice tiene una arista en }L)
+\end{cases}
+$$
+
+$$
+\begin{cases}
+\alpha(G) = \max\{|U|: U\subset V \text{ estable}\} \text{ (ninguno de sus vértices está unido a otro)} \\
+\alpha'(G) = \max{|E(M)|: M \text{ aparellament}}
+\omega(G) = \alpha(\Bar{G}) (\text{Clique: \# vértices del subgrafo completo más grande})
+\end{cases}
+$$
+\textbf{Teoremas sin vértices aislados}
+$$
+\textbf{ Gallai: } \alpha'(G) + \nu'(G)=n, \h \t{ Bipartit: } \begin{cases}
+\textbf{König: } \nu(G)=\alpha'(G) \\
+\textbf{König: } \nu'(G)=\alpha(G)
+\end{cases} 
+$$
+\textbf{Coloración}\\
+$$
+\text{Alg. Voraç} \implies \Delta G + 1 \geq \chi(G)\geq max\{\omega(G)=\alpha(\Bar{G}), \frac{n}{\alpha(G)}\}, \h \chi (G)\leq 1 + \max_{H\subseteq G \text{ induit}} \delta(H)
+$$
+\textbf{Grafos planares}
+$$
+m\leq 3n -6, \h n-m+f = 2
+$$
+
+\end{document}
+    

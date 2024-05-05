@@ -1,0 +1,415 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{svg}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\newcommand{\catname}[1]{{\mathbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Mod}{\catname{R-Mod}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\cd}{cd}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\heigth}{ht}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ann}{Ann}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[F-módulos] %optional
+{$F-$módulos}
+
+%\subtitle{}
+
+\author[Abel Doñate] % (optional)
+{Abel Doñate Muñoz}
+
+\institute[UPC] % (optional)
+{
+  Universitat Politècica de Catalunya
+}
+
+\date[Enero 2024] % (optional)
+{Presentación del trabajo final, Enero 2024}
+
+%\logo{\includegraphics[height=1cm]{overleaf-logo}}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+%------------------------------------------------------------
+
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+
+%---------------------------------------------------------
+%This block of code is for the table of contents after
+%the title page
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------
+
+
+\section{Functor de Frobenius}
+
+%---------------------------------------------------------
+\begin{frame}{Endomorfimo de Frobenius}
+\begin{block}{Endomorfismo de Frobenius}
+Sea $R$ un anillo con característica $p>0$. Definimos el endomorfismo de Frobenius como el mapa
+\begin{align*}
+f: R &\to R \\
+r &\to r^p
+\end{align*}
+\end{block}    
+
+\begin{block}{Observación}
+    Este morfismo en general no es inyectivo ni exhaustivo.
+\end{block}
+\end{frame}
+
+\begin{frame}{Endomorfsimo de Frobenius}
+\begin{block}{Módulo con acción de Frobenius} Sea $M$ un  $R-$módulo, definimos el módulo $M^{(e)}$ inducido por $f^{(e)}$ como el grupo abeliano $M$  dotado con la acción
+  \[
+  r \cdot  m  = f ^{(e)}(r)m = r ^{p^e} m
+  \] 
+\end{block}
+\begin{block}{Notación} Por simplicidad denotaremos $M^{(1)}$ como $M'$ y $R^{(1)}$ como $R'$.
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functor de Frobenius}
+\begin{block}{Functor de Frobenius}
+  Definimos el functor de Frobenius como el el functor $F:\Mod \to \Mod$ que envía
+  \[\begin{tikzcd}[column sep=small]
+	M & {R'\otimes_RM,} & {(M} & {N)} & {R'\otimes_R M} & {R'\otimes_RN}
+	\arrow["\phi", from=1-3, to=1-4]
+	\arrow["{id\otimes_R\phi}", from=1-5, to=1-6]
+	\arrow[maps to, from=1-4, to=1-5]
+	\arrow[maps to, from=1-1, to=1-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Functor de Frobenius}
+\begin{block}{Frobenius de un complejo}
+  Dado el complejo $M^{\bullet}$, definimos su complejo inducido $F(M^{\bullet})$ como el complejo 
+\[\begin{tikzcd}
+	\cdots & {M_{k-1}} & {M_{k}} & {M_{k+1}} & \cdots \\
+	\cdots & {F(M_{k-1})} & {F(M_{k})} & {F(M_{k+1})} & \cdots
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["F", from=1-4, to=2-4]
+	\arrow["{h_{k-1}}", from=1-2, to=1-3]
+	\arrow["{h_k}", from=1-3, to=1-4]
+	\arrow["{F(h_{k-1})}", from=2-2, to=2-3]
+	\arrow["{F(h_k)}", from=2-3, to=2-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+Podemos hacer exactamente la misma construcción para $F ^{(e)}$.
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functor de Frobenius}
+\begin{block}{Propiedades del functor de Frobenius}
+\begin{enumerate}
+  \item $F$ es exacto por la derecha. Adicionalmente, si  $R$ es regular, entonces  $R'$ es flat y  $F$ es exacto.
+  \item $F$ conmuta con sumas directas.
+  \item $F$ conmuta con la localización.
+  \item  $F$ conmuta con limites directos.
+  \item  $F$ preserva generación finita de módulos.
+  \item  Si $R$ es regular, entonces $F$ conmuta con la cohomología de complejos
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functor de Frobenius}
+\begin{block}{Ideal potencia de Frobenius}
+ 
+  Sea $I = (x_1, \ldots, x_n)$ un ideal de $R$, definimos su ideal potencia de Frobenius $e-$ésimo como
+   \[
+	 I _{p^e} := (x_1^{p^e}, \ldots, x_n ^{p^e})R
+  \] 
+\end{block}
+\begin{block}{Algunos ejemplos de trasformaciones}
+  \begin{itemize}
+	\item $F(R)\cong R$
+	\item $F(I) \cong I_{p^e}$
+	\item $F(R / I)\cong R / I_{p^e}$
+  \end{itemize}
+\end{block}
+\end{frame}
+
+%---------------------------------------------------
+%---------------------------------------------------
+
+\section{$F-$módulos}
+
+\begin{frame}[fragile]{$F-$módulos}
+\begin{block}{Definición de un $F-$módulo}
+  Un $F-$módulo es un  $R-$módulo  $M$ dotado con un  $R-$isomorfismo  $\theta :M \to F(M)$ llamado morfismo de estructura.
+\end{block}
+\begin{block}{Morfismo de $F-$módulos}
+  Dados dos $F-$módulos  $(M, \theta _M)$ y $(N, \theta _N)$, decimos que $g:M \to N$ es un morfismo de $F-$módulos si el siguiente diagrama conmuta.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIkYoTSkiXSxbMSwxLCJGKE4pIl0sWzAsMiwiXFx0aGV0YV9NIl0sWzEsMywiXFx0aGV0YV9OIl0sWzAsMSwiZyJdLFsyLDMsIkYoZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{F(M)} & {F(N)}
+	\arrow["{\theta_M}", from=1-1, to=2-1]
+	\arrow["{\theta_N}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{F(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{$F-$módulos}
+\begin{block}{Una forma alternativa}
+  Los $F-$módulos también se pueden pensar como módulos en el anillo $R[F]$, donde hemos añadido una variable  $F$ no conmutativa con las relaciones $r^pF = Fr \ \forall r\in R$. Esta caracterización está presente en \cite{blickle}
+\end{block}
+\begin{block}{Observación}
+  La notación $R[F]-$module usada en  \cite{blickle} es muy sugestiva para pensar de esta forma la estructura del módulo.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Dos casos importantes}
+\begin{block}{Si $M = R$}
+  Tenemos el isomorfismo natural $\theta :R \to F(R)$, que trasnforma $(R, \theta )$ en un $F-$módulo. Este isomorfismo viene dado por
+  \begin{align*}
+	\theta : R &\to F(R)\cong R' \otimes _R R \\
+	r &\mapsto r \otimes 1
+  \end{align*}
+\end{block}
+\begin{block}{Si $M = S^{-1}R$}
+Tenemos el isomorfismo $F(S^{-1}R)\cong S^{-1}R$. La conmutatividad del functor de Frobenius con la localización ya te proporciona el isomorfismo. Explícitamente tenemos el mapa
+   \begin{align*}
+	\theta : S ^{-1}R & \to R'\otimes _R S ^{-1}R\\
+	\frac{r}{s} &\mapsto rs ^{p-1} \otimes \frac{1}{s}
+   \end{align*}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Módulos $F-$finitos}
+\begin{block}{Morfismo generador}
+Dado un $F-$module  $(M, \theta )$ definimos su morfismo generador $\theta_0 :M_0 \to F(M_0)$ como el morfismo tal que el sistema directo
+\[\begin{tikzcd}
+	{M_0} & {F(M_0)} & {F^2(M_0)} & \cdots & M \\
+	{F(M_0)} & {F^2(M_0)} & {F^3(M_0)} & \cdots & {F(M)}
+	\arrow["{\theta_0}", from=1-1, to=1-2]
+	\arrow["{F(\theta_0)}", from=2-1, to=2-2]
+	\arrow["{F^2(\theta_0)}", from=2-2, to=2-3]
+	\arrow["{F(\theta_0)}", from=1-2, to=1-3]
+	\arrow["{\theta_0}", from=1-1, to=2-1]
+	\arrow["{F(\theta_0)}", from=1-2, to=2-2]
+	\arrow["{F(\theta_0)}", from=1-3, to=2-3]
+	\arrow["{F^2(\theta_0)}", from=1-3, to=1-4]
+	\arrow["{F^3(\theta_0)}", from=2-3, to=2-4]
+	\arrow["\theta", from=1-5, to=2-5]
+\end{tikzcd}\]
+tiene límite módulo $M$ y morfismo $\theta$.
+\end{block}
+\begin{block}{Módulo $F-$finito}
+Decimos que el módulo $M$ es $F-$finito si $M$ tiene un morfismo generador $\theta _0 : M_0 \to F(M_0)$ con $M$ un $R-$module finitamente generado.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Cohomología local}
+  \begin{block}{Functor de torsión}
+Sea $\Gamma_I= \{m\in M : I^nm = 0 \text{ para algún }n\in \mathbb{N} \}$. Uno puede comprobar que induce un functor que transforma los morfismos de la siguiente manera natural
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIlxcR2FtbWFfSShNKSJdLFsxLDEsIlxcR2FtbWFfSShOKSJdLFswLDIsIlxcR2FtbWFfSSJdLFsxLDMsIlxcR2FtbWFfSSJdLFswLDEsImciXSxbMiwzLCJcXEdhbW1hX0koZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{\Gamma_I(M)} & {\Gamma_I(N)}
+	\arrow["{\Gamma_I}", from=1-1, to=2-1]
+	\arrow["{\Gamma_I}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{\Gamma_I(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+  \end{block}
+  \begin{block}{LC via functor de torsión}
+Tomando una resolución inyectiva $E^\bullet$ de $M$, definimos el j-ésimo módulo de cohomología local de $M$ con soporte en  $I$ como el  $j-$ésimo functor derivado por la derecha de $\Gamma_I $, esto es
+\[
+H_I^j(M)=H^j(\Gamma _I (E^\bullet) )
+\] 
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Cohomología local}
+  \begin{block}{LC via complejo de \v{C}ech}
+Sea $I=(x_1, \ldots, x_n)\subseteq R$. Definimos el complejo de \v{C}ech $\check{C}^{\bullet}(M, I)$ en el ideal $I$ como
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIlxcZGlzcGxheXN0eWxle1xcYmlnb3BsdXNfezFcXGxlIGlcXGxlIG59IE1fe3hfaX19Il0sWzMsMCwiXFxkaXNwbGF5c3R5bGV7XFxiaWdvcGx1c197MVxcbGUgaTxqXFxsZSBufSBNX3t4X2l4X2p9fSJdLFs0LDAsIlxcY2RvdHMiXSxbNSwwLCJNX3t4XzFcXGNkb3RzIHhfbn0iXSxbNiwwLCIwIl0sWzAsMV0sWzEsMiwiZF8wIl0sWzIsMywiZF8xIl0sWzMsNCwiZF8yIl0sWzQsNSwiZF97bi0xfSJdLFs1LDZdXQ==
+\[\begin{tikzcd}[column sep=small]
+	0 & M & {\displaystyle{\bigoplus_{1\le i\le n} M_{x_i}}} & {\displaystyle{\bigoplus_{1\le i<j\le n} M_{x_ix_j}}} & \cdots & {M_{x_1\cdots x_n}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{d_0}", from=1-2, to=1-3]
+	\arrow["{d_1}", from=1-3, to=1-4]
+	\arrow["{d_2}", from=1-4, to=1-5]
+	\arrow["{d_{n-1}}", from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+donde los mapas diferenciales $d_i$ se definen a través de la localización canónica, y alternamos signos para tener  $d_i\circ d_{i-1}=0$. Explicitamente tenemos los morfismos de cada componente
+$d_p: M_{x_{i_1}\cdots x_{i_p}} \to M_{x_{j_1}\cdots x_{j_{p+1}}}$ como 
+\[
+  d_p(m) = \begin{cases}
+	(-1)^{k+1} \frac{m}{1} &\text{ if } \{i_1, \ldots, i_p\} = \{j_1, \ldots, \hat{j}_k,\ldots, j_{p+1}\}\\ 0 &\text{ otherwise}
+  \end{cases}
+\] 
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Cohomología local}
+\begin{block}{Dos propiedades importantes de LC}
+\begin{itemize}
+  \item $H^j_I(M) = H^j_{\sqrt{I} }(M)$ 
+  \item Sea $N$ un $A-$módulo y un morfismo flat $f:R\to A$. Entonces $A\otimes _RH^j_I(N) \cong H_{IA}^j(A\otimes_R N)$
+\end{itemize}
+\end{block}
+\begin{block}{Proposición}
+ Si el anillo $R$ es regular, entonces para todo ideal $I\subseteq R$ tenemos $F(H_I^j(R)) \cong  H_{I}^j(R)$
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{$F-$finitud}
+  \begin{block}{$F-$finitud de módulos de LC}
+Dado un ideal $I$ de $R$, si $M$ es $F-$finito, entonces $H^j_I(M)$ es $F-$finito.
+\end{block}
+  \begin{block}{Observación}
+	Este no es el comportamiento clásico de los $R-$modulos finitamente generados. 
+
+	En general $M$ finitamente generado  $\nRightarrow $ $H_I^j(M)$ finitamente generado.
+\end{block}
+\end{frame}
+
+\section{Módulos inyectivos}
+
+
+\begin{frame}[fragile]{Módulos inyectivos}
+\begin{block}{Módulo inyectivo}
+  Decimos que el $R-$módulo  $E$ es inyectivo si para todos los  $R-$módulos  $M, N$ y morfismos $f:M\to N$ inyectivo y $g:M\to E$ arbitrario existes un morfismo $h:N\to E$ tal que $h\circ f=g$. Esto es, que el siguiente diagrama conmute.
+  % https://q.uiver.app/#q=WzAsNCxbMCwxLCIwIl0sWzEsMSwiTSJdLFsyLDEsIk4iXSxbMSwwLCJFIl0sWzAsMV0sWzEsMywiZyJdLFsxLDIsImYiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDMsImgiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["g", from=2-2, to=1-2]
+	\arrow["f", hook, from=2-2, to=2-3]
+	\arrow["h"', dashed, from=2-3, to=1-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Módulos inyectivos}
+\begin{block}{Caracterizaciones equivalentes}
+  Tenemos tres caracterizaciones equivalentes. TFAE
+\begin{itemize}
+  \item $E$ es un módulo inyectivo.
+  \item Cualquier secuencia exacta  $0\to E \to M \to N\to 0$ splits.
+  \item Si  $E$ es un submódulo de $M$, entonces existe otro submódulo $N\subseteq M$ tal que $E \oplus N = M$.
+  \item El functor $\Hom(-,E)$ es exacto.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Módulos inyectivos}
+\begin{block}{Envolvente inyectiva}
+Dado un módulo $M$, definimos su envolvente inyectiva como la extensión esencial maximal $N = E_R(M)$. Esto es, dado un morfismo inyectivo $\theta :M\to N$, si $\varphi \circ \theta $  es inyectivo, entonces $\varphi $ es también inyectivo.
+\[\begin{tikzcd}
+	&& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["\theta", hook, from=2-2, to=2-3]
+	\arrow["\varphi", dashed, hook, from=2-3, to=1-3]
+	\arrow["\varphi\circ\theta", hook, from=2-2, to=1-3]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Módulos inyectivos}
+\begin{block}{Teorema de estructura}
+  Todo módulo inyectivo $E$ es suma directa de módulos inyectivos no descomponibles de la forma
+  \[
+	E \cong \bigoplus _{\mathfrak{p}\in \Spec (R)} E_R( R / \mathfrak{p})^{\mu _{\mathfrak{p}}}
+  \] 
+con los \textit{números de Bass} $\mu _{\mathfrak{p}}$ independientes de la descomposición. 
+\end{block}
+\begin{block}{Computing Bass numbers}
+  Los números de Bass se pueden calcular como el rango del conjunto $\Hom$ de los cuerpos residuales de la siguiente manera
+ \[
+\mu _{\mathfrak{p}} =\Hom _{R_{\mathfrak{p}}}(k(\mathfrak{p}), E_{\mathfrak{p}})
+\] 
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Módulos inyectivos}
+\begin{block}{Proposición}
+  Si $R$ es regular y  $E$ un $R-$módulo inyectivo, entonces $F(E)\cong E$ 
+\end{block}
+
+\begin{block}{$E^\bullet$ resolución inyectiva de $M$}
+\[
+E^i = \bigoplus_{\mathfrak{p}\in \Spec (R)} E_R(R / \mathfrak{p}) ^{\mu _i(\mathfrak{p}, M)}
+\] 
+donde los números de Bass se pueden calcular de la siguiente manera
+\[
+  \mu _i(\mathfrak{p}, M) = \rank _{k(\mathfrak{p})}\Ext ^i_{R_{\mathfrak{p}}} (k(\mathfrak{p}), M_{\mathfrak{p}})
+\] 
+\end{block}
+
+\begin{block}{(Huneke,-Sharp)} Sea $(R, \mathfrak{m})$ un anillo regular local decaracterística $p$. Entonces los números de Bass $\mu_{i}(\mathfrak{p}, H_I^j(R))$ son finitos.
+\end{block}
+\end{block}
+\end{frame}
+
+
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
+\end{document}
+
+
+\begin{frame}[fragile]{}
+\begin{block}{}
+\end{block}
+\end{frame}

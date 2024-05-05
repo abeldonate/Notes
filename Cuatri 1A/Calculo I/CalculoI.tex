@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+\title{Cálculo}
+\author{Abel Doñate Muñoz \\
+\small{\href{mailto:abel.donate@estudiantat.upc.edu}{abel.donate@estudiantat.upc.edu}}}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Los axiomas de R}
+\begin{itemize}
+  \item 9 axiomas algebraicos $(\mathbb{R},+,\cdot)$ anillo conmutativo
+  \item 4 axiomas de orden $(\mathbb{R},+,\cdot, \leq)$ + 2 más de consistencia
+  \item R16 Axioma arquimediano: $\exists n \in \mathbb{N}\ |\ nx>y$
+  \item R17 $\mathbb{Q} \subset \mathbb{R}$
+  \item R18 Axioma de completitud (o del Supremo): \\
+  \[A \subset \mathbb{R}, \ A \ \text{acotado superiormente} \ \implies \ \exists \alpha \in 			  \mathbb{R} \ | \ \alpha = sup(A)\]
+\end{itemize}
+
+\section{Sucesiones}
+\begin{defn}
+	$(a_n)$ está acotada $\implies \exists \ M \in \mathbb{R}\ \mid \  a_n \leq M,\  \forall n \in \mathbb{N}$
+\end{defn}
+\begin{defn}
+	$(a_n)$ es monótona $\implies a_n\leq a_{n+1}\ \forall n\in \mathbb{N}$
+\end{defn}
+\begin{defn}
+	$(a_n)$ tiene límite $L$ $\implies \forall \varepsilon >0 \ \exists \ n_0\in \mathbb{N} \ | \ n\geq n_0 \ \implies |a_n-L|<\varepsilon$
+\end{defn}
+\begin{defn}
+	Definimos el límite superior de $(a_n)$ como $\lim\ sup\ a_n$, el máximo de los límites de sucesiones parciales de $(a_n)$. Se tiene que lim sup $a_n=$ inf \{$sup_{m\geq n}{\{a_n\}}$\}
+\end{defn}
+
+
+\subsection{Criterios de convergencia}
+\begin{itemize}
+	\item \textbf{Teorema de la convergencia monótona}\\
+	\[a_n \text{ está acotada y es monótona } \implies \ a_n \text{ tiene límite.}\]
+	\item \textbf{Teorema de Bolzano-Weierstrass}\\
+	\[a_n \text{ está acotada } \implies \ a_n \text{ tiene una sucesión parcial convergente.}\]
+	\item \textbf{Criterio de Stolz}\\
+	\[y_n \ \text{divergente, creciente y positiva\\
+	   } \implies \ \ \ \lim \frac{x_n}{y_n}=\lim \frac{x_{n+1}-x_n}{y_{n+1}-y_n} \]   
+	\item \textbf{Teorema del Sandwich}\\ Buscar una cota superior e inferior con el mismo límite			\item $L=a_n^{b_n}=1^\infty \ \ \implies \ \ L=e^{(b_n-1)a_n}$
+	\item $a_n\to L \ \ \implies \ \ \sqrt[n]{a_1\cdots a_n}\to L$
+	\item $\frac{a_{n+1}}{a_n}\to L \ \ \implies \ \ \sqrt[n]{a_n}\to L$
+	\item $si \ \lvert x_{n+1}-x_n \rvert \leq \rho \lvert x_{n}-x_{n-1} \rvert \ \ (\rho<1) \ \ \forall n>n_0\ \ \implies x \ \text{es Cauchy y tiene límite}$
+\end{itemize}
+
+\subsection{Sucesiones de Cauchy}
+\begin{defn}
+	.\\
+	$(a_n)$ es una sucesión de Cauchy $\implies \forall \varepsilon \geq 0 \ \ \exists n_0 \ \ | \ \ |a_n-a_m|\leq \varepsilon \ \ \forall n,m\geq n_0$\\
+	Si $a_n$ es Cauchy, entonces tiene límite.
+\end{defn}
+
+
+\section{Funciones}
+	\subsection{Límite de una función en un punto}
+	\[\boxed{
+	\lim_{x\to a}f(x)=L \ \ \iff \ \ \forall \varepsilon >0 \ \exists \ \delta \ | \ 0<\lvert x-a \rvert <\delta \ \implies \lvert f(x)-L\rvert <\varepsilon
+	}\]
+	Observa que $L$ no tiene porque ser igual que $f(a)$ necesariamente
+	\subsection{Inyectividad, sobreyectividad y biyectividad}
+	\begin{itemize}
+		\item $f \text{ inyectiva} \ \ \implies \ \ \forall x,y\in A, \ x\neq y, \ f(x)\neq f(y)$
+		\item $f \text{ sobreyectiva} \ \ \implies \ \ f(A)=B$
+		\item $f \text{ biyectiva} \ \ \implies \ \ f$ es inyectiva y sobreyectiva
+	\end{itemize}
+	\subsection{Tipos de discontinuidades}
+	\begin{itemize}
+		\item[1)] \textbf{Evitable} $\lim_{x\to a} f(x) =b, f(a)\neq b$
+		\item[2)] \textbf{Salto} $\lim_{x\to a}{f(x)} \nexists \ \ \implies \ \ \lim_{x \to a^-}{f(x)}=b \neq \lim_{x\to a^+}{f(x)}=c$
+		\item[3)] \textbf{Esencial} un limite lateral se va a infinito
+	\end{itemize}
+	\subsection{Teoremas sobre continuidad}
+	
+	La función $f$ es \textbf{Uniformemente continua}:
+	\[\boxed{\forall \varepsilon >0 \ \exists \ \delta >0 \ | \ si \ |x-y|<\delta \implies \ |f(x)-f(y)|<\varepsilon}\] \\
+	\textbf{Teorema de Bolzano.} \\
+	Sea $f:I\to \mathbb{R}$ continua, $f(a)f(b)<0$:
+	\[\exists c\in (a,b) \ | \ f(c) =0\]
+	Similar a \textbf{Teorema del valor intermedio}. \\ \\
+	\textbf{Teorema de Weirestrass.} \\
+	Sea $f$ continua en $[a,b]$ tiene máximo y mínimo. \\ \\
+	\textbf{Teorema de Heine-Cantor.} \\
+	Sea $f$ continua y compacta (fitada y cerrada) $\implies$ uniformemente continua.
+\section{Derivadas}
+La derivada existe en el punto $a$ si existe el límite
+\[\boxed{f'(a)=\lim_{h \to =0}{\frac{f(a+h)-f(a)}{h}}}\]
+	\subsection{Teoremas sobre derivación}
+	\textbf{Teorema de Rolle}\\
+	Sea $f$ continua y derivable en $[a,b]$ y $f(a)=f(b)$
+	\[\implies \ \ \ \exists c \in (a,b) \ | \ f'(c)=0\] \\
+	\textbf{Teorema de Cauchy} \\
+	Sean $f, g: [a,b] \to \mathbb{R}$ cumpliendo
+	\begin{itemize}
+		\item[1)] $f,g$ continuas
+		\item[2)] $f,g$ derivables en el interior
+		\item[3)] $g(a)\neq g(b)$
+		\item[4)] Si $g'(x)=0\ \implies \ f'(x)\neq 0$
+	\end{itemize}
+	\[\implies \ \ \ \exists c \in (a,b) \ | \ \frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(c)}{g'(c)}\] \\	
+	\textbf{Teorema del valor medio}\\
+	Sea $f$ continua en $[a,b]$, derivable en $(a,b)$
+	\[\implies \ \ \ \exists c \in (a,b) \ | \ \frac{f(b)-f(a)}{b-a}=f'(c)\]\\
+	\\
+	\textbf{Regla de L'Hopital}\\
+	Sean $f, g$ derivables en $[a-r,a]$ tal que:
+	\begin{itemize}
+		\item[1)] $g(x)\neq 0, g'(x)\neq 0$ en todo $I$
+		\item[2)] $\lim_{x\to a}{f(x)}=\lim_{x\to a}{g(x)}=0$
+		\item[3)] $\lim_{x\to a}{\frac{f'(x)}{g'(x)}}=L\in \mathbb{R}\cup \infty$		
+	\end{itemize}
+	\[\implies \ \ \ \lim_{x\to a}{\frac{f(x)}{g(x)}}=L\in \mathbb{R}\cup \infty\] \\
+	\subsection{Convexidad}
+	$f$ es convexa $\iff \ f((1-t)a+tb)\leq (1-t)f(a)+tf(b)$\\
+	\\
+	\[a<x<y<b \ \ \ \implies \frac{f(x)-f(a)}{x-a}\leq \frac{f(y)-f(x)}{y-x}\leq \frac{f(b)-f(y)}{b-y}\]
+	Haciendo los límites $x\to a, y\to b$ y sandwitch tenemos $f'$ creciente $\implies f''\geq 0$
+	
+	\subsection{Serie de Taylor}
+	\textbf{Teorema de Taylor}\\
+	\[\lim_{x\to a}\frac{f(x)-P_{n, a, f}(x)}{(x-a)^n} = \frac{R_{n, a, f}(x)}{(x-a)^n} = 0\]
+	\\
+	\textbf{Residuo de Lagrange}\\
+	\[R_{n,a,f}(x) = f(x) - P_{n,a,f}(x)\]
+	\\
+	\textbf{Teorema de Lagrange}\\
+	\[\exists c \in (a,x) \ \ \ \ R_{n,a,f}(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{(n+1)}\]
+	\\
+	
+	
+	
+\section{Integrales}
+Una función es \textbf{Riemman integrable} si:
+\[\int_a^b{f}= \underline{\int_a^b}f=\overline{\int_a^b}f\]
+	
+	\subsection{Teoremas sobre integrabilidad}
+	\textbf{Th:}
+	$f$ es integrable  $\iff \ \ \ \forall \varepsilon > 0 \ \exists P \ | \ U(P,f)-L(P,f)<\varepsilon$ \\
+	\\
+	\textbf{Th:}
+	$f$ es integrable  $\iff \ \ \ \exists (P_n)_n \ | \ \lim_{n\to \infty} L(P,f)=\lim_{n\to \infty} L(P,f)=\int_a^bf$ \\
+	\\
+	\textbf{Th:}
+	$f:[a,b]\to \mathbb{R}$ monotona ($\implies$ fitada) $\implies$ integrable\\
+	Hint: partición $x_i=a+\frac{b-a}{n}i$ y usar monotonicidad.\\
+	\\
+	\textbf{Th:}
+	$f:[a,b]\to \mathbb{R}$ continua ($\implies$ fitada por Weierstraß) $\implies$ integrable\\
+	Hint: Uniformemente continua y aplicar el $\varepsilon$.\\
+	\\
+	\textbf{Th:}
+	$f$ integrable, $g$ continua $\Rightarrow \ g\circ f$ integrable\\
+	\\
+	\subsection{Teorema fundamental del cálculo}
+	Sea $f:[a,b]\to \mathbb{R}$ integrable. $F:[a,b]\to \mathbb{R}$ es primitiva de $f$ si
+	\begin{itemize}
+		\item $F$ es continua
+		\item $F$ es derivable en $(a, b)$
+		\item $F'=f(x) \ \forall x \in (a,b)$
+	\end{itemize}
+	Si $f$ tiene primitiva $\Rightarrow$ $f$ es integrable. (No es doble implicación, e.g. step function).\\
+	\\
+	\textbf{Teorema fundamental del cálculo}
+	Sea $f:[a,b]\to \mathbb{R}$ integrable. Definimos $F(x)=\int_a^xf$:
+	\begin{itemize}
+		\item F es contínua
+		\item Si $f$ es continua en $c\in (a,b) \ \Rightarrow \ F$ es derivable en $c$ y $F'(c)=f(c)$
+	\end{itemize}
+	\textbf{Regla de Barrow}
+	Sea $f:[a,b]\to \mathbb{R}$ integrable:
+	\[\int_a^bf=F(b)-F(a)\]
+	\textbf{Teorema del valor medio para integrales}
+	Sea $f:[a,b]\to \mathbb{R}$ continua.
+	\[\exists c \in (a,b) : \int_a^bf=f(c)(b-a) \]
+	
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

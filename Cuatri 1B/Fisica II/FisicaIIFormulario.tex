@@ -1,0 +1,341 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{multicol}
+\usepackage{esint} % also loads fontspec
+    
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newcommand{\h}{\hspace{1em}}
+\renewcommand{\t}[1]{\text{#1}}
+
+\title{Formulario Física II}
+\author{Abel Donate}
+\date{March 2021}
+
+\begin{document}
+\section{Fórmulas matemáticas}
+\textbf{Fórmula: }\textit{Ecuación o regla que relaciona objetos matemáticos o cantidades.} \\
+\textbf{Cambio de coordenadas} \\
+Cilíndricas\\
+\[
+\begin{cases}
+    x = s cos\phi \\
+    y = s sin\phi \\
+    z = z
+\end{cases}
+,
+\begin{cases}
+    s = \sqrt{x^2 + y^2} \\
+    \phi = arctan(\frac{y}{x}) \\
+    z = z
+\end{cases}
+,
+\]
+\[
+\begin{pmatrix}
+    v_s \\
+    v_\phi \\
+    v_z
+\end{pmatrix}
+=
+\begin{pmatrix}
+    cos\phi & sin\phi & 0 \\
+    -sin\phi & cos\phi & 0 \\
+    0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+    v_x \\
+    v_y \\
+    v_z
+\end{pmatrix}
+,
+\begin{pmatrix}
+    v_x \\
+    v_y \\
+    v_z
+\end{pmatrix}
+= 
+\begin{pmatrix}
+    cos\phi & -sin\phi & 0 \\
+    sin\phi & cos\phi & 0 \\
+    0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+    v_s \\
+    v_\phi \\
+    v_z
+\end{pmatrix}
+\]
+Esféricas
+\[
+\begin{cases}
+    x = r sin\theta cos\phi \\
+    y = s sin\theta sin\phi \\
+    z = r cos\theta
+\end{cases}
+,
+\begin{cases}
+    r = \sqrt{x^2 + y^2 + z^2} \\
+    \theta = arccos(\frac{z}{r}) \\
+    \phi = arctan(\frac{y}{x})
+\end{cases}
+,
+\]
+\[
+\begin{pmatrix}
+    v_r \\
+    v_\theta \\
+    v_\phi
+\end{pmatrix}
+= 
+\begin{pmatrix}
+    sin\theta cos\phi & sin\theta sin\phi & cos\theta \\
+    cos\theta cos\phi & cos\theta sin\phi & -sin\theta \\
+    -sin\phi & cos\phi & 0
+\end{pmatrix}
+\begin{pmatrix}
+    v_x \\
+    v_y \\
+    v_z
+\end{pmatrix}
+,
+\begin{pmatrix}
+    v_x \\
+    v_y \\
+    v_z
+\end{pmatrix}
+=
+\begin{pmatrix}
+    sin\theta cos\phi & cos\theta cos\phi & -sin\phi \\
+    sin\theta sin\phi & cos\theta sin\phi & cos\phi \\
+    cos\theta & -sin\theta & 0
+\end{pmatrix}
+\begin{pmatrix}
+    v_r \\
+    v_\theta \\
+    v_\phi
+\end{pmatrix}
+\]
+
+\textbf{Identidades trigonométricas:}
+\begin{equation*}
+\begin{split}
+  \sin x + \sin y &= 2 \sin \Big( \frac{x + y}{2} \Big) \cos \Big( \frac{x - y}{2} \Big)\\
+  \sin x - \sin y &= 2 \cos \Big( \frac{x + y}{2} \Big) \sin \Big( \frac{x - y}{2} \Big)\\
+  \cos x + \cos y &= 2 \cos \Big( \frac{x + y}{2} \Big) \cos \Big( \frac{x - y}{2} \Big)\\
+  \cos x - \cos y &= -2 \sin \Big( \frac{x + y}{2} \Big) \sin \Big( \frac{x - y}{2} \Big)\\
+  \tan x + \tan y &= \frac{ \sin(x + y) }{ \cos x \cos y}\\
+  \tan x - \tan y &= \frac{ \sin(x - y) }{ \cos x \cos y}\\
+    \sin x \sin y &= \frac{1}{2}\big[\cos(x - y) - \cos(x + y)\big]\\
+  \cos x \cos y &= \frac{1}{2}\big[\cos(x - y) + \cos(x + y)\big]\\
+  \sin x \cos y &= \frac{1}{2}\big[\sin(x + y) + \sin(x - y)\big]\\
+  \tan x \tan y &= \frac{ \tan x + \tan y }{ \cot x + \cot y }\\
+  \tan x \cot y &= \frac{ \tan x + \cot y }{ \cot x + \tan y }
+\end{split}
+\quad\leftrightarrow\quad
+\begin{split}
+  \sin(2x)  &= 2 \sin x \cos x\\
+  \cos(2x)  &= \cos^2 x - \sin^2 x\\
+            &= 2 \cos^2 x - 1\\
+            &= 1 - 2 \sin^2 x\\
+  \tan(2x)  &= \frac{2 \tan x}{1 - \tan^2 x} \\
+  \sin \frac{x}{2}  &= \pm \sqrt{ \frac{1 - \cos x }{2} }\\
+  \cos \frac{x}{2}  &= \pm \sqrt{ \frac{1 + \cos x }{2} }\\
+  \tan \frac{x}{2}  &= \frac{1 - \cos x }{\sin x}\\
+                    &= \frac{ \sin x }{ 1 + \cos x }\\
+  \nabla \cdot (\nabla \times \mathbf {A} ) &= 0 \\
+  \displaystyle \nabla \times \left(\nabla \times \mathbf {A} \right)\ &=\ \nabla (\nabla {\cdot }\mathbf {A} )\,-\,\nabla ^{2\!}\mathbf {A} \\
+  \nabla \cdot (\mathbf{A} \times \mathbf{B} ) \ &= \ (\nabla {\times }\mathbf{A} )\cdot \mathbf{B} \,-\,\mathbf{A} \cdot (\nabla {\times }\mathbf{B} )
+\end{split}
+\end{equation*}
+
+\begin{minipage}{0.4\textwidth}
+\begin{align*}
+    & \oiint_S E\cdot dS = \frac{q_{int}}{\varepsilon_0}\\
+    & \oiint_S B\cdot dS =0 \\
+    & \oint_C E\cdot dl = - \frac{d}{dt}\int B\cdot dS  \\
+    & \oint_C B\cdot dl = \mu_0I_c + \mu_0\varepsilon_0\frac{d\Phi_E}{dt}
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{align}
+    & \nabla \cdot E = \frac{\rho}{\varepsilon_0} \\
+    & \nabla \cdot B = 0 \\
+    &  \nabla \times E = -\frac{dB}{dt} \\
+    & \nabla \times B = \mu_0J + \mu_0\varepsilon_0\frac{dE}{dt}
+\end{align}
+\end{minipage}
+\[dU = -F_xdx -F_ydy -F_zdz \implies \nabla U = -\Bar{F}, \hspace{1em}
+\begin{cases}
+    \nabla = \left( \frac{\partial}{\partial s} ,\frac{1}{s}\frac{\partial}{\partial \phi}, \frac{\partial}{\partial z} \right) \\
+    \nabla = \left( \frac{\partial}{\partial r} ,\frac{1}{r}\frac{\partial}{\partial \theta}, \frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \right)
+\end{cases}, \h c = \frac{1}{\sqrt{\mu_0\varepsilon_0}}\]
+
+
+
+
+\newpage
+\noindent
+
+\section{Física}
+\textbf{Tema 1 - Ondas} \\
+Función de onda armónica\\
+\[
+\frac{\partial^2 \Psi}{\partial x^2} = \frac{1}{v^2}\frac{\partial^2 \Psi}{\partial t^2}, \ \ \ \ v^2 = \frac{T}{\mu}, \ \ \ \ y(x, t)=A\sin (kx-\omega t + \phi_0) \ \ \ \ \begin{cases}
+    k = \frac{2\pi}{\lambda}\\
+    \omega = \frac{2\pi}{\tau} = 2\pi f\\
+    v = \frac{\lambda}{\tau} \\
+    \Delta \phi = k(d_1-d_2) \text{ ondas en fase}
+\end{cases}
+\]
+Energía de una onda \\
+\[
+\mu_E = \mu_c + \mu_p = 2\mu_c = \frac{1}{2}\mu \left( \frac{\partial y}{\partial t} \right)^2 + \frac{1}{2}T \left( \frac{\partial y}{\partial x} \right)^2
+\]
+Potencia de una onda \\
+\[
+P(t) = \frac{\partial E}{\partial t} = \mu_E v, \hspace{1em}
+<P> = \frac{1}{\tau} \int_t ^{t+\tau} P(t)dt = \frac{1}{2}\mu A^2 \omega^2 v, \hspace{1em}
+A_T^2 = A_1^2+ A_2^2+ 2A_1A_2\cos( \Delta \phi)
+\]
+Ondas de sonido \\
+\[
+\phi(x, t)=\phi_0\sin (kx-\omega t +\varphi_0), \hspace{1em} 
+P(x, t) = \rho_0 v \frac{\partial \phi}{\partial t}, \hspace{1em}
+v^2 = \frac{B}{\rho_0}, \hspace{1em}
+\rho_E = \rho_0 \left( \frac{\partial \phi}{\partial t}\right)^2, \hspace{1em}
+I = \frac{dE}{Adt} = \rho_E v
+\]
+\[
+<I> = \frac{1}{2}v \rho_0 \phi_m^2\omega^2, \hspace{1em}
+I_{dB} = 10\log \left( \frac{I}{I_0} \right), \hspace{1em}
+I = \frac{P}{4\pi r^2} = \frac{P}{2\pi r} = I_0e^{-\beta x}
+\]
+Ondas estacionarias \\
+\[
+\begin{cases}
+    y_1 = A\sin(kx-\omega t) \\
+    y_1 = A\sin(kx-\omega t)
+\end{cases}
+\implies y = 2A\sin(kx)\cos(\omega t), \hspace{1em}
+Modos:
+\begin{cases}
+    \text{Extremos fijos } \lambda_n = \frac{2L}{n}\\
+    \text{Un ecxtremo suelto } \lambda_n = \frac{2L}{n + \frac{1}{2}}\\
+\end{cases}
+\]
+Efecto Doppler \\
+\[
+f = f\left( \frac{v\pm v_m \pm v_0}{v \pm v_m \mp v_F} \right)
+\begin{cases}
+    v_0 \text{ velocidad del observador (+ se acerca)}, &  v \text{ velocidad de la onda}\\
+    v_F \text{ velocidad de la fuente (- se acerca)}, & v_m \text{ velocidad del medio}\\
+\end{cases}
+\]
+\textbf{Tema 2 - Campos Elestrostáticos. Potencial y Energía} \\
+Partículas \\
+\[
+F_{12} = K\frac{q_1q_2}{r_{12}^2}\hat{u}_{12} = \frac{1}{4\pi \varepsilon_0}\frac{q_1q_2}{r_{12}^2}\hat{u}_{12} = q\Bar{E}, \hspace{1em}
+V(r) = \frac{KQ}{r} +V_0
+\]
+Campo creado por: \\
+\[ \Bar{E}= \text{(Varilla): } \frac{2K\lambda}{s}\hat{s}= 
+\text{(Anillo): } K\frac{2\pi r\lambda z}{(r^2+z^2)^{3/2}}\hat{z}=
+\text{(Plano): } \frac{\sigma}{2\varepsilon_0}\hat{z}=
+\text{(Cort. esf.): } \begin{cases}
+    0 & \text{si } r<R \\
+    K\frac{Q}{r^2}\hat{r} & \text{si } r>R
+\end{cases} = 
+\]
+\[
+ = \text{(Esf. mac.): } \begin{cases}
+    K\frac{Qr}{R^3}\hat{r} & \text{si } r<R \\
+    K\frac{Q}{r^2}\hat{r} & \text{si } r>R
+\end{cases} = 
+\text{(Cort. cil.): } \begin{cases}
+    0 & \text{si } s<R \\
+    K\frac{R\sigma}{\varepsilon_0 s}\hat{s} & \text{si } s>R
+\end{cases}
+=
+\text{(Cil. mac.): } \begin{cases}
+    \frac{\rho s}{2\varepsilon_0}\hat{s} & \text{si } s<R \\
+    \frac{\rho R^2}{2\varepsilon_0 s}\hat{s} & \text{si } r>R
+\end{cases}
+\]
+Flujo: \\
+\[\text{Ley de Gauss } \Phi = \int_S d\Phi = \int_S \Bar{E}\cdot d\Bar{S} = \frac{Q}{\varepsilon_0}
+\]
+Trabajo y Potencial:
+\[
+\Delta U = U(B)-U(A) = -\int_A^B \Bar{F}\cdot d\Bar{l}  = q (V(A)-V(B)) = -q\int_A^B \Bar{E}\cdot d\Bar{l}
+\]
+\textbf{Tema 3: Conductores y energía}\\
+Energías $\implies
+\begin{cases}
+    \text{Formación }  & U_f = \frac{1}{2}\int_{dist}Vdq \\
+    \text{Total }      & U = U_{12} + U_{f1} + U_{f2} \\
+    \text{Densidad }   & \eta_E = \frac{1}{2}\varepsilon_0E^2, \h \eta_B = \frac{1}{2\mu_0}B^2
+\end{cases}$
+\\
+Conductores\\
+\[\text{sin cavidad} \implies E_{s+} = \frac{\sigma}{\varepsilon_0}\hat{n}, \hspace{1em}  \text{con cavidad y q dentro} \implies Q_{Sint} = -q, \ \  Q_{Sext} = Q_0+q\]
+Capacidad y Condensadores\\
+\[
+\begin{cases} C=\frac{Q}{V}(F) \\U  = \frac{1}{2}QV \end{cases} = 
+\text{(Planos): } \begin{cases} = \frac{\varepsilon_0 S}{d} \\ = \frac{1}{2}QV \end{cases} = 
+\text{(Cilíndricos): } \begin{cases} = \frac{2\pi \varepsilon_0 L}{\ln(\frac{R_2}{R_1})} \\
+= \frac{1}{2}QV \end{cases}=
+\text{(Planos): } \begin{cases}  = 4\pi\varepsilon_0\frac{R_1R_2}{R_2-R_1} \\ =  \frac{1}{2}QV \end{cases}
+\]
+Corriente eléctrica 
+\[\frac{dI}{dS} = \Bar{J} = qn_v\Bar{v}_d = \sigma\Bar{E} = nq\mu E, \h \Delta V=E\cdot l, \h R=\frac{l}{\sigma A} = \frac{\rho l}{A} ,\h  v_{cm} = \sqrt{\frac{\sum v_i^2}{N}}=\sqrt{\frac{3KT}{m_e}}\]
+Circuitos
+\[P = \int_V \Bar{J}\cdot \Bar{E}dV (=\varepsilon I), \h \Delta V= \varepsilon - Ir \text{ (r en batería)}, \h \varepsilon=IR+Ir\]
+Circuitos RC (condensador)
+$$\tau = RC, \h \text{Sin f.e.m. }q = q_0e^{-\frac{t}{\tau}}, \h i = i_0e^{-\frac{t}{\tau}}, \h \t{Con f.e.m. } q = \varepsilon C (1-e^{-\frac{t}{\tau}}), \h i = \frac{\mathcal{E}}{R}e^{-\frac{t}{\tau}}  $$
+\textbf{Tema 4: Magnetostática}\\
+Fuerza:
+$$F=\int_L Id\Bar{l}\times \Bar{B}, \h \text{Ef. Hall: } B= \frac{nqa}{I}V_H, \h \t{ mom. mag \textbf{m}:  } \tau = \Bar{m}\times \Bar{B}=(IS\hat{n})\times  \Bar{B}, \h \text{sens } = \frac{V_H}{B}$$
+Biot-Savart:
+$$
+d\Bar{B}=\frac{\mu_0 I(d\Bar{l}\times \hat{r})}{4\pi r^2} = \t{(Centro esp. circ.) } \frac{\mu_0I}{2R} =  \t{(Eje esp.) }\frac{\mu_0IR^2}{2(R^2 + z^2)^{3/2}} = \t{(Hilo cond.) } \frac{\mu_0I}{2\pi r}
+$$
+Teorema de Gauss y ley de Ampere:
+$$
+\oiint_S \Bar{B}\cdot d\Bar{S}=0, \h \oint_C \Bar{B}\cdot d\Bar{l}=\mu_0I \implies B=\t{(Cil.) } \begin{cases}
+    \frac{\mu_0I}{2\pi r}, r>R \\
+    \frac{\mu_0Ir}{2\pi R^2}, r<R
+\end{cases} = \t{(solen.) }\mu_0mI = \t{(solen. toro) } \frac{\mu_0IN}{2\pi R}
+$$
+Autoinducción:
+$$
+\Phi_1 = L_1 I_1 + M_{12}I_2, \h \t{ dos sol. conc. }\begin{cases}
+    L_1 = \mu_0n_1^2l\pi r_1^2 \\
+    L_2 = \mu_0n_2^2l\pi r_2^2 \\
+    M_{12}=M_{21} = \mu_0n_1n_2l\pi r_1^2
+\end{cases}, r_1<r_2
+$$
+\textbf{Tema 5: Campos eléctricos y magnéticos no estacionarios} \\
+Ley de Faraday-Lenz:
+$$
+\varepsilon_{ind}=-\frac{d\Phi}{dt} = I_{ind}R
+$$
+Circuitos RL (Bobina)
+$$
+\Phi = LI, \h \varepsilon_{ind} = - \frac{d(LI)}{dt}, \h \frac{dU}{dt} = \varepsilon I = RI^2 + LI\frac{dI}{dt}  \h, I(t) = \frac{\varepsilon}{R}(1-e^{-\frac{t}{\tau}}), \h \tau = \frac{L}{R}
+$$
+Vector de Poynting
+$$
+\Bar{P} = \frac{1}{\mu_0}(E\times B), \h \oint_S \Bar{P}\cdot d\Bar{S} = -VI = -P
+$$
+
+\end{document}
+

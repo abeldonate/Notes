@@ -1,0 +1,433 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Teoría de Control}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introducción}
+
+\begin{definition}[Tipos de variables] \
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $x \in \mathbb{R}^n$ es el estado del sistema 
+  \item $u \in \mathbb{R}^p$ es la variable de control
+  \item $y\in \mathbb{R}^q$ es la salida
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Ecuaciones en espacio de estado]
+Siempre podemos expresar nuestra ecuación diferencial de la siguiente manera
+\[
+  \begin{cases}
+\dot{x} = f(x, t, u) \\ y = h(x, t, u)
+  \end{cases}
+\] 
+\end{theorem}
+
+Si las funciones no dependen de $t$, entonces se le llama sistema \textbf{autónomo}.
+
+
+El objetivo de la asignatura será intentar modelar la variable de control $u$ con tal de conseguir la respuesta deseada en la variable de salida $y$
+
+
+\section{Sistemas lineales}
+\begin{definition}[Sistema lineal]
+\[
+\begin{cases}
+  \dot{x}=A(t)x + B(t)u \\ y = C(t)x + D(t)u
+\end{cases} \Rightarrow \text{si es LTI} \Rightarrow
+\begin{cases}
+  \dot{x}=Ax + Bu \\ y = Cx + Du
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Función de transferencia SISO LTI]  $Y(s)=G(s)U(s) \Rightarrow G(s) = C(sI-A)^{-1}B + D $
+\end{definition}
+
+\begin{definition}[Sistema SISO LTI]
+  \begin{align*}
+    a_0y^{(n)} + \cdots + a_ny = b_1 u^{(n-1)} + \cdots + b_n u \quad \Rightarrow \quad G(s)= \frac{b_1s ^{n-1} + \cdots+ b_n}{a_0s^n + \cdots + a_n}
+  \end{align*}
+
+\end{definition}
+
+\section{Estabilidad}
+
+\begin{definition}[Estabilidad de diagrama de fases] $\begin{pmatrix} \dot{x_1} \\ \dot{x_2}  \end{pmatrix} = A \begin{pmatrix} x_1\\x_2 \end{pmatrix}, \lambda_1, \lambda_2  $ VAPs
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $Im(\lambda_i)=0$
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	  \item \textbf{Nodo estable} $\lambda_1, \lambda_2<0$
+	  \item  \textbf{Nodo inestable} $\lambda_1, \lambda_2>0$
+	  \item  \textbf{Silla} $\lambda_1<0<\lambda_2$
+	\end{itemize}
+  \item $Im(\lambda_i) \neq 0$
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	  \item   \textbf{Foco estable} $Re(\lambda_i)<0$
+	  \item   \textbf{Foco inestable} $Re(\lambda_i)>0$ 
+	  \item \textbf{Punto central} $Re(\lambda_i)=0$
+	\end{itemize}
+  \item $det(A)=0$ equilibrio en una recta
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Equilibrio hiperbólico] Un punto de equilibrio es hiperbólico si el jacobiano en el punto no tiene VAPs $\lambda_i$ con $Re(\lambda_i) = 0$
+\end{definition}
+
+\begin{definition}[Estabilidad en sentido Lyapunov] $x_0$ es estable si $\ \forall R>0 \ \exists r>0:$
+  \[
+  \|x(0)-x_0\|<r \Rightarrow \|x(t)-x_0\|<R \ \forall t>0
+  \] 
+\end{definition}
+
+\begin{definition}[Tipos de estabilidad]\
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Asintótica} (AS) $\|x(0)-x_0\|<r_0 \Rightarrow \lim x(t)=x_0$ 
+  \item \textbf{Exponencial} (ES) $\|x(0)-x_0\|<r_0 \Rightarrow \|x(t)-x_0\|<\alpha \|x(0)-x_0\|e^{-\lambda t}$ 
+  \item \textbf{Marginal} (MS) estable pero no asintótica
+\end{enumerate}
+\end{definition}
+
+ \begin{definition}[Estabilidad BIBO LTI SISO] El sistema es BIBO si $\ \forall u(t)$ acotado, la respuesta $y(t)$ es acotada. Esto pasa si todos los polos de la función de transferencia tienen parte real negativa.
+
+\end{definition}
+
+\begin{theorem}[Criterio de Routh] (que puto palo)
+
+\end{theorem}
+
+\begin{definition}[Función de Lyapunov] $V$ es una función de Lyapunov si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $V(0)=0$
+	\item  $V(x)>0 \ \forall x\in B-\{0\}$
+	\item $\dot{V}(x)=\frac{d V}{d x}f(x) \le 0$
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Estabilidad local] Sea $\dot{x} = f(x)$ con $f$ localmente Lipschitz  $f(0)=0$
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Si existe función de Lyapunov $\Rightarrow $ origen S
+  \item Si existe función de Lyapunov estricta  $\Rightarrow$ origen AS
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Estabilidad global] Si existe $V(x)$ tal que  
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $V$ globalmente definida positiva
+	\item  $\dot{V}$ globalmente definida negativa
+	\item $V(x) \to \infty$ cuando $\|x(t)\|\to \infty$
+  \end{itemize}
+  Entonces el origen es GAS
+\end{theorem}
+
+\begin{proposition}
+ $\dot{W}(t)\le -\alpha W(t) \Rightarrow W(t)\le W(0)e^{-\alpha t}$ 
+\end{proposition}
+
+\begin{theorem}[Estabilidad exponencial]Si se cumple en $\Omega $
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\alpha \|x\|^\delta\le V(x)\le \beta \|x\|^\delta$ 
+	\item $\dot{V}(x)\le -\gamma V(x)$
+  \end{itemize}
+  Entonces el origen es ES
+\end{theorem}
+
+\begin{definition}[Ecuación de Lyapunov] Sea $A$ y  $Q = Q^T>0$ y una  $P=P^T$ desconocida. Definimos la ecuación de Lyapunov asociada a  $A$ como $A^TP+PA = -Q$
+$\quad \Rightarrow  \quad V(x)= x^TPx$ función de Lyapunov
+\end{definition}
+
+\begin{theorem}[] $A$ is Hurwitz $(Re(\lambda_1)<0)$ $\iff \ \forall Q \ \exists P$ que satisface la ecuación de Lyapunov
+\end{theorem}
+
+\begin{definition}[Conjunto invariante] $M\subseteq \mathbb{R}^n$ tal que $x(0)\in M \Rightarrow x(t)\in M \ \forall t>0$
+
+\end{definition}
+
+\begin{theorem}[LaSalle principle]  $R$ conjunto tal que  $\dot{V}(x)=0$ no contiene trayectorias diferentes a la trivial. $V$ no acotado. Entonces  el origen es  GAS
+
+\end{theorem}
+
+\section{Respuesta temporal y frecuencial de sistemas lineales}
+
+
+Considerando el sistema SISO $\displaystyle \begin{cases}
+  \dot{x} = Ax + Bu \\
+  y = Cx+Du
+\end{cases}$
+
+\begin{theorem}[Solución única] Sea $\dot{x} = Ax + Bu$ 
+  \[
+ x(t) = e^{At}x(0) + \int_0^t e^{A(t-\tau )}Bu(\tau )d\tau \quad  \Rightarrow \quad
+ y(t) = Ce^{At}x(0) + \int_0^t Ce^{A(t-\tau )}Bu(\tau )d\tau + Du(t)
+  \] 
+\end{theorem}
+
+\begin{definition}[Impulse response] $y_\delta(t) = Ce^{At}B$
+
+\end{definition}
+
+\begin{definition}[Características del sistema] . 
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item $T_r = \sup_{\delta} \{\delta | y(t)\le \frac{t}{\delta}\}$ 
+	\item $T_s=\inf_{\delta} \{\delta| |y(t)-1|\le \epsilon \}$ 
+	\item $y_{os}= \sup_t\{y(t)-1\}$
+  \end{itemize}
+\end{definition}
+
+(poner gráfico fancy)
+
+\begin{proposition}
+Sistema de segundo orden. $\zeta$ amortiguamiento, $\omega _0$ la frecuencia natural
+\[
+G(s)=\frac{k\omega _0^2}{s^2+2\zeta \omega _0 s + \omega _{0}^2} \quad \Rightarrow \quad\begin{cases}
+  T_r = \frac{\pi - \arctan \frac{\zeta}{\sqrt{1-\zeta^2} }}{\omega _d}\\
+  M_p = e^{\frac{-\pi \zeta}{\sqrt{1-\zeta^2} }}\\
+  T_s = \frac{4}{\zeta\omega _0}
+\end{cases}
+\] 
+Con valores propios $\lambda= -\zeta \omega _0 \pm \omega _0\sqrt{\zeta^2-1}  = -\sigma \pm j\omega _d$
+\end{proposition}
+
+
+\section{Controlabilidad}
+
+\begin{definition}[Sistema lineal] Forma canónica Controlable
+\[
+\Sigma  \begin{cases}
+  \dot{x}=Ax + Bu \\ 
+  y = Cx + Du\\
+  u = -Kx+k_rr
+\end{cases}
+\quad \Rightarrow z=Tx \quad 
+\tilde{\Sigma }  \begin{cases}
+  \dot{z} = \tilde{A}z + \tilde{B}u \\
+  y = \tilde{C} z + \tilde{D}u\\
+  u = -\tilde{K}z + k_rr
+\end{cases}
+\quad \begin{cases}
+ P_a(\lambda) = \lambda^n +  a_1 \lambda^{n-1} + \cdots + a_n = |A-\lambda I|\\
+ P_{p}(\lambda) = \lambda^n + p_1\lambda^{n-1} + \cdots +  p_n = |A-BK-\lambda I|\\
+ G(s) = \frac{b_1s ^{n-1}+ \ldots + b_n}{ s^n + \ldots+ a_n} + D,
+\end{cases}
+\] 
+con 
+\[
+  \tilde{A} = \begin{pmatrix} -a_1 & \cdots & -a_{n-1} & -a_n \\ 1 & 0 & 0 & 0 \\ 0 & \ddots & \vdots & \vdots \\ 0 & \cdots & 1 & 0  \end{pmatrix}, \quad \tilde{B} = \begin{pmatrix} 1\\ 0 \\ \vdots \\0 \end{pmatrix}, \quad \tilde{C} = \begin{pmatrix} b_1 & \ldots & b_n \end{pmatrix}, \quad \begin{pmatrix} \tilde{A} & \tilde{B} \\ \tilde{C} & \tilde{D} \end{pmatrix}  = \begin{pmatrix} TAT^{-1} & TB \\ CT^{-1} & D \end{pmatrix}, \begin{cases}
+\tilde{k_i} = p_i-a_i \\ k_r = \frac{p_n}{b_n} \end{cases}
+\] 
+la matriz de controlabilidad
+\[
+  \tilde{W_C} = \begin{pmatrix} \tilde{B} & \tilde{A}\tilde{B} & \ldots \tilde{A}^{n-1}\tilde{B} \end{pmatrix} = TW_c, \quad  K = \tilde{K} \tilde{W}_cW_c^{-1}
+\] 
+\end{definition}
+
+(falta la matriz de controlabilidad explicita)
+
+\begin{theorem}[Controlabilidad] Un sistema LTI SISO es controlable si la matriz de controlabilidad $W_C$ tiene rango completo
+\end{theorem}
+
+\begin{theorem}[Formula de Ackermann]
+  $K = \begin{pmatrix}  0 & \ldots & 0 & 1 \end{pmatrix} W_C^{-1}P_d(A) $, $\quad k_r = -(C(A-BK)^{-1})^{-1}$
+\end{theorem}
+
+
+
+\section{Observabilidad}
+
+\begin{definition}[Sistema lineal] Forma canónica Observable
+\[
+\Sigma  \begin{cases}
+  \dot{x}=Ax + Bu \\ 
+  y = Cx + Du\\
+\end{cases}
+\quad \Rightarrow z=Tx \quad 
+\tilde{\Sigma }  \begin{cases}
+  \dot{z} = \tilde{A}z + \tilde{B}u \\
+  y = \tilde{C} z + \tilde{D}u\\
+\end{cases}
+\quad \begin{cases}
+ P_a(\lambda) = \lambda^n +  a_1 \lambda^{n-1} + \cdots + a_n = |A-\lambda I|\\
+ P_{p}(\lambda) = \lambda^n + p_1\lambda^{n-1} + \cdots +  p_n = |A-LC-\lambda I|\\
+ G(s) = \frac{b_1s ^{n-1}+ \ldots + b_n}{ s^n + \ldots+ a_n} + D,
+\end{cases}
+\] 
+con 
+\[
+  \tilde{A} = \begin{pmatrix} -a_1 & 1 & \cdots & 0 \\ -a_2 & 0 & \cdots & 0 \\ \vdots & \ddots & \vdots & \vdots \\ -a_n & \cdots & 0 & 0  \end{pmatrix}
+  , \quad \tilde{B} = \begin{pmatrix} b_1\\ b_2 \\ \vdots \\b_n \end{pmatrix},
+  \quad \tilde{C} = \begin{pmatrix} 1 & 0 & \cdots & 0 \end{pmatrix},
+  \quad \begin{pmatrix} \tilde{A} & \tilde{B} \\ \tilde{C} & \tilde{D} \end{pmatrix}  = \begin{pmatrix} TAT^{-1} & TB \\ CT^{-1} & D \end{pmatrix}, \begin{cases}
+\tilde{l_i} = p_i-a_i \\ l_r = \frac{p_n}{b_n} \end{cases}
+\] 
+la matriz de controlabilidad
+\[
+  \tilde{W_o} = \begin{pmatrix} \tilde{C} \\ \tilde{C}\tilde{A} \\ \ldots \\ \tilde{C}\tilde{A}^{n-1} \end{pmatrix} = TW_c ?, \quad  L = W_o^{-1}\tilde{W}_o \tilde{L}, \quad \hat{\dot{x}} = A\hat{x} + Bu + L (y-C \hat{x}) 
+\] 
+\end{definition}
+
+(falta la matriz de controlabilidad explicita)
+
+\begin{theorem}[Observabilidad] Un sistema LTI SISO es observable si la matriz de observabilidad $W_C$ tiene rango completo
+\end{theorem}
+
+\begin{theorem}[Formula de Ackermann]
+  $L = P_d(A)W_O^{-1}\begin{pmatrix}  0 \\ \vdots \\ 0 \\ 1 \end{pmatrix}$ 
+\end{theorem}
+
+
+
+\section{Output feedback}
+(difujar graficardo)
+La salida general de este sistema es 
+\[
+Y(s) = \frac{C(s)G(s)}{1+L(s)}R(s) + \frac{1}{1+L(s)}N(s) + \frac{G(s)}{1+L(s)}D(s), \quad \text{ donde } \quad L(s) = C(s)G(s)H(s)
+\] 
+Sin disturbances $D(s)$ ni ruido $N(s)$, la función de transferencia y el error quedan
+\[
+T = \frac{C(s)G(s)}{1+L(s)}, \quad E(s) = \frac{D_L(s)}{D_L(s)+N_L(s)} \frac{N_R(s)}{D_R(s)}
+\] 
+
+\begin{theorem}[Valor Final] $\lim_{t \to \infty} f(t) = \lim_{s \to 0}sF(s)$
+\end{theorem}
+
+\begin{theorem}[Estabilidad] Tendremos $\lim_{t \to  \infty} e(t) =0$ si y solo si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Los polos de $E(s)$ están en el semiplano abierto izquierdo 
+	\item $D_R(s)$ es un factor de  $D_L(s)$
+  \end{enumerate}
+\end{theorem}
+
+La función controladora $C(s)$ puede tener múltiples formas, las más comunes son:
+ \begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Controlador proporcional (P)}. $C(s)=k_p$.
+  \item \textbf{Controlador derivador (D)}. $C(s)=k_ds$.
+  \item \textbf{Controlador integrador (I)}. $C(s)=k_i \frac{1}{s}$.
+  \item Cualquier combinación lineal de los PID
+\end{itemize}
+
+En el dominio del tiempo un PID se comporta como $u(t) = k_pe(t)+k_i\int_0^te(\tau )d\tau + k_d \frac{de(t)}{dt}$
+
+(falta PID pid tunning)
+
+\subsection{Lugar geométrico de las raíces}
+Consideramos un controlador P $\Rightarrow L(s) = KG(s)H(s)$, por lo que debemos localizar los ceros de 
+\[
+1+L(s) = 1+k \frac{N_L(s)}{D_L(s)} = 1 + k \frac{(s-z_1)\cdots (s-z_m)}{(s-p_1)\cdots(s-p_n)}
+\] 
+en función de $k$
+
+\begin{definition}[Root locus method] Grafica las raices de $L(s)+1=0$ para todos los valores de  $C(s)=k$ con las condiciones
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $|L(s)|=1$ 
+	\item  $\angle L(s) = \pm \pi(2\lambda+1)$
+  \end{enumerate}
+\end{definition}
+
+Las reglas de RL son:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Número de ramas.} $n$
+  \item  \textbf{Puntos de inicio.} $p_i$
+  \item  \textbf{Puntos finales.} $m$ ramas convergen a  $z_i$. Las otras  $n-m$ raices son asíntotas con
+	 \[
+	\angle a = \pm \frac{\pi}{n-m}(2\lambda+1), \quad c = \frac{1}{n-m} \left( \sum p_i - \sum z_i \right) 
+	\] 
+  \item Un segmento del eje real pertenece a RL si el numero total de polos reales y ceros de $L(s)$ a la derecha es impar.
+  \item (breakaway)
+  \item \textbf{Ángulos desde polos} $p_j$ con multiplicidad  $l_j$
+	 \[
+	\theta _j = \frac{1}{l_j} \left( \pm \pi + \sum \angle(p_i-z_i) - \sum_{i\neq j} \angle(p_j-p_i) \right) 
+	\] 
+  \item \textbf{Ángulos hacia ceros} $z_j$ con multiplicidad  $l_j$
+	 \[
+	\theta _j = \frac{1}{l_j} \left( \pm \pi - \sum_{i\neq j} \angle(z_j-z_i) + \sum \angle(z_j-p_i) \right) 
+	\] 
+\end{enumerate}
+Este diagrama siempre es simétrico con respecto al eje real.
+
+\begin{definition}[Zero-pole, pole-zero controllers] ZP-PZ Generalizan PID
+  \[
+  C(s) = \frac{(s+\omega _{z1})\cdots (s+\omega_{zm})}{(s+\omega _{p 1})\cdots(s+\omega _{pn})}
+  \] 
+\end{definition}
+
+\section{Frequency domain control design}
+\begin{definition}[Bode Plot] Representación de
+\item $M=20\log |G(j\omega)|$ como función de $\log\omega $
+\item $\theta =\angle G(j\omega )$ como función de $\log\omega$
+\end{definition}
+
+\begin{definition}[Polar plot] $G(j\omega ) = Re(G(j\omega ))+ Im(G(j\omega ))$
+\end{definition}
+
+\begin{theorem}[Mapping] Sea $F(s)$ un cociente de polinomios con $P$ polos y  $Z$ dentro del contorno del plano complejo $C$. Mapeamos $s\in C \mapsto F(s)\in \mathbb{C}$. La cantidad de veces que el mapa rodea el origen con dirección antihoraria es $Z-P$.
+\end{theorem}
+
+\begin{definition}[Criterio de estabilidad de Nyquist]
+$P$ polos de $L(s)$ en la region de Nyquist. N rodeos horarios de  $-1$ por  $L(s)$ en dirección horaria. Entonces la función de transferencia en lazo cerrado tiene  $Z = N+P$ polos en el semiplano  derecho y el sistema es BIBO estable si  $Z=0$
+\end{definition}
+
+
+
+
+
+
+
+
+\end{document}

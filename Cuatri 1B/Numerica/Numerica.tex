@@ -1,0 +1,297 @@
+\documentclass[leqno]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert }
+\newcommand{\cond}[1]{\text{cond(} #1 \text{)}}
+\renewcommand{\th}{\textbf{Th:} \ }
+\newcommand{\h}{\hspace{1em}}
+
+\title{Numérica}
+\author{Abel Doñate \\ abel.donate@estudiantat.upc.edu}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Sistemas de ecuaciones}
+\subsection{Gauss}
+\subsubsection{Gauss sin pivotamiento (GSP)}
+No hace falta pivotar ningún elemento con una permutación.
+Podemos encontrarnos con dos condiciones suficientes:
+\begin{itemize}
+    \item \textbf{Definida positiva} \\ Usar criterio de Sylvester (menores principales $>0$)
+    \item \textbf{Diagonalmente Dominantes} \\ Los elementos de la diagonal son mayores que la suma de los de la fila
+\end{itemize}
+En cada paso se realiza $A^{(k)} = G^{(k)}A^{(k-1)}$, análogo a hacer el cambio $f_i \leftarrow f_i-l_{k+i,k}f_k$, donde
+\[G^{(k)} =  
+\begin{pmatrix}
+    \textbf{$I_{k-1}$} & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & -\Bar{l} & \textbf{$I_{n-k}$}
+\end{pmatrix}, \hspace{1em} 
+\Bar{l} =\begin{pmatrix}
+    l_{k+1,k} \\
+    l_{k+2,k}\\
+    \vdots
+\end{pmatrix}, \hspace{1em} l_{k+i,k} = \frac{a_{k+i, k}}{a_{k,k}} \]
+Observese que en cada paso el determinante se conserva, así como los menores principales. \\
+La complejidad del algoritmo es $\sim \frac{2}{3}n^3$
+
+\subsubsection{Gauss con pivotamiento (GCP)}
+Cuando $a^{(k)}_{k,k} = 0$, entonces tenemos que pivotar con una matriz de permutación. Elegiremos el mayor número en valor absoluto de la columna $k$. Si ese elemento es $a_{2,4}$ Su matriz de permutación es:
+\[P = 
+\begin{pmatrix}1&0&0&0&0\\0&0&0&1&0\\0&0&1&0&0\\0&1&0&0&0\\0&0&0&0&1\end{pmatrix}, \hspace{1em} \det(P)=-1 \implies PA=LU\]
+
+
+
+\subsubsection{Matrices en banda}
+Para matrices que tengan un semiancho de banda $s$ podemos hacer los mismos pasos en en Gauss normal, pero haciendo los dos bucles internos de longitud $s$, por lo que la complejidad es de $\sim 2ns^2$. \\
+\\\textbf{Propiedades:}
+\begin{itemize}
+    \item La inversa de una matriz con semiancho de banda inferior $s$ es una matriz con semiancho de banda inferior $s$. Análogamente con el superior
+\end{itemize}
+
+\subsection{Métodos de Factorización}
+\subsubsection{Descomposición LU}
+Aprovechamos estas propiedades:
+\begin{itemize}
+    \item La inversa de una matriz triangular inferior es triangular inferior
+    \item El producto de dos triangulares inferiores también es triangular inferior
+    \item $(G^{(k)})^{-1} = 2I_n-G^{(k)}$ (unos en la diagonal pero a $\Bar{l}$ se le cambia el signo)
+\end{itemize}
+Ahora sabiendo invertimos las $G^{(k)}$ y las multiplicamos:
+\[ L = (G^{(1)})^{-1} \cdots (G^{(n)})^{-1}=
+\begin{pmatrix}
+    1 & 0 & 0 & 0 & 0\\
+    l_{21} & 1 & 0 & 0 & 0 \\
+    l_{31} & l_{32} & 1 & 0 & 0 \\
+    l_{41} & l_{42} & l_{43} & 1 & 0 \\
+    l_{51} & l_{52} & l_{53} & l_{54} & 1
+\end{pmatrix}
+\implies A = LU
+\]
+Complejidad $\sim \frac{2}{3}n^3$
+
+\subsubsection{Descomposición de Crout}
+Igual que LU, pero la matriz U ahora con unos en la diagonal y podemos añadir $D$ diagonal tal que $A=LDU$. \\
+\\
+COmplejidad $\sim \frac{2}{3}n^3$
+
+\subsubsection{Descomposicón de Cholesky}
+Se explota el hecho de que no solo $A=LU$, sino que $A_{[k]}=L_{[k]}U_{[k]}$. Por ello podemos realizar un sistema por inducción.\\
+\\
+Se realiza para matrices simétricas $A = LL^T \implies A$ SDP (Simétrica definida positiva)\\
+\[ L = (l_{ij}): \implies
+\begin{cases}
+    \text{si } i = j \rightarrow l_{ii} = \sqrt{a_{ii}-\sum _{k<i} l_{ik}^2} \\
+    \text{si } i \neq j \rightarrow l_{ij} = \frac{a_{ij} - \sum_{k<j} l_{ik}l_{jk}}{l_{jj}}
+\end{cases}
+\]
+El método de Cholesky generalizado descompone la matriz simétrica $A = LDL^T$ con $l_{ii}=1$.
+La complejidad es $\sim \frac{1}{3}n^3$
+
+\subsection{Ortogonalidad}
+\subsubsection{Descomposición QR}
+Se puede realizar para matrices no cuadradas. $A_{m\times n}=Q_{m\times m}R_{m\times n}$, con $Q$ ortogonal ($Q^TQ=I$) y $R$ triangular superior. \\
+\\
+El algoritmo se hace a partir de matrices de Householder:
+\[P = I - 2\frac{vv^T}{v^Tv}\]
+que cumple las siguientes propiedades:
+\begin{itemize}
+    \item $P$ ortogonal y simétrica
+    \item Sea $v = x\pm \norm{x}e^1 \implies Px = \mp \norm{x}e^1$ 
+\end{itemize}
+Cogiendo $x = A_{[k:n, k]}$:
+\[H_k = \left(\begin{array}{cc}{\bf I}_{k-1}&{\bf0} \\ {\bf0}&{\bf P}_k\end{array}\right)\]
+$$
+H_mH_{m-1}\cdots H_1A = R \implies Q^T = H_mH_{m-1}\cdots H_1 \implies A = QR
+$$
+\\
+Si la descomposición viene dada tenemos una complejidad de $\sim 3n^2$. \\
+Si la tenemos que calcular es $\sim \frac{2}{3}n^3$.
+
+\subsubsection{Descomposición SVD}
+$A_{n \times m} = U_{n \times n}D_{n \times m}V^T_{m \times m}$ con $V, U$ ortogonales y $D$ diagonal (valures singulares ordenados). \\
+\\
+Si la descomposición viene dada tenemos una complejidad de $\sim 4n^2$
+
+\subsection{Aplicaciones Gauss}
+\subsection{Minimización de funciones cuadráticas}
+Queremos buscar el mínimo de la función $f(x)=\frac{1}{2}x^TAx - x^Tb$.
+\[\nabla f = \frac{1}{2}(A+A^T)x-\Bar{b} = 0 \implies \frac{1}{2}(A+A^T)x = \Bar{b}\]
+
+\subsection{Multiplicadores de Lagrange}
+Queremos buscar el mínimo de la función $f(x)$ con la restricción $g(x)=0$. Para ello definimos el Lagrangiano como:
+\[\mathcal{L}(x, \lambda)=f(x)-\lambda g(x) \implies \nabla \mathcal{L} = 0\]
+
+\subsection{Regresión lineal}
+Quereos sacar la regresión lineal de los puntos $Ax=b$. Para ello minimizamos la función $f(x)=||Ax-b||^2 = (x^TA^T-b^T)(Ax-b)$:
+\[\nabla f(x)=\nabla (x^TA^T-b^T)(Ax-b) = 2A^TAx - 2A^Tb = 0 \implies A^TAx = A^Tb\]
+También se puede hacer la SVD o QR, ya que las matrices son ortogonales y no cambian la norma. Hacemos los cambios de variable $y = V^Tx, c=U^Tb$, y nos queda $\norm{Dy-c}$, que será mínimo cuando $Dy=c$. \\
+\\
+Para hacerlo con la $QR$ tenemos:
+$$
+\norm{Ax-b} = \norm{QRx-b} = \norm{Rx-Q^Tb}
+$$
+Resolviendo el sistema cuadrado $m\times m $ sin tener en cuenta las últimas componentes, tenemos que $R_{[m\times m]}x = (Q^Tb)_{[m]}$
+
+\section{Errores}
+\subsection{Aritmética finita y precisión}
+\textbf{Almacenamiento de números} \\
+En los doubles hay $64$ bits $\begin{cases}
+    52\text{ para los dígitos} \\
+    10\text{ para el exponente} \\
+    2\text{ para los signos} 
+\end{cases} \implies 2,1 = (0,1000\overline{0011})_2 2^{(10)_2}$ \\
+\\
+Por tanto los números máximo y mínimo que podemos almacenar son $M = 0.1\times 10^{308}, m = 0.56\times 10^{-308}$\\
+\\
+\textbf{Errores} \\
+\[\textbf{Error Absoluto }E_x = x- \Bar{x},
+\hspace{1em} \textbf{Error Relativo }r_x = \frac{E_x}{x} \approx \frac{E_x}{\Bar{x}} \hspace{1em} \]
+\\
+\textbf{Propagación de errores} \\
+Error absoluto para la suma $E_s = E_x+E_y$ \\
+Error absoluto para la resta $E_r = E_x-E_y$
+
+\subsection{Normas de matrices}
+\[\text{Norma de una matriz } \implies \norm{A} := \max_{v\neq 0}\frac{\norm{Av}}{\norm{v}}= \max_{\norm{v} = 1}\norm{Av}\]
+Propiedades
+\begin{itemize}
+    \item $\norm{Av}\leq \norm{A}\norm{v}$
+    \item $\norm{AB}\leq \norm{A}\norm{B}$
+    \item $\norm{A+B}\leq \norm{A} + \norm{B}$
+\end{itemize}
+Estudiamos sistema $A(x+\delta x) = b + \delta b \implies A\delta x = \delta b$ partiendo del sistema $Ax=b$ \\
+\\
+Definiendo el condicionamiento de una matriz como $\kappa(A):=\norm{A}\norm{A^{-1}} = \dfrac{|\lambda_{max}|}{|\lambda_{min}|}$ ($A$ SDP) y sabiendo que $r_x = \frac{\norm{\delta x}}{\norm{x}}$ y $r_b = \frac{\norm{\delta b}}{\norm{b}}$
+\[r_x \leq \kappa(A)r_b\]
+Si $\kappa(A)$ es muy grande, el error de $x$ puede ser considerablemente grande.
+
+\section{Valores propios}
+\subsection{Teorema Espectral}
+\th Si $A$ es simétrica, diagonaliza en base ortonormal con vaps reales. \\
+\\
+\th Si $Kv=\lambda Mv$ con $K$ simétrica y $M$ SDP $\implies$  $\begin{cases}
+    \lambda_1 \leq \ldots \leq \lambda_n \text{ VAPs reales} \\
+    \text{VEPs M-ortonormales } u_i^TMu_i=\delta_{ij} \\
+    \text{VEPs K-ortogonales } u_i^TKu_i=\lambda_i\delta_{ij} \\
+\end{cases}$
+
+\subsection{Propiedades}
+\subsubsection{Deflación}
+Si $Au_k = \lambda_ku_k$:
+$$
+B:=A-\lambda_ku_ku_k^T  \text{ verifica } \begin{cases}
+    Bu_i=\lambda_iu_i, i\neq k \\ Bu_k=0
+\end{cases}
+$$
+Si $Ku_k = \lambda_kMu_k$
+$$
+K^*:=K-\lambda_ku_ku_k^TM  \text{ verifica } \begin{cases}
+    K^*u_i=\lambda_iMu_i, i\neq k \\ K^*u_k=0
+\end{cases}
+$$
+\subsubsection{Traslación}
+$A$ tiene VEPs de VAP $\lambda_i$ $\implies A-pI$ tiene los mismos VEPs de VAP $\lambda_i - p$ \\
+$Kv=\lambda Mv$ tiene VEPs de VAP $\lambda_i$ $\implies (K-pM)v=\lambda Mv$ tiene los mismos VEPs de VAP $\lambda_i - p$
+
+\subsubsection{Cociente de Rayleigh}
+$$
+\rho(v) := \dfrac{v^TAv}{v^Tv} = \dfrac{\sum \alpha_i^2\lambda_i}{\sum \alpha_i^2} \implies \begin{cases}
+    \lambda_1\leq \rho(v)\leq \lambda_n\\
+    \rho(\alpha u_i)=\lambda_i \\
+\end{cases}
+$$
+Si $Kv=\lambda Mv$:
+$$
+\text{Descomponemos como }\begin{cases}
+    A^*=L^{-1}KL^{-T} \\
+    v^*=L^Tv
+\end{cases} \implies \rho(v) := \dfrac{v^TKv}{v^TMv}
+$$
+\subsection{IVD e IVI}
+Si queremos encontrar el VEP de VAP mayor en valor absoluto hacemos IVD con $A$, si queremos el mínimo lo hacemos con $A^{-1}$:
+$$
+v^{k+1} = \dfrac{Av^k}{\norm{Av^k}} \implies v^k = \dfrac{A^kv^0}{\norm{A^kv^0}}, \h \textbf{Generalizado: } v^{k+1} = \dfrac{M^{-1}Kv^k}{\norm{M^{-1}Kv^k}_{M}}
+$$
+
+\section{Métodos iterativos}
+Los métodos iterativos se usan cuando la dimensión de la matriz es muy grande y tiene muchos coeficientes nulos. \\
+\\
+Definimos el residuo $r(x):=Ax-b$ y el error $e^k:=x^* -x^k$ \\
+Definimos $A = L_A + D_A + U_A$ la descomposición de la matriz
+\subsection{Métodos Iterativos Estacionarios}
+Genera la sucesión de aproximaciones $x^{k+1}=Gx^k + h$\\
+\begin{itemize}
+    \item Si $I-G$ es regular $\implies \exists! x^*$ punto fijo  
+    \item Sistemas de la forma $x^{k+1}=x^k - C^{-1}(Ax^k -b)$
+    \item Convergente$\iff \lim e^k = 0$. $e^{k+1}=Ge^k \iff \lim G^k = 0 \iff \text{Radio espectral } \rho(G):=\max |\lambda_i|<1$
+    \item Radio espectral $\rho(G):=\max |\lambda_i|<1$
+\end{itemize}
+\subsubsection{Método de Jacobi}
+Corresponde a $C = D_A \implies G = I-D_A^{-1}A$ \\
+Convergente si $A$ diagonalmente dominante
+\subsubsection{Método de Gauss-Seidel}
+Corresponde a $C = D_A + L_A \implies G = I-(D_A+L_A)^{-1}A$ \\
+Convergente si $\begin{cases}
+    A \text{ diagonalmente dominante} \\
+    \text{ó} \\
+    A \text{ SDP}
+\end{cases}$
+
+\subsection{Métodos no estacionarios}
+\subsubsection{Descenso del Gradiente}
+Consideramos la ecuación cuadrática $\frac{1}{2}x^TAx - x^Tb$, cuyo mínimo se encuentra en $Ax^* = b$ \\
+En cada paso cogemos la dirección de máximo descenso $r = \nabla \phi$ y realizamos la optimización en esa dirección: \\
+Inicializamos en $x^0$ y seguimos el algoritmo:
+\begin{align}
+    & r^k = \nabla \phi (x^k) = Ax^{k} - b \\
+    & \alpha_k = -\frac{<r^k, r^k>}{<r^k, Ar^k>} \\
+    & x^{k+1} = x^k + \alpha_kr^k
+\end{align}
+
+
+\subsubsection{Gradientes conjugados}
+Queremos que cada dirección sea A-ortogonal a las demás:
+\\
+Inicializamos $x^0, r^0 = Ax^0-b, p^0 = r^0$ y seguimos el algoritmo:
+\setcounter{equation}{0}
+\begin{align}
+    & q^k = Ap^k \\
+    & \alpha_k = -\frac{<p^k, r^k>}{<p^k, q^k>} \\
+    & x^{k+1} = x^k + \alpha_kp^k\\
+    & r^{k+1} = Ax^{k+1}-b\ (=r^k + \alpha_kq^k)\\
+    & \beta_{k+1} = -\frac{<r^{k+1}, q^k>}{<p^k, q^k>}\\
+    & p^{k+1} = r^{k+1} + \beta_{k+1}p^k
+\end{align}
+Complejidad $\sim 2Nn^2$ \\
+Propiedades:
+\begin{itemize}
+    \item $<r^k, p^i>=0, \ i<k$
+    \item $<r^i, r^i>=<r^i, p^i>, \ i<k$
+    \item $<r^k, r^i>=0, \ i<k$ (residuos ortogonales)
+    \item $<p^k, Ap^i>=0, \ i<k$ (direcciones $A$-conjugadas)
+\end{itemize}
+
+\subsection{Precondicionamiento}
+Sea $\Tilde{A} = P^{-\frac{1}{2}}AP^{-\frac{1}{2}}, \ \Tilde{x} = P^{-\frac{1}{2}}x. \Tilde{b} = P^{-\frac{1}{2}}b$:
+$$
+A \text{ SDP, } P \text{ SDP} \implies \tilde{A} \text{ SDP}, \h  \Tilde{A}\Tilde{x} = \Tilde{b} \iff Ax =b
+$$
+
+\end{document}
+

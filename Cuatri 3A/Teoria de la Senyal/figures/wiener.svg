@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="wiener.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="3.3638608"
+     inkscape:cx="353.61154"
+     inkscape:cy="133.32894"
+     inkscape:window-width="1908"
+     inkscape:window-height="1066"
+     inkscape:window-x="1924"
+     inkscape:window-y="5"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow2"
+       refX="6"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow2"
+       markerWidth="52.5"
+       markerHeight="6.125"
+       viewBox="0 0 7.7 5.6"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="arrow2L" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2-3"
+       refX="6"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow2"
+       markerWidth="52.5"
+       markerHeight="6.125"
+       viewBox="0 0 7.7 5.6"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="arrow2L-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2-5"
+       refX="6"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow2"
+       markerWidth="52.5"
+       markerHeight="6.125"
+       viewBox="0 0 7.7 5.6"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="arrow2L-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2-6"
+       refX="6"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow2"
+       markerWidth="52.5"
+       markerHeight="6.125"
+       viewBox="0 0 7.7 5.6"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="arrow2L-2" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill-opacity:0;stroke:#000000;stroke-width:0.323001"
+       id="rect794"
+       width="53.747166"
+       height="20.553144"
+       x="66.918404"
+       y="22.117821" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.189939;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2)"
+       d="M 66.960687,32.394392 H 49.001311"
+       id="path796" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2227;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2-3)"
+       d="M 145.35449,32.394394 H 120.66557"
+       id="path796-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.179366;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2-5)"
+       d="m 149.62516,28.167794 0.009,-14.692737"
+       id="path796-5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.167937;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2-6)"
+       d="m 167.89149,32.394393 h -9.00804 -5.03169"
+       id="path796-9"
+       sodipodi:nodetypes="ccc" />
+    <g
+       id="g1988"
+       transform="translate(13.715722,-10.89621)">
+      <circle
+         style="fill-opacity:0;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none"
+         id="path1979"
+         cx="135.90944"
+         cy="43.290604"
+         r="4.2265983" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 135.90944,39.064004 V 47.5172"
+         id="path1981" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 131.68284,43.290603 h 8.4532"
+         id="path1983" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 152.64187,26.344458 v 2.005905"
+       id="path2098" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 151.54647,27.34741 h 2.07497"
+       id="path2100" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 142.79652,34.504405 c 0.10899,0 1.4571,0 1.4571,0"
+       id="path2102" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.264583"
+       x="127.8678"
+       y="29.142105"
+       id="text2162"><tspan
+         sodipodi:role="line"
+         id="tspan2160"
+         style="stroke-width:0.264583"
+         x="127.8678"
+         y="29.142105">$y[n]$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.264583"
+       x="149.95663"
+       y="18.940165"
+       id="text2162-1"><tspan
+         sodipodi:role="line"
+         id="tspan2160-2"
+         style="stroke-width:0.264583"
+         x="149.95663"
+         y="18.940165">$d[n]$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.264583"
+       x="156.30565"
+       y="29.26582"
+       id="text2162-7"><tspan
+         sodipodi:role="line"
+         id="tspan2160-0"
+         style="stroke-width:0.264583"
+         x="156.30565"
+         y="29.26582">$e[n]$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.264583"
+       x="69.791679"
+       y="33.525448"
+       id="text2162-9"><tspan
+         sodipodi:role="line"
+         id="tspan2160-3"
+         style="stroke-width:0.264583"
+         x="69.791679"
+         y="33.525448">$g(x[n],x[n-1], ..., x[n-Q+1])$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.264583"
+       x="52.518536"
+       y="29.892696"
+       id="text2162-6"><tspan
+         sodipodi:role="line"
+         id="tspan2160-06"
+         style="stroke-width:0.264583"
+         x="52.518536"
+         y="29.892696">$x[n]$</tspan></text>
+  </g>
+</svg>

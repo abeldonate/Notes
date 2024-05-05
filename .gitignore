@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.pyg
+*.toc
+*.fdb_latexmk
+*.out
+*.synctex.gz
+*.fls
+*.db
+*.lock

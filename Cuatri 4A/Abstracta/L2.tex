@@ -1,0 +1,421 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{coker}
+
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\prob}[2]{\fbox{\parbox{\textwidth}{\textbf{#1} #2}}}
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Problems Abstract Algebra \\ \Large{Second List}}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\prob{1}{\textit{Nakayama's lemma}. Let $M$ be a finitely generated  $A-$module and  $I$ an ideal of $A$ contained in the  Jacobson  radical. Prove:
+\[
+IM=M \Rightarrow M=0
+\] 
+}
+
+We will use a characterization of the elements of $J$, the Jacobson radical:  $x\in J \iff 1-xy$ is a unity for all  $y\in A$. 
+
+We suppose $M\neq 0$. Let  $x_1, x_2,\ldots,x_n$ be a minimal set of generators of the module  $M$. Because  $M=IM$ we can express the element  $x_1= a_1x_1 + a_2x_2 + \cdots + a_nx_n$, where $a_i \in I$. Then let $b$ the inverse of $1-a_1$ (whose existence has been previously proved).
+\[
+  (1-a_1)x_1 = a_2x_2+\cdots + a_nx_n = 0 \Rightarrow b(a_1-1)x_1= x_1 = ba_2x_2 + \cdots + ba_nx_n 
+\]
+entering in contradiction with $\{x_i\}$ being a minimal set unless  $x_i=0 \ \forall i$, thus  $M=0$.
+
+\prob{2}{Under the previous hypothesis, prove:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $A / I \otimes_A M =0 \Rightarrow M=0$
+	\item If  $N\subseteq M$ is a submodule, $M=IM+N \Rightarrow M=N$
+	\item If $f:N\to M$ is a homomorphism, $\overline{f}:N / IN \to M / IM$ surjective $\Rightarrow f $ surjective
+  \end{enumerate}
+  \vspace{1em}
+}
+
+\textbf{(1)} Using the exercise 10 we have  $0=A / I \otimes _A M \cong M / IM$, so by Nakayama's lemma since $IM=M \Rightarrow M = 0$.
+
+\textbf{(2)} We start by considering the following equality in the quotient module
+\[
+I (M / N) = \sum a_i(m_i+N) = \sum a_im_i + N = \frac{IM+N}{N} = \frac{M}{N}
+\] 
+Therefore, since $I (M /N) = M / N$, by Nakayama's lemma we have  $M / N = 0 \Rightarrow M=N$ as desired.
+
+\textbf{(3)} We consider the following surjective map induced by $f:N\to M$ such that $f(n)=m$:
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJOIl0sWzEsMCwiTi9JTiJdLFsyLDAsIk0vSU0iXSxbMCwxLCJuIl0sWzEsMSwibitJTiJdLFsyLDEsImYobikrSU0iXSxbMCwxLCJcXHBpIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzEsMiwiXFxiYXJ7Zn0iLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+\[\begin{tikzcd}
+	N & {N/IN} & {M/IM} \\
+	n & {n+IN} & {f(n)+IM}
+	\arrow["\pi", two heads, from=1-1, to=1-2]
+	\arrow["{\bar{f}}", two heads, from=1-2, to=1-3]
+	\arrow[maps to, from=2-1, to=2-2]
+	\arrow[maps to, from=2-2, to=2-3]
+\end{tikzcd}\]
+In order of $\overline{f}$ to be surjective it must be accomplished $f(N) +IM= M$. By the last exercice if  $M=IM+f(N) \Rightarrow M=f(N)$, since $f(N)$ is a submodule of $M$ so $f$ is surjective.
+
+
+\prob{3}{Let $A$ be a non-local ring. Prove that the  $A-$module  $A$ has two minimal system of generators with a different number of generators.
+}
+
+Obviously $1\in A$ generates the module, so we have a minimal set with one generator.
+
+However, as $A$ is non-local we can choose two different maximal ideals $\mathfrak{m}, \mathfrak{n}$, and by maximality $\mathfrak{m}+\mathfrak{n}=A \Rightarrow \ \exists x\in \mathfrak{m}, y\in \mathfrak{n}: x+y = 1$. So trivially $\{\mathfrak{m}, \mathfrak{n}\}$ generates the module, and is minimal because we can choose an element of $ \mathfrak{m}\ \mathfrak{n}$ which is not of the form $ay$ for some  $a\in A$.
+
+Thus we have found two minimal sets of generators: $\{1\}$ and  $\{x, y\}$:
+
+\prob{4}{Let (diagram) be a short exact sequence of $A-modules$. Prove that if  $M'$ and  $M''$ are finitely generated, then  $M$ is finitely generated.}
+
+We start by fixing the set of generators of $M'$ as  $x_1, \ldots, x_n$ and of $M''$ as  $z_1, \ldots, z_m$.
+
+Since $g$ is surjective, we can find elements  $y_1, \ldots, y_m$ such that $g(y_i)=z_i$. Now we select an arbitrary element $y\in M$. Then we have
+\[
+g(y)=b_1z_1+\cdots +b_mz_m = g(b_1y_1)+ \cdots + g(b_my_m) \Rightarrow g(y-\sum b_iy_i) =0 \Rightarrow y-\sum  b_iy_i \in \ker(g)
+\]
+for some $b_i\in A$. By exactness of the sequence we have $y-\sum b_iy_i\in \im (f)$, so
+ \[
+y-\sum b_iy_i = f(\sum a_ix_i) = \sum a_if(x_i) \Rightarrow y = \sum a_if(x_i) + \sum b_iy_i
+\] 
+for some $a_i\in A$. Thus, a set of generators of $M$ is  $f(x_1), \ldots, f(x_n), y_1, \ldots, y_m$
+
+\prob{5}{Prove that $\mathbb{Z}[\sqrt{d}]$ is a Noetherian ring
+}
+
+This is equivalent to prove that $M=\mathbb{Z}[\sqrt{d} ]$ is a Noetherian module. Since every submodule of  $M$ is finitely generated (by $1$ and $\sqrt{d} $), then the module is Noetherian.
+
+
+\prob{6}{Prove that the ring $\mathbb{Z}[2T, 2T^2, 2T^3, \ldots] \subseteq \mathbb{Z}[T]$ is not Noetherian}
+
+We search for an ascending chain of ideals $I_1\subseteq I_2\subseteq \ldots$ in which for every $I_i$ we have  $x_i\in I_i$ but $x_i \notin I_{i-1}$. This chain can be $I_i = (2T, 2T^2, \ldots, 2T^{i-1}, 2T^i+2T^{i+1}+\ldots)$. Notice that the containments are obvious and $x_i = 2T^{i-1}\in I_i$, but not in $I_{i-1}$.
+
+\prob{7}{ Let $M$ be an  $A-$module and let  $N_1, N_2$ be submodules of $M$. Prove that if  $M / N_1$ and  $M/ N_2$ are Noetherian (Artinian), then $M / (N_1 \cap N_2)$ is Noetherian (Artinian) as well.
+}
+
+Consider the following short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTSAvIE5fMSJdLFsyLDAsIk0vKE5fMVxcY2FwIE5fMikiXSxbMywwLCJNIC9OXzIiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMiwiaSJdLFsyLDMsIlxccGkiXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {M / N_1} & {M/(N_1\cap N_2)} & {M /N_2} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["i", from=1-2, to=1-3]
+	\arrow["\pi", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+Where $i$ and $\pi$ are the natural inclusion and projection maps. Then $\ker \pi = \im i = N_2 / (N_1 \cap N_2)$, so in fact this is a short exact sequence. We recall that in a short exact sequence  $0\to M'\to M\to M''\to 0$ it holds $M', M''$ Noetherians  $\iff$ $M$ Noetherian. Applying this our case  $M / N_1, M / N_2$ are Noetherians  $\Rightarrow M / (N_1 \cap N_2)$ is Noetherian.
+
+The proof replicates exactly for Artinian modules.
+
+
+\prob{8}{Let $M$ be an  $A-$module, $f:M\to M$ an $A-$endomorphism. Prove:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item If $M$ is Noetherian and  $f$ surjective  $\Rightarrow$ $f$ isomorphism
+    \item If $M$ is Artinian and  $f$ injective $\Rightarrow$ $f$ isomorphism
+  \end{enumerate}
+\vspace{1em}
+}
+
+\textbf{(1)} First we observe $f$ surjective  $\Rightarrow f^n$ surjective. The key observation is that $\ker f^i$ form a chain of submodules ordered by inclusion that, since  $M$ is Noetherian must stabilize at some point
+ \[
+   \ker f \subsetneq \ker f^2 \subsetneq \cdots \subsetneq \ker f^n = \ker f^{n+1} = \cdots = \ker f^{2n}
+\] 
+Suppose  $y\in \ker f^n$ is nonzero. Then, since $f^n$ is surjective there exists  $x\in M: f^n(x)=y$ and in particular $x\in \ker f^{2n} \backslash \ker f^{n}$, but since the kernels are equal, the only element is the zero element, and all the kernels must be zero, in particular $\ker f=0$, so $f$ is an isomorphism.
+
+\textbf{(2)} First we observe $f$ injective $\Rightarrow f^n$ injective. The key observation is that $\coker f^i$ form a chain of submodules ordered by inclusion that, since  $M$ is Artinian must stabilize at some point
+ \[
+   \coker f \supsetneq \coker f^2 \supsetneq \cdots \supsetneq \coker f^n = \coker f^{n+1} = \cdots
+\] 
+Which means $\im f^n = \im f^{n+1}$. Thus for any $x\in M$ there exists a $y: f^n(x)=f ^{n+1}(y) \Rightarrow f^n (x-u(y))=0$ and by injectivity of $f^n$ finally $x=f(y)$. Since $x$ was chosen arbitrarily, then  $f$ is surjective, which makes  $f$ an isomorphism.
+
+\prob{9}{Compute:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Z})$ 
+\item $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Q})$
+\item $\Hom_{\mathbb{Z}}(\mathbb{Z} / (m), \mathbb{Q})$
+\end{enumerate}
+\vspace{1em}
+}
+
+\textbf{(1)} We look for an element in $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Z})$. Let $f(\frac{1}{n})=x_n$ for $n$ a nonzero integer and $f(1)=C \in \mathbb{Z}$. Then we have
+\[
+C=f(1) = f\left(\frac{n}{n}\right) = nf\left(\frac{1}{n}\right) = nx_n.  \quad \Rightarrow \quad
+x_n = 0\ \forall |n|>C
+\]
+But if we take into account $C = nx_n$ holds for all nonzero $n$, then $C = 0$, meaning all the  $x_n$ are zero. We end up with $f\left(\frac{a}{b}\right)=af\left( \frac{1}{b} \right)=a\times 0 = 0$. So $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Z})=0$
+
+\textbf{(2)} We look for an element in $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Q})$. Let $f(\frac{1}{n})=\frac{x_n}{y_n}$ for $n$ a nonzero integer and $f(1)=C\in \mathbb{Q}$. Then we have 
+\[
+C=f(1) = f\left(\frac{n}{n}\right) = nf\left(\frac{1}{n}\right) = n \frac{x_n}{y_n}.  \quad \Rightarrow \quad
+\frac{x_n}{y_n} = \frac{C}{n}
+\]
+That means our morphism $f_C$ is uniquely determined by the choice of  $C\in \mathbb{Q}$, and is the morphism that sends $1\to C$ and $\frac{1}{n}\to \frac{c}{n}$ and extends linearly $\frac{a}{b}\to \frac{a}{b}C$. So $\Hom_{\mathbb{Z}}(\mathbb{Q}, \mathbb{Q})\simeq \mathbb{Q}$
+
+\textbf{(3)} We look for an element in $\Hom_{\mathbb{Z}}(\mathbb{Z} / (m), \mathbb{Q})$. Let $f(\overline{1})=r\in \mathbb{Q}$. Then 
+\[0=f(\overline{0})=f(\overline{m})=mf(\overline{1})=mr \Rightarrow r=0\]
+So the only possibility is the morphism $0$ and  $\Hom_{\mathbb{Z}}(\mathbb{Z} / (m), \mathbb{Q})=0$
+
+\prob{10}{
+Let $A$ be a ring,  $M$ an  $A-$module and  $I\subseteq A$ an ideal. Prove 
+\[
+  M / IM \cong A / I \otimes _A M
+\] 
+}
+
+
+We construct the following maps and see that they are well-defined
+
+\vspace{-1.5em}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  f: M / IM &\to  A / I \otimes _AM \\
+  x+IM &\mapsto  (1+I)\otimes_A x
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  g: A / I\otimes _A M &\to M / IM\\
+  (a+I) \otimes _A y &\mapsto ay+IM
+\end{align*}
+\end{minipage}
+
+If we pick $x'\sim_{IM} x \Rightarrow x'= x+n$ for $n\in IM$ and we have
+\[
+f(x'+IM) = (1+I)\otimes_A (x+n)) = (1+I)\otimes _A x + (1+I) \otimes _A n = (1+I) \otimes _A x = f(x+I)
+\] 
+Since the second term of the sum vanishes as $n= \sum i_km_k$ for $i_k\in I, m_k\in M$, so
+\[
+  (1+I)\otimes _A \sum i_km_k = \sum (i_k+I) \otimes _A m_k = \sum (0+I) \otimes _A m_k = 0
+\] 
+Therefore the application $f$ is well-defined.
+
+If we pick $a'\sim_A a \Rightarrow a'= a+i$ for $i\in I$ and we have
+\[
+g((a'+I)\otimes _A y) = (a+i)y +IM = ay + iy + IM = ay + IM = g((a+I)\otimes _A y)
+\] 
+proving that the application is well defined.
+
+It is trivial to check that $f$ and  $g$ satisfy all the necessary conditions in order to be morphisms of modules, since only quotients, multiplications and tensor products are involved.
+
+Finally we see $f\circ g = Id$ and $g\circ f = Id$:
+\begin{align*}
+& f(g((a+I)\otimes _Ay)) = f(ay+IM) = (1+I)\otimes _A ay = (a+I)\otimes _A y &\Rightarrow \quad f\circ g = Id\\
+& g(f(x+IM)) = g((1+I)\otimes _A x) = x+IM &\Rightarrow \quad g\circ f = Id
+\end{align*}
+finishing the proof.
+
+
+\prob{11}{Let $A$ be a ring and $I, J\subseteq A$ ideals. Prove
+  \[
+  A /I \otimes _A A / J \cong A / (I+J)
+  \] 
+}
+
+We construct the following maps and see that they are well-defined
+
+\vspace{-1.5em}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  f: A / I \otimes _A A / J &\to A / (I+J)\\
+  (x+I)\otimes _A (y+J) &\mapsto xy + (I+J)
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  g: A / (I+J) &\to  A / I \otimes _A A / J\\ 
+  z+(I+J) &\mapsto (z+I)\otimes _A (1+J) 
+\end{align*}
+\end{minipage}
+
+If we pick $x'\sim x$ and $y'\sim y $ that means $x' = x+i, y'=y+j$ with  $i\in I, j\in J$ and we have 
+\[
+f((x'+I)\otimes (y'+J)) = x'y' + (I+J) = xy + iy'+x'j+ij +I+J = xy + (I+J) = f((x+I)\otimes (y+J))
+\]
+so $f$ is well-defined.
+
+If we pick $z'\sim z$  that means $z'=z+i+j$ with  $i\in I, j\in J$ and we have
+\begin{align*}
+&g(z'+(I+J))= (z'+I)\otimes (1+J) = (z+i+j +I)\otimes (1+J) = z\otimes_A (1+J) + (i+I) \otimes (1+J) +\\
+&+ (j+I) \otimes_A (1+J) = (z+I)\otimes _A (1+J) + (0+I)\otimes _A (1+J) + (1+I)\otimes _A (0+J)  = g(z+(I+J))
+\end{align*}
+
+It is trivial to check that $f$ and  $g$ satisfy all the necessary conditions in order to be morphisms of modules, since only quotients, multiplications and tensor products are involved.
+
+Finally we see $f\circ g = Id$ and $g\circ f = Id$:
+\begin{align*}
+  &f(g(z+(I+J))) = f((z+I)\otimes _A (1+J)) = z+(I+J) & \Rightarrow \quad f\circ g = Id\\
+  &g(f((x+I)\otimes _A (y+J))) = g(xy + (I+J)) = (xy+I) \otimes (1+J) = (x+I) \otimes _A (y+J)& \Rightarrow \quad g\circ f = Id
+\end{align*}
+finishing the proof.
+
+
+
+\prob{12}{
+Let $A$ be a ring, $M, N$ finitely generated $A-$ modules. Prove:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $M\otimes _A N$ is a finitely generated $A-$module 
+  \item If $A$ is Noetherian, then $\Hom _A(M, N)$ is a finitely generated $A-$module
+\end{enumerate}
+\vspace{1em}
+}
+
+\textbf{(1)} Let $\{x_1, \ldots, x_m\}$ and  $\{y_1, \ldots, y_n\}$ sets of generators of $M$ and  $N$ respectively. Then every element $a\in M, b\in N$ can be expressed as $a=\sum r_ix_i, b = \sum r_iy_i$ with  $r_i\in A$. An element of the tensor product is, thus
+\[
+  a\otimes _A b = \left(\sum_{i=1}^m r_ix_i\right) \otimes _A \left(\sum_{j=1}^n r_jy_j\right) = \sum_{i=1}^m\sum_{j=1}^n r_ir_j (x_i\otimes_A y_i)
+\] 
+Then $\{x_i\otimes _A y_j\}$ is a set of generators of $M \otimes _AN$.
+
+\textbf{(2)} Notice that since $A$ is Noetherian, every submodule of $M$ and  $N$ are finitely generated. Let $M \cong A^m /I, N \cong A^n / J$ , then clearly we have the isomorphism
+\begin{align*}
+  \Hom _A(A^m, N) \cong N^m \quad \text{ since } \quad
+  \Hom_A(A, N) \cong N
+\end{align*}
+with $\{x_i\}$ a set of generators of  $N$. Knowing there exists an injection 
+\[
+\Hom _A(M, N) \hookrightarrow \Hom(A^m, N) \cong N^m
+\]
+and since $N^n$ is Noetherian, thus every submodule is finitely generated, in particular  $\Hom _{A}(M, N)$.
+
+
+\prob{13}{
+Let $A$ be a local ring,  $M, N$ finitely generated  $A-$modules. Prove that
+\[
+  M\otimes _A N = 0 \iff (M=0 \quad \text{ó} \quad N=0)
+\] 
+}
+
+\fbox{$\Leftarrow$} Trivial
+
+\fbox{$\Rightarrow$} Let $k := A / \mathfrak{m}$ a field. We make use of the following facts:
+
+(1) $k \otimes _A M \cong M / \mathfrak{m}M$ (exercise 10 with $I=\mathfrak{m}$)
+
+(2) $k\otimes _A (M\otimes _AN) \cong (k\otimes_A M)\otimes _k (k\otimes _AN)$
+
+To prove (2) we can consider the following applications
+  \begin{align*}
+	f: k\otimes _A (M\otimes _AN) &\to (k\otimes _AM) \otimes _k (k\otimes _AN)\\
+	a \otimes _A (m\otimes_A n) &\mapsto ((a \otimes_A m)+\mathfrak{m}) \otimes _k ((1\otimes _An)+\mathfrak{m})
+  \end{align*}
+  and
+  \begin{align*}
+	g: (k\otimes _AM)\otimes _k (k\otimes _AN) &\to  k\otimes _A (M\otimes _AN)\\
+	((a \otimes_A m)+\mathfrak{m}) \otimes _k ((b\otimes _An)+\mathfrak{m}) &\mapsto  (ab)\otimes _A (m\otimes_A n)
+  \end{align*}
+
+It can be seen in a similar way as problems 10 and 11, that $f$ and  $g$ are morphisms of modules that are well-defined and are inverses, so this defines an isomorphism.
+
+We have the following implications
+\[
+M\otimes _AN = 0 \Rightarrow k\otimes _A(M\otimes_A N) = 0 \Rightarrow (k\otimes_A M)\otimes _k (k\otimes _A N)=0 \Rightarrow M / \mathfrak{m}M \otimes _k N / \mathfrak{m}M 
+\] 
+And since $M / \mathfrak{m}M$ and $N / \mathfrak{m}N$ are both finite vector spaces with dimension $m$ and  $n$ respectively, then the tensor product is the usual tensor product of vector spaces, with dimension $nm$, that only vanishes if  $M / \mathfrak{m}M$ or $N / \mathfrak{m}N$ is zero.
+
+Without loss of generality say $M / \mathfrak{m}M = 0$, meaning $\mathfrak{m}M = M$. Since $A$ is local, then it only has  $\mathfrak{m}$ as maximal ideal, and thus the Jacobson ideal is precisely $\mathfrak{m}$ and we can apply Nakayama's lemma, meaning $\mathfrak{m}M = M \Rightarrow M = 0$, finishing the proof.
+
+\prob{14}{
+Let $M$ be a finitely generated $A-$module and let  $S\subseteq A$ be a multiplicatively closed set. Prove that 
+\[
+S^{-1}M=0 \iff \ \exists s\in S : sM=0
+\] 
+}
+
+Suppose $\{x_1, \ldots, x_n\}$ is a set of generators of $M$. We prove both implications.
+
+\fbox{$\Leftarrow$}
+Say $\ \exists s^*\in S$ such that $sM =0$. Then $\frac{m}{t}\sim \frac{m'}{t'} \iff \ \exists s\in S: smt'=sm't$. Setting $s=s^*$ we have zero in both sides, as  $sM=0$, concluding the only element is  $0$.
+
+\fbox{$\Rightarrow$} 
+Since the module $S^{-1}M=0$, then any fraction of the form $\frac{x_i}{1}\sim \frac{0}{1}$. From this fact for each  $x_i$ we can find an  $s_i$ such that  $s_ix_i=0$. Considering the element  $s^* = \prod_{i=1}^n s_i\in S$, we have that $s^*x_i = 0$, and thus, because every element of  $M$ can be expressed as the sum  $m = \sum_{i=1}^n a_ix_i$, then $s^*m = \sum _{i=1}^n a_is^*x_i = 0$, and $s^*M = 0$.
+
+\prob{15}{
+Let $S\subseteq  A$ be a multiplicatively closed set. Prove that the localization functor $S^{-1}(-)$ is exact.
+}
+
+Exactness means that for every short exact sequence, the sequence induced by the functor $S^{-1}(-)$ $f'(\frac{m}{s}):= \frac{f(m)}{s}$ is also exact.
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIk0nIl0sWzIsMCwiTSJdLFszLDAsIk0nJyJdLFs0LDAsIjAiXSxbMCwxLCIwIl0sWzEsMSwiU157LTF9TSciXSxbMiwxLCJTXnstMX1NIl0sWzMsMSwiU157LTF9TScnIl0sWzQsMSwiMCJdLFswLDFdLFsxLDIsImYiXSxbMiwzLCJnIl0sWzMsNF0sWzUsNl0sWzYsNywiZiciXSxbNyw4LCJnJyJdLFs4LDldXQ==
+\[\begin{tikzcd}
+	0 & {M'} & M & {M''} & 0 \\
+	0 & {S^{-1}M'} & {S^{-1}M} & {S^{-1}M''} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["g", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{f'}", from=2-2, to=2-3]
+	\arrow["{g'}", from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+This is, if $f$ is injective,  $g$ surjective and  $\im(f)=\ker (g)$, then $f'$ is injective,  $g'$ is surjective and  $\im(f')=\ker(g')$.
+
+\fbox{$f'$ injective} We prove that $\ker(f')=0$. Indeed  
+\[
+f'(\frac{m}{s})=0 \iff \frac{f(m)}{s} = 0 \iff \ \exists t\in S: tf(m) = 0
+\] 
+But since $f$ is an  $A-$module morphism and $t\in S\subseteq A$, then $0=tf(m)=f(tm)$, which means  $tm=0$ by injectivity of $f$. Thus  $\frac{m}{s}=\frac{0}{1}$ and the kernel is the zero module.
+
+\fbox{$g'$ surjective} Let $\frac{m''}{s}\in S^{-1}M''$, we want to prove the existence of $\frac{m}{s}\in M$ such that $g(\frac{m}{s}) = \frac{m''}{s}$. But this trivially holds setting $m$ such that  $g(m)=m''$, which is well-defined by surjectivity of the $g$. We check indeed  $g(\frac{m}{s}) = \frac{g(m)}{s} = \frac{m''}{s}$.
+
+
+\fbox{$\im(f')\subseteq \ker(g')$} We consider $f'(\frac{m}{s})= \frac{f(m)}{s} \in \im(f')$, then $g'(f'(\frac{m}{s}))= \frac{g(f(m))}{s}=\frac{0}{s}=\frac{0}{1}$.
+
+
+\fbox{$\ker(g')\subseteq \im(f')$} We will prove that if $g'(\frac{m}{s})=0$, then $ \frac{m}{s}$ is element of the image of $f'$.
+
+\[
+g'(\frac{m}{s})=\frac{0}{1} \Rightarrow \ \exists t\in S : tg(m)=g(tm) = 0 \Rightarrow \ \exists m': f(m') =tm 
+\]
+where the last condition arises from the exactness of the original sequence. Considering the element  $\frac{m'}{ts}\in S^{-1}M'$, we see that $f'(\frac{m'}{ts}) = \frac{f(m')}{ts}=\frac{tm}{ts} = \frac{m}{s}$ concluding the proof.
+
+
+\end{document}

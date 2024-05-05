@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+
+\title{Informática 1A}
+\author{Abel Doñate}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+%Define the comand \code and \codecolor for programming font
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{\textcolor{blue}{#1}}}}
+\newcommand{\codeorange}[1]{\colorbox{light-gray}{\texttt{\textcolor{orange}{#1}}}}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Console Shortcuts}
+\begin{itemize}
+	\item \codeorange{g++ program.cpp} to compile the program
+	\item \codeorange{./a.out} to run the program
+	\item \codeorange{python3 program.py}
+	\item \codeorange{Ctr+c} breaks a \code{while()} loop
+	\item \codeorange{Ctr+shift+c} copies information
+	\item \codeorange{Ctr+shift+v} pastes information
+\end{itemize}
+
+\section{Include and Using}
+\subsection{Using}
+\code{using namespace std}
+\subsection{Include}
+
+To include all the standard libraries \code{\#include$<$bits/stdc++.h$>$} (DO NOT DO THAT)
+\begin{itemize}
+  \item \code{\#include$<$iostream$>$}
+  \item \code{\#include$<$cmath$>$}
+  	\begin{itemize}
+  		\item \code{sqrt()}
+  		\item \code{pow()}
+  	\end{itemize}
+  
+  \item \code{\#include$<$algorithm$>$}
+  	\begin{itemize}
+  		\item \code{sort()}
+  		\item \code{reverse(v.begin(), v.end())} reverses the string or vector
+  	\end{itemize}
+  	
+  \item \code{\#include$<$iomanip$>$}
+  	\begin{itemize}
+  		\item \code{cout$<<$setprecision(n)$<<$fixed} fixes n decimal places in doubles.
+  	\end{itemize}
+  	
+  \item \code{\#include$<$string$>$}
+  	\begin{itemize}
+  		\item \code{push\_back()} adds a char to the string.
+  		\item \code{reverse(b.begin(), b.end())} reverses the string or vector (algorithm)
+  	\end{itemize}
+  	
+\end{itemize}
+  	
+\section{Conversions}
+\begin{itemize}
+	\item From string to int \\
+	\code{(int)s} s is the string
+	\item From char to int \\
+	\code{(int)c -'0'} c is the char
+	\item From int to string \\
+	\code{to\_string(n)} n is the int
+	\item From int to char \\
+	\code{'0' + n} n is the int
+	\item From string to char \\
+	\code{s[0]} s is the string
+\end{itemize}
+
+\section{Short	cuts}
+\begin{itemize}
+	\item \code{i++}
+	\item \code{sum += v[i]}
+\end{itemize}
+
+\section{Vectors and matrices}
+To define a vector \code{vector<int> v(size, default inputs)} \\
+Similar with a matrix \code{vector<vector<int>> v(size x, vector<int>(size y))} \\
+Usefull functions:
+\begin{itemize}
+	\item \code{v.size()} returns the size of the vector
+	\item \code{v.push\_back()} adds a term at the end of the vector
+	\item \code{v.pop\_back()}  removes the last term of the vector
+	\item \code{v.clear()} cleans the vector
+	\item \code{sort(v.begin, v.end)} sorts the vector
+	\item \code{reverse(v.begin, v.end)} reverses the vector
+	\item \code{swap(v[i], v[j])} swaps i and j term
+\end{itemize}
+To define a new type of valiable \code{typedef vector<int> vec} \\ or \code{using Row = vector<int>; using Matrix = vector<Row>;}
+
+\section{Fundamental algorithms}
+	\subsection{MergeSort}
+	
+	\subsection{structs}
+	We can define our struct of Person as follows:\\
+	\code{struct Person\{ string name; int age \};} \\ \\
+	\code{bool comp(Person a, Person b)\{return a.age < b.age\} }\\
+	\code{vector<Person> p;}\\
+	\\
+	Now we can sort \code{p} by ages: \\
+	\code{sort(p1.begin(), p1.end(), comp)}
+	
+
+
+\section{Python}
+Remember to construct the function \code{def main()} and call it later.
+\subsection{Input and output}
+\subsubsection{Output}
+For the output \code{print()} 
+\subsubsection{Input}
+For the input first \code{from easyinput import read}. Then \code{read(\textit{type})} reads the input of the given type.\\ 
+If you want to stop if no parameter is read use \code{while input != None}
+
+\subsection{Fix Decimals}
+To format the float a with n decimals
+\code{a.formatted = "\{:.nf\}".format(a)}
+
+\subsection{Conversions}
+\begin{itemize}
+	\item From int to string \\
+	\code{str(n)} n is the int
+	\item From string to int \\
+	\code{int(s)} s is the string
+\end{itemize}
+
+\section{Tips for the Exam}
+Here are some tips for the exam
+\begin{itemize}
+	\item Local valiables
+	\item Minimum posible cases
+	\item Do not use \code{break}. Instead, use a \code{bool}
+	\item One line \code{if()}
+\end{itemize}
+
+
+\end{document}

@@ -1,0 +1,479 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array,svg}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Estado Sólido}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Estructura cristalina}
+
+\subsection{Redes cristalinas, base primal y dual}
+\begin{definition}[Red] Una red es un conjunto infinito de puntos generado por el set de vectores
+   \[
+  R = n_1 \overline{a} + n_2 \overline{b} + n_3 \overline{c} \qquad n_i \in \mathbb{Z}
+  \] 
+\end{definition}
+
+\begin{definition}[Celda unidad] Una celda unidad es una region de el espacio que puede teselar el espacio. Si sólo contiene un punto de la red, se dice que es primitiva.
+\end{definition}
+
+\begin{definition}[Célula de Wigner-Seitz] Dado un punto de la red, la celda de Wigner-Seitz es el espacio de los puntos más cercanos a el punto que a cualquier otro punto.
+\end{definition}
+
+\begin{definition}[Base] Una base de un sistema cristalino es un conjunto de tres vectores linealmente independientes $\{\overline{a}, \overline{b}, \overline{c}\}$. Su base dual $ \{\overline{a}^*, \overline{b}^*, \overline{c}^*\}$ se puede calcular de las siguientes maneras:
+\[
+  a^* = \frac{b\times c}{V}, \quad b^* = \frac{c\times a}{V}  , \quad c^* = \frac{a\times b}{V} \qquad \text{ó}  \qquad (\overline{a}^*, \overline{b}^*, \overline{c}^*)=\begin{pmatrix} \overline{a}^T\\\overline{b}^T\\\overline{c}^T \end{pmatrix} ^{-1}
+\] 
+\end{definition}
+Formalmente la base dual debería ir multiplicada por $2\pi$ por estar en el espacio de las $k$, pero en estos apuntes multiplicaremos por  $2\pi$ cuando haga falta.
+
+Cada red primal tiene su red dual definida de la misma forma que definimos red, pero con combinaciones enteras de los vectores duales (multiplicados por $2\pi$). Cada red de Bravais transforma en una red de Bravais.
+
+\subsection{Clasificación de redes cristalinas}
+\subsubsection{Símbolo de Pearson}
+El símbolo de Pearson consiste en dos letras y un número con el formato $aA0$.
+La primera letra especifica la familia del cristal. La segunda el tipo de centro. El número final indica la cantidad de átomos en la célula unidad.
+
+\begin{minipage}{0.45\textwidth}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+$a$ & triclínica  \\ \hline
+$m$ & monoclínica\\ \hline
+$o$ & ortorómbica\\ \hline
+$t$ & tetragonal \\ \hline
+$h$ & hexagonal\\ \hline
+$c$ & cúbica \\ \hline
+\end{tabular}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+$P$ & Primitiva \\\hline
+$S$ & Centrada en una cara\\\hline
+$I$ & Centrada en el cuerpo\\\hline
+$R$ & Centrada romboidal\\\hline
+$F$ & Centrada en las caras \\\hline
+\end{tabular}
+\end{center}
+\end{minipage}
+
+Esto nos proporciona las 14 posibles redes de Bravais
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Triclínico & Monoclínico & Ortorómbico & Tetragonal & Hexagonal & Cúbico \\\hline
+$aP$ &  $mP, mS$ &  $oP, oS, oF, oI$ &  $tP, tI$ &  $hP, hR$ &  $cP, cF, cI$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Grupos de simetría}
+Un grupo de simetría está generado por reflexiones sobre un plano ($m$), inversiones ($\overline{1}$) y rotaciones ($n$) y rotoinversiones $\overline{n}$ (rotación + inversión).
+
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Inversiones}. $\overline{1}$ cambia el signo a todo.   
+  \item \textbf{Reflexiones} $m_{100}$ hace una reflexión con respecto al plano normal de la primera dirección. 
+  \item  \textbf{Rotaciones}. $2_{100}, 3_{100}, 4_{100}, 6_{100}$ rotan sobre el vector de la primera dirección principal un ángulo de $180, 120, 90, 60$ respectivamente.
+  \item  \textbf{Rotoinversiones}. $\overline{n}_{100} = n_{100}\overline{1}$ hace una rotación seguida de una inversión (o viceversa, $\overline{1}$ conmuta con todo).
+\end{itemize}
+
+Si deseamos poner en forma matricial los elementos anteriores
+\[
+  \overline{1} = \begin{pmatrix} -1&0&0\\0&-1&0\\0&0&-1 \end{pmatrix} , \quad
+  m_{100} = \begin{pmatrix} -1&0&0\\0&1&0\\0&0&1 \end{pmatrix} , \quad
+  n_{001} = \begin{pmatrix} \cos\left( \frac{360}{n} \right) &-\sin\left( \frac{360}{n} \right) &0\\ \sin\left( \frac{360}{n} \right) &\cos\left( \frac{360}{n} \right) &0\\0&0&1 \end{pmatrix}
+\] 
+
+Si establecemos tres direcciones principales en el sistema coordenado de la base de la celda  $d_1=[\alpha _1 \beta _1 \gamma_1], d_2=[\alpha_2, \beta_2, \gamma_2], d_3 = [\alpha _3, \beta _3, \gamma_3]$, entonces el grupo puntual viene representado de la forma $a \ b\ c$, donde cada letra es  una reflexión, una inversión, una rotación, una rotoinversión o una combinación de ellas (indicada por un / entre las dos) en su dirección respectiva.
+
+Así pues, podemos describir todos los elementos $m, n, \overline{n}$ matricialmente, pero esto dependerá de la dirección principal. Por ejemplo, si tenemos las direcciones principales $d_1=[1 0 0], d_2=[010], d_3=[001]$ y el grupo $2\ m\ m$, el primer  $2$ nos indica una rotación de $180^\circ$ con eje $d_1$, que indicamos como $2_{100}$, la primera $m$ nos indica una re flexión en el plano normal a $d_2$ que indicamos como $m_{010}$ y la tercera una reflexión en el plano normal a $d_3$ que indicamos como $m_{001}$. Sus matrices son
+ \[
+   2_{100} = \begin{pmatrix} 1 & 0& 0 \\ 0 & -1 & 0 \\ 0 & 0 & -1 \end{pmatrix}, \quad  
+   m_{010} = \begin{pmatrix} 1 & 0& 0 \\ 0 & -1 & 0 \\ 0 & 0 & 1 \end{pmatrix}, \quad  
+   m_{001} = \begin{pmatrix} 1 & 0& 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix}, \quad  
+\] 
+Como $2_{100} = m_{010}\cdot m_{001}$, es fácil comprobar que el grupo que generan estos elementos es abeliano, y que además  el grupo tiene  $4$ elementos, todos ellos de orden  $2$, por lo que el grupo es isomorfo a  $ (\mathbb{Z} / 2\mathbb{Z} )^2$
+
+Otro ejemplo sería $2 / m$. Ahora ambas operaciones las debemos tomar el la dirección principal por estar separados por la barra. Tomando como dirección principal  $d_1=[100]$ tenemos
+\[
+   2_{100} = \begin{pmatrix} 1 & 0& 0 \\ 0 & -1 & 0 \\ 0 & 0 & -1 \end{pmatrix}, \quad  
+   m_{100} = \begin{pmatrix} -1 & 0& 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}, \quad  
+\]
+por lo que esta vez el grupo está formado por los elementos $\{Id, 2_{100}, m_{100}, 2_{100}\cdot m_{100}\}$, todos ellos de orden 2 y es abeliano. Por tanto el grupo es isomorfo a $(\mathbb{Z} / 2\mathbb{Z}) ^2$.
+
+Además de estos elementos de los grupos también tenemos dos operaciones que ya no generan un grupo puntual, ya que contienen translaciones. Estas son:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Rotación y translación}. $n_a = T_{\frac{n}{a}\overline{d}}\circ n_{\overline{d}}$ rota con respecto a $\overline{d}$ lo que indique $n$  y luego hace una translación en la dirección  $\overline{d}$ $\frac{n}{a}$ unidades de la dirección $\overline{d}$ principal.
+  \item  \textbf{Reflexión y translación}. $mc= T_{\frac{1}{2}\overline{d}}\circ m_{\overline{d}}$ hace una reflexión con respecto al plano normal a $\overline{d}$ y luego una translación de $\frac{1}{2}$ del vector de dirección principal $\overline{d}$.
+\end{itemize}
+
+\subsection{Descripción de las redes cristalinas más comunes}
+\subsubsection{FCC y BCC}
+\begin{minipage}{0.9\textwidth}
+\incfig{fcc}
+\end{minipage}
+
+Calculamos ahora la base primal y dual de la célula FCC. Observamos que los vectores escogidos generan toda la red cristalina, por lo la célula que generan es una célula primitiva.
+\[
+\begin{cases}
+  \overline{a} = \frac{1}{2} (1\ 1\ 0) \\
+  \overline{b} = \frac{1}{2} (0\ 1\ 1) \\
+  \overline{c} = \frac{1}{2} (1\ 0\ 1)
+\end{cases} \quad 
+V = \frac{1}{8}\det(a\ b\ c) = \frac{1}{4} \quad \Rightarrow
+\begin{cases}
+  \overline{a}^* = (1\ 1\ -1)\\
+  \overline{b}^* = (-1\ 1\ 1 )\\
+  \overline{c}^* = (1\ -1\ 1)
+\end{cases} 
+\] 
+
+
+Calculamos ahora la base primal y dual de la célula BCC. Como en el caso de la FCC, los vectores escogidos generan toda la red cristalina, por lo la célula que generan es una célula primitiva.
+\[
+\begin{cases}
+  \overline{a} = \frac{1}{2} (1\ 1\ -1) \\
+  \overline{b} = \frac{1}{2} (-1\ 1\ 1) \\
+  \overline{c} = \frac{1}{2} (1\ -1\ 1)
+\end{cases} \quad 
+V = \frac{1}{8}\det(a\ b\ c) = \frac{1}{2} \quad \Rightarrow 
+\begin{cases}
+  \overline{a}^* = (1\ 1\ 0)\\
+  \overline{b}^* = (0\ 1\ 1 )\\
+  \overline{c}^* = (1\ 0\ 1)
+\end{cases} 
+\] 
+De estos cálculos podemos deducir que las redes FCC y BCC son duales, es decir, cuando hacemos el dual de una de ellas con parámetro de red $a$ nos aparece la otra con parámetro de red  $\frac{2}{a}$, o $\frac{4\pi}{a}$ en el caso de que trabajemos en el espacio de las $k$. Este resultado es bastante importante tenerlo en cuenta a lo largo del curso, ya que las estructuras FCC y  BCC son de las más comunes en cristalografía.
+
+\subsubsection{Estructura hexagonal}
+\begin{minipage}{\textwidth}
+  \incfig{hexagonal}
+\end{minipage}
+
+Si tenemos la siguiente red cristalina (por ejemplo, sea grafeno), es importante notar que los átomos de esta red no forman una red de Bravais, ya que no son iguales desde cualquier átomo. La red de bravais vendrá dada por los vectores que hemos señalado, y tendrá un motivo de $2$ átomos.
+\[
+\begin{cases}
+  \overline{a} = (1, 0)\\
+  \overline{b} = (-\frac{1}{2}, \frac{\sqrt{3} }{2})
+\end{cases} \quad V = \det(\overline{a}\ \overline{b}) = \frac{\sqrt{3} }{2} \Rightarrow 
+\begin{cases}
+  \overline{a}^* = \frac{2 \sqrt{3} }{3}(\frac{\sqrt{3} }{2}, \frac{1}{2}) \\
+  \overline{b}^* = \frac{2 \sqrt{3} }{3}( 0, 1)
+\end{cases}
+\] 
+Por lo que la dual de una red hexagonal de parámetro $a$ es otra hexagonal de parámetro $\frac{2 \sqrt{3}}{3a}$
+
+Cosas importantes a tener en cuenta:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item En esta base los átomos se encuentran en posición $[\frac{2}{3}, \frac{1}{3}]$ y $[\frac{1}{3}, \frac{2}{3}]$.
+  \item La primera zona de Brillouin es la zona lila de la red dual.
+\end{itemize}
+
+\subsection{Difracción}
+La difracción de Bragg se produce cuando, al tener dos planos paralelos hacemos incidir una onda con un ángulo $\theta$. Para que tenga lugar la interferencia constructiva ha de cumplirse $n\lambda= 2d \sin\theta $, conocida como ley de Bragg.
+
+\begin{minipage}{0.4\textwidth}
+  \incfig{Bragg}
+\end{minipage}
+\begin{minipage}{0.6\textwidth}
+  \incfig{Bragg2}
+\end{minipage}
+
+\begin{definition}[Factor de estructura] Definimos el factor de estructura como
+  \[
+  F_{hkl} = \sum_p f_p e^{-i2\pi \overline{g}_{hkl}\cdot \overline{r}_p}
+  \] 
+  Donde la suma es con respecto a todos los átomos de la celda unidad y $r_p$ es la posición de cada átomo dentro de la celda.
+\end{definition}
+
+Es interesante haber definido este factor de estructura porque cuando radiamos en el plano $\overline{g}_{hkl}$, la intensidad medida es $|F_{hkl}|^2$. Si el factor de estructura se extingue para ese plano, entonces no se medirá intensidad en esa dirección.
+
+
+
+\section{Dinámica de cristales}
+\section{Cálculo de la densidad de estados}
+Partimos de que el número de onda $\overline{k}$ está cuantizado y solo puede tomar los valores
+\[
+  \overline{k} = \begin{pmatrix} \frac{2\pi}{L}n & \frac{2\pi}{L}m & \frac{2\pi}{L}l \end{pmatrix} \ \forall n, m, l \in \mathbb{Z}
+\] 
+Si calculamos el número de estados que hay con un módulo del número de onda menor que  $k$ tenemos
+ \[
+N(k) = \int_{(\frac{2\pi}{L})^2(n^2 + m^2+l^2)\le k^2} dV = \frac{1}{\left( \frac{2\pi}{L} \right)^3 } \int_{x^2+y^2+z^2\le k^2}dxdydz = \frac{L^3}{6\pi^2}k^3 = \frac{V}{6\pi^2}k^3
+\] 
+Ahora ya podemos calcular las densidades de los estados
+\[
+g(k) = \frac{dN}{dk} = \frac{V}{2\pi^2} k^2 , \qquad g(\omega ) = g(k) \frac{dk}{d\omega } = \frac{V}{2\pi^2} \frac{\omega^2 }{\nu_s^2}\frac{1}{\nu^2_s} = \frac{V \omega ^2}{2\pi^2 \nu_s^3}
+\] 
+Si hacemos los cálculos para 1, 2 y 3 dimensiones (y se cumple $\omega = \nu_s k$)
+\begin{align*}
+  (1D) \quad  
+  \begin{cases}
+    g(k) = \frac{L}{\pi} \\  g(\omega ) = \frac{L}{\pi \nu} 
+  \end{cases}
+  (2D) \quad  
+  \begin{cases}
+    g(k) = \frac{L^2}{2\pi}k \\  g(\omega ) = \frac{L^2}{2\pi \nu^2}\omega 
+  \end{cases}
+  (3D) \quad  
+  \begin{cases}
+    g(k) = \frac{V}{2\pi^2}k^2 \\  g(\omega ) = \frac{V}{2\pi^2 \nu_s^3}\omega ^2
+  \end{cases}
+\end{align*}
+
+\subsection{Modelos para el cálculo de $C_v$}
+En esta sección veremos tres modelos diferentes de propagación de ondas por la red cristalina.
+
+\begin{minipage}{0.6\textwidth}
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Dulong-Petit} Los átomos vibran independientemente. Clásico. $C_v$ independiente de la temperatura.
+  \item \textbf{Einstein} Los átomos vibran independientemente. Cuántico. $C_v$ coincide para temperaturas altas pero falla para bajas.
+  \item \textbf{Debye} Los átomos vibran dependiendo del vecino próximo. Cuántico. Aproximación dispersión lineal. $C_v$ refleja la dependencia cúbica experimental para temperaturas bajas.
+\end{enumerate}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\incimg{comparisoncv.jpg}
+\end{minipage}
+
+\subsubsection{Modelo de Dulong-Petit}
+Este calculo se realiza utilizando física estadística básica y resulta en $C_v = 3Nk_b$. Sólo funciona para temperaturas altas, donde no hay prácticamente efectos cuánticos.
+
+\subsubsection{Modelo de Einstein}
+Este modelo está basado en el oscilador harmónico cuántico. Si suponemos que en la red cristalina se comportan todos los átomos como osciladores harmónicos cuánticos, entonces podemos calcular su función grancanónica
+\[
+  E_n = \hbar \omega (n+\frac{1}{2}) \quad \Rightarrow \quad Z_1 = \frac{1}{2 \sinh(\frac{\beta \hbar \omega }{2})}, \quad \langle E_1 \rangle = - \frac{\partial }{\partial \beta } \ln Z_1 = \frac{\hbar\omega }{2} \coth \left( \frac{\beta \hbar \omega }{2} \right) 
+\] 
+Pero debemos tener en cuanta que hay 3 dimensiones y $N$ partículas, por lo que debemos multiplicar por 3 en la energía media. Ahora podemos calcular también la capacidad calorífica $C_v$.
+ \[
+\langle E\rangle = \frac{3}{2} N \hbar \omega \coth \left( \frac{\beta \hbar \omega  }{2} \right) \quad \Rightarrow \quad
+C_v = \frac{\partial \langle E\rangle}{\partial T}  = 3Nk_B (\beta \hbar \omega )^2 \frac{e^{\beta \hbar \omega }}{(e^{\beta \hbar \omega }-1)^2}
+\] 
+Definimos ahora $T_E = \frac{\hbar \omega_E}{k_B}$. Vamos a ver que pasa en los limites de temperatura.
+
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Si  $T\gg T_E \quad \Rightarrow \quad C_v = 3Nk_b$
+  \item Si  $T\ll T_E \quad \Rightarrow \quad C_v = 3Nk_b (\frac{T_E}{T})^2 \frac{1}{\sinh ^2(\frac{T_E}{2T})}$
+\end{itemize}
+
+Observamos que, como es de esperar, para temperaturas altas el modelo cumple la ley de Dulong-Petit, pero para bajas no cumple la expectativa experimental de $C_v \sim  T^3$.
+
+
+\subsubsection{Modelo de Debye}
+\begin{minipage}{0.7\textwidth}
+Comenzamos analizando una cadena de átomos cuya única fuerza entre ellos es modelizable mediante la ley de Hook con una constante de muelle $k_s$. Si  $r_n$ es la posición de cada átomo y $x_n = r_n-na$ el desplazamiento con respecto al punto de equilibrio tenemos:
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+  \incfig{Osciladorsimple}
+\end{minipage}
+ \[
+F_n =m\ddot{x}_n = k_s(x_{n+1}+x_{n-1}-2x_n)
+\] 
+
+Suponemos (oh, sorpresa) que la solución es una oscilación armónica de la forma $x_n = A e^{i(kna-\omega t)}$. Calculamos ahora como debe se la $\omega $ en función de la $k$.
+ \[
+   -m\omega ^2 Ae^{i(kna-\omega t)} = k_sAe^{i(kna-\omega t)}(e^{ika}+e^{-ika}-2) = -4k_s \sin^2\left( \frac{ka}{2} \right)  \Rightarrow \boxed{\omega = 2 \sqrt{\frac{k_s}{m}}\left|\sin \left( \frac{ka}{2} \right) \right| }
+\] 
+
+\begin{minipage}{0.2\textwidth}
+  \incfig{Dispersion}
+\end{minipage}
+\begin{minipage}{0.8\textwidth}
+Lo que se conoce como ecuación de dispersión. Observamos que en la zona cercana a $k=0$ podemos aproximar a una dispersión casi lineal  $\omega =\nu k$. Si tomamos esta aproximación hasta una frecuencia de corte dada $\omega _D$, podemos calcular esta frecuencia de corte como
+\end{minipage}
+
+\[
+  3N = \int_0^{\omega _D} 3g(\omega )d\omega =\int_0^{\omega _D}3 \frac{V}{2\pi^2\nu^3}\omega ^2 d\omega = \frac{V}{2\pi^2 \nu^3}\omega _D^3 \Rightarrow \boxed{\omega _D = \sqrt[3]{\frac{6\pi^2\nu^3N}{V}} }
+\] 
+donde hemos contado cada partícula y cada estado 3 veces y hemos usado
+\[
+\omega = \nu k, \qquad g(k)=\frac{V}{2\pi^2}k^2, \qquad g(\omega )= \frac{V}{2\pi^2 \nu^3}\omega ^2
+\]
+Calculamos ahora la energía media para calcular la capacidad calorífica
+\begin{align*}
+  \langle E \rangle &= \int_0^{\omega _D}\hbar \omega 3g(\omega )\left( \frac{1}{e^{\beta \hbar \omega }-1} +\frac{1}{2} \right) d\omega  = E_0 + \frac{3V\hbar }{2\pi^2\nu^3} \int_0^{\omega _D}\frac{\hbar \omega ^3}{e^{\beta \hbar \omega }-1} d\omega \\
+	   & (x=\frac{\hbar \omega }{k_B T}), \quad T_D := \frac{\hbar \omega }{k_B} \quad   \Rightarrow  \boxed{\langle E \rangle = \frac{3Vk_B^4T^4}{2\pi^2\nu^3\hbar ^3}\int_0^{\frac{T_D}{T}}\frac{x^3}{e^x-1}dx }
+\end{align*}
+Estudiamos ahora que pasa con capacidad calorífica $C_v = \frac{\partial \langle E \rangle }{\partial T}$ en los extremos:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Si $T\gg T_D \quad \Rightarrow \quad \langle E \rangle \sim 3Nk_BT \quad \Rightarrow \quad C_v \sim  3Nk_B $
+  \item Si $T\ll T_D \quad \Rightarrow \quad \langle E \rangle \sim  \frac{3\pi^4Nk_BT^4}{5T_D^3}\quad\Rightarrow \quad C_v \sim  \frac{12\pi^4}{5}Nk_B \left( \frac{T}{T_D} \right)^3 $
+\end{itemize}
+donde hemos usado $\int_0^\infty \frac{x^3}{e^x-1}dx=\frac{\pi^4}{15}$.
+
+Observamos como este modelo si que refleja la dependencia cúbica observada experimentalmente.
+
+\subsection{Ecuación de dispersión}
+En el modelo de Debye ya hemos tenido nuestro primer contacto con una ecuación de dispersión muy simple. Ahora supondremos que las constantes de los muelles cambian alternadamente y son $k_1, k_2$.
+
+\begin{minipage}{0.49\textwidth}
+\incimg{prob2_3chain.png}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\incimg{prob2_3.png}
+\end{minipage}
+
+Procedemos de manera parecida a anteriormente, pero apreciamos algunos cambios. En primer lugar las amplitudes serán diferentes según el tipo de partícula (par o impar). Las posiciones de equilibrio ya no son equiespaciadas, sino que hay 2 distancias (la del muelle $k_1$ y la del $k_2$). Llamaremos $x_n$ e  $y_n$ a las variaciones con respecto al equilibrio respectivamente. Si planteamos el diagrama de fuerzas tenemos
+\[
+m\ddot{x}_n = k_1(y_{n-1}-x_n)+k_2(y_n-x_n), \quad 
+m\ddot{y}_n = k_1(x_{n+1}-y_n)+k_2(x_n-y_n)
+\] 
+
+Con todo esto podemos hacer nuestro ansatz como:
+\[
+x_n = A e^{i(kna-\omega t)} \qquad
+y_n = B e^{i(kna-\omega t)}
+\] 
+y obtenemos las ecuaciones
+\[
+-m\omega ^2 A = -A(k_1+k_2)+ B(k_1e^{ika}+k_2), \quad 
+-m\omega ^2 B = -A(k_1e^{ika}+k_2)+ B(-k_1-k_2)
+\] 
+Que puede ser escrito en forma matricial como
+\[
+  m\omega ^2 \begin{pmatrix} A\\B \end{pmatrix} = \begin{pmatrix} (k_1+k_2) & -k_2 -k_1e^{ika} \\ -k_2-k_1e^{ika} & (k_1+k_2) \end{pmatrix}  \begin{pmatrix} A\\B \end{pmatrix} = K\begin{pmatrix} A\\B \end{pmatrix} 
+\] 
+Con lo que $m\omega $ ha de ser valor propio de la matriz $K$. Imponiendo esta condición tenemos que
+ \[
+0 = \det(K-m\omega ^2I) = |(k_1+k_2)-m\omega ^2|^2 - |k_2 +k_1e^{ika}|^2
+\] 
+cuyas raíces son $m\omega^2 = (k_1+k_2) \pm |k_1+k_2e^{ika}|$. Simplificando el segundo término llegamos a la ecuación de dispersión 
+\[
+  \boxed{\omega _{\pm}(k) = \sqrt{ \frac{k_1+k_2}{m}\pm \frac{1}{m} \sqrt{(k_1+k_2)^2-4k_1k_2\sin^2(ka / 2)} } }
+\] 
+Cada rama del dibujo corresponde a un signo de la solución de la ecuación de dispersión. El negativo corresponde a la acústica y el positivo a la óptica.
+
+Lo mismo pasa si en lugar de ser diferentes las $k$ son las masas  $m_1\neq m_2$. En ese caso la solución a nuestra ecuación de dispersión sería
+\[
+  \boxed{\omega _{\pm}(k) = \sqrt{ (K_1+K_2)\pm \sqrt{(K_1+K_2)^2-4K_1K_2\sin^2(ka / 2)} } }
+\] 
+con $K_1= \frac{k}{m_1}$ y $K_2 = \frac{k}{m_2}$
+
+
+
+\section{Estructura electrónica de los cristales}
+\subsection{Modelo de Drude}
+
+\subsection{Teorema de Bloch}
+Consideramos ahora la configuración donde tenemos una estructura cristalina y queremos ver cómo se comporta un electrón dentro de ella. Observamos que el potencial es periódico con periodo dependiente del parámetro de red. Consideramos, pues un potencial periódico $V(\overline{r})$, el teorema de Bloch nos dice que las soluciones de la Ecuación de Schrödinger vienen dadas por 
+\[
+H\psi = \left( -\frac{\hbar ^2}{2m}\nabla ^2 + V(\overline{r}) \right) \psi = E\psi \quad \Rightarrow \quad \psi (\overline{r}) = \sum _{\overline{k}} u_{\overline{k}}(\overline{r}) e ^{i \overline{k}\cdot \overline{r}}
+\] 
+donde las $u_{\overline{k}}(\overline{r})$ son periódicas.
+
+En una dimensión, al ser periódico podemos descomponer el potencial en series de Fourier de dos maneras:
+\[
+V(x)=V_0 + \sum _{j=1}^\infty V_j\cos\left( \frac{2\pi j}{a}x \right)  \quad \text{ ó } \quad 
+V(x)=\sum_{j=-\infty}^\infty V_{\frac{2\pi j}{a}} e ^{\frac{2\pi j}{a}ix}
+\]
+Con las relaciones $V_j = 2 V_{\frac{2\pi j}{a}}$, y donde los coeficientes son
+\[
+  V_j = \frac{2}{a} \int _{-\frac{a}{2}} ^{\frac{a}{2}} dx V(x)\cos\left( \frac{2\pi }{a}jx \right) , \quad \text{ y } \quad 
+  V_{\frac{2\pi j}{a}} = \frac{1}{a} \int _{-\frac{a}{2}} ^{\frac{a}{2}} dx V(x)e ^{\frac{-2\pi }{a}ijx}
+\] 
+
+Veremos que los coeficientes $V_{j} = 2V_{\frac{2\pi }{a}j}$ son los gap energy de las bandas como se observa en la figura siguiente. La primera figura es un modelo de electrones libres sin potencial y la segunda uno casi-libre con potencial.
+
+\begin{minipage}{0.5\textwidth}
+  \incfig{freemodel}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+  \incfig{quasifreemodel}
+\end{minipage}
+
+\underline{\textbf{Caso gas de electrones libre $V(\overline{r})=0$}}
+
+En el caso de un gas de electrones libres tenemos la ecuación de dispersión
+\[
+E(k) = \frac{\hbar ^2 k^2}{2m}
+\] 
+Vale la pena pararse a discutir sobre cómo es el problema en este momento. Distinguiremos entre dos tipos de contornos:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Volúmico, es decir, suficientemente grande en las tres direcciones. Aplicamos
+	\[
+	\overline{k} = \frac{2\pi }{L} (n_x, n_y, n_z) \text{ con } n_x, n_y, n_z \in \mathbb{Z}
+	\] 
+  \item Si alguna dimensión es pequeña comparada con las otras consideramos (la $\hat{z}$, por ejemplo)
+	\[
+	k_z = \frac{\pi}{L_z} n_z \text{ con } n_z \in \mathbb{N}
+	\] 
+\end{itemize}
+
+
+Vemos primero en el primer caso la forma de las posibles $k'$s
+\[
+  \overline{k} = \frac{2\pi }{L} \begin{pmatrix} n_x\\n_y\\n_z \end{pmatrix}, \quad n_x, n_y, n_z\in \mathbb{Z} \quad \Rightarrow \quad k^2 = \left( \frac{2\pi }{L} \right)^2 (n_x^2+n_y^2+n_z^2)  
+\] 
+Considerando los dos espines (multiplicamos por 2), vemos la relación entre el número total de estados $N_T$ y las $n'$s tal que la $k$ sea máxima
+\[
+N_T = 2 \cdot \left( \frac{4}{3}\pi (n_x^2+n_y^2+n_z^2)^{3 / 2} \right) \quad \Rightarrow \quad k_{max}^2 = k_F^2 = (3n\pi ^2) ^{ \frac{2}{3}}
+\] 
+
+Para el segundo caso habría que llevar mas cuidado. Si, por ejemplo, la dimensión en $\hat{z}$ $L_z\ll L_x=L_y$, entonces los estados energéticos se van llenando con la $k_{z, min} = \frac{\pi}{L_z}$ y las $k_x, k_y$ formando un círculo. Si no es suficiente hay que saltar de  $k_z$ hasta rellenar con los estados $N_T$.
+
+(Dibujito esfera)
+
+\underline{\textbf{Caso electrones casi-libres}}
+
+
+\incfig{brillouinejemplo}
+
+\end{document}

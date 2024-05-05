@@ -1,0 +1,341 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{siunitx}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\prob}[2]{\fbox{\parbox{\textwidth}{\textbf{#1} #2}}}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Problemas Estado Sólido}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Estructura cristalina}
+
+
+\section{Dinámica de los cristales}
+\prob{1}{
+Consideramos un cristal iónico unidimensional infinito, construido por una sucesión de átomos con masa $m$ y carga  $+q$ y  $-q$ alternativamente. El potencial interatómico es  $V_i(r_i)= \frac{A}{|r_i-r_{i-1}|^n} + \frac{A}{|r_{i+1}-r_i|^n} + \sum_{i\neq j}\varepsilon \frac{q_iq_j}{|r_i-r_j|}$. El parámetro de red $a$ corresponde a la posición de equilibrio en  $T=0$.
+ \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+   \item[a)] Calculad el valor de la constante $A$ en función del parámetru de red y demostrad que la energía de enlace es  $E_0= \frac{\varepsilon q^2\ln 2}{a}(1-\frac{1}{n})$ 
+   \item[b)] Calculad la compresibilidad del cristal y la velocidad del sonido.
+\end{enumerate}
+\vspace{1em}
+}
+
+\textbf{a)}
+(dibujito)
+Sea $r$ la distancia entre átomos cuando  $T=0$. Entonces  
+\[
+U_{T}=\frac{1}{2}(2N \frac{2A}{r^n} + \sum_{j=1}^{2N}\sum_{l\neq 0}(-1)^l \varepsilon  \frac{q^2}{|l|r} ) = \frac{2NA}{r^n}-\frac{2Nq^2\varepsilon \ln 2}{r}
+\] 
+Si diferenciamos con respecto a $r$ e igualamos a cero encontramos la posición de equilibrio
+ \[
+0=\frac{d U_T}{d r} = -\frac{2NAn}{a^{n+1}} + \frac{2nq^2\ln 2\varepsilon }{a^2} \quad \Rightarrow \quad \boxed{A = \frac{a^{n-1}\varepsilon \ln 2 q^2}{n}}
+\] 
+Y la energía por enlace es simplemente sustituyendo $\boxed{E_0 = - \frac{U_T}{2N} = \left( 1-\frac{1}{n} \right) \frac{\varepsilon q^2\ln 2}{a}}$
+
+\textbf{b)} Si el módulo de Young es $\gamma$ tenemos
+\[
+F = \gamma \frac{x}{Na} = \gamma \frac{N \frac{F}{C}}{Na} \Rightarrow \gamma = Ca
+\] 
+Si calculamos la velocidad del sonido $\nu_s = \sqrt{ \frac{\gamma }{\rho }} $
+
+\prob{2}{
+Calculad la relación de dispersión para una cadena unidimensional de átomos de masa $m$ conectadas por un muelle de constante  $k_1$ para los primeros vecinos y  $k_2$ para los segundos
+}
+
+(dibujito)
+
+Sea $x_n$ la posición respecto a la posición de equilibrio  $r_n = an$. Entonces las ecuaciones del movimiento son
+ \[
+F = m\ddot{x}_n = k_1(x_{n+1}+x_{n-1}-2x_n) + k_2(x_{n+2}+x_{n-2}-2x_n)
+\] 
+Suponiendo que se comporta como un oscilador armónico hacemos el siguiente ansatz: $x_n = Ae^{i(kna-\omega t)}$. Vemos ahora que deben cumplir la $\omega $ y la $k$.
+\begin{align*}
+-m\omega ^2 A e^{i(kna-\omega t)} = k_1Ae^{i(nka-\omega t)} \left( e^{ika} +e^{-ika} -2\right)  + k_2(e^{2ika}+e^{-2ika}-2)\\
+m\omega ^2 = 4k_1\left(\frac{\cos(ka)-1}{2}\right) + 4k_2\left(\frac{\cos(2ka)-1}{2}\right) = 4k_1\sin^2\left( \frac{ka}{2} \right) + 4k_2\sin^2(ka)
+\end{align*}
+Por tanto llegamos a la ecuación de dispersión $\displaystyle \boxed{\omega (k)= \sqrt{\frac{4}{m}\left( k_1\sin^2\left( \frac{ka}{2} \right) + k_2\sin^2(ka)  \right) }} $
+
+\prob{3}{
+Calculad la relación de dispersión para una cadena unidimensional de átomos de masa $m$ conectados con los primeros vecinos por muelles de constantes  $k_1$ y $k_2$ alternativamente.
+}
+
+\begin{minipage}{0.49\textwidth}
+\incimg{prob2_3chain.png}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\incimg{prob2_3.png}
+\end{minipage}
+
+Procedemos de manera parecida al ejercicio anterior, pero apreciamos algunos cambios. En primer lugar las amplitudes serán diferentes según el tipo de partícula (par o impar). Las posiciones de equilibrio ya no son equiespaciadas, sino que hay 2 distancias (la del muelle $k_1$ y la del $k_2$). Llamaremos $x_n$ e  $y_n$ a las variaciones con respecto al equilibrio respectivamente. Si planteamos el diagrama de fuerzas tenemos
+\[
+m\ddot{x}_n = k_1(y_{n-1}-x_n)+k_2(y_n-x_n), \quad 
+m\ddot{y}_n = k_1(x_{n+1}-y_n)+k_2(x_n-y_n)
+\] 
+
+Con todo esto podemos hacer nuestro ansatz como:
+\[
+x_n = A e^{i(kna-\omega t)} \qquad
+y_n = B e^{i(kna-\omega t)}
+\] 
+y obtenemos las ecuaciones
+\[
+-m\omega ^2 A = -A(k_1+k_2)+ B(k_1e^{ika}+k_2), \quad 
+-m\omega ^2 B = -A(k_1e^{ika}+k_2)+ B(-k_1-k_2)
+\] 
+Que puede ser escrito en forma matricial como
+\[
+  m\omega ^2 \begin{pmatrix} A\\B \end{pmatrix} = \begin{pmatrix} (k_1+k_2) & -k_2 -k_1e^{ika} \\ -k_2-k_1e^{ika} & (k_1+k_2) \end{pmatrix}  \begin{pmatrix} A\\B \end{pmatrix} = K\begin{pmatrix} A\\B \end{pmatrix} 
+\] 
+Con lo que $m\omega $ ha de ser valor propio de la matriz $K$. Imponiendo esta condición tenemos que
+ \[
+0 = \det(K-m\omega ^2I) = |(k_1+k_2)-m\omega ^2|^2 - |k_2 +k_1e^{ika}|^2
+\] 
+cuyas raíces son $m\omega^2 = (k_1+k_2) \pm |k_1+k_2e^{ika}|$. Simplificando el segundo término llegamos a la ecuación de dispersión 
+\[
+  \boxed{\omega _{\pm}(k) = \sqrt{ \frac{k_1+k_2}{m}\pm \frac{1}{m} \sqrt{(k_1+k_2)^2-4k_1k_2\sin^2(ka / 2)} } }
+\] 
+Cada rama del dibujo corresponde a un signo de la solución de la ecuación de dispersión. El negativo corresponde a la acústica y el positivo a la óptica.
+
+\prob{4}{
+  COnsideramos una cadena monoatómica de $1m$ de longitud, velocidad del sonido $\nu=1.08\times 10^4m / s$. Los átomos tienen una masa $m=6.81\times 10^{-26}kg$ y un parámetro de red de $a=4.85A$. Calculad la constante recuperadora de la fuerza atómica y la máxima frecuencia angular de los fonones.
+}
+
+Para valores pequeños de $k$ podemos realizar la siguiente aproximación
+ \[
+\omega = \sqrt{\frac{4K}{m}} \left|\sin\left( \frac{ka}{2} \right) \right|\sim  \sqrt{\frac{4K}{m}} \frac{ka}{2} \Rightarrow \nu = \frac{d \omega }{d k} \sim \sqrt{\frac{Ka^2}{m}} 
+\] 
+Ahora podemos calcular la $K$ y la  $\omega_{max}$ 
+\[
+K = \frac{M}{a^2}\nu^2 = 33.8N / m, \qquad \omega _{max} = \sqrt{\frac{4K}{m}} = 44.5\times 10^{12} rad / s
+\] 
+
+\prob{5}{
+  Un sistema consta de $N=10^{23}$ osciladores armónicos unidimensionales de frecuencia propia  $\omega =2\pi \times 10^{13}$. Calculad la energía térmica media del sistema a $T=2, 20, 200, 2000K $. ¿En qué rango de temperatura se puede tratar el sistema clásicamente?
+}
+
+Calculamos la energía media del sistema
+\[
+\langle E \rangle = N\hbar \omega \left( \langle n \rangle +\frac{1}{2} \right) = N\hbar \omega \left( \frac{1}{2} + \frac{1}{e^{\frac{\hbar \omega }{k_BT}}-1} \right)  \Rightarrow 
+\begin{cases}
+  \langle E \rangle(T=2)  = 331J
+  \langle E \rangle(T=2)  = 331J
+  \langle E \rangle(T=2)  = 397J
+  \langle E \rangle(T=2)  = 2772J
+\end{cases}
+\] 
+Calculamos ahora la capacidad calorífica
+\[
+C_v = \frac{d \langle E \rangle }{d T}  = Nk_B\left( \frac{T_E}{T} \right) ^2 \frac{e^{\frac{T_E}{T}}}{(e^{\frac{T_E}{T}}-1)^2} \qquad \text{con} \qquad T_E = \frac{\hbar \omega }{k_B} = 480K
+\] 
+A partir de $T=1000K$ se debería comportar clásicamente.
+
+\prob{6}{
+La velocidad del sonido del Cu es $\nu_s =400m / s$. Calculad la frecuencia de Debye y la longitud de onda de las vibraciones atómicas con esta frecuencia, comparadla con el espaciado interatómico entre los átomos de Cu. Recordad que el cobre es una FCC con 4 átomos por celda unidad,  $M =63.546g / mol, \rho =8.92 g / cm^3$
+}
+
+Calculamos $a$ a través del siguiente factor de conversión
+\[
+  \rho = \frac{4 \text{ at. Cu}}{a^3} \frac{1 \text{ mol}}{N_A\text{ at. Cu}} \frac{63.546g}{1 \text{ mol}} = 8.92 g / cm^3 \Rightarrow a=3.615A \Rightarrow \frac{V}{N} = 11.81 A / \text{celda}
+\] 
+Calculamos la frecuencia de Debye y después la longitud de onda con las fórmulas
+\[
+  \omega _D = \left( \frac{6\pi^2\nu_S^3N}{V} \right) ^{\frac{1}{3}} = \boxed{6.846\times 10^{13} rad / s} , \qquad k_D = \frac{\omega _D}{\nu_S} = 1.7116 A^{-1} = \frac{2\pi}{\lambda_D} \Rightarrow \boxed{\lambda_D = 3.67A}
+\] 
+El espaciado interatómico es $a_p = \frac{a}{\sqrt{2} }=2.56A$
+
+\prob{7}{
+Las temperaturas de Debye del NaCl y el KCl, que tienen la misma estructura cristalina son $T_D(NaCl)=310K$ y  $T_D(KCl)=230K$. El calor específico del  KCl a $5K$ es de  $0.038 J mol^{-1} K^{-1}$. Calculad el calor específico del NaCl a $2K$
+}
+
+Con el modelo de Debye a temperaturas bajas tenemos $\displaystyle C_v = A\left( \frac{T}{T_D} \right)^3 $
+\[
+0.038 = A\left( \frac{5}{310} \right)^3 \Rightarrow A = 3698.768J K^{-1} mol^{-1} \Rightarrow C_v(NaCl) = A \left( \frac{2}{310} \right) ^3 = \boxed{0.00099J mol^{-1}K^{-1}}
+\] 
+
+\prob{8}{
+El diamante tiene un módulo de Young de $\gamma=83\times 10^{6}N cm^{-2}$ y una densidad de $\rho = 3.52g cm^{-3}$. Estimad su temperatura de Debye y discutid las consecuencias de este valor.
+}
+
+Podemos aproximar la velocidad del sonido como $\nu = \sqrt{\frac{\gamma}{\rho}} $. Teniendo en cuenta que $\frac{N}{V}= N_A \frac{\rho }{12}$ Con esto ya podemos calcular la frecuencia de Debye y su temperatura
+\[
+  \omega _D = \left( \frac{6\pi^2N }{V} \right)^{\frac{1}{3}}\nu = (6\pi^2 \frac{N_A\rho }{12} )^{\frac{1}{3}}\sqrt{\frac{\gamma}{\rho }}  = 3.358\times 10^{14}, \qquad T_D = \frac{\hbar \omega _D}{k_B} = \boxed{2566K}
+\] 
+
+\prob{9}{
+Si la contribución de la red cristalina al calor específico del Cu varía como $C_v= 0.046T^3$ a temperatura baja, estimad la temperatura de Debye del Cu
+}
+\[
+  C_v=\frac{12\pi^4}{5}Nk_B\left( \frac{T}{T_D} \right)  = 234Nk_B\left( \frac{T}{T_D} \right)  = 0.046T^3 \Rightarrow T_D = \left( \frac{234Nk_B}{0.046} \right)^{\frac{1}{3}} = \boxed{348K}
+\] 
+
+\prob{10}{
+Disponemos de dos series de medidas del calor específico del KCl a baja temperatura. Discutid cuál es la mejor serie para calcular la temperatura de Debye y calculadla. Representad el calor específico en función de la temperatura y discutid si satisface la ley de Dulong-Petit.
+\begin{center}
+\begin{tabular}{|c|}
+\hline
+cosas\\
+\hline
+\end{tabular}
+\end{center}
+}
+Algún día ajustare la gráfica, not today
+
+\prob{11}{
+Deducid las expresiones de la capacidad calorífica debida a las vibraciones longitudinales en una cadena unidimensional de átomos idénticos en
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item la aproximación de Debye
+  \item utilizando la expresión exacta de la densidad de estados
+\end{itemize}
+\vspace{1em}
+}
+
+\textbf{1)} sabemos que $g(k)=\frac{Na}{\pi}$, por lo que $g(\omega ) = g(k) \frac{dk}{d\omega } = \frac{Na}{\pi \nu}$. Ahora el número total de partículas debe ser
+\[
+  N = \int_0^{\omega _D} g(\omega )d\omega = \frac{Na}{\pi \nu}\omega _D \Rightarrow \omega _D = \frac{\pi \nu}{a}
+\] 
+Ahora ya podemos calcular la energía media
+\[
+  \langle E \rangle = \int_0^{\omega _D} = g(\omega ) \hbar \omega \left( \frac{1}{2} + \frac{1}{e^{\frac{\hbar \omega }{k_BT}}-1}  \right) d\omega = \boxed{E_0 + \frac{Nk_BT^2}{T_D}\int_0^{\frac{T_D}{T}}\frac{x}{e^{x}-1}dx}
+\] 
+
+\textbf{2)} De la ecuación de dispersión sacamos (con $\omega _0 = 2 \sqrt{\frac{C}{M}}, \nu=a \sqrt{\frac{C}{M}} $)
+\[
+  k = \frac{2}{a} \arcsin \left( \frac{\omega}{2} \sqrt{\frac{M}{C}}  \right) = \frac{2}{a} \arcsin \left( \frac{\omega}{\omega _0} \right)  \Rightarrow \frac{dk}{d\omega }= \frac{1}{\nu \sqrt{1-\left( \frac{\omega }{\omega _0}\right)^2} } \Rightarrow 
+  g(\omega ) = \frac{Na}{\pi\nu} \frac{1}{ \sqrt{ 1-\frac{\omega ^2}{\omega _0^2}}}
+\] 
+Calculamos ahora la energía media
+\[
+  \langle E \rangle = E_0 + \frac{Na}{\pi\nu}\int_0^{\omega _0}  \frac{\hbar \omega d\omega }{\sqrt{1-\frac{\omega ^2}{\omega _0^2}} (e^{\frac{\hbar \omega }{k_BT}}-1) } =\boxed{ E_0 + \frac{Nk_BT^2}{T_D} \int_0^{\frac{T_D}{T}} \frac{x}{\sqrt{1-x^2 \frac{T^2}{T_D^2}}(e^x-1) }dx}
+\] 
+Observamos como la única diferencia es la raíz de la integral en el segundo apartado. Si derivamos con respecto a $T$ obtendremos las  $C_v$.
+
+\prob{12}{
+Me da palo, la vd, viene bastante bien explicado en el pdf
+}
+
+\prob{14}{
+
+}
+\begin{minipage}{0.9\textwidth}
+  \incfig{prob2_14}
+\end{minipage}
+
+\textbf{a)} Vemos que la celda unidad tiene dos átomos de carbono situados en $(\frac{1}{3}, \frac{2}{3})$ y $(\frac{2}{3}, \frac{1}{3})$
+
+\textbf{b, c)} Como hemos calculado en la sección de la célula hexagonal de los apuntes, ahora si la distacia entre los carbonos es  $d = 1.42A$, entonces los vectores  $\overline{a}, \overline{b}$ tienen longitud $\sqrt{3}a$, y los vectores de la base dual miden $ \frac{4\pi \sqrt{3} }{3 \sqrt{3}a  } $. La distancia $|\Gamma -M| = |\overline{k}|_M$ será entonces la mitad de la longitud del vector de la base, y $|\Gamma -K|$ lo podemos multiplicar por trigonometría
+\[
+|\overline{k}_M| = 1.47A^{-1}, \qquad |\overline{k}_K| = 1.47\cdot \frac{2}{\sqrt{3} }= 1.70A^{-1}
+\] 
+
+\textbf{d)} Seleccionamos la rama longitudinal acústica (la más alta) y calculamos
+\[
+  \nu_S = \frac{2\pi \cdot 800 cm^{-1}}{0.5 \cdot 1.47A^{-1}} 19800 m/s
+\] 
+\prob{15}{
+La estructura del ClCs tiene un símbolo de Pearson $cP2$ y un grupo $Pm \overline{3}m$. A $78K$ el parámetro de red es $a=4.088A$. Las curvas de dispersión fonónicas a esta temperatura en las direcciones  $\Gamma -X, \Gamma -M, \Gamma -R$ se representan en la figura con un eje de frecuencias en unidades de $10^{12}Hz$.
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Calculad el vector de onda correspondiente a la frontera de la zona de Brillouin en las direcciones $[100]$ (punto $X$), $[110]$ (punto $M$) y $[111]$ (punto $R$).
+  \item Razonad por qué solo aparecen $4$ ramas fonónicas en la figura.
+  \item Estimad la velocidad del sonido longitudinal y transversal en la dirección  $[100]$
+\end{enumerate}
+\vspace{1em}
+}
+
+\begin{minipage}{0.40\textwidth}
+  \incimg{prob2_15_1.png}
+\end{minipage}
+\begin{minipage}{0.30\textwidth}
+  \incimg{prob2_15_3.png}
+\end{minipage}
+\begin{minipage}{0.30\textwidth}
+  \incimg{prob2_15_.png}
+\end{minipage}
+
+\textbf{a)} Siendo la base $\overline{a}=a \hat{i}, \overline{b}=a \hat{j}, \overline{c}= a \hat{k}$, entonces su base dual es la misma pero multiplicada por $2\pi$. La zona de Brillouin será la célula de Wigner-Seitz de la dual, así que 
+\[
+\begin{cases}
+  \overline{k}_a = \left( \frac{\pi}{a}, 0, 0 \right) \\ 
+  \overline{k}_b = \left( 0, \frac{\pi}{a}, 0 \right) \\
+  \overline{k}_c = \left(0,0, \frac{\pi}{a}  \right)
+\end{cases} \Rightarrow
+\begin{cases}
+  \overline{k}_X = \left( \frac{\pi}{a}, 0, 0 \right) \\ 
+  \overline{k}_M = \left( \frac{\pi}{a}, \frac{\pi}{a}, 0 \right) \\
+  \overline{k}_R = \left( \frac{\pi}{a}, \frac{\pi}{a}, \frac{\pi}{a} \right)
+\end{cases} \Rightarrow 
+\begin{cases}
+  k_X = \frac{\pi}{a} = 0.7685A^{-1}\\
+  k_M = \sqrt{2} \frac{\pi}{a} = 1.087A^{-1}\\
+  k_R = \sqrt{3} \frac{\pi}{a} = 1.331A^{-1}
+\end{cases}
+\] 
+
+\textbf{b)} Hay 2 ramas ópticas y dos acústicas. Esto pasa porque por simetría las dos transversales son idénticas y no se distinguen en el gráfico.
+
+\textbf{c)} Debemos ver la pendiente cerca de $\Gamma $ en el primer gráfico
+\[
+\nu_L = \frac{2\pi \times 1.5\times 10^{12}s^{-1}}{0.4\times 0.7685 A^{-1}} = \boxed{3000m / s}, \qquad 
+\nu_T = \frac{2\pi \times 0.75\times 10^{12}s^{-1}}{0.4\times 0.7685 A^{-1}} = \boxed{1500m / s}
+\] 
+
+
+\end{document}

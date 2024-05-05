@@ -1,0 +1,283 @@
+\documentclass{myclass}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{tikz}
+
+
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert }
+\newcommand{\cond}[1]{\text{cond(} #1 \text{)}}
+\renewcommand{\th}{\underline{\textbf{Teorema}} \\ }
+\newcommand{\dem}{\underline{\textbf{Demostración}}\\ }
+\newcommand{\h}{\hspace{1em}}
+
+\newcommand{\1}{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {1};}}
+            
+\newcommand{\2}{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {2};}}
+            
+\renewcommand{\u}{$\Bar{u}$}
+
+\newcommand{\g}{\gamma}
+
+\newcommand{\X}{\mathbb{X}}
+
+
+\newcommand{\dt}{\frac{d}{dt}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\H}{\mathcal{H}}
+
+\title{Mecánica}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Transformaciones de Lorentz}
+$$ \gamma = \dfrac{1}{\sqrt{1-\frac{u^2}{c^2}}} \implies 
+\begin{aligned}t'&=\gamma \left(t-{\frac {vx}{c^{2}}}\right)\\x'&=\gamma \left(x-vt\right)\\y'&=y\\z'&=z\end{aligned} \implies 
+\begin{pmatrix} ct' \\ x' \\ y' \\ z' \end{pmatrix} =
+\begin{pmatrix}
+\gamma & -\frac{u}{c}\gamma & 0 & 0 \\
+-\frac{u}{c}\gamma & \gamma & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1  \end{pmatrix}\begin{pmatrix} ct \\ x \\ y \\ z \end{pmatrix}
+\implies \begin{cases}
+\Delta t' = \Delta t/\gamma  \\
+\Delta x' =\gamma \Delta x
+\end{cases}
+$$
+
+\subsection{Boost de Lorentz}
+$$
+B = \left(\begin{array}{c|ccc}
+    \g &  & -\g\dfrac{\Bar{u}^T}{c} &   \\
+    \hline
+     &  &  &  \\
+     -\g\dfrac{\Bar{u}}{c} &  & I+\dfrac{\g-1}{u^2}\Bar{u}\Bar{u}^T &    \\
+     &  &  & 
+\end{array}\right)
+$$
+
+\section{Cinemática Relativista}
+ $$ D = 1-\dfrac{uv^x}{c^2} \implies 
+\begin{cases}
+dt'=\g (dt-\frac{u}{c^2}dx) \\
+dx' = \g (dx-udt) \\
+dy' = dy\\
+dz' = dz
+\end{cases}
+\implies 
+\begin{cases}
+v'^x = \frac{v^x - u}{D} \\
+v'^y =  \frac{v^y}{\g D}\\
+v'^z =  \frac{v^z}{\g D}
+\end{cases}
+\implies 
+\begin{cases}
+a'^x = \frac{a^x}{\g^3D^3} \\
+a'^y =  \frac{a^y}{\g^2 D^2} + \frac{a^xv^yu}{c^2\g^2D^3}\\
+a'^y =  \frac{a^z}{\g^2 D^2} + \frac{a^xv^zu}{c^2\g^2D^3}
+\end{cases}
+$$
+Por tanto la fórmula de suma de velocidades es
+$$
+\begin{cases}
+v'^x = \frac{v^x + u}{D(-u)} \\
+v'^y =  \frac{v^y}{\g D(-u)}\\
+v'^z =  \frac{v^z}{\g D(-u)}
+\end{cases}
+$$
+
+\subsection{Aceleración propia}
+$$
+u=v \implies D=\g^{-2}(v) \implies \alpha = \g^3(v)a=\dfrac{d}{dt}(\g (v)v) \xRightarrow[MRUA]{} v = \frac{\alpha t}{\sqrt{1+\frac{\alpha^2t^2}{c^2}}} \implies x = \frac{c^2}{\alpha}\sqrt{1+\frac{\alpha^2t^2}{c^2}} - \frac{c^2}{\alpha}
+$$
+$$
+{\tau ={\frac {c}{\alpha}}\ln \left({\frac {\alpha t}{c}}+{\sqrt {1+{\frac {\alpha^{2}t^{2}}{c^{2}}}}}\right)}
+$$
+
+\section{Espacio-tiempo y 4-vectores}
+En relatividad se cumple un invariante llamado la \textit{Identidad fundamental}
+$$
+\Delta s'^2 = \Delta s^2 \iff \Delta s'^T \eta \Delta s' = \Delta s^T \eta \Delta s \iff \Delta ct' - \Delta x'- \Delta y'- \Delta z' = \Delta ct - \Delta x- \Delta y- \Delta z
+$$
+\\
+Los cuadrivectores cumplen
+$$A'^\mu = \Lambda^\mu_\nu A^\nu, \qquad A^2 = \eta_{\mu\nu}A^{\mu}A^\nu, \qquad A\cdot B = \eta_{\mu\nu}A^{\mu}B^\nu \implies A^2 = A'^2, \qquad A\cdot B = A'\cdot B $$
+Son cuadrivectores:
+$$
+U:=\frac{dx}{d\tau} = \gamma(v)\begin{pmatrix}
+c\\
+v^x \\
+v^y\\
+v^z
+\end{pmatrix}, \quad U^2 = c^2, \qquad A:=\frac{dU}{d\tau} = \begin{pmatrix}
+\frac{\gamma^4}{c}\Bar{v}\cdot \Bar{a}\\
+\gamma^4\frac{\Bar{v}\cdot\Bar{a}}{c^2}\Bar{v} + \gamma^2\Bar{a} \\
+\end{pmatrix}, \quad A^2 = -\alpha^2, \quad U\cdot A =0
+$$
+
+$$
+P =  mU = m\gamma\begin{pmatrix}
+c\\
+v^x \\
+v^y\\
+v^z
+\end{pmatrix} \implies \sum P_i = \sum P_f, \qquad P^2=m^2c^2
+$$
+\subsection{Energía}
+$$
+E_0=mc^2 \implies T = E-E_0 = mc^2(\gamma - 1), \quad E^2 = m^2c^4 + c^2p^2, \qquad |p|=\frac{h\nu}{c} = \frac{h}{\lambda}
+$$
+\section{Mecánica Newtoniana}
+$$
+\sum m_i\ddot{r}_a = \frac{d}{dt} P = F^{ext}, \qquad r_G = \frac{1}{m}\sum m_ir_i \implies v_G = P/m, \qquad \dt (r_G - \frac{t}{m}P) ) -\frac{t}{m} F^{ext}
+$$
+$$
+L = m_ir_i\times \ddot{r_i} \implies \dt L_A = M_A^{ext}
+$$
+$$
+E_{mec} = T+V = \frac{1}{2}mv^2 - \int_{x_0}^{x}F(y)dy, \qquad \dt T = F\cdot v=\mathcal{P}, \qquad \Delta T = W_{1\to 2}, \qquad F = -\nabla V
+$$
+\subsection{Shifts de T y L}
+$$
+T_G = \frac{1}{2}\sum m_i(v_i-V_G)^2 \implies  T = \frac{1}{2}mv_G^2 + T_G, \qquad L_O = r_G\times P + L_G 
+$$
+
+\subsection{Sistemas en Rotación}
+Dos sistemas de Referencia $S, S'$, $\omega$ velocidad angular de $S'$ respecto de $S$. R posición de $O'$ desde $S$.
+$$
+\frac{du}{dt_s} = \frac{du}{dt_{S'}} + \omega\times u \implies \begin{cases}
+r = R + r'  \\
+v = V + v' + \omega\times r'  \\
+a = A + a' + \alpha\times r' + 2\omega\times v' + \omega\times(\omega\times r')
+\end{cases}
+$$
+
+$$
+ma' = F_{real} + F_{tran} + _{Eul} + F_{Cor} + F_{cent} \implies \begin{cases}
+F_{trans} = -mA\\
+F_{Eul} = -m\alpha\times r' \\
+F_{Cor} = -2m\omega\times v'\\
+F_{cen} = -m\omega\times (\omega\times r')
+\end{cases}
+$$
+
+\subsection{Sólido rígido}
+$$
+v_P = v_Q + \omega\times QP, \qquad a_P = a_Q + \alpha \times QP + \omega\times(\omega\times QP)
+$$
+$$
+F = ma_G, \qquad I = \sum m_id_i^2 = I_G + md^2, \qquad M = I\alpha, \qquad L = I\omega, \qquad T = \frac{1}{2}mv_G^2 + \frac{1}{2}I\omega^2
+$$
+
+
+\subsection{Coordenadas polares}
+$$
+\begin{cases}
+\Bar{r} = r\hat{r} = x\hat{i} + y\hat{j} \\
+\dot{\Bar{r}} = \dot r\hat{r} + t\dot\theta\hat{\theta}
+\end{cases}
+\implies 
+\begin{cases}
+\hat\theta = -\sin\theta \hat{i} + \cos\theta\hat{j} \\
+\hat r = \cos\theta \hat{i} + \sin\theta\hat{j} \\
+\dot{\hat\theta} = -\dot\theta \hat r \\
+\dot{\hat r} = \dot\theta \hat\theta
+\end{cases}
+$$
+\section{Lagrangiano}
+$$
+Q_k(q_j, \dot q_j, t) = \sum F_a \frac{\partial r_a}{\partial q_k} \implies Q_k = \dt\left(\frac{\partial T}{\partial \dot q_k}\right) -\frac{\partial T}{\partial q_k}, \qquad \L = T-V \implies \dt\left(\frac{\partial \L}{\partial \dot q_k}\right) - \frac{\partial \L}{\partial q_k} = Q_k^{nc}
+$$
+\subsection{Potenciales generalizados}
+$$
+V \text{ potencial generalizado por } Q_k = \frac{d}{dt}\left( \frac{\partial V}{\partial \dot{q}_k} \right) - \frac{\partial V}{\partial q_k}
+$$
+\textbf{Campos electromagnéticos}\\
+$$
+\Bar{F}_{em} = e(\Bar{E}+ \Bar{v}\times \Bar{B}), \quad \begin{cases}
+\Bar{E} = -\frac{\partial \Bar{A}}{\partial t} - \nabla \phi \\
+\Bar{B} = \nabla \times \Bar{A}
+\end{cases} \implies V_{em}(\Bar{r}, \Bar{v}, t) = e(\phi - \Bar{v}\cdot \Bar{A})
+$$
+
+\subsection{Magnitudes conservadas}
+$$
+p_k = \frac{\partial \L}{\partial \dot{q_k}} \qquad \text{si } \L \text{ no depende de } q_k \implies p_x \text{ se conserva} 
+$$
+$$
+\L \text{ no depende de } L \implies \H = \sum p_k\dot{q_k} - \L \text{ se conserva. } \qquad \frac{d \H}{dt}  = -\frac{\partial \L}{\partial t}
+$$
+\subsection{Teorema de Noether 1}
+$$
+\begin{cases}
+Q_i = q_i + \epsilon \X_i(q, t) \\
+\Tilde{\L}(Q, \dot{Q}, t) = \L(Q, \dot{Q}, t) - \epsilon \frac{dG}{dt} \\
+G = \sum \X_i \frac{\partial \L}{\partial \dot{q}_i} + F
+\end{cases} \quad
+\text{ trasf. sim. } \iff \exists \ F(q, t) : G \text{ se conserva}
+$$
+\subsection{Teorema de Noether 1}
+$$
+\begin{cases}
+Q_i = q_i + \epsilon \X_i(q, t) \\
+T = t + \epsilon J(q, t) \\
+\Tilde{\L}(Q, \dot{Q}, t) = \L(Q, \dot{Q}, t) - \epsilon \frac{dG}{dt} \\
+G = \sum \X_i \frac{\partial \L}{\partial \dot{q}_i} + F - \H J
+\end{cases} \quad
+\text{ trasf. sim. } \iff \exists \ F(q, t) : G \text{ se conserva}
+$$
+ 
+ \section{Oscilaciones pequeñas}
+ $$
+  \L = T-V = \frac{2}{2}mv^2 - \frac{1}{2}kx^2 \implies x = A\cos(\omega t + \phi),\quad \omega = \sqrt{\frac{k}{m}}, \quad E = \frac{1}{2} m\omega^2 A^2
+ $$
+ \[
+ \L = \frac{1}{2} \dot{q}^T M \dot{q} - \frac{1}{2} q^T K q, \implies M \ddot{q} + Kq = 0, (K-\omega^2 M)a = 0, \begin{cases}
+   M = Adiag(m^*_i)A^T \\
+   K = Adiag(K^*_i)A^T 
+ \end{cases}
+ \] 
+\[
+\ddot{z_i} + \omega_i^2 \zeta_i = 0 \implies \zeta_i = A_i\cos(\omega_it + \phi_i), \qquad q = A\zeta = (a_1, \ldots, a_n)\begin{pmatrix} \zeta_1 \\ \vdots \\ \zeta_n \end{pmatrix} 
+\] 
+Amortiguamiento:
+\[
+m\ddot{x} = -kx -b \dot{x} \implies \ddot{x} + 2 \gamma \dot{x} + \omega_0^2x = 0, \quad \omega_0 = \sqrt{\frac{k}{m}}, \gamma = \frac{b}{2m} \implies x = Ae^{-\gamma t}\cos(\omega t+ \phi), \quad \omega = \sqrt{\omega_o^2 - \gamma^2} 
+\] 
+Forzados:
+ \[
+m \ddot{x} + kx = F_0\cos(\Omega t) \implies x =  A\cos(\omega_0 t + \delta)  + \frac{F_0 / m}{\omega_0^2 -\Omega^2}\cos(\Omega t)
+\] 
+Si hay resonancia ($\Omega = \omega_0$):
+\[
+x = \frac{F_0/m}{2\omega_0}t\cos(\omega_0t)
+\] 
+Forzados y amortiguados:
+ \[
+m \ddot{x} +b\dot{x}+ kx = F_0\cos(\Omega t) \implies x =  \frac{F_0/m}{\sqrt{(\omega_0^2-\Omega^2)^2 + 4\gamma^2\Omega^2}} \cos(\Omega t - \delta), \quad \tan \delta = \frac{2\gamma \Omega}{\omega_0^2 - \Omega^2}
+\] 
+La expresión general para un oscilador con fricción y forzado es:
+ \[
+M\ddot{q} + B\dot{q} + Kq = F_0\cos(\Omega t)
+\] 
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

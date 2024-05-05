@@ -1,0 +1,515 @@
+\documentclass{myclass}
+\usepackage{array}
+\usepackage{fancyvrb}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert }
+\newcommand{\cond}[1]{\text{cond(} #1 \text{)}}
+\renewcommand{\th}{\textbf{Th:} \ }
+\newcommand{\h}{\hspace{1em}}
+
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\O}{\Omega}
+\newcommand{\N}{\nabla}
+
+\title{Programación Matemática}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Programación lineal}
+\subsection{Planteamiento, definiciones y nomenclatura}
+Un problema de PL (Programación lineal) se puede formular en los siguientes términos:
+$$ PL \implies 
+\begin{cases}
+\min_{x\in \mathbb{R}^n} z = c'x & \textbf{función objetivo} \\
+Ax\leq b & \textbf{restricciones}  \\
+l\leq x\leq u & \textbf{cotas} 
+\end{cases}
+$$
+\textbf{Región factible}: $P$. Puntos que cumplen las restricciones. \\
+\textbf{Solución factible}: $x\in P$. \\
+\textbf{Conjunto solución}: $X^*$ factibles que minimizan la función objetivo. \\
+
+\subsection{Forma estándar}
+Se trata de replantear las restricciones del problema de PM de manera que:
+$$
+(PL)
+\begin{cases}
+    \min c'x \\
+    Ax\leq b \\
+    l\leq x\leq u
+\end{cases}
+\implies
+(PL)_e
+\begin{cases}
+    \min c'x \\
+    A_ex_e= b \\
+    x_e\geq 0
+\end{cases}
+$$
+\subsection{Tipos de soluciones}
+\textbf{SB (Solución básica)} \\
+Cumplen $x=\begin{pmatrix} X_B\\X_N \end{pmatrix}, Ax=b$, pero no tienen porque cumplir $x_i\geq 0$\\
+Se construyen a base de seleccionar $n-m$ variables como no básicas e igualarlas a 0, resolviendo el sistema restante (si la matriz reducida no es singular).\\
+\\
+\textbf{SBF (Solución básica factible)} \\
+SB con $x_i\geq 0$ \\
+\\
+\textbf{SBD (Solución básica degenerada)} \\
+SB con $x_i = 0$ para alguna variable $i$ básica \\
+
+\subsection{Teoremas}
+\textbf{Teorema 1} \textit{Existencia de puntos extremos}
+\begin{center}
+    El poliedro $P$ tiene algún punto extremo $\iff$ $P$ no contiene ninguna línea
+\end{center}
+\textbf{Teorema 2} \textit{Optimalidad de puntos extremos}
+\begin{center}
+    Si $P$ contiene algún punto extremo y existe una solución óptima a $(PL)$ $\implies$ existe una solución óptima que es un extremo de $P$
+\end{center}
+\textbf{Teorema 3} \textit{Equivalencia puntos extremos (SBF)}
+\begin{center}
+    $P$ en forma estándar $\implies$ \fbox{$x^*$ es extremo $\iff$ $x^*$ es SBF}
+\end{center}
+
+\section{Algoritmo del Símplex}
+El algoritmo consiste en ir saltando de SBF con la condición de que el coste se minimice. Si tenemos la SBF $x$ de base $B$, para buscar una adyacente $y$ seleccionamos una variable no básica $q$ y hacemos: \\
+En primer lugar miramos a que SBF saltar calculando los costes reducidos:
+$$
+\boxed{r' = c_N' - c_BB^{-1}A_N} \qquad \text{si } r\geq 0 \implies x \text{ es óptimo}
+$$
+Si no es óptimo sea $q$ el primer índice que da negativo:
+$$
+y = x + \theta^*d, \
+d = \begin{pmatrix}
+d_B \\
+d_N
+\end{pmatrix} \implies 
+\boxed{d_B = -B^{-1}A_q}, \ \boxed{d_N = \begin{pmatrix}
+0 \\
+. \\
+1 \\
+. \\
+0 
+\end{pmatrix} \leftarrow q}, \
+\boxed{\theta^* = \min \left\lbrace\frac{-x_{B(i)}}{d_{B(i)}}:d_{B(i)}<0  \right\rbrace}
+$$
+Para hacer los cálculos más eficientes podemos calcular $B^{-1}$ basándonos en la matriz básica anterior:
+$$
+ \Bar{B}^{-1} = HB^{-1} \implies
+H=\left[ e_1, \cdots, e_{(p-1)}, \eta, \cdots, e_m  \right], \ \boxed{\eta_i = \begin{cases}
+    -d_{B(i)}/d_B(p) &\text{ si } i\neq p \\
+    -1/d_B(p) &\text{ si } i = p
+\end{cases}}
+$$
+
+\subsection{Iteración del Simplex}
+\begin{enumerate}
+    \item Empezamos con base $B = (A_{B(1)}, \ldots, A_{B(m)})$ y la SBF $x$
+    \item Calculamos costes reducidos $r$ para todas las coordenadas no básicas.
+    \begin{itemize}
+        \item Si $r\geq 0 \implies x$ es Solución. Termina. 
+        \item Si no, elige el primer índice $q$ con $r_q<0$. 
+    \end{itemize}
+    \item Calcula $d = -B^{-1}A_q$
+    \begin{itemize}
+        \item Si $d\geq 0 \implies $ Problema ilimitado. Termina.
+        \item Si no, calcula $\theta$ y su índice $p$
+    \end{itemize}
+    \item Forma una nueva base reemplazando $A_{B(p)}$ por $A_q$. $y = x + \theta d$ y ve a \textbf{2}
+\end{enumerate}
+
+\subsection{Teoremas}
+Supondremos siempre $P_e$ no vacío y de rango completo, $x$ será SBF y $y=x+\theta^*d$ \\
+\\
+\textbf{Teorema 4} \textit{y SBF}
+\begin{itemize}
+    \item Si $d_B\ngeq0 \implies y$ es SBF
+    \item Si $d_B\geq 0 \implies $ no existe $\theta$ tal que $y$ sea SBF
+\end{itemize}
+\textbf{Teorema 5} \textit{Condiciones de optimalidad SBF}
+\begin{itemize}
+    \item Si $r\geq [0] \implies x$ es óptima
+    \item Si $x$ es SBF óptima y no degenerada $\implies r\geq 0$ 
+\end{itemize}
+
+\subsection{Fase I}
+Para encontrar la primera SBF hacemos símplex del siguiente problema de PL:
+$$
+x = \begin{pmatrix} x_{[n]} \\ x_{[m]} \end{pmatrix}, \quad
+c'_I = (0,\ldots,0|1, \ldots, 1)
+\implies 
+(PL)
+\begin{cases}
+    \min c'_Ix \\
+    \begin{pmatrix} A  |  I \end{pmatrix} x = b \\
+    x\geq 0
+\end{cases}
+$$
+Este problema tiene una SBF trivial en $x{[n]} = 0, x_{[m]} = b$, por lo que podemos partir de ahí para realizar el símplex. Al ser factilbe tiene una solución óptima.
+\begin{itemize}
+    \item Si $z^*>0 \implies$ $(PL)_e$ es infactible
+    \item Si $z^*=0 \implies$ $(PL)_e$ es factible
+    \begin{itemize}
+        \item Si $\mathcal{B}^*_I \subset \{1, \ldots , n\} \implies \mathcal{B}^*_I$ es SBF de $(PL)_e$
+        \item Si $\mathcal{B}^*_I \not\subset \{1, \ldots , n\} \implies \mathcal{B}^*_I$ es SBF degenerada de $(PL)_I$ a partir de la cual se puede obtener una SBF de $(PL)_e$
+    \end{itemize}
+\end{itemize}
+
+
+\section{Simplex Dual}
+Podemos asociar a cada problema de símplex primal su problema dual:
+$$
+(P)
+\begin{cases}
+    \min c'x \\
+    Ax \ ?\ b \\
+    x \ ! \ 0
+\end{cases}
+\implies
+(D)
+\begin{cases}
+    \max b'\lambda \\
+    A'\lambda \ !^T\ c \\
+    \lambda \ ? \ 0
+\end{cases}
+$$
+
+\subsection{Teoremas del Símplex Dual}
+\textbf{Teorema 8} \textit{Teorema débil de Dualidad} \\
+Sea $x$ SF del primal y $\lambda$ SF del Dual
+$$ b'\lambda \leq c'x$$
+\textbf{Teorema 10} \textit{Teorema fuerte de Dualidad}\\
+Sean $x^*, \lambda^*$ los óptimos del primal y dual, en caso de que existan:
+$$b'\lambda^* = c'x^*$$
+\textbf{Teorema 11} \textit{Teorema de Folga complementaria}\\
+Sea $x$ SF del primal y $\lambda$ SF del Dual, son óptimas si y solo si
+$$
+\begin{cases}
+\lambda_i(a_i'x - b_i) &= 0, \qquad \forall i \\
+(c_j-\lambda'A_j)x_j &= 0 \qquad \forall j
+\end{cases}
+$$
+
+\subsection{Implicaciones del Dual}
+\begin{itemize}
+    \item (P) óptimo $\implies$ (D) óptimo
+    \item (P) ilimitado $\implies$ (D) infactible
+    \item (P) infactible $\implies$ (D) $\begin{cases} \text{infactible} \\ \text{ilimitado} \end{cases}$
+\end{itemize}
+\subsection{Factibilidad Primal y Dual}
+Factibilidad Primal $\implies x_B=B^{-1}b \geq 0$ \\
+Factibilidad Dual $\implies r'_N = c'_N - c_B B^{-1} A_N = c'_N - \lambda' A_N \geq 0$ \\
+\\
+Si una solución es factible primal y dual, entonces es óptima. 
+
+\section{Programación Lineal Entera (PLE)}
+Un problema de Programación Lineal Entera (PLE) es un problema de Programación Lineal donde algunas variables solo pueden tomar valores enteros. \\
+\\
+Definimos la Relajación Lineal (RL) como el problema de PL asociado al PLE donde hacemos las variables enteras reales.\\
+\\
+Tenemos las siguientes implicaciones:
+\begin{itemize}
+  \item RL óptimo $\implies$ PLE $\begin{cases}
+   \text{óptimo} \\
+   \text{infactible}   
+  \end{cases}$
+\item RL infactible $\implies$ PLE infactible
+\item RL ilimitado $\implies$ PLE $\begin{cases}
+  \text{óptimo (no si } A \text{ tiene coeficientes racionales)} \\
+  \text{infactible} \\
+  \text{ilimitado}
+\end{cases}$
+\end{itemize}
+\subsection{Branch and Bound}
+Definimos $K_{PEi}$ como una partición disjunta de PE menores tal que la suma es $PE$. Trivialmente se cumple:
+\begin{itemize}
+  \item $x^*_{PE} = x^*_{PE} \iff i = argmin{c'x^*_{PEi}}$ 
+  \item $K_{PE} = \emptyset \implies K_{PEi} = \emptyset$
+  \item $z_{PE}^*\to -\infty \iff \exists i: \ z_{PEi}^*\to \infty$
+  \item Podemos anidar las separaciones creando problemas PE más pequeños.
+\end{itemize}
+
+\subsubsection{Algoritmo del Branch and bound}
+Sea un PE con $L =$ {PE}, $k=1, z^* = \infty, z_{PE1}^*=-\infty$ \\
+Mientras que $L\neq \emptyset$:
+\begin{itemize}
+  \item Seleccionamos un problema $PEj\in L$
+  \item Resolvemos  $RLj \implies x^*_{RLj}, z^*_{PEj}\leftarrow z^*_{RLj}$
+  \item Si ($PLj$ es ilimitado)  ó  ($K_{RLj} = \emptyset $)  ó  ($z^*_{PEj} \ge  z^*$)  ó  ($x^*_{RLj}\in K_{PEj}$) :
+	\begin{itemize}
+	  \item $L \leftarrow L-\{PEj\}$
+	  \item Si $x^*_{RLj}\in K_{PEj}$:
+		\begin{itemize}
+		  \item Si $z_{RLj}^* \le z^* \implies x^* \leftarrow x^*_{RLj}, z^* \leftarrow z^*_{RLj}$
+		  \item Si $z^*\le z^*_{PEi}$ para algún $PEi$  \textbf{cosas a completar}
+		\end{itemize}
+	\end{itemize}
+  \item Si no:
+	\begin{itemize}
+	  \item Separamos $PEj = PE(k+1)\cup PE(k+2)$
+	  \item 
+	\end{itemize}
+\end{itemize}
+
+
+\section{Optimización no lineal}
+\subsection{Formulación general}
+$$
+(PO)
+\begin{cases}
+    \min f(x) \\
+    \text{s.a. } h(x) = 0 \\
+    \ \ \ \ \ \ g(x) \leq 0
+\end{cases}, \qquad 
+h(x) = \begin{pmatrix}
+h_1(x) \\
+\vdots \\
+h_m(x)
+\end{pmatrix}, \quad 
+g(x) = \begin{pmatrix}
+g_1(x) \\
+\vdots \\
+g_p(x)
+\end{pmatrix}
+$$
+
+\subsection{Teoremas e implicaciones}
+\textbf{Teorema de Taylor} 
+$$
+f(x + \alpha d) = f(x) + \alpha \nabla f(x)^Td + \frac{1}{2} \alpha^2d^T\nabla^2f(x)d + O(\alpha^2)
+$$
+\textbf{Teorema de Weierstrass} \\
+Si $f: \Omega \to \mathbb{R} $ continua y $\Omega$ compacto $\implies$ tiene un mínimo \\
+\\
+\textbf{Conjuntos y funciones convexas} \\
+$\Omega$ es convexo $\iff \alpha x + (1-\alpha) y \in \Omega, \quad \alpha\in [0, 1] \quad \forall x, y \in \Omega $ \\
+$f$ es convexa en $\Omega$ $\iff f(\alpha x + (1-\alpha) y) \leq \alpha f(x) + (1-\alpha)f(y), \quad \alpha\in [0, 1] \quad \forall x, y \in \Omega $ \\
+\\
+\textbf{Condición necesaria y suficiente de convexidad con $\N f$}\\
+$f$ es convexa en $\Omega$ convexo si solo si
+$$
+f(y)\geq f(x) + \N f(x)^T(y-x) \quad \forall x, y \in \O
+$$
+\textbf{Condición necesaria y suficiente de convexidad con $\N^2 f$}\\
+$f$ es convexa en $\Omega$ convexo si solo si $\N^2f$ semidefinida positiva en $\Omega$ ($\N^2f \succ 0$) \\
+\\
+\textbf{Condición necesaria conjuntos convexos}\\
+Si $D$ convexo, $g_i: D\to \R$ convexa $\implies S_c = \{x:x\in D, g_i(x)\leq c_i\}$ es convexo. \\
+\\
+\textbf{Problemas de optimización convexos} \\
+Si $\Omega$ convexo y $f$ convexa $\implies$ el problema de optimización es convexo \\
+En un problema convexo un mínimo local es también global \\
+\\
+\textbf{Condición suficiente para ser mínimo} \\
+Si :
+\begin{itemize}
+    \item $\N f(x^*) = 0$
+    \item $\N^2 f(x^*) \succ 0$
+\end{itemize}
+entonces $x^*$ es un mínimo local de $f$ en un entorno abierto de $x^*$
+
+
+
+\subsection{Convergencia de el algoritmo}
+Para buscar la $\alpha$ se puede hacer una optimización en una variable restringiendo en la dirección de descenso. Si buscamos el global se dice que es exacta, si encontramos un local, inexacta.
+$$
+g(\alpha) = f(x^k + \alpha d), \qquad \alpha = \arg \min g(\alpha)
+$$
+
+\subsubsection{Tipos de convergencia}
+\begin{itemize}
+    \item Convergencia lineal (Método del Gradiente en funciones cuadráticas):
+        $$
+        \exists r\in (0, 1): \ \frac{\norm{x^{k+1} - x^*}}{\norm{x^k - x^*}}\leq r \quad \forall k>N
+        $$ 
+    \item Convergencia supralineal ():
+        $$
+        \lim_{k\to \infty} \frac{\norm{x^{k+1} - x^*}}{\norm{x^k - x^*}} = 0
+        $$ 
+    \item Convergencia cuadrática ():
+        $$
+        \exists M: \ \frac{\norm{x^{k+1} - x^*}}{\norm{x^k - x^*}^2}\leq M \quad \forall k>N
+        $$ 
+\end{itemize}
+
+\subsubsection{Condiciones de Armijo-Wolfe}
+\textbf{Condición 1}. Decrecimiento suficiente.
+$$
+g(\alpha) \leq f(0) + \alpha c_1g'(0) \iff f(x^k + \alpha d) \leq f(x^k) + \alpha c_1\N f(x^k)d
+$$
+El valor de $c_1 \in (0,1 )$ suele ser $10^{-4}$\\
+\\
+\textbf{Condición 2}. Condición de curvatura.
+$$
+g'(\alpha) \geq c_2g'(0) \iff \N f(x^k + \alpha d)^Td \geq c_2\N f(x^k)^Td
+$$
+El valor de $c_2 \in (c_1,1 )$ suele ser $0.9$
+
+\subsubsection{Teorema de Zoutendijk}
+podemos calcular el ángulo $\theta_k$ de la dirección de descenso con respecto a la dirección de máximo descenso como:
+$$
+\cos(\theta_k) = \frac{-\N f(x^k)^Td^k}{\norm{\N f(x^k)}\norm{d^k}}
+$$
+El teorema asegura que si en el proceso iterativo $x^{k+1} = x^k + \alpha^kd^k$:
+\begin{itemize}
+    \item $d^k$ es de descenso
+    \item Se cumple Armijo-Wolfe
+    \item $f$ fitada inferiormente
+    \item $f\in \mathcal{C}^1$ en un abierto $N$ que contiene el conjunto de nivel $L = \{x : f(x)<f(x^0)\}$
+    \item $\N f$ Lipschitz continuo en $N$ $\iff \norm{\N f(x) - \N f(y)} \leq L\norm{x-y}$
+\end{itemize}
+Entonces podemos asegurar $\displaystyle \sum_0^\infty \cos^2\theta_k\norm{\N f(x^k)}^2<\infty$
+
+
+\subsection{Tipos de métodos}
+Existen principalmente dos tipos de métodos de optimización:
+\begin{itemize}
+    \item \textit{Métodos de exploración lineal}. Primero calculamos $d$ y luego $\alpha $ obteniendo $x^{k+1} = x^{k} + \alpha d$
+    \item \textit{Métodos de región de garantía}. Primero fijamos $\Delta$ (radio de entorno) y luego calculamos $d$ en el entorno obteniendo $x^{k+1} = x^k + d$.
+\end{itemize}
+Utilizaremos el primero en esta asignatura
+
+\subsubsection{Método del gradiente}
+La dirección de descenso es la de máximo descenso $d = -\N f(x^k)$.\\
+\\
+Este algoritmo asegura la convergencia por la propiedad:
+$$
+\frac{f(x^{k+1}) - f(x^*)}{f(x^{k}) - f(x^*)} = \frac{\norm{x^{k+1}-x^*}^2_Q}{\norm{x^{k}-x^*}^2_Q} \leq r^2 , \qquad r \in \left( \frac{\lambda_n - \lambda_1}{\lambda_n + \lambda_1}, 1 \right), \quad \lambda_i \text{ VAPs de } \N^2 f(x^*)
+$$
+\textbf{Si la función es cuadrática} $f(x) = \frac{1}{2}$:
+\begin{itemize}
+\item $\N f(x) = Qx - b$
+\item $\displaystyle \alpha = \frac{\N f(x)^T \N f(x)}{\N f(x)^TQ\N f(x)}$
+\item $r = \displaystyle \frac{\lambda_n - \lambda_1}{\lambda_n + \lambda_1}$ 
+\end{itemize}
+
+
+
+\subsubsection{Método de Newton}
+Se obtiene a partir de la aproximación $f(x^k + d) = f(x^k) + \N f(x^k)^Td + \frac{1}{2}d^T\N^2f(x^k)d + R_2(\norm{d})$
+$$
+m_k(x) = f(x^k) + \N f(x^k)^Td + \frac{1}{2}d^T\N^2f(x^k)d
+$$
+Si calculamos el mínimo de esta función tenemos
+$$
+d = -(\N^2f(x^k))^{-1}\N f(x^k)
+$$
+Se demuestra que a medida que nos acercamos a $x^*$ se verifica $\alpha^k=1$ verifica Armijo-Wolfe. Ademas si consideramos:
+\begin{itemize}
+    \item $f\in \mathcal{C}^2$ y $\N^2 f$ Lipschitz continua en $N$ entorn de $x^*$
+    \item Se cumplen las conduciones suficientes de optimalidad $\N f(x^*)=0, \N^2 f(x^*)\succ 0$
+    \item $x^0$ suficientemente cercano a $x^*$
+\end{itemize}
+Entonces $\{x^k\}$ converge cuadráticamente a $x^*$ y $\{\norm{\N f(x^k)}\}$ converge cuadráticamente a $0$
+
+\subsection{Modificaciones del método de Newton}
+\begin{itemize}
+    \item \textbf{Descomposición espectral} \\
+    Si $\N^2f(x^k) = VDV^T$ (diagonaliza por el teorema espectral), hacemos:
+    $$
+    B_k = V(D + \Delta) V^T = \N^2f(x^k) + E_k
+    $$
+    \item \textbf{Adición de una matriz diagonal}\\
+    Buscamos un $\tau$ tal que:
+    $$
+    B_k = \N^2 f(x^k) + \tau I \succ 0
+    $$
+    \item \textbf{Factorización de Cholesky}
+    
+\end{itemize}
+
+\section{Optimización no lineal con restricciones}
+\subsection{Definiciones}
+En un punto $x$ la restricción $g_i(x)\leq 0$ puede ser:
+\begin{itemize}
+    \item \textbf{Activa} si $g_i(x)=0$
+    \item \textbf{Inactiva} si $g_i(x)<0$
+\end{itemize}
+Las restricciones $h_i(x), i=1, \ldots, m$ son siempre activas.\\
+Denotamos $\mathcal{A}(x) = \{j\in \{1, \ldots, m\} : g_j(x)=0\}\}$ al conjunto de índices cuya restricción $g_i(x)$ es activa en $x$.\\
+\\
+Denotamos $c_i(x)=0$ el conjunto de las restricciones activas en un punto dado. Esto es, el conjunto de las $h_i$ y el de las $g_i$ activas. \\
+\\
+Decimos que un punto $x^*$ es regular si los gradientes $\nabla c_i$ con linealmente independientes.\\
+\\
+Definimos el plano tangente $T = \{$derivadas de la curva diferencial que pasa por $x^*$\} \\
+\\
+Definimos el subespacio de direcciones $M = \{d:\nabla c(x^*)^Td = 0\}$\\
+\\
+Definimos el subespacio de direcciones $M' = \{d:\nabla h(x^*)^Td = 0, \quad \nabla g_j(x^*)^Td = 0 \quad \forall f\in \mathcal{A}(x^*)\cap \{j: \mu_j^* > 0\} \}$
+\subsection{Multiplicadores de Lagrange}
+Definimos la función Lagraniana:
+\[
+L(x, \lambda) = f(x) + \lambda^T + h(x) \mu^Tg(x)
+\] 
+Condiciones de optimalidad:
+\begin{itemize}
+  \item Necesaria de 1º orden: $\nabla_xL(x^*, \lambda^*) = 0 $
+  \item Suficiente de 2º orden: $d^T\nabla^2_{x x}L(x^*, \lambda^*)d>0$ para todo $d: \nabla h(x^*)^Td = 0$
+\end{itemize}
+
+\subsection{KKT}
+\textbf{Teorema previo.} $x^*$ es regular en la superficie de $S$ definida por $c(x)=0 \implies T=M$ \\
+\\
+Condiciones KKT:
+\begin{itemize}
+  \item \textbf{Necesarias:}
+	\begin{itemize}
+	  \item Primer orden: $\begin{cases} h(x^*) = 0, g(x^*) \le 0 \\ \nabla_xL(x^*, \lambda^*, \mu^*) = \nabla f(x^*) + \nabla h(x^*)\lambda^* + \nabla g(x^*)\mu^* = 0 \\ \mu^*\geq 0, \mu^{*T}g(x^*) = 0, \quad (g_i \text{ inactiva } \implies \mu^*_i = 0) \end{cases}$
+	  \item Segundo orden: $d^T\nabla^2_{x x} L(x^*, \lambda^*, \mu^*)d \geq 0 \quad \forall d \in M$ 
+	\end{itemize}
+  \item \textbf{Suficientes:}
+	\begin{itemize}
+	  \item Segundo orden: $d^T\nabla^2_{x x}L(x^*, \lambda^*, \mu^*) d > 0 \quad \forall d\in M'$ 
+	\end{itemize}
+\end{itemize}
+
+\subsection{Análisis de sensibilidad}
+Planteamos el problema de programación no lineal:
+\begin{align*}
+  \min f(x) & \\
+  \text{s.a.  } h(x) &= \varepsilon \quad (h_i(x) = \varepsilon_i) \\
+  g(x) &\le \delta \quad (g_j(x)\le  \delta_j)
+\end{align*}
+Si la solución para $\varepsilon = \delta = 0$ es  $x^*$ regular y  $\lambda^*, \mu^*$ satisfacen KKT, entonces $\forall (\varepsilon, \delta) \in \mathcal{E}_{(0, 0)}$ hay una solución $x^*\varepsilon, \delta)$ tal que:
+\begin{align*}
+  x^*(0, 0) &= x^* \\
+  \nabla _\epsilon f(x(\epsilon, \delta))|_{(0, 0)} &= -\lambda^* \\
+  \nabla _\delta f(x(\epsilon, \delta))|_{(0,0)} &= -\mu^*
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

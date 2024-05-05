@@ -1,0 +1,159 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Definiciones y Proposiciones GEOALG}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Factores}
+
+\begin{definition}[Resultant] We define the resultant of the polynomials $f(x) = a_0x^n + \cdots + a_n$ and $ g(x) = b_0x^m + \cdots + b_m$ as
+   \[
+	 \mathcal{R}_x(F, G) = \left| \begin{matrix} 
+	   a_0 & \cdots & a_n & 0 & \cdots \\
+	   0 & \ddots & \ddots & \ddots & 0\\
+	   \vdots & 0 & a_0 & \cdots & a_n \\
+	   b_0 & \cdots & b_m & 0 & \cdots \\
+	   0 & \ddots & \ddots & \ddots & 0\\
+	   \vdots & 0 & b_0 & \cdots & b_m \\
+	 \end{matrix}  \right|
+  \] 
+\end{definition}
+
+\begin{proposition} Let $F(x, y, z), G(x, y, z)$ such that $f(1, 0, 0) \neq 0\neq g(1, 0, 0)$ Then they have a nonconstant homogeneous common factor if and only if $\mathbb{R}_x(F, G) (y, z) =0$
+\end{proposition}
+
+\begin{proposition}Properties of the resultant:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathbb{R}(F, GH) = \mathbb{R}(F, G) \mathbb{R}(F, H)$
+  \end{itemize}
+\end{proposition}
+
+\section{Curvas planas en $\mathbb{P}_{\mathbb{C}}^2$}
+
+\com{Espacio proyectivo} $\mathbb{P}^2 = \mathbb{C}^2 \sqcup \mathbb{P}^1 $
+
+En toda la sección $f(x, y, z)$ será un polinomio homogéneo. Definimos la curva 
+\begin{definition}[Curva plana] $F=\{(x, y, z): f(x, y, z) \mathbb{P}^2 = 0\}$.
+\end{definition}
+
+\begin{proposition}
+Relación de Euler. Sea $f$ homogénea de grado $d$, tenemos
+ \[
+df = xf_x + y f_y + zf_z
+\] 
+\end{proposition}
+
+\begin{definition}[Singular points] We define the set of singular points as $Sing(F)$.
+  \[
+	p \in Sing(C) \iff f_x(p) = f_y (p)=f_z(p)=0
+  \] 
+\end{definition}
+
+\begin{observation} Every projective curve is compact and Hausdorff.
+\end{observation}
+
+\begin{proposition} Let $f = \sum_{i=0}^{d} a_ix^iy ^{d-i}$ of degree $d$. Then  $f = \prod _{i=1}^d  (\alpha_i x + \beta _i y)$
+\end{proposition}
+
+\begin{definition}[Multiplicity] The multiplicity of $F$ at the point  $p\in F$ is defined as
+  \[
+	m_p(F) = \min \{m = i+j+k : \frac{\partial^m f}{\partial x^i\partial y^j \partial z^k}(p)\neq 0\}
+  \] 
+\end{definition}
+
+\begin{definition}[Intersection multiplicity] Let $F, G$ two curves. Let $p = (a, b, c)$
+  \[
+  i_p(F, G)  = \begin{cases}
+	\infty & \text{ if } p \in \text{common component of } F, G\\
+	0 & \text{ if } p\neq F\cap G\\
+	\max  k : (bz-cy)^k | \mathbb{R}_{x}(F, G)(y, z) & \text{ otherwise}
+  \end{cases}
+  \] 
+  \com{terminar}
+\end{definition}
+
+\begin{proposition} Properties of $i_p$ 
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $i_p(FG, F) = i_p(F, H) + i_p(G, H)$
+  \end{enumerate}
+\end{proposition}
+
+\begin{theorem}[Bezout] $F, G$ curves of degree  $n, m$ respectively. Then
+   \[
+  \sum_{p\in F \cap G} i_p(F, G) = nm
+  \] 
+\end{theorem}
+
+\begin{proposition} $i_p(F, G)\ge m_p(F)m_p(G)$
+\end{proposition}
+
+
+
+
+
+
+\end{document}

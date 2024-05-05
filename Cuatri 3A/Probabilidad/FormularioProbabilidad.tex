@@ -1,0 +1,516 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array} \usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\begin{center}
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+\end{center}
+}
+
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Formulario Probabilidad}
+
+\begin{document}
+\maketitle
+
+\textbf{Tabla de distribuciones discretas}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$Modelo$ &  $p(X=k)$ &  $E[X]$ &  $Var[X]$ &  $G_X(z)$ \\
+\hline
+\makecell{\textbf{Bernoulli}\\ $\sim Be(p)$ }  & $\begin{cases}  p(X=1)=p \\  p(X=0) = 1-p \end{cases}$ & $p$ &  $p(1-p)$ &  $(1-p) + pz$ \\
+\hline
+\makecell{\textbf{Binomial}\\ $\sim Bin(N, p)$} & $\displaystyle\binom{N}{k}p^i(1-p)^{N-k}$ & $Np$ &  $Np(1-p)$ &  $((1-p)+pz)^N$ \\
+\hline
+\makecell{\textbf{Uniforme} \\ $\sim U(1, N)$} &  $\displaystyle\frac{1}{N}$ & $\displaystyle\frac{N+1}{2}$ & $\displaystyle\frac{N^2-1}{12}$ & $\displaystyle\frac{1}{N} \frac{z(z^N-1)}{z-1}$ \\
+\hline
+\makecell{\textbf{Poisson} \\ $\sim Po(\lambda)$} & $\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$ & $\displaystyle e^{\lambda(z-1)}$ \\
+\hline
+\makecell{\textbf{Geométrica} \\ $\sim Geom(p)$} & $\displaystyle p(1-p)^{k-1}$ &  $\displaystyle\frac{1}{p}$ &  $\displaystyle\frac{1-p}{p^2}$ &  $\displaystyle \frac{pz}{1-(1-p)z}$ \\
+\hline
+\makecell{\textbf{Binomial negativa} \\ $\sim BinN(r, p)$} & $\begin{cases} 0 & \text{ si } k<r \\ \binom{k-1}{r-1}p^r(1-p)^{k-r} & \text{ si } k\ge r \end{cases}$ & $\displaystyle\frac{r}{p}$ & $\displaystyle r \frac{1-p}{p^2}$ & $\displaystyle \left( \frac{pz}{1-(1-p)z} \right)^r $ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\textbf{Tabla de distribuciones continuas}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$Modelo$ &  $f_X(x)$ &  $E[X]$ &  $Var[X]$ &  $G_X(z)$ \\
+\hline
+\makecell{\textbf{Uniforme}\\ $\sim U(a,b)$ }  & $\displaystyle\frac{1}{b-a}\mathbb{I}_{[a,b]}$ & $\displaystyle \frac{b+a}{2}$ &  $\displaystyle \frac{(b-a)^2}{12}$ &  $1 $ en $\displaystyle t=0, \frac{e^{ibt}-e^{iat}}{it(b-a)}$ \\
+\hline
+\makecell{\textbf{Exponencial}\\ $\sim Exp(\lambda)$} & $\displaystyle\lambda e^{-\lambda x}, x\ge 0, \lambda>0$ & $\displaystyle \frac{1}{\lambda}$ & $\displaystyle \frac{1}{\lambda^2}$ & $\displaystyle \frac{\lambda}{\lambda-it}$ \\
+\hline
+\makecell{\textbf{Normal} \\ $\sim N(\mu, \sigma^2)$} & $\displaystyle \frac{1}{\sqrt{2\pi \sigma ^2}}e^{- \frac{(x-\mu)^2}{2\sigma^2}}$ & $\mu$ & $\sigma^2$ & $\displaystyle e^{i\mu t- \frac{\sigma ^2 t^2}{2}}$ \\
+\hline
+\makecell{ \textbf{Gamma} \\ $\sim Gamma(\lambda, \tau )$} & $\displaystyle \frac{\lambda^\tau }{\Gamma (\tau )}x^{\tau -1}e^{-\lambda x}, x>0, \lambda, \tau >0$ & $\displaystyle\frac{\tau}{\lambda}$ & $\displaystyle\frac{\tau}{\lambda^2}$ & $\displaystyle \left( 1-\frac{it}{\lambda} \right)^{-\tau } $\\
+\hline
+\makecell{\textbf{Beta}\\ $\sim Beta(\alpha , \beta )$} & $\displaystyle \frac{\Gamma (\alpha +\beta)}{\Gamma (\alpha ) \Gamma (\beta )} x^{\alpha -1}(1-x)^{\beta -1}, x\in [0, 1]$ & $\displaystyle \frac{\alpha}{\alpha +\beta }$ & $\displaystyle \frac{\alpha \beta }{(\alpha + \beta )^2(\alpha +\beta +1)}$ & Sin forma sencilla\\
+\hline
+\makecell{\textbf{Weibull}\\ $\sim Weibull(\alpha , \beta )$} & $\displaystyle \frac{\alpha}{\beta } \left(\frac{x}{\beta }\right)^{\alpha -1}e^{-(x /\beta )^\alpha }, x, \alpha , \beta >0$ & $\displaystyle\beta \Gamma \left(1+\frac{1}{\alpha }\right)$ & $\displaystyle \beta ^2\left[\Gamma (1+\frac{2}{\alpha })-\Gamma^2(1+\frac{1}{\alpha })\right]$ & $\displaystyle \sum_{k\ge 0} \frac{(it)^k\beta^k}{k!}\Gamma (1+\frac{k}{\alpha })$ \\
+\hline
+\makecell{\textbf{Cauchy} \\ $\sim Cauchy(\theta , \gamma)$} & $\displaystyle \frac{1}{\pi \gamma} \frac{1}{1+(\frac{x-\theta }{\gamma})^2}, \gamma >0$ & No definida & No definida & $\displaystyle e^{\theta it-\gamma |t|}$ \\
+\hline
+$\chi^2_p$ & $\displaystyle \frac{1}{\Gamma (p /2) 2^{p /2}}x^{\frac{p}{2}-1} e^{-\frac{x}{2}}, x>0, p\in\mathbb{N}$ & $p$ & $2p$ & $\displaystyle (1-2it)^{-\frac{p}{2}}$\\
+\hline
+\makecell{\textbf{Doble expon} \\ $\sim DobExp(\mu, \gamma )$} & $\displaystyle \frac{1}{2\gamma }e^{-\frac{|x-\mu|}{\gamma }}, \gamma >0$ & $\mu$ & $2\gamma ^2$ & $\displaystyle \frac{e^{\mu it}}{1+\gamma^2t^2}$\\
+\hline
+\makecell{\textbf{Lognormal} \\ $\sim LogN(\mu, \sigma ^2)$} & $\displaystyle \frac{1}{\sigma \sqrt{2\pi} }\frac{1}{x} e^{- \frac{(\ln x -\mu)^2}{2\sigma ^2}}, x, \sigma >0$ & $\displaystyle e^{\mu+ \frac{\sigma ^2}{2}}$ & $\displaystyle e^{2(\mu+\sigma ^2)} - e^{2\mu+ \sigma ^2}$ & Sin forma sencilla\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+\begin{multicols}{2}[\columnsep2em]
+\section{Espacio de probabilidad}
+\begin{lemma}[Desigualdades de Bonferroni]
+  \[
+  p \left( \bigcup A_i \right)  \begin{cases}
+    \le \sum p(A_i) \\
+    \ge \sum p(A_i) - \sum p(A_i\cap A_j)\\
+    \le \sum p(A_i) - \sum p(A_i\cap A_j) + \sum p(A_i\cap A_j\cap A_k)\\
+  \end{cases}
+  \] 
+\end{lemma}
+
+\begin{definition}[Probabilidad condicionada] La probabilidad de $A$ condicionada a  $B$ es
+   \[
+	   p(A|B) = \frac{p(A\cap B)}{p(B)} = \frac{p(B|A)p(A)}{p(B)}
+  \] 
+\end{definition}
+\begin{theorem}[Bayes] Sea $\{A_1, \ldots, A_n\}$ un conjunto de sucesos mutuamente excluyentes y exhaustivos. Entonces si $B$ es otro suceso:
+\[
+ p(A_i|B) = \frac{p(B|A_i)p(A_i)}{\sum p(B|A_k)p(A_k)}
+\] 
+\end{theorem}
+
+\textbf{Borel-Cantelli}
+
+\begin{definition}[Límites superior e inferior] Sea $\{A_n\}\in \mathcal{A}$ definimos los límites superior e inferior como
+  \[
+  \limsup A_n =  \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k \qquad \text{y} \qquad 
+  \liminf A_n =  \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k
+  \] 
+\end{definition}
+
+\begin{proposition}
+Sea $\{A_n\}$ sucesión.  $p(\lim A_n) = \lim p(A_n) = p(A)$ 
+\end{proposition}
+\begin{theorem}[Borel-Cantelli] Sea $\{A_n\}$ una sucesión de eventos
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\sum_{n\ge 1} p(A_n) < \infty \Rightarrow p(\limsup A_n) = 0 $ 
+  \item Si $\{A_n\}$ independent y $\sum_{n\ge 1}p(A_n)=\infty \Rightarrow p(\limsup A_n)=1$
+\end{enumerate}
+\end{theorem}
+
+\hrule
+
+\section{Variables aleatorias}
+
+\begin{definition}[Esperanza] Sea $X$ una variable aleatoria y  $P_x$ su probabilidad asociada $P_x$se define la esperanza como
+   \[
+E[X]= \int_\Omega Xdp = \int_{\mathbb{R}} xdP_x  
+  \] 
+\end{definition}
+
+\begin{definition}[Momento] El momento de orden $r$ de  $X$ es  $E[X^r]$
+\end{definition}
+
+\begin{definition}[Varianza] $Var[X] = E[(X-E[X])^2] = E[X^2]-E[X]^2 $ 
+\end{definition}
+
+\begin{definition}[Covarianza] $Cov[X, Y] = E[(X-E[X])(Y-E[Y]j] = E[XY]-E[X]E[Y] $ 
+\end{definition}
+
+\begin{definition}[Desviación típica] $\sigma (X) = \sqrt{Var[X]} $
+\end{definition}
+
+\columnbreak
+
+Algunas propiedades de la esperanza y la varianza
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $E[a]=a$
+  \item $E[aX+bY]=aE[X]+bE[Y]$
+  \item $E[I_A]=p(A)$
+  \item $|E[X]|\le E[|X|]$
+  \item $E[X^2] = \sum k^2 p(x=k)$
+  \item $Var[a]=0$
+  \item $Var[a+X] = Var[X]$
+  \item $Var[aX]=a^2Var[X]$
+  \item $E[E[Y|X]] = E[Y]$
+  \item $X, Y$ independientes  $\Rightarrow Var[X+Y] = Var[X]+Var[Y]$
+\end{itemize}
+
+\begin{proposition}
+Desigualdades
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Hölder} $E[|XY|] \le  E[|X|^p]^{\frac{1}{p}}E[|X|^q]^{\frac{1}{q}} \quad (\frac{1}{p}+\frac{1}{q} =1)$ 
+  \item \textbf{Minkowsky} $E[|X+Y|^p]^{\frac{1}{p}}\le E[|X|^p]^{\frac{1}{p}}+E[|Y|^p]^{\frac{1}{p}}$ 
+\end{itemize}
+\end{proposition}
+
+\begin{theorem}[Desigualdad de Markov]
+Sea $X>0$ una variable aleatoria y  $a\in \mathbb{R}^+$. Se cumple
+\[
+p(X\ge a)\le \frac{E[X]}{a}
+\] 
+\end{theorem}
+
+\begin{theorem}[Desigualdad de Chebyshev] Sea $X$ una variable aleatoria con  $E[X]<\infty, Var[X]<\infty, Var[X]\neq 0, k>0$
+  \[
+  p(|X-E[X]|\ge kVar[X]^{\frac{1}{2}})\le \frac{1}{k^2}
+  \] 
+\end{theorem}
+
+\hrule
+
+\section{VA Discretas}
+
+\begin{definition}[Función generadora] Asociamos a la variable aleatoria $X$ la función generadora
+   \[
+  G_X(z) = \sum_{n\ge 0} p(X=n)z^n = E[z^X]
+  \] 
+\end{definition}
+
+Las funciones generadoras satisfacen las siguientes propiedades
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $G_X(0) = p(X=0), \qquad G_X(1) = 1$
+  \item $E[X(X-1)\cdots (X-k+1)] =G^{(k)}(1)$ 
+  \item $Var(X) = G''(1)+G'(1)-G'(1)^2$ 
+  \item $X, Y$ independientes  $\Rightarrow G_{X+Y} = G_XG_Y$
+\end{itemize}
+
+Árboles de Galton Watson
+\[
+G_{Z_n}=G_x \circ \cdots \circ \cdots G_X, \quad \mu = E[X], \quad \eta = P(ext)
+\] 
+ \begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $E[Z_n] = E[X]^n$
+  \item  $Var[Z_n] = \begin{cases}
+	  nVar[X]  & \text{ si } E[X] = 1\\
+	  Var[X]E[X]^{n-1} \frac{E[X]^n-1}{E[X]-1} & \text{ otherwise}
+  \end{cases}$
+  \item $\eta = G(\eta)$ 
+\end{itemize}
+
+
+\end{multicols}
+
+\newpage
+
+\begin{multicols}{2}[\columnsep2em]
+\section{VA Continuas}
+\begin{definition}[Absolutamente continua] $\mu_1$ abs cont respecto $\mu_2$ $(\mu_1\ll \mu_2)$ si
+\[
+\ \forall A \in \mathcal{A}, \quad \mu_2(A) = 0 \Rightarrow \mu_1(A)=0
+\] 
+\end{definition}
+
+\begin{theorem}[Radon-Nikodyn]
+\begin{align*}
+\ \forall A \in \mathcal{A}, \quad \mu_1(A) = \int_A d\mu_1 \\
+\ \forall A \in \mathcal{B}, \quad P_X(A) = \int_A f_Xd\lambda
+\end{align*}
+\end{theorem}
+
+\begin{proposition} En vectores de v.a.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $(X, Y)$ abs. cont.  $\Rightarrow X, Y$ abs. cont.
+  \item $X, Y$ abs. cont.  $\nRightarrow (X, Y)$ abs.cont.
+\end{itemize} 
+\end{proposition}
+
+\begin{proposition}
+Si $X, Y$ son independientes $\Rightarrow f_{(X, Y)}(u, v) = f_X(u)f_{y}(v)$  
+\end{proposition}
+
+\begin{definition}[Esperanza y varianza]
+  \begin{align*}
+  &E[(X, Y)] = (E[X], E[Y]) \\
+  &Var[(X,Y)] = \begin{pmatrix} Var[X] & Cov(X, Y) \\ Cov(X, Y) & Var[Y] \end{pmatrix}
+  \end{align*}
+\end{definition}
+
+\begin{proposition}
+$X, Y$ indep $\Rightarrow Var[(X, Y)]$ diagonal 
+\end{proposition}
+
+\begin{definition}[Probabilidad condicionada] $Y$ condicionada a $X = x$ 
+  \begin{align*}
+F_{Y|X}(y, x) = \frac{1}{f_X(x)} \int_{-\infty}^y f_{(X,Y)}(x,v)dv\\
+E[Y|X=x] = \int_{-\infty}^{\infty} yf_{Y|X}(y, x)dy = \psi (x)
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Marginal]
+Si la fdp de $(X, Y)$ es  $f_{(X, Y)}$ las fdp marginales son $f_X, f_Y$
+\end{definition}
+
+\begin{definition}[Distribución normal]
+\[
+N(\mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma ^2} } e^{\frac{(x-\mu)^2}{2\sigma ^2}}
+\] 
+\end{definition}
+
+\begin{theorem}[Moivre-Laplace]
+\[
+p\left( a\le \frac{X_n-np}{\sqrt{np(1-p)} } \le b \right) \xrightarrow{n\to \infty } \frac{1}{\sqrt{2\pi} }\int_a^b e^{\frac{-x^2}{2}}dx
+\] 
+\end{theorem}
+
+\begin{proposition} Si $X \sim N(\mu_1, \sigma_1^2), Y \sim N(\mu_2, \sigma_2^2)$ independientes $\Rightarrow X+Y \sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$
+\end{proposition}
+
+\begin{definition}[Distribución $\chi^2$] Sea $X_i \sim  N(0, 1)$ tenemos
+\[
+\chi^2_n \sim  X_1^2 + \cdots + X_n^2 \sim \Gamma \left(\lambda=\frac{1}{2}, \tau = \frac{n}{2}\right)
+\] 
+\end{definition}
+
+\begin{definition}[Distribución de Fisher-Snedecor]
+  \[
+ F \sim \frac{\chi_{d_1}^2 / d_1}{\chi_{d_2}^2 / d_2}
+  \] 
+\end{definition}
+
+\begin{definition}[Distribución de Student]
+\[
+t \sim \frac{N(0,1)}{\sqrt{\chi_k^2 / k }}
+\] 
+\end{definition}
+
+\begin{definition}[Normal multivariante]
+\[
+f_{\overline{X}} = \frac{1}{\sqrt{(2\pi)^n |\Sigma|} } e^{-\frac{1}{2}(\overline{x}-\overline{\mu})^T\Sigma^{-1} (\overline{x}-\overline{\mu})}
+\] 
+\end{definition}
+
+\begin{theorem}[Descomposición normal]
+Si $\overline{X}$ normal multivariante $\Rightarrow \ \exists A$ no singular, $b$ tal que $\overline{X = A\overline{U}+\overline{b}}$ con $U\sim N(0,1)$
+\end{theorem}
+
+\begin{proposition}
+$E[\overline{X}] = \overline{\mu}, \quad \Sigma_{ij}=Cov[X_i, X_j]$ 
+\end{proposition}
+
+\begin{theorem}[]
+$\overline{X} \sim N(\overline{\mu}, \Sigma)$ y $M$ matriz $m\times n$ con rango $m$. Sea  $\overline{Y}=M \overline{X}$. Entonces
+\[
+\overline{Y}\sim  N(M \overline{\mu}, M \Sigma M^T)
+\] 
+\end{theorem}
+
+\begin{definition}[Esperanza muestral] $\displaystyle \hat{X} = \frac{X_1+\cdots+X_n}{n}$
+\end{definition}
+
+\begin{definition}[Varianza muestral] $\displaystyle S^2 = \frac{1}{n-1}\sum (X_i- \hat{X})^2 $
+\end{definition}
+
+\begin{proposition}
+$E[\hat{X}]=\mu, Var[\hat{X}]= \frac{\sigma ^2}{n}, E[S^2]=\sigma^2$ 
+\end{proposition}
+
+\begin{theorem}[Fisher]Sean $X_i\sim N(\mu, \sigma ^2)$ indep. Entonces $\hat{X}, S^2$ indep. y
+ \[
+ \hat{X} \sim N\left( \mu, \frac{\sigma^2}{n}\right), \qquad S^2 = \frac{n-1}{\sigma ^2}\xi^2_{n-1}
+ \] 
+\end{theorem}
+
+ \begin{proposition}
+Sea $\overline{X}$ absolutamente continua con $f_{\overline{X}}(x_1,\ldots,x_n)$. Sea $g:\mathbb{R}^n\to \mathbb{R}^n \in \mathcal{C}^1$ biyectiva. Si  $g(\overline{X})=\overline{Y}$ encontramos $f_{\overline{Y}}$ de la siguiente forma:
+
+Sea $h:=g^{-1}$:
+\[
+f_{\overline{Y}}(y_1, \ldots, y_n) = f_{\overline{X}}(h(y_1,\ldots,y_n))|J_h(y_1,\ldots,y_n)|
+\] 
+\end{proposition}
+\hrule
+\section{Funciones características}
+\begin{definition}[Función generadora de momentos]
+\[
+M_X(s) = E[e^{sX}] = \sum \frac{E[X^i]}{i!}s^i
+\] 
+La serie de potencias puede tener radio de convergencia $0$
+\end{definition}
+
+Propiedades
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $Y = aX +b \Rightarrow M_Y(s) = e^{bs}M_X(as)$
+  \item $\frac{d^k}{d s^k}M_X(s)|_{s=0} = E[X^k] $
+  \item $X, Y$ indep  $\Rightarrow M_{X+Y}(s) = M_X(s)M_Y(s)$
+\end{enumerate}
+
+\begin{theorem}[Chernoff] $X=\sum X_i, \quad X_i \sim Be(p_i)$
+\begin{align*}
+  & p(X\ge (1+\delta)\mu) \le e^{- \frac{\delta^2}{2 + \delta}\mu}, \quad \delta\ge 0\\
+  & p(X\le (1-\delta)\mu) \le e^{- \frac{\delta^2}{2 }\mu}, \quad \delta\in (0, 1)
+\end{align*}
+Deducimos $p(|X-\mu|\ge \delta\mu) \le 2e^{- \frac{\delta^2}{3}\mu}$
+\end{theorem}
+
+\begin{definition}[Función característica]
+\[
+\phi _X(t) = E[e^itX] = \int_{R} e^{itx}f_X(x)dx
+\] 
+\end{definition}
+
+\begin{theorem}[Inversión]
+ \[
+P_X((a,b))+\frac{P_X(a) + P_X(b)}{2} = \lim_{T\to \infty } \frac{1}{2\pi} \int^T_{-T} \frac{e^{-ita}-e^{-itb}}{it} \phi_X(t)dt
+\] 
+\end{theorem}
+
+Propiedades de $\phi_X$
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\varphi_X(0) = 1, \quad |\phi_X(t)|\le 1$ 
+  \item $\phi _X(t)$ unif cont
+  \item $\ \forall t_i\in \mathbb{R}\ \forall z_i\in \mathbb{C}, \sum \phi_X(t_j-t_k)z_j \overline{z}_k \ge 0$
+\end{enumerate}
+
+\begin{definition}[Familias exponenciales] parámetros $\overline{\theta }=(\theta _1, \ldots, \theta _n)$
+\[
+p(X, \overline{\theta }) = p(X|\theta ) = g(x)e^{\sum \theta_it_i(x) - c(\overline{\theta }))}
+\] 
+\end{definition}
+
+\begin{definition}[Familia exponencial natural] $\ \exists k: t_k = x$ 
+\[
+\phi _X(t) = e^{c(\theta_1+it, \ldots, \theta _n)-c(\overline{\theta })}
+\] 
+\end{definition}
+\hrule
+\section{Convergencia}
+
+\begin{definition}[Tipos de convergencia].
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Casi-segura 
+	\[
+	X_n \xrightarrow{qs} X \iff p(\{\omega \in \Omega : X_n(\omega ) \xrightarrow{n} X(\omega )\}) = 1
+	\] 
+  \item En media de orden $r$
+	\[
+	X_n \xrightarrow{r} X \iff E[|X_n-X|^r] \xrightarrow{n} 0
+	\] 
+  \item En probabilidad
+	\[
+   X_n \xrightarrow{p} X \iff p(|X_n-X| >\varepsilon) \xrightarrow{n} 0
+	\] 
+  \item En distribución 
+	\[
+	X_n\xrightarrow{d} X \iff F_{X_n}(x) \xrightarrow{n} F_{X}(x) \ \forall x\in \mathbb{R}: F_X  \text{ continua}
+	\] 
+\end{itemize}
+\end{definition}
+Si $r\ge s\ge 1$ tenemos
+\incfig{implicaciones}
+
+Propiedades conv $X_n \xrightarrow{qs} X, Y_n \xrightarrow{qs} Y$
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $p(X=Y) = 1$ 
+  \item $X_n + Y_n \xrightarrow{qs} X+Y$
+  \item $X_nY_n \xrightarrow{qs} XY$
+  \item $\ \forall c \in \mathbb{R}, cX_n \xrightarrow{qs} cX$
+  \item $\ \forall g$ función continua, $g(X_n) \xrightarrow{qs} g(X)$
+\end{itemize}
+
+\begin{theorem}[Ley fuerte de los grandes números]
+Sean $\{X_i\}$ independientes tal que  $X_i \sim  X$ con $E[|X|]<\infty$.
+\[
+E[X] = \mu, \quad S_n = \sum_{i=1}^n X_i \quad \Rightarrow
+\begin{cases}
+\frac{S_n}{n} \xrightarrow{qs} \mu \\ \quad E\left[ \left( \frac{S_n}{n} - \mu \right)^2  \right] = \frac{\sigma^2}{n}
+\end{cases}
+\] 
+\end{theorem}
+
+\begin{proposition}
+$X_n \xrightarrow{d} X, Y_n \xrightarrow{d} \alpha \in \mathbb{R} $ entonces
+\[
+X_n+Y_n \xrightarrow{d} X+ \alpha 
+\] 
+\end{proposition}
+
+\begin{theorem}[Representación de Skorokhod] Sea $\{X_n\}$ con  $X_n \xrightarrow{d}  X$. Entonces existe un nuevo espacio de probabilidad $(\Omega ', \mathcal{A}', p')$ donde definimos $\{Y_n\}$ tal que 
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $F_{X_n}(x) = F_{Y_n}(x)$ i $F_{X}(x) = F_{Y}(x) \ \mu-$gairrebé arreu
+	\item $Y_n \xrightarrow{q-s} T$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proposition} $g$ continua 
+$g(X_n) \xrightarrow{d} g(X)$ 
+\end{proposition}
+
+\begin{theorem}[Lévy] $\{X_n\}$ con las características $\{\phi_n(t)\}$
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Si $X_n\xrightarrow{d} X \Rightarrow \phi_n(t) \xrightarrow{n} \varphi(t)$ puntualmente
+	\item Si $\phi_n(t) \xrightarrow{n} \phi (t)$ puntualmente y $\phi(t) $ es continua en $t=0 \Rightarrow \ \exists X : X_n\xrightarrow{d} X$
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}[Límite central]
+$X_i$ identicamente distribuidas, $E[X_i]=\mu, Var[X_i] = \sigma ^2$
+\[
+S_n = \sum X_i \quad \Rightarrow \quad \frac{S_n-n\mu}{\sqrt{n\sigma ^2} } \xrightarrow{d} N(0,1)
+\] 
+\end{theorem}
+
+
+
+
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,420 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+
+\begin{document}
+
+\begin{multicols}{2}[\columnsep2em]
+
+\textbf{Sistemas lineales homogéneos} $\dot{x}=A(t)x$ 
+\[
+x = e^{At}c = Pe^{Dt}P^{-1}c = M(t)c = M(t)M(t_0)^{-1}x(t_0)
+\] 
+
+\textbf{Sistemas lineales no homogéneos} $\dot{x}=A(t)x + b(t)$ 
+\[
+x = x_h + x_p, \qquad x_p = M\int_{t_0}^t M(s)^{-1}b(s)ds
+\] 
+
+VAP real $\lambda_i \Rightarrow x = e^{\lambda_i t}v_i$
+
+VAP complejo $\lambda = \alpha \pm \beta, \ v = u\pm wi$
+\[
+\begin{cases}
+  x_1 = e^{\alpha t}(u\cos(\beta t)-w\sin(\beta t))\\
+  x_2 = e^{\alpha t}(u\sin(\beta t)+w\cos(\beta t))
+\end{cases}
+\] 
+
+Matriz exponencial del bloque de Jordan
+\[
+  e^{tJ} = \begin{pmatrix} 1 & t & \cdots & \frac{1}{(k-1)!}t^{k-1} \\ & 1 & \cdots & \frac{1}{(k-2)!}t^{k-2} \\ & & \ddots & \vdots \\ & & & 1  \end{pmatrix}  e^{t\lambda}
+\] 
+
+Cálculo en caso de Jordan
+\begin{align*}
+  &u \in Ker(A-\lambda I)^2 \Rightarrow (A-\lambda I)u = v\\
+  &v \in Ker(A-\lambda I) \Rightarrow Av = \lambda v\\
+  &x_1 = ue^{\lambda t} + vte^{\lambda t}, \quad x_2 = ve^{\lambda t}
+\end{align*}
+
+\begin{definition}[Estabilidad] Sea $\dot{x}=A(t)x+b(t)$ con $\gamma(t), \tilde{\gamma}$ decimos que el sistema es:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Estable.} $\ \forall t_0, \varepsilon >0 \ \exists \varepsilon : \|\gamma(t_0)-\tilde{\gamma}(t_0)\|<\delta \Rightarrow \|\gamma(t)-\tilde{\gamma}(t)\|<\varepsilon \ \forall t\ge t_0$
+ \item \textbf{Asintóticamente estable.} Estable y $\ \forall t_0 \ \exists \varepsilon >0: \|\gamma(t_0)-\tilde{\gamma}(t_0)\|<\varepsilon$ para algún $t_0 \Rightarrow \lim \|\gamma(t)-\tilde{\gamma}(t)\| =0$
+   \item \textbf{Inestable.} Si no es estable
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[Estabilidad según espectro] Sea el sistema $\dot{x}=Ax$ estudiamos la estabilidad de la solución $x=0$
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt] 
+    \item Si $Spec(A)\subseteq \{\Re(z)<0\} \Rightarrow $ Asintóticamente estable
+    \item Si $\ \exists \lambda\in Spec(A): \Re(\lambda)>0 \Rightarrow $ Inestable
+	\item Si $Spec(a)\subseteq \{\Re (z)\le 0\}$ y $Spec(A)\cap \{\Re(z)=0\}\neq \emptyset$ y las cajas de Jordan de $A$ con VAPs $\Re(\lambda)=0$ tienen tamaño $1 \Rightarrow $ Estable pero no Asintóticamente estable
+	\item El resto de casos $\Rightarrow$ Inestable
+  \end{enumerate}
+\end{theorem}
+\hrule
+Ecuaciones diferenciales de orden $n$
+ \[
+a_n(t)x^{(n)} + \cdots + a_1(t)x'(t) + a_0x(t) = f(x)
+\] 
+
+Wronskiano. Sean $y_1, \ldots , y_n$ soluciones de EDO
+\begin{align*}
+  & W(t) = \det \begin{pmatrix} y_1 & \cdots & y_n \\ \vdots & & \vdots \\ y^{(n-1)}_1 & \cdots & y^{(n-1)}_n  \end{pmatrix}  \\
+  & W'(t) = - \frac{a_{n-1}(t)}{a_{n}(t)}W(t)
+\end{align*}
+
+Si $x_1$ es solución de la homogénea, otra solución es
+ \[
+x_2(t) =  x_1(t) \int \frac{e^{-\int a_1(t)dt}}{x_1(t)^2}dt
+\] 
+
+Fórmula de Liouville $\dot{\Phi}(t) = A(t)\Phi(t)$, $\Phi$ matriz
+\[
+\det (\Phi(t)) = \det(\Phi(t_0))e^{\int _{t_0}^t tr(A(s))ds}
+\]
+
+Variación de constantes $x_p = \sum u_jx_j, \ x_j$ cada homogénea
+\begin{align*}
+  u_j = \int_{t_0}^t \frac{W_j(s)}{W(s)}ds, \quad W_j: \text{ columna } j \leftrightarrow \begin{pmatrix} 0 \\ \vdots \\ f(x) \end{pmatrix}  
+\end{align*}
+
+\hrule
+
+\textbf{Sistemas periódicos}
+
+$A(t)$ T-peródica, $\Phi (t)$ matriz fundamental
+\begin{align*}
+  & \Phi (t + T) \text{ también fundamental} \\
+  & M = \Phi (0)^{-1}\Phi (T) \text{ matriz monodromía}\\
+  & \Phi (t+T)=\Phi (t)M
+\end{align*}
+
+\begin{theorem}[Estabilidad de sistema $T-peródico$] Sea $M$ la matriz de monodromía de  $\dot{x} = A(t)x$. Entonces
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Si $Spec(M)\subseteq D \Rightarrow $ asintóticamente estable
+	\item Si  $Spec(M)\subseteq S$ y $M$ diagonaliza  $\Rightarrow$ estables, pero no asintóticamente estables
+	\item Si $Spec(M)\not\subseteq \overline{D} $ o no diagonaliza $\Rightarrow$ inestables
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Floquet]
+Sea $A$  $T-$periódica y  $M$ la matriz de monodromía de  $\dot{x}=Ax$. Sea $B : e^{TB}=M$. Entonces existe $P(t)$  $T-$periódica tal que  $P(t)e^{tB}$ es matriz fundamental del sistema
+\[
+x = P(t)y \text{ transforma } \dot{x}=Ax \text{ en } \dot{y} = By
+\] 
+\end{theorem}
+
+VAPs de la matriz de monodromía
+\[
+\Pi \lambda_i = e^{\int_0^T tr(A(t))dt}
+\] 
+
+\textbf{Retratos de fase} $\displaystyle \begin{pmatrix} \dot{x}\\\dot{y} \end{pmatrix} = A \begin{pmatrix} x\\y \end{pmatrix}  $
+
+Si $\lambda_1, \lambda_2 \neq 0$
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\lambda_1, \lambda_2 \in \mathbb{R}$
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	  \item Si $\lambda_1, \lambda_2>0 \Rightarrow $ Nodo repulsor
+	  \item Si $\lambda_1, \lambda_2<0 \Rightarrow $ Nodo atractor
+	  \item $\lambda_1<0<\lambda_2 \Rightarrow $ Sella
+	\end{itemize}
+  \item $\lambda = a\pm bi$
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	  \item Si $a>0 \Rightarrow$ Foco repulsor 
+	  \item Si $a<0 \Rightarrow$ Foco atractor
+	  \item Si $a=0 \Rightarrow$ Foco
+	\end{itemize}
+\end{enumerate}
+
+Si $\lambda_1 = 0, \lambda_2 \neq 0 \Rightarrow$ Recta horizontal
+	
+Si $\lambda_1, \lambda_2 = 0\Rightarrow $ Recta 
+
+\section{Teoremas fundamentales}
+En toda la sección problema de Cauchy
+\[
+\begin{cases}
+  \dot{x}=f(t, x)\\
+  x(t_0) = x_0
+\end{cases} \Rightarrow
+x(t) = \mathcal{F}(x)(t)= x_0 + \int_{t_0}^t f(s, x(s))ds
+\] 
+
+\begin{theorem}[Arzela-Ascoli] Son equivalentes:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item La familia $\mathcal{F}$ es puntualmente acotada y equicontinua en $K$
+  \item De cada sucesión de elementos de $\mathcal{F}$ se puede extraer una parcial uniformemente convergente
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Picard] Dados 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $t_0\in \mathbb{R}, x_0 \in \mathbb{R}^n, a, b>0$
+  \item $V_{a, b}=[t_0-a, t_0+a]\times \overline{B}_b(x_0)$ compacto
+  \item $f:V_{a, b} \to  \mathbb{R}^n$ continua y $x-$Lipschitz
+  \item $M\ge \|f\|=\max_{(t,x)\in V}\|f(t,x)\|$.
+\end{itemize}
+El pvi tiene solución única $\varphi : [t_0-\alpha , t_0+\alpha ] \to  \mathbb{R}^n$ con $\alpha = \min\{a, \frac{b}{M}\}$
+\end{theorem}
+
+\begin{proposition}
+Sean  $I = [a,b]$ compacto, $f: I\times \mathbb{R}^n \to \mathbb{R}^n$ continua y $x-$Lipschitz. Entonces para cualquier $x_0, t_0$ el pvi tiene una única solución.
+\end{proposition}
+
+\begin{proposition}
+Sea $f:(a,b)\times \mathbb{R}^n\to \mathbb{R}^n$ continua, $x-$Lipschitz. Entonces para cualquier  $t_0\in (a,b), x_0\in \mathbb{R}^n$ el pvi
+\[
+  \begin{cases}
+\dot{x}=f(t,x)\\
+x(t_0)=x_0
+  \end{cases}
+\] 
+tiene una única solución $\varphi :(a,b)\to \mathbb{R}^n$
+\end{proposition}
+
+\begin{theorem}[Peano] Dados 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $t_0\in \mathbb{R}, x_0 \in \mathbb{R}^n, a, b>0$
+  \item $V_{a, b}=[t_0-a, t_0+a]\times \overline{B}_b(x_0)$ compacto
+  \item $f:V_{a, b} \to  \mathbb{R}^n$ continua
+  \item $M\ge \|f\|=\max_{(t,x)\in V}\|f(t,x)\|$.
+\end{itemize}
+El pvi tiene al menos una solución $\varphi : [t_0-\alpha , t_0+\alpha ] \to  \mathbb{R}^n$ con $\alpha = \min\{a, \frac{b}{M}\}$
+\end{theorem}
+
+\begin{definition}[Solución maximal] La solución $\varphi $ es maximal en $I$ si para cualquier otra solución $\tilde{\varphi }$ definida en $\tilde{I}$ tal que $I\subseteq \tilde{I}$, $\varphi = \tilde{\varphi }|_{I}$ 
+\end{definition}
+
+\begin{theorem} Sean $U\subseteq \mathbb{R}\times \mathbb{R}^n$ abierto, $f:U\to \mathbb{R}^n$ continua. Si $\varphi $ es maximal única de $\dot{x}=f(t,x)$ en el intervalo maximal $(\omega _-, \omega _+)$, entonces 
+  \[
+	(t,\varphi (t)) \xrightarrow[t \to \omega _{\pm}] \partial U
+  \] 
+  $\ \forall K\subseteq U$ compacto existen entornos $V_{\pm}$ de $\omega _{\pm}$ tal que $\varphi (t)\not\in K$ si $t\in V_{\pm}\cap (\omega _-,\omega _{+})$
+\end{theorem}
+
+\begin{definition}[Flujo de la EDO] Sea $\tilde{U} = \{(t, t_0, x_0, \lambda)\in \mathbb{R}^{1+1+n+p}: (t_0,x_0, \lambda)\in U, t\in (\omega_- (t_0, x_0, \lambda), \omega _+(t_0, x_0, \lambda)\}$
+La aplicación $\varphi :\tilde{U}\to \mathbb{R}^n$ es el flujo
+\end{definition}
+
+\begin{theorem}[]
+Sea $U \subseteq \mathbb{R}^{1+1+n+p}$ abierto y $f: U\to \mathbb{R}^n$ continua. Si el pvi tiene solución maximal $\varphi (t, t_0, x_0, \lambda)$ en el intervalo $I = (\omega _i(t_0,x_0,\lambda), \omega _+(t_0,x_0,\lambda))$ entonces $\tilde{U}$ es abierto y $\varphi :\tilde{U} \to  \mathbb{R}^n$ es continua.
+\end{theorem}
+
+\begin{theorem}[Lema de Gröwnwall]
+Sean $u, v: [a,b]\to [0, \infty)$ continuas. Suponemos que existe $\alpha $ tal que
+\[
+u(t) \le \alpha + \int_{a}^t v(s)u(s)ds \quad \Rightarrow \quad u(t) \le \alpha e^{\int_a^tv(s)ds}
+\] 
+\end{theorem}
+
+\begin{proposition} Sea $U$ abierto, $f$ continua y $L-$Lipschitz en  $x$. Entonces
+  \[
+  \|\varphi (t, t_0, x_0)-\varphi (t, t_0, \tilde{x}_0)\| \le e^{L|t-t_0|}\|x_0-\tilde{x}_0\|
+  \] 
+\end{proposition}
+
+\begin{theorem}[] $M(t) = (\frac{d \varphi }{d x} )|_{(t,s,x,\lambda)}$ es la única solución del pvi
+\[
+  \begin{cases}
+\frac{d }{d t} M(t) = \frac{\partial f}{\partial x}(t, \varphi (t,s,x,\lambda), \lambda) M(t)\\
+M(s)=Id
+  \end{cases}
+\] 
+\end{theorem}
+
+
+\section{Teoría cualitativa}
+\begin{definition}[Punto singular]
+$p$ es un punto singular de $\dot{x}=f(x)$ si $f(p) = 0$
+\end{definition}
+
+\begin{proposition}
+$\phi(t) = p$ es solución de $\dot{x}=f(x) \iff p$ punto singular de $f$. Además $\mathcal{O}(p)=\{p\}$
+\end{proposition}
+
+\begin{definition}[Órbita periódica]
+$\mathcal{O}(p)$ de $\dot{x} = f(x)$ es periódica si la solución por $p$ e periódica.
+\end{definition}
+
+\begin{proposition}
+Sea $\dot{x} = f(x)+ \varepsilon  g(t, x, \varepsilon )$ con $g$ T-periódica respecto  $t$. Suponemos  $\ \exists p: f(p)=0$. Entonces si $ \frac{2k\pi i}{T} \not\in spec(Df(p)) \Rightarrow \ \exists \varepsilon_0 >0 : \ \forall |\varepsilon |<\varepsilon _0$ el sistema tiene solución T-periódica $\gamma (t, \varepsilon )$ y $\|\gamma (t, \varepsilon )-p\|\le K|\varepsilon |$
+\end{proposition}
+
+\begin{definition}[Flujo]
+\[
+\begin{cases}
+  \frac{d }{d t} \varphi (t, \tau , x) = f(t, \varphi (t, \tau , x))\\
+  \varphi (\tau, \tau , x) = x
+\end{cases}
+\] 
+\end{definition}
+
+\begin{theorem}[Flujo con volumen fijo] Si consideramos $\nabla_{x}\cdot f(t, x) = Tr(\frac{d f}{d x} (t, x)) = 0$, entonces $\varphi $ preserva el volumen, es decir
+  \[
+  mesura(A) = mesura(\varphi_{t, \tau , A})
+  \] 
+\end{theorem}
+
+\begin{definition}[Estabilidad] Liapunov
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\varphi $ estable. $\ \forall \varepsilon >0 \ \exists \delta>0: $ si $\psi $ solución también y  $\|\varphi (0)-\psi (0)\|<\delta \Rightarrow \|\varphi (t)-\psi (t)\|<\varepsilon $ 
+	\item $\varphi $ asintóticamente estable. Estable y $\ \exists \delta>0: $ si $\|\varphi (0)-\psi (0)\|<\delta \Rightarrow \lim \|\varphi (t)-\psi (t)\| = 0$
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[] Suponemos que $\ \forall \delta \ \exists \rho : $ si $ x\in B_{\rho } \Rightarrow \|g(t, x)\|<\delta\|x\| $ Consideramos
+  \[
+  \dot{x} = Ax + g(t, x)
+  \] 
+  Si todos los VAPS de $A$ tienen parte real negativa, la solución $\psi (t) = 0$ es asintóticamente estable.
+\end{theorem}
+
+\begin{definition}[Función de Liapunov] $p$ punto singular de $f$. $\tilde{U}\subseteq U$ entorno de $p$. La función $V: \tilde{U}\to \mathbb{R}$ diferenciable es de Liapunov si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $V(p)=0, V(x)>0$ si $x\neq p$
+	\item $\dot{V}(x)\le 0 \ \forall x\in \tilde{U}$ (estricta si $\le $)
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[] $p$ punto singular de  $\dot{x}=f(x)$. Si existe función de Liapunov, entonces $p$ es estable. Si la función es estricta, entonces  $p$ es asintóticamente estable.
+\end{theorem}
+
+\begin{definition}[Integral primera] Sea  $\varphi (t, x)$ el flujo de $\dot{x}=f(x)$. La función $I:U\to \mathbb{R}$ es integral primera del sistema si
+  \[
+  \frac{d }{d t} (I \circ \varphi )(t,x) = 0
+  \] 
+\end{definition}
+
+\begin{proposition}
+$I$ es integral primera de $\dot{x}=f(x) \iff$
+\[
+DI(x)f(x) = 0 \ \forall x\in U
+\] 
+\end{proposition}
+
+\begin{definition}[Sistema Hamiltoniano]
+$x=(q,p), f:U\to \mathbb{R}^n\times \mathbb{R}^n$. $\dot{x} = f(x)$ es Hamiltoniano si existe $H:U\to \mathbb{R}$ tal que
+\[
+\begin{cases}
+  \dot{q}_j = \frac{\partial H}{\partial p_j}(q,p) \\
+  \dot{p}_j = -\frac{\partial H}{\partial q_j}(q,p)
+\end{cases}
+\] 
+\end{definition}
+
+\begin{proposition}
+$H$ hamiltoniano de  $\dot{x}=f(x) \Rightarrow H$ integral primera del sistema 
+\end{proposition}
+
+
+\section{Casuística}
+\begin{definition}[Cambio a polares]
+\[
+\begin{cases}
+  x = r\cos\theta \\
+  y = r\sin\theta 
+\end{cases} \Rightarrow 
+\begin{cases}
+  r' = \cos\theta x' + \sin \theta y'\\
+  r\theta ' = \cos \theta y' - \sin \theta x'
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Bernoulli]
+\[
+y' = a(x) + b(x)y^{r} \xRightarrow{z=y^{1-r}} lineal
+\] 
+\end{definition}
+
+\begin{definition}[Ricatti] $y_1(x)$ sol conocida
+\[
+y' = a_0(x) + a_1(x)y + a_2(x)y^2 \begin{cases}
+  \xRightarrow{y = y_1+z} Bernoulli\\
+  \xRightarrow{y=y_1+\frac{1}{u}} lineal
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Homogénea] $F(x,y)$ grad $0 \iff F = f(\frac{y}{x})$
+  \[
+  \frac{d y}{d x} = f(\frac{y}{x}) \xRightarrow{u(x) = \frac{y(x)}{x}} separable
+  \] 
+\end{definition}
+
+\begin{definition}[Exactas] $Pdx + Qdy = 0$ con  $P_y=Q_x$. Entonces  $\ \exists U: U_x = P, U_y = Q$ tal que la solución es $U(x, Y) = c$
+\end{definition}
+
+\begin{definition}[Factores integrantes] buscamos $\mu(x, y)$ para que $\mu Pdx + \mu Qdy =0$ sea exacta.
+\[
+Q\mu_x-P\mu_y = \mu(P_y-Q_x)
+\] 
+\end{definition}
+
+\begin{definition}[Lagrange] $y=xf(y')+g(y')$. Hacer cambio $p=y'$ y derivar con respecto a $x$ para encontrar
+   \[
+  \frac{d x}{d p}(p-f(p)) - f'(p)x=g'(p)  
+  \] 
+\end{definition}
+
+
+
+\end{multicols}
+\end{document}

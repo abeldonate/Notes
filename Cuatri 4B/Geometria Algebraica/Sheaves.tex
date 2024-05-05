@@ -1,0 +1,207 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage{lmodern}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+\usetikzlibrary{babel}
+\usepackage{extpfeil}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+\newtheorem*{example}{Example}
+\newtheorem*{problem}{Problem}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\id}{id}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Sheaves GEOALG}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\section{Introduction}
+
+\section{Sheaves}
+
+The introduction of the concept of sheaf is essential for the study of schemes. Sheaves are a general tool to study topological spaces through the study of a collection of associated objects in a fixed category. The way those objects are "glued" (we will define properly what this concept means) determines, in some fashion, how the topological space behaves.
+
+Informally, a sheaf encodes the information of the topological space by associating a object of the category (set, group, ring, module, etc) to each open set of the topology. However, this mapping is not arbitrary, it must accomplish some "restriction" property, that is, the mapping of a subset must behave well with the mapping of the set.
+
+Now we have gained intuition about what is a sheaf, we define it properly
+
+\begin{definition}[Presheaf and sheaf] A presheaf $\mathcal{F}$ of abelian groups associated to a topological space $X$ consists of the data
+\begin{enumerate}
+    \item for each open set $U\subset X$, an abelian group $\mathcal{F}(U)$
+    \item for each inclusion of open sets $V\hookrightarrow U$ a restriction map $\rho_{UV} : \mathcal{F}(U)\to \mathcal{F}(V)$ such that $\rho_{UU}= \id_{\mathcal{F}(U)}$ and $\rho _{VW}\circ \rho _{UV} = \rho _{UW}$ for the inclusion maps $W\hookrightarrow V \hookrightarrow U$
+\end{enumerate}
+
+In addition, a presheaf $\mathcal{F}$ is a sheaf if satisfies the following conditions
+\begin{enumerate}
+    \item (Gluing) If $\{V_i\}$ is an open covering of the open set $U$, and $s_i\in \mathcal{F}(V_i)$ satisfy $\rho_{V_i, V_i\cap V_j} s_i = \rho_{V_j, V_i\cap V_j} s_j$, then there exists a lifting $s\in \mathcal{F}(U)$ such that $\rho_{U, V_i} s = s_i\ \forall i$
+    \item (Locality) If $s, t \in \mathcal{F}(U)$ and $\rho _{U, V_i}s = \rho_{U, V_i}t\ \forall i$, then $s = t$ 
+\end{enumerate}
+\end{definition}
+
+The definition of sheaf for other categories is analogous by changing abelian groups with rings, sets, modules, etc. The elements of a sheaf $s\in \mathcal{F}(U)$ are called sections.  
+
+
+
+The two requirements for a sheaf are extremely important. The gluing axiom tells us that if the sheaves behaves well in the intersections via the restriction maps, then they lead to a larger sheaf. The locality axiom states that sections are uniquely determined by their restrictions.  
+
+We provide some examples of sheaves and presheaves.
+
+\begin{example} Let $M$ be a $\mathcal{C}^k-$manifold. Then, $\mathcal{F} := \mathcal{C}^k(-)$, such that $\mathcal{C}^k(-)$ is the map associating each open set $U$ to the ring of $k-$differentiable functions. The restriction maps are obviously defined by restricting the domain of the functions. This is valid also for smooth manifolds. 
+\end{example}
+
+\begin{example} Let $\mathcal{C}_b(U)$ be the continuous bounded functions on an open set $U \in \mathcal{R}$. Then the mapping $\mathcal{F}:= \mathcal{C}_b(-)$ is a presheaf, but not a sheaf over the real line.
+\end{example}
+
+\begin{proof}
+    This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally altough it is locally (in every $U_i$).
+\end{proof}
+
+Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
+
+\begin{definition}[Sheafification]
+Given presheaf $\mathcal{F} $, there is a unique (up to isomorphism) sheaf $\mathcal{F}' $ and a morphism $\theta: \mathcal{F} \to \mathcal{F}'  $ such that for any sheaf $\mathcal{G} $ and any morphism $\phi: \mathcal{F} \to \mathcal{G}  $ there is a unique morphism $\psi: \mathcal{F}' \to \mathcal{G}  $ that makes the diagram  
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1hdGhjYWx7Rn0iXSxbMSwwLCJcXG1hdGhjYWx7Rn0nIl0sWzEsMSwiXFxtYXRoY2Fse0d9Il0sWzAsMSwiXFx0aGV0YSJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwyLCJcXGV4aXN0ICFcXHBzaSJdXQ==
+\[\begin{tikzcd}
+	{\mathcal{F}} & {\mathcal{F}'} \\
+	& {\mathcal{G}}
+	\arrow["\theta", from=1-1, to=1-2]
+	\arrow["\varphi"', from=1-1, to=2-2]
+	\arrow["\exists \psi", from=1-2, to=2-2]
+\end{tikzcd}\]
+commute
+\end{definition}
+
+
+
+
+
+\subsection{Problems}
+Problemas 1,2,3,5,6,7,8,15,16,17,21(a,b,c)
+
+\begin{problem} \textbf{Problem 1} Let $A$ be an abelian group, and define the \textit{constant presheaf} associated to $A$ on the topological space $X$ to be the presheaf $U \to A$ for all $U \neq  \emptyset $, with restriction maps the identity. Show that the constant sheaf $\mathcal{A} $ defined in the text is the sheaf associated to this presheaf.   
+\end{problem}
+Consider 
+
+\begin{problem}
+\textbf{Problem 2} 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item For any morphism of sheaves $\varphi : \mathcal{F} \to \mathcal{G} $, show that for each point $P$, $(\ker \varphi )_P = \ker (\varphi )_P$  and $(\im \varphi )_P = \im(\varphi )_P$ .
+    \item Show that $\varphi $ is injective (resp. surjective) if and only if the induced map on the stalks $\varphi _P$ is injective (resp. surjective) for all $P$.
+    \item Show that a sequence $\cdots \mathcal{F}^{i-1} \xrightarrow{\varphi ^{i-1}} \mathcal{F}^i  \xrightarrow{\varphi ^i} \mathcal{F}^{i+1} \cdots   $ of sheaves and morphisms is exact if and only if for  each $P \in X$ the corresponding sequence of stalks is exact as a sequence of abelian groups. 
+\end{enumerate}
+\end{problem}
+
+(1) First notice that the morphism $\varphi : \mathcal{F} \to \mathcal{G}  $ induces a morphism in stalk $\varphi _P : \mathcal{F}_P \to \mathcal{G}_P  $  
+
+We prove $\ker (\varphi )_{P} \subseteq (\ker \varphi )_P$. Let $<s, U> \in \ker (\varphi )_P$, then clearly $s|_U \in  \ker (\varphi )$ and we have by the induce morphism $\varphi (s|_U)= 0 \implies \varphi _P(<s,U>)=0 \implies <s,U> \in \ker (\varphi _P)$.
+
+We now prove the other inclusion $(\ker \varphi )_P \subseteq \ker (\varphi _P)$. Let $s_P \in \ker (\varphi _P)$, then there exists an open set $U$ and a section $s \in \mathcal{F}(U)$ such that $s_P = <s,U>$. Thus, $\varphi (s)|_P = 0$ and there exists $V \subseteq U$ such that $\varphi (s)|V = 0$. Hence, $s|_V \in \ker (\varphi )$ and finally $<s,U>=<s,V> \in \ker (\varphi_P )$.
+
+\com{queda im}
+
+(2) We must prove that $\ker (\varphi )=0 \iff \ker (\varphi _P) = 0 \ \forall  P$ for the injective case. This is a direct consequence of the part (1). In the case of the surjective case, this follows from the fact that $\im \varphi = \mathcal{G} \iff \im (\varphi _P) = \mathcal{G}_P$, which is also seen in the part (1). 
+
+(3) The sequence is exact if and only if $\ker (\varphi ^{i}) = \im (\varphi ^{i-1})$  and we have
+\[
+\ker (\varphi ^i) = \im (\varphi ^{i-1}) \iff \ker (\varphi ^i)_P = \im(\varphi ^{i-1}) \ \forall  P \iff \ker (\varphi ^i_P) = \im (\varphi ^{i-1}_P) \ \forall  P
+\]
+the last condition meaning that the stalk sequence is, indeed, a exact sequence.
+
+\begin{problem}
+\textbf{Problem 3}. 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Let $\varphi : \mathcal{F} \to \mathcal{G}  $ 
+\end{enumerate}
+\end{problem}
+
+Following the exercice (2) we have to prove that
+\[
+\varphi _P \text{ surjective} \ \forall   P \iff \ \forall \begin{cases}
+U \subseteq X\\
+s \in \mathcal{G} (U) 
+\end{cases}  \quad \ \exists \begin{cases}
+(U_i) \text{ open cover of } U \\
+t_i \in \mathcal{F} (U_i)
+\end{cases} : \varphi (t_i) = s |_{U_i}
+\]
+First we prove $\boxed{ \implies } $. Since $\varphi _P$ is surjective, then $\ \forall t \in \mathcal{G}(V)$ we have a $s \in \mathcal{F}(U) $ such that $<t, V > = <\varphi (s), U> \in \mathcal{G}_P$. In particular, we can restrict more both open sets to an open set $W \subseteq  U \cap V$defined to be the one such that $s|_W = \varphi (t|_W)$. Thus, we get an open cover $(W_P)_{P \in X}$ of $X$ and sections $t_{W_P} \in \mathcal{F}(W_P) $ satisfying the condition. 
+
+We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections $t_i \in \mathcal{F}(U_i)$ such that $\varphi (t_i) = s|U_i$. Then, given an element of the stalk $<s, U> \in \mathcal{G}_P $, for all point $P$ we have a set $U_i$, and $\varphi _P(<t,U_i>) = <s,U>$, concluding that $\varphi _P$ is sujjective.
+
+(2) \com{falta ejemplo}
+
+\begin{problem}
+\textbf{Problem 5} 
+\end{problem}
+
+Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G}  $ is injective (resp. surjective) if and only if the induce morphisms on stalks $\varphi _P$ are injective (resp. surjective) for all $P$ . We also recall, by proposition 1.1 of \cite{Har}, that $\varphi$ is an isomorphism if and only if $\varphi _P$ is an isomorphism for all $P$
+
+
+
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+
+
+\end{document}

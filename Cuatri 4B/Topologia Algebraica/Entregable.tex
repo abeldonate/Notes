@@ -1,0 +1,256 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Poset}{Poset}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Entregable Topología Algebraica}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Homología en la categoría de Poset}
+
+Para ver que $C_{\bullet}(P)$ es, en efecto, un complejo, debemos probar que la aplicación $d$ es la aplicación borde, es decir  $d^2 = 0$.
+ \begin{align*}
+ &d\circ d (x_0\le \cdots \le x_n) = \sum_{i=0}^n (-1)^{i} d(x_0\le  \cdots \le  \hat{x_i} \le \cdots\le x_n) = \\
+ &=\sum_{i=0}^n \left( \sum_{j=0}^{i-1} (-1)^{i+j}(x_0\le \cdots\le \hat{x_j}\le \cdots \le \hat{x_i}\le \cdots \le x_n)  - \sum_{j=i+1}^{n} (-1)^{i+j} (x_0\le \cdots\le \hat{x_i}\le \cdots \le \hat{x_j}\le \cdots \le x_n) \right) 
+\end{align*}
+Pero esta expresión es cero, ya que si fijamos dos indices diferentes $k, l$, vemos que pasa una vez por  $(i, j)=(k, l)$ y otra por  $(j, i) = (k, l)$ con signo cambiado anulándose. Ya que toda cadena es combinación lineal de cadenas con coeficientes en $\mathbb{Z}$, al extender la cadena por linealidad del morfismo $d$ tenemos que  $d^2$ sigue dando  $0$ para toda cadena. Esto prueba que 
+% https://q.uiver.app/#q=WzAsNSxbMSwwLCJDX3tuKzF9Il0sWzIsMCwiQ19uIl0sWzMsMCwiQ197bi0xfSJdLFswLDAsIlxcY2RvdHMiXSxbNCwwLCJcXGNkb3RzIl0sWzAsMSwiZCJdLFsxLDIsImQiXSxbMywwLCJkIl0sWzIsNCwiZCJdXQ==
+\[\begin{tikzcd}
+	\cdots & {C_{n+1}(P)} & {C_n(P)} & {C_{n-1}(P)} & \cdots
+	\arrow["d_{n+1}", from=1-2, to=1-3]
+	\arrow["d_{n}", from=1-3, to=1-4]
+	\arrow["d_{n+2}", from=1-1, to=1-2]
+	\arrow["d_{n-1}", from=1-4, to=1-5]
+\end{tikzcd}\]
+es en efecto un complejo. Al ser un complejo en una categoría abeliana, podemos definir la homología como
+\[
+H_n(P) = \ker(d_n) / \im (d_{n+1}) := Z_n / B_{n+1}
+\]
+que esta bien definida gracias a que es un complejo y la imagen queda dentro del núcleo.
+
+Para los ejemplos empezaremos por calcular $H_0$. Observamos que $d_1(x)=0\ \forall x$, por lo que dado el conjunto del poset con cardinal $n$ tenemos que todo el grupo abeliano $\sum a_n x_n$ esta en el nucleo de  $d_1$, por lo que  $Z_0 \cong  \mathbb{Z}^n$. De la misma forma si consideramos la imagen $B_1$, esta esta formada por todas las cadenas de la forma $x-y$ si  $x\le y$, es decir, si están en la misma componente conexa del grafo de Hasse (no importa la dirección, pues si está al reves haremos $y-x$). Por tanto al pasar por el cociente estamos identificando todas las componentes conexas y $H_0 \cong \mathbb{Z}^{\# \{\text{comp. con.}\}}$.
+
+c) \com{falta}
+
+\section{Complejos simpliciales abstractos}
+
+a) Para probar que $\Delta (K)$ es complejo de cadenas debemos ver que $\partial_{p}\circ \partial _{p-1} = 0$. Esto se realiza de manera totalmente equivalente al ejercicio 1. \com{justificar functor}
+
+b) 
+
+
+
+
+
+
+
+
+\section{Cilindro}
+
+a) Para probar que es un complejo de cadenas debemos probar que las imagenes del morfismo caen donde toca, lo que es trivial, y que $d_Z\circ d_Z=0$.
+\begin{align*}
+  & d_Z\circ d_Z (a', a'', b) = d_Z (d_A(a')+a'', -d_A(a''), -f(a'')+d_B(b)) =\\
+  =& (d_A(d_A(a')+a'')-d_A(A'')), -d_A(d_A(a'')) , f(d_A(a'')) + d_B(-f(a'')+d_B(b)) ) =\\
+  =& (0, 0, f(d_A(a''))-d_B(f(a'')))= (0,0,0)
+\end{align*}
+
+\begin{minipage}{0.7\textwidth}
+Donde hemos utilizado $d_B^2=d_A^2=0$ y que el diagrama de la derecha conmuta
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBX24iXSxbMSwwLCJBX3tuLTF9Il0sWzAsMSwiQl9uIl0sWzEsMSwiQl97bi0xfSJdLFswLDIsImYiLDJdLFsxLDMsImYiXSxbMCwxLCJkX0EiXSxbMiwzLCJkX0IiLDJdXQ==
+\[\begin{tikzcd}
+	{A_n} & {A_{n-1}} \\
+	{B_n} & {B_{n-1}}
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["f", from=1-2, to=2-2]
+	\arrow["{d_A}", from=1-1, to=1-2]
+	\arrow["{d_B}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{minipage}
+
+b) Para probar que $\xi$ es morfismo de cadenas tenemos que probar que el siguiente diagrama conmuta.
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJCX24iXSxbMSwwLCJCX3tuLTF9Il0sWzAsMSwiWl9uIl0sWzEsMSwiWl97bi0xfSJdLFszLDAsImIiXSxbNCwwLCJkX0IoYikiXSxbMywxLCIoMCwwLGIpIl0sWzQsMSwiKDAsIDAsIGRfQihiKSkiXSxbMCwyLCJcXHhpX24iLDJdLFsyLDMsImRfWiIsMl0sWzEsMywiXFx4aV97bi0xfSJdLFswLDEsImRfQiJdLFs0LDUsImRfQiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw2LCJcXHhpX24iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzYsNywiZF9aIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDcsIlxceGlfe24tMX0iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}
+	{B_n} & {B_{n-1}} && b & {d_B(b)} \\
+	{Z_n} & {Z_{n-1}} && {(0,0,b)} & {(0, 0, d_B(b))}
+	\arrow["{\xi_n}"', from=1-1, to=2-1]
+	\arrow["{d_Z}"', from=2-1, to=2-2]
+	\arrow["{\xi_{n-1}}", from=1-2, to=2-2]
+	\arrow["{d_B}", from=1-1, to=1-2]
+	\arrow["{d_B}", maps to, from=1-4, to=1-5]
+	\arrow["{\xi_n}"', maps to, from=1-4, to=2-4]
+	\arrow["{d_Z}"', maps to, from=2-4, to=2-5]
+	\arrow["{\xi_{n-1}}", maps to, from=1-5, to=2-5]
+\end{tikzcd}\]
+Vemos que, en efecto, conmuta, ya que $d_Z\circ \xi_n = \xi_{n-1}\circ d_B$.
+
+Para probar que $\eta$ es morfismo de cadenas tenemos que probar que el siguiente diagrama conmuta.
+
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJaX24iXSxbMSwwLCJaX3tuLTF9Il0sWzAsMSwiQl9uIl0sWzEsMSwiQl97bi0xfSJdLFszLDAsIihhJywgYScnLCBiKSJdLFs0LDAsIihkX0EoYScpK2EnJywgLWRfQShhJycpLCAtZihhJycpK2RfQihiKSkiXSxbMywxLCJmKGEnKStiIl0sWzQsMSwiZF9CKGIpICsgZihkX0EoYScpKSA9IGRfQihiKSsgZF9CKGYoYScpKSJdLFswLDIsIlxcZXRhX24iLDJdLFsyLDMsImRfQiIsMl0sWzEsMywiXFxldGFfe24tMX0iXSxbMCwxLCJkX1oiXSxbNCw1LCJkX1oiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzQsNiwiXFxldGFfbiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiw3LCJkX0IiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNywiXFxldGFfe24tMX0iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}
+	{Z_n} & {Z_{n-1}} && {(a', a'', b)} & {(d_A(a')+a'', -d_A(a''), -f(a'')+d_B(b))} \\
+	{B_n} & {B_{n-1}} && {f(a')+b} & {d_B(b) + f(d_A(a')) = d_B(b)+ d_B(f(a'))}
+	\arrow["{\eta_n}"', from=1-1, to=2-1]
+	\arrow["{d_B}"', from=2-1, to=2-2]
+	\arrow["{\eta_{n-1}}", from=1-2, to=2-2]
+	\arrow["{d_Z}", from=1-1, to=1-2]
+	\arrow["{d_Z}", maps to, from=1-4, to=1-5]
+	\arrow["{\eta_n}"', maps to, from=1-4, to=2-4]
+	\arrow["{d_B}"', maps to, from=2-4, to=2-5]
+	\arrow["{\eta_{n-1}}", maps to, from=1-5, to=2-5]
+\end{tikzcd}\]
+Vemos que, en efecto, conmuta, ya que $d_B\circ \eta_n = \eta_{n-1}\circ d_Z$.
+
+c) Tenemos que ver que $\varphi = \xi \circ \eta \simeq Id_{Z(f)}$ y que $\eta \circ \xi \simeq Id_{B}$. La segunda es evidente, ya que la composición ya da la identidad. Tenemos que probar, pues, que existe una homotopía de cadenas $s_i:Z_i \to Z_{i+1} $ tal que $\varphi - Id_Z = s_{n-1}\circ d_n + d_{n+1}\circ s_n$, donde $\varphi = \xi \circ  \eta $ tal que $\varphi ((a', a'', b))= \eta (f(a')+b) = (0, 0, f(a')+b)$. 
+
+% https://q.uiver.app/#q=WzAsMTAsWzEsMCwiWl97bisxfSJdLFsxLDEsIlpfe24rMX0iXSxbMywwLCJaX3tuLTF9Il0sWzMsMSwiWl97bi0xfSJdLFsyLDAsIloiXSxbMiwxLCJaIl0sWzQsMCwiXFxjZG90cyJdLFs0LDEsIlxcY2RvdHMiXSxbMCwwLCJcXGNkb3RzIl0sWzAsMSwiXFxjZG90cyJdLFs0LDUsIlxcdmFycGhpIl0sWzQsMSwic19uIiwyXSxbMSw1LCJkX3tuKzF9IiwyXSxbMiw1LCJzX3tuLTF9IiwyXSxbNCwyLCJkX24iXSxbMCw0LCJkX3tuKzF9Il0sWzUsMywiZF9uIiwyXSxbMiw2XSxbMyw3XSxbOCwwXSxbOSwxXV0=
+\[\begin{tikzcd}
+	\cdots & {Z_{n+1}} & Z & {Z_{n-1}} & \cdots \\
+	\cdots & {Z_{n+1}} & Z & {Z_{n-1}} & \cdots
+	\arrow["\varphi", from=1-3, to=2-3]
+	\arrow["{s_n}"', from=1-3, to=2-2]
+	\arrow["{d_{n+1}}"', from=2-2, to=2-3]
+	\arrow["{s_{n-1}}", from=1-4, to=2-3]
+	\arrow["{d_n}", from=1-3, to=1-4]
+	\arrow["{d_{n+1}}", from=1-2, to=1-3]
+	\arrow["{d_n}"', from=2-3, to=2-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+
+Ahora bien, la forma más natural de definir la aplicación $s:Z_n = A_n\oplus A_{n-1} \oplus B_n\to Z_{n+1}=A_{n+1}\oplus A_{n}\oplus B_{n+1}$ es enviar $(a', a'', b)  \to  (0, \pm a' , 0)$. Vemos que con el signo negativo tenemos la homotopía deseada:
+% https://q.uiver.app/#q=WzAsOSxbMSwwLCIoYScsIGEnJywgYikiXSxbMCwxLCIoMCwgLWEnLCAwKSJdLFsyLDEsIihkX0EoYScpK2EnJywgLWRfQShhJycpLCAtZihhJycpK2RfQihiKSkiXSxbMCwyLCIoLWEnLGRfQShhJyksIGYoYScpKSJdLFsyLDIsIigwLCAtZF9BKGEnKS1hJycsIDApIl0sWzEsMiwiKyJdLFszLDAsIigtYScsIC1hJycsIGYoYSkpIl0sWzMsMiwiKC1hJywgLWEnJywgZihhKSkiXSxbMywxLCI9Il0sWzAsMSwic19uIiwyXSxbMCwyLCJkX24iXSxbMiw0LCJzX3tuLTF9IiwyXSxbMSwzLCJkX3tuKzF9Il0sWzAsNiwiXFx2YXJwaGkgLSBJZCJdLFs0LDcsIisiXV0=
+\[\begin{tikzcd}
+	& {(a', a'', b)} && {(-a', -a'', f(a))} \\
+	{(0, -a', 0)} && {(d_A(a')+a'', -d_A(a''), -f(a'')+d_B(b))} & {=} \\
+	{(-a',d_A(a'), f(a'))} & {+} & {(0, -d_A(a')-a'', 0)} & {(-a', -a'', f(a))}
+	\arrow["{s_n}"', from=1-2, to=2-1]
+	\arrow["{d_n}", from=1-2, to=2-3]
+	\arrow["{s_{n-1}}"', from=2-3, to=3-3]
+	\arrow["{d_{n+1}}", from=2-1, to=3-1]
+	\arrow["{\varphi - Id}", from=1-2, to=1-4]
+	\arrow["{+}", from=3-3, to=3-4]
+\end{tikzcd}\]
+
+
+\section{Toro cociente}
+
+(a) \com{terminar}
+
+Consideramos la inclusión $(T_f-B,A-B) \hookrightarrow (T_f, A)$. Claramente $\overline{B} \subseteq A^\circ$, por lo que podemos emplear escisión y tenemos $H_{\bullet}(T_f-B, A-B) \cong H_{\bullet}(T_f, A)$. Vemos ahora las siguientes propiedades:
+
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item $T_f-B \simeq X \times (0,1) \simeq X \times I$
+	\item $A-B \simeq X \times \partial I \simeq X \sqcup X$
+	\item $A \simeq X_0$ 
+\end{enumerate}
+
+La primera es consecuencia de que estamos quitando la parte que identificamos y existe un retracto de deformación de $X \times (\varepsilon , 1-\varepsilon ) \to X \times (0, 1)$. La segunda es consecuencia de que nos quedamos con las partes $X\cdot (0,\varepsilon ) \cup X \cdot (0,\varepsilon )$, y existe un retracto de deformación hacia $X\times  \{0\} \cup X \times \{1\}$. La tercera es simplemente que existe el retracto de deformación $A \to X_0$ que envía $\overline{(x,a)} \to \overline{(x,0)}$. 
+
+Tenemos, por tanto
+\begin{align*}
+\begin{cases}
+H _{\bullet} (T_f-B, A-B) \cong H _{\bullet} (X\times I, X \times \partial I) \\
+H _{\bullet}(T_f, A) \cong H _{\bullet} (T_f, X_0)
+\end{cases} \implies H _{\bullet} (X \times I, X \times \partial I) \cong H _{\bullet}  (T_f, X_0)
+\end{align*}
+
+(b) 
+% https://q.uiver.app/#q=WzAsNixbMSwwLCJIX3tuKzF9KFhcXHRpbWVzIEkpIl0sWzIsMCwiSF97bisxfShYXFx0aW1lcyBJLCBYXFx0aW1lcyBcXHBhcnRpYWwgSSkiXSxbMywwLCJIX3tufShYXFx0aW1lc1xccGFydGlhbCBJKSJdLFs0LDAsIkhfbihYXFx0aW1lcyBJKSJdLFswLDAsIlxcY2RvdHMiXSxbNSwwLCJcXGNkb3RzIl0sWzAsMSwial8qID0gMCJdLFsxLDIsIlxccGFydGlhbF8qIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCJcXGlvdGFfKiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFs0LDAsIlxcaW90YV8qIl0sWzMsNSwial8qPTAiXV0=
+\[\begin{tikzcd}
+	\cdots & {H_{n+1}(X\times I)} & {H_{n+1}(X\times I, X\times \partial I)} & {H_{n}(X\times\partial I)} & {H_n(X\times I)} & \cdots
+	\arrow["{j_* = 0}", from=1-2, to=1-3]
+	\arrow["{\partial_*}", hook, from=1-3, to=1-4]
+	\arrow["{\iota_*}", two heads, from=1-4, to=1-5]
+	\arrow["{\iota_*}", from=1-1, to=1-2]
+	\arrow["{j_*=0}", from=1-5, to=1-6]
+\end{tikzcd}\]
+
+Vemos que $\iota _{\bullet}$ es exhaustivo, ya que $H_{\bullet}(X\times \partial I) \cong H _{\bullet}(X \sqcup X) \cong H _{\bullet}(X)\times H _{\bullet}(X)$ y $H _{\bullet}(X\times I) \cong H _{\bullet}(X)$ . Por tanto tenemos que $\ker (j_{\bullet}) = \im (\iota _{\bullet}) = H _{\bullet} (X) \implies j _{\bullet}=0$.
+
+Como $j_* = 0$, tenemos que  $\partial_*$ es monomorfismo y $\iota_*$ es epimorfismo. Por tanto
+\[
+H_{n+1}(X\times I, X\times \partial I) \cong  \im (\partial_*) \cong  \ker (\iota_*) 
+\] 
+Pero como $H_n(X\times \partial I) \simeq H_n(X)\times H_n(X)$, ya que está formado por dos copias de los espacios, tenemos que, al ser $\iota_*$ epimorfismo y $X\times I \simeq X$:
+\begin{align*}
+\iota_*: H_n(X)\times H_n(X) \to H_n(X \times I) \cong  H_n(X) \quad  \Rightarrow \quad \ker (\iota_*) \cong H_n(X) \quad \Rightarrow \quad H_{n+1}(X\times I, X\times \partial I) \cong H_n(X)
+\end{align*}
+como queríamos ver.
+
+(c)  \com{falta	}
+
+Consideramos la secuancia exacta larga de abajo del diagrama. Sabemos por un lado que 
+\[
+H _{\bullet} (T_f, X_0) \cong H _{\bullet}(X \times I, X \times \partial I) = \im (\partial _{\bullet})= \ker (\iota _{\bullet}) \cong H _{\bullet} (X)
+\]
+
+
+
+\end{document}

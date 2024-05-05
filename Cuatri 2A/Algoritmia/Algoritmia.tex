@@ -1,0 +1,516 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+  \begin{center}
+  \def\svgwidth{0.9\columnwidth}
+  \import{./figures/}{#1.pdf_tex}
+  \end{center}
+}
+
+\newcommand{\incimg}[1]{%
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+
+\pdfsuppresswarningpagegroup=1
+
+\newcommand{\algo}[2]{\boxed{\textbf{Algoritmo: }\textit{#1} \quad \mathcal{O}(#2)}}
+
+\newcommand{\ex}[1]{\underline{Ejemplo:  #1}}
+
+\newcommand{\code}[1]{  #1 }
+
+\title{Algorítmia}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Costes computacionales}
+\subsection{Notación}
+Consideramos la función de coste $c(x)$, que nos devolverá el coste del algoritmo en función del input $|x|=n$. Como el coste no siempre es constante (no solo depende de $n$, sino también del input en sí) definimos:
+$$
+\begin{cases}
+c_{peor}(n) &= \max_x {c(x) : |x|=n} \\
+c_{mejor}(n) &= \min_x {c(x) : |x|=n} \\
+c_{media}(n) &= \frac{1}{N}\sum_{x:|x|=n} c(x) \\
+\end{cases}
+$$
+En cuestión de notación asintótica:
+$$
+\begin{cases}
+f = \mathcal{O}(g) \iff \exists c :f<cg \\ 
+f = \Omega(g) \iff \exists c :f>cg \\ 
+f = \Theta(g) \iff f=\mathcal{O}(g) \text{ y } f=\Omega(g) \\
+\end{cases}
+$$
+
+\subsection{Teoremas maestros}
+\textbf{Teorema de las recurrencias substractivas}
+$$
+T(n) = aT(n-c) + g(n), \ g(n) = \Theta(n^k) \implies T(n)=
+\begin{cases}
+\Theta(n^k) &\text{ si } a<1 \\
+\Theta(n^{k+1}) &\text{ si } a=1 \\
+\Theta(a^{\frac{n}{c}}) &\text{ si } a>1
+\end{cases}
+$$ \textbf{Teorema de las recurrencias divisorias}
+$$
+T(n) = aT\left(\frac{n}{b}\right) + g(n), \ g(n) = \Theta(n^k), \ \alpha = \log_ba \implies T(n)=
+\begin{cases}
+\Theta(n^k) &\text{ si } \alpha<k \\
+\Theta(n^{k}\log n) &\text{ si } \alpha=k \\
+\Theta(n^\alpha) &\text{ si } \alpha>k
+\end{cases}
+$$
+
+\subsection{Divide y vencerás}
+La idea de divide y vencerás es computar subproblemas por separado y luego mezclarlos. Iterando el proceso podemos conseguir algoritmos más eficientes. \\
+\\
+\algo{Mergesort}{n\log n}\\
+Este es el ejemplo por excelencia. Para ordenar un vector podemos dividirlo en dos y ordenar cada una de sus partes. Luego juntamos los elementos. Repetimos este algoritmo recursivamente con cada parte. \\
+\\
+\algo{Exponenciación rápida}{\log n}\\
+Para calcular $a^n$ podemos calcular  $a^{\frac{n}{2}}$ recursivamente y multiplicarlo. Iterando llegamos a este algoritmo de coste $\log n$\\
+\\
+\algo{Karatsuba-Offmann para producto de dos números}{n^{\log_23}}\\
+Podemos multiplicar dos números $x, y$ (binarios) de la siguiente forma:\\
+Sea $x=a\times 2^{\frac{n}{2}} + b, y = c\times 2^{\frac{b}{2}} + d \implies xy = [(a+b)(c+d) - ac - bd]\times 2^{\frac{n}{2}} + ac\times 2^n + bd$, que solo son 3 operaciones. \\
+\\
+\algo{Algoritmo de Strassen para multiplicación de matrices cuadradas}{n^{\log_27}}\\
+Para multiplicar $AB$ dividimos las matrices de la manera indicada, y solo tenemos que realizar 7 productos.
+\[
+  AB = \begin{pmatrix} A_1 & A_2 \\ A_3 & A_4 \end{pmatrix}  \begin{pmatrix} B_1 & B_2 \\ B_3 & B_4 \end{pmatrix} 
+\] 
+\algo{Fibonacci}{\log n}\\
+Podemos reescribir la recurrencia como:
+\[
+  \begin{pmatrix} F_{k+1} \\ F_{k} \end{pmatrix} = \begin{pmatrix} 1&1\\1&0 \end{pmatrix}^k \begin{pmatrix} 1  \\ 0 \end{pmatrix} 
+\] 
+Y resolver la exponenciación de matrices con una exponenciación rápida.
+
+
+
+
+\section{Algoritmos de ordenación}
+
+\subsection{Sin cotas}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & \textbf{Coste Peor} & \textbf{Coste Mejor} & \textbf{Coste Medio} & \textbf{In Situ} & \textbf{Estable} \\
+ \hline
+  \textbf{Selection} & $\theta(n^2)$ & $\theta(n^2)$ & $\theta(n^2)$ & SI & NO \\
+ \hline
+  \textbf{Insertion} & $\theta(n^2)$ & $\theta(n)$ & $\theta(n^2)$ & SI & SI \\
+ \hline
+  \textbf{Merge} & $\theta(n\log n)$ & $\theta(n\log n)$ & $\theta(n \log n)$ & NO & \\
+ \hline
+  \textbf{Quick} & $\theta(n^2)$ & $\theta(n\log n)$ & $\theta(n\log n)$ & SI & NO \\
+ \hline
+  \textbf{Bubble} & $\theta(n^2)$ & $\theta(n^2)$ & $\theta(n^2)$ & SI & SI \\
+ \hline
+  \textbf{Heap} & $\theta(n\log n)$ & $\theta(n\log n)$ & $\theta(n\log n)$ & SI & NO \\
+ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Acotadas}
+Podemos ordenarlos en tiempo lineal si sabemos que los números serán enteros en $[0,\ldots, k]$
+\subsubsection{Counting-sort}
+\begin{itemize}
+  \item Guardamos los números en un vector \code{C} de longitud $k$ donde cada posición indica el número de elementos $\le i$
+  \item Empezamos por el final de \code{B} y si la diferencia con el anterior es $\ge 1 \implies $ \code{C[x]- -; B[x]++}. Si es $0$, miramos el anterior.
+\end{itemize}
+
+\subsubsection{Radix-sort}
+\begin{itemize}
+  \item En cada iteración ordenamos por el $i$-ésimo dígito con counting sort.
+  \item Como counting sort es estable, terminamos con el vector ordenado.
+\end{itemize}
+
+\subsubsection{Bucket-sort}
+Se realiza sobre una distribución uniforme del intervalo $[0, 1)$
+\begin{itemize}
+  \item Dividimos el intervalo en subintervalos de la misma longitud llamados buckets.
+  \item Repartimos los elementos
+  \item Ordenamos cada bucket con un algoritmo de ordenación
+\end{itemize}
+
+\section{Programación dinámica}
+Nos serviremos siempre de la misma estructura. Construiremos una función recursiva que llame a un vector si en la posición de este vector no hay un $-1$, y en caso contrario haga una relación de recursión.
+
+\lstinputlisting[language=C++, firstline=1]{codes/template_dinamica.cpp}
+
+\section{Estructuras de datos}
+\subsection{Stacks y Queues}
+Tabla comparativa de estas dos
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|cc}
+        & \textbf{Funcionamiento} & \textbf{Funcines} \\
+        \hline
+        \textbf{Stack} & Puedes acceder al último elemento guardado &  .size(), .push(), .pop(), .top(), .empty()\\
+        \\
+        \textbf{Queue} & Puedes acceder al primer elemento guardado.  & .size(), .push(), .pop(), .front(), empty() \\
+        \\
+        \textbf{P.Queue} & Puedes acceder al mayor elemento.  & .size(), .push(), .pop(), .top(), empty() \\
+    \end{tabular}
+\end{table}
+
+\subsection{Maxheap}
+Una un maxheap es una estructura de datos similar a un vector con un orden parcial. Si lo visualizamos como un árbol binario se cumple que los hijos siempre son $\ge $ que los padres.\\
+\\
+Las operaciones básicas son:
+\begin{itemize}
+  \item \textbf{Inserción $O(\log n)$:} Insertamos el elemento en la primera hoja disponible y hacemos un Heapyfy
+  \item \textbf{Borrado $O(\log n)$:} Cambiamos el primer elemento (la raíz) por el último y hacemos un Heapyfy.
+  \item \textbf{Heap-Sort $O(n\log n)$:} En cada paso borra la raíz y la guarda en un vector. El resultado es un vector ordenado.
+  \item \textbf{Heapify $O(n)$:} Desde un árbol binario creamos un Maxheap. El procedimiento es crear Maxheaps recursivamente de abajo hacia arriba
+\end{itemize}
+Vemos como hacer la inserción del número $60$:\\
+\\
+\incfig{HeapInsertion}
+\\
+Vemos como hacer el borrado del máximo elemento:\\
+\\
+\incfig{HeapDelete}
+
+\subsection{Árboles AVL}
+Un AVL es un árbol binario ordenado (los hijos de la derecha son $\ge $ al padre y los de la izquierda $\le $ al padre) y balanceado (la diferencia de alturas entre cualesquiera dos hijos es $\le 1$). Podemos balancear cualquier árbol binario para convertirlo en un AVL con las siguientes operaciones llamadas rotaciones. Distinguimos tres tipos: \\
+\\
+\incfig{LLRotation}
+\\
+\begin{multicols}{2}[\columnsep2em]
+\noindent
+Vemos ahora como aplicarlo a un árbol general cuando $A, B, C$ están desbalanceados y hay que hacer una rotación sobre ellos.
+\columnbreak
+\incfig{Rotation}
+\end{multicols}
+
+\subsection{Tablas de Hash}
+\begin{multicols}{2}[\columnsep2em]
+\incfig{Hash} 
+\columnbreak \\
+Las tablas de hash sirven para almacenar claves del primer set en una tabla de menor longitud fijada $m$. Esta operación se realiza para que la búsqueda de elementos sea más eficiente, ya que haremos menos operaciones para encontrar un elemento. \\
+\\
+La función de hash  $h(x)$ mapea cada elemento del primer conjunto en un hueco del segundo (es decir, otorga a cada numero otro número del $0$ al  $m-1$). Si queremos buscar si un número está en el conjunto original, solo debemos calcular su hash y mirar si está en el hueco de la tabla correspondiente. \\
+\end{multicols}
+\\
+\noindent
+Una función de hash $h(x)$ se dice que es  \textbf{universal} si la probabilidad de que una clave caiga en un hueco es la misma para todos los huecos. En la práctica buscaremos estas funciones, porque nos aseguran el menor número de colisiones en la tabla.\\
+\\
+\textbf{Rolling Hash}\\
+Se trata de un algoritmo para búsqueda de texto en un documento de texto. Suponemos que queremos buscar la cadena $abc$ dentro de una cadena de texto $s$. El algoritmo naive sería colocarse en el índice $i$ del texto y mirar si $s[i]=a$. Si lo es, mirar si $s[i+1]=b$, y si lo sigue siendo, si $s[i+2]=c$. Si se cumplen las tres, hay un match. Hacemos esto para $i = 0, \ldots , n-3$. Este algoritmo se realiza en $\mathcal{O}(nm)$.\\
+\\
+Un algoritmo mucho más eficiente es el rolling hash:\\
+Nos ayudamos de una función de hash $h$ que mapea cada cadena de texto a un natural. Hacemos $h(abc)=H$. Escogemos una función de hash de la forma
+\[
+h(s[i+1,\ldots, i+m]) = s[i+1]p^k + s[i+2]p^{k-1} + \ldots + s[i+m]p^0
+\] 
+donde $p$ es primo. Una propiedad importante de este hash es que 
+\[
+h(s[i+1, \ldots, i+m]) = p(h(s[i, \ldots, i+m-1])-s[i]p^{m-1}) + s[i+m]
+\]
+Aprovechando esta propiedad, sabiendo el hash de $s[i, \ldots, i+m-1]$ podemos calcular el de  $s[i+1, \ldots, i+m$ en $\mathcal{O}(1)$. Una vez que tenemos el hash lo comparamos con $H$, y si es igual y el hash está bien distribuido, no habrá muchas colisiones y el algoritmo es  $\mathcal{O}(n)$ (observamos que no depende de la longitud $m$ de la cadena que queremos buscar). \\
+\\
+\underline{Ejemplo:}\\
+Queremos buscar $abc$ en el texto  $dabc$. Tomamos  $p = 3$ y  $s \begin{cases}
+  a \to 0\\
+  b \to 1\\
+  c \to 2\\
+  d \to 3
+\end{cases}$\\
+Calculamos $H = h(abc) = 0\times 3^2 + 1 \times 3^1 + 2\times 3^0 = 5 $.\\
+ \begin{center}
+\begin{tabular}{ccc}
+  $\underline{dab}c$  & & $d\underline{abc}$ \\
+  $h(dab) = 3\times 9 + 0\times 3 + 1 = 28$  & $\implies$ &  $h(abc) = 3\times (h(dab)-3\times 9) + 2 = 5$ \\
+  $h(dab)\neq  H$ no match & & $h(abc) = H$ match
+\end{tabular}
+\end{center}
+\section{Grafos}
+\subsection{Algunas definiciones previas}
+\begin{itemize}
+    \item \textbf{DAG} Grafo dirigido acíclico
+\end{itemize}
+En cuanto a definiciones en el lenguaje de la estructura del grafo:
+\begin{itemize}
+    \item \code{VVI M;} Matriz de adyacencia
+    \item \code{VVI G;} Lista de aristas
+    \item \code{VP V;}  Pair con las aristas
+    \item \code{VVP GP;} Conjunto de vértices en pairs con costes (\code{pair$<$coste, arista$>$})
+    \item \code{int n = M.size();} Nodos
+    \item \code{int m = G.isze();} Aristas
+    \item \code{int INF = 1e9;}
+\end{itemize}
+
+\subsection{DFS y BFS}
+DFS $\implies$ recorre un camino en profundidad y va tirando hacia detrás. \\
+BFS $\implies$ recorre el grafo por orden de proximidad. \\
+\algo{DFS}{n+m}
+\begin{itemize}
+    \item Creamos un vector booleano \code{visited} que guarde los nodos visitados. 
+    \item Miramos los nodos adyacentes. \begin{itemize}
+    \item Si \code{visited} $\implies$ \code{return}
+	\item Si \code{not visited} $\implies$ aplicamos la función recursivamente sobre el adyacente.
+    \end{itemize}
+\end{itemize}
+\algo{BFS}{n+m}
+\begin{itemize}
+    \item Creamos un vector booleano \code{visited} que guarde los nodos visitados. 
+    \item Creamos una queue \code{q} y añadimos el nodo origen.
+    \item \code{while(not q.empty())} miramos los nodos adyacentes y si \code{not visited} los añadimos a la \code{q}
+\end{itemize}
+\ex{Distancia de un nodo a cualquier otro}\\
+Construimosun vector \code{dist} sobre los nodos y lo iniciamos a $-1$. \\
+Realizamos un BFS sobre el grafo y en cada paso sumamos uno al adyacente. \\
+\\
+\ex{Camino mínimo entre dos nodos}\\
+
+\subsection{Shortest path en ponderados}
+Cuando tenemos un grafo ponderado podemos utilizar Dikjstra para encontrar el camino más corto a cualquier nodo \\
+\\
+\algo{Dikjstra}{m + n\log n}
+\begin{itemize}
+    \item Consideramos el vector GP. Construimos los vectores sobre los nodos \code{dist, father} y la priority queue de distancias \code{q}. Inicializamos las distancias a \code{INF}.
+    \item Inicializamos \code{dist[ini]=0, q.push(P(0, ini))}
+    \item \code{while(not q.empty())} seleccionamos el nodo de la \code{q} con menos distancia. Si esa distancia es igual a \code{dist} $\implies$ para cada nodo adyacente:
+    \begin{itemize}
+        \item Miramos si la suma de la distancia al original mas el peso de la arista es menor que la \code{dist} de la adyacente
+        \item Si es menor, la insertamos en \code{q}, en \code{dist} y decimos que su \code{father} es la original 
+    \end{itemize}
+\end{itemize}
+Si queremos buscar la distancia entre dos nodos cualesquiera podemos usar Floyd-Warshall\\
+\\
+\algo{Floyd-Warshall}{n^3}
+\begin{itemize}
+  \item Definimos el vector \code{M[i, j]}, que inicialmente es la matriz de adyacencia de \code{G}.
+  \item Iteramos sobre $k, i, j$, y en cada iteración hacemos \code{M[i][j] = min(M[i][j], M[i][k] + M[k][j])}.    
+\end{itemize}
+Si en lugar de buscar el camino más corto buscamos el más largo desde un nodo, aplicamos un longest path:\\
+\algo{Longest path}{n+m}
+\begin{itemize}
+  \item Definimos un vector \code{dist} que nos el camino más largo y lo inicializamos a $-1$.
+  \item Si \code{dist[x]!=-1} retornamos dist[x] (programación dinámica)
+  \item Si \code{dist[x]==-1} retornamos \code{max(1+y)} para \code{y} vecino de \code{x} y lo igualamos a \code{dist[x]}.
+  
+\end{itemize}
+(terminar)
+
+
+\subsection{Árbol Generador}
+Se trata de, dado un grafo $G$ calcular el subconjunto  $F\subset E$ mínimo tal que el grafo sea un árbol. \\
+\\
+\algo{Árbol generador en un grafo no dirigido sin pesos}{}
+Definiremos un representante de cada componente conexa y crearemos una función \code{repr(x)} que nos diga cuál es ese representante. Además usaremos compresión de caminos para que los nodos estén a una distancia menor a sus representantes.
+\begin{itemize}
+  \item Creamos el vector \code{pare}, que nos dirá el nodo padre de cada nodo. Creamos la función \code{repr()}. 
+  \item Si \code{pare(x) == -1} $\implies$ \code{x} es el nodo representante.
+  \item Si no lo es, \code{pare[x]=repr(pare[x])} y devuelve \code{pare{[x]}}. 
+\end{itemize}
+Una vez implementada la función \code{repr()} vamos con la función principal:
+\begin{itemize}
+  \item Definimos el entero \code{comp=n}, que nos indicará el número de componentes conexas.
+  \item Iteramos sobre el conjunto de aristas (definidas en pairs): 
+	\begin{itemize}
+	  \item Si los \code{repr(x) != repr(y)} $\implies$ hacemos que uno sea padre del otro.
+	  \item Retornamos la arista.
+	  \item Restamos $1$ a \code{comp}. Si es $1$ retornamos.
+	\end{itemize}
+\end{itemize}
+Si queremos hacer el Árbol mínimo de expansión en un grafo con pesos usaremos el algoritmo de Kruskal.\\
+\algo{Kruskal}{m\log m}
+Similar al de Árbol generador:
+\begin{itemize}
+  \item Ordenamos las aristas por coste. 
+  \item Al realizar el algoritmo anterior iteramos sobre las aristas por coste: si están en diferente componente conexa, la añadimos, si no, cogemos la siguiente.
+\end{itemize}
+
+\subsection{Ordenación topológica}
+La ordenación topológica es una ordenación lineal de todos los nodos que satisface que si \code{G} contiene la arista dirigida \code{uv} entonces el nodo \code{u} aparece antes del nodo \code{v}.\\
+\\
+\algo{Ordenación Topológica}{n+m}\\
+\begin{itemize}
+    \item Construimos el vector \code{deg}, que cuenta el grado de entrada de cada nodo y la stack \code{pila} 
+    \item \code{for(nodo)} si el \code{deg} del nodo tiene grado 0 $\implies$ añádelo a \code{pila}.
+    \item \code{while(not pila.empty())} print del nodo de la pila y restarle uno al \code{deg} sus adyacentes. Si alguno de esos adyacentes tiene \code{deg=0} $\implies$ añádelo a \code{pila}.
+\end{itemize}
+
+\subsection{Componentes fuertemente conexas (SCC)}
+$$
+[x] = [y] \text{ (están en la misma componente fuertemente conexa )} \iff \begin{cases}
+x\to y \\
+y\to x
+\end{cases} 
+$$
+Todo grafo dirigido es un DAG de sus SCC \\
+\\
+\algo{Identificación de las SCC}{n+m} 
+\begin{itemize}
+  \item Realizar un contador DFS sobre el grafo y guardar los vértices resultantes en en una stack \code{S}.
+  \item Construir el Grafo transpuesto \code{I} invirtiendo las direcciones de las aristas
+  \item Sobre I, miramos el elemento de la stack \code{S} y hacemos un DFS. Los nodos que recorra serán miembros de la misma componente conexa. Realizamos este proceso hasta que se vacíe \code{S}
+\end{itemize}
+\ex{2-SAT problem }\\
+Pongamos que queremos ver si se pueden elegir bools $a, b, c, d$ tal que:
+$$
+(a\vee b)\land(\bar{a}\vee c)\land(\bar{a}\vee b)\land(\bar{b}\vee \bar{d}) = true \implies \begin{cases}
+  \overline{a} \implies b, \quad \overline{b} \implies a \\
+  a \implies c, \quad \overline{c} \implies \overline{a} \\
+  a \implies b, \quad \overline{b} \implies \overline{a} \\
+  b \implies \overline{d}, \quad d \implies \overline{b}
+\end{cases}
+$$
+\begin{multicols}{2}[\columnsep2em]
+\noindent 
+Podemos hacer un grafo dirigido con $2n$ nodos (los bools y sus complementarios)\\
+Si este grafo tiene una componente fuertemente conexa, entonces no se pueden asignar los booleanos.
+\columnbreak
+\incfig{2-SAT}
+\end{multicols}
+
+\subsection{Flujo máximo}
+Suponemos que tenemos ciertas ciudades (nodos) y carretaras (aristas dirigidas) con una cierta capacidad. Consideramos ir de una ciudad origen (fuente) a una final (pozo), cumpliendo, además las restricciones en las capacidades de las carreteras. La solución a la capacidad máxima es el \textit{flujo máximo}. \\
+\\
+\algo{Flujo máximo}{}\\
+Empezamos construyendo un grafo $F$ con la misma estructura pero inicializando a $0$ los pesos de las aristas.\\
+Para cada iteración Hacemos:
+\begin{itemize}
+  \item Buscamos un camino $s\to t$ y hacemos pasar el máximo flujo posible (habrá una arista que haga de cuello de botella).
+  \item Sumamos ese flujo en el camino en $F$. Restamos en $G$ ese flujo y además lo ponemos en sentido contrario.
+  \item Repetimos el proceso mientras exista un camino donde pasar flujo $s\to t$.
+\end{itemize}
+\noindent
+Se adjunta un ejemplo sencillo. La primera columna corresponde al grafo $G$ y la segunda al  $F$ conforme se van actualizando.
+\incfig{maxflow}
+\ex{Matching máximo}\\
+Buscamos en un grafo bipartido $V = E + D$ el máximo número de aparejamientos.\\
+Podemos replantear el problema añadiendo los nodos $s$ y $t$ tal y las aristas $s \to E, D\to t$. Realizando el maxflow del nuevo grafo de $s$ a $t$, la solución será el número de parejas.
+
+
+
+\section{Roura out of context}
+\subsection{P versus NP}
+\subsubsection{Definiciones}
+\begin{multicols}{2}[\columnsep2em]
+\begin{itemize}
+  \item \textbf{P:} Se pueden resolver en tiempo polinómico.
+  \item \textbf{NP:} Dada una solución se puede comprobar en tiempo polinómico.
+  \item \textbf{NP-Hard:} Todo problema NP se puede reducir a este problema.
+  \item \textbf{NP-Completo:} Se cumple que es NP y NP-Hard.
+\end{itemize}
+\columnbreak
+\incimg{PNP.png}
+\end{multicols}
+\noindent
+La pregunta es si $P=NP$ o  $P\neq NP$. En función de la respuesta tenemos los dos tipos de diagramas de Venn.
+
+\subsubsection{Ejemplos de Problemas NP-completos}
+\begin{itemize}
+  \item \textbf{3-SAT} Problema de decisión booleana. Similar al 2-SAT visto en la sección de algoritmos, pero con 3 variables en cada cláusula
+  \item \textbf{Knapsack} Dados unas cantidades de diferentes objetos, sus pesos y su valor, buscar el máximo de valor que se pueden meter en una mochila con capacidad de peso máxima dada.
+  \item \textbf{Subset Sum} dado un conjunto de números buscar un subconjunto de ellos que sume un determinado número
+  \item \textbf{Camino Hamiltoniano} Buscar un camino Hamiltoniano (que pase por todos los vértices una sola vez) en un grafo
+  \item \textbf{Clique} Buscar cliques (subgrafos completos) en un grafo
+  \item \textbf{Subgraph isomorphism} dados dos grafos $G_1, G_2$ ver si algún subgrafo de $G_1$ es isomorfo a $G_2$
+  \item \textbf{Vertex covering} Buscar el covering (subconjunto de vértices tal que toda arista tiene al menos un vértice en el) mínimo en un grafo
+  \item \textbf{Graph coloring} Mínimo numero de colores con el que se puede colorear un grafo
+\end{itemize}
+\subsection{Problema de la parada}
+Este teorema nos dice que es imposible diseñar un algoritmo que nos diga si un cierto código dado como input parará en un tiempo finito.\\
+\\
+Supongamos que si que tenemos tal algoritmo. Definimos el algoritmo como
+\[
+halt(x) = \begin{cases}
+  1 \text{ si el código } x \text{ se para}\\
+  0 \text{ si el código } x \text{ no se para}
+\end{cases}
+\] 
+Entonces podemos implementar la función $g()$ de la siguiente manera:
+\begin{lstlisting}
+void g(){
+  if(halt(g)){
+	loop_forever();
+  }
+}
+\end{lstlisting}
+Observamos que si $halt(g)=1$, eso significaría que la función g llama a loop_forever() $\implies$ contradicción.\\
+Por otro lado, si $halt(g)=0$, eso significaría que la función se para $\implies$ contradicción.\\
+\\
+Por tanto no existe tal algoritmo.
+\subsection{Jocs imparcials}
+Definimos los \textbf{nimbers} como la función recursiva:
+\[
+nim(x) = \min \ n\not\in \{nim(X') : X\to X'\}
+\]
+Donde $X$ es el conjunto de las posiciones posibles del juego.\\
+\\
+Se cumple que una posición $x$ es perdedora si y solo si $nim(x)=0$. Esto lo podemos ver por la definición de la función $nim$: si una posición es perdedora, no se podrá llegar desde ella a ninguna posición ganadora y viceversa.\\
+\\
+Podemos hacer el "producto" de dos juegos imparciales representado por la operación $\bigoplus$. Si tenemos los juegos $J_i$ y tenemos una posición de cada juego $x_i\in J_i$, entonces la posición del producto de juegos es $x_1\oplus\ldots\oplus x_n\in J_1\bigoplus\ldots\bigoplus J_n$.\\
+\\
+Un resultado interesante es que $nim(x\oplus y) = nim(x) \wedge nim(y)$ donde $\wedge$ es la operación exclusive or.\\
+\\
+El juego por excelencia donde se aplica es el \textbf{Joc del Nim} y sus diversas variantes. La mas sencilla de ellas es la siguiente: \\
+\\
+\textit{Joc del Nim}\\
+Tenemos $m$ pilas con un número de fichas cada una y dos jugadores que se enfrentan. En cada turno al jugador que le toca puede quitar las fichas que quiera de una sola pila. Gana quien quite la última ficha en su turno.\\
+\\
+Se adjunta a continuación un posible juego entre Roura y Amalia (en rojo y azul las fichas que quitan respectivamente):\\
+\incfig{Nim}
+\\
+\\
+Roura tiene una estrategia ganadora. Vamos a verlo calculando los nimbers de cada pila por separado. \\
+\\
+El caso base $nim(0)=0$.$nim(1)=1$ por la fórmula recursiva  \ldots \ por inducción $nim(k)=k$. Por tanto tenemos:
+ \[
+\begin{cases}
+  nim(4)=4=100_2 \\
+  nim(6)=6 = 110_2\\
+  nim(5)=5 = 101_2
+\end{cases}
+\implies nim(4\wedge 6 \wedge 5) =  nim(100_2\wedge 110_2 \wedge 101_2) = 111 \neq 0 \implies \boxed{\text{posición ganadora}}
+\] 
+
+\section{Apéndice de los códigos en C++}
+
+\lstinputlisting[language=C++, firstline=1]{codes/AlgoritmosGrafos.cpp}
+
+
+
+
+
+
+
+
+
+
+\end{document}

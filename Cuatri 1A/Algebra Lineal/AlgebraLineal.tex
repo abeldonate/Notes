@@ -1,0 +1,337 @@
+\documentclass[12pt]{article}
+
+\title{Algebra Lineal}
+\author{Abel Doñate Muñoz \\ \small{\href{mailto:abel.donate@estudiantat.upc.edu}{abel.donate@estudiantat.upc.edu}}}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Matrices y sistemas}
+
+\subsection{Matrices elementales}
+\begin{itemize}
+  \item \(E_1: f_i \to f_j \ \ \)
+  	$E_1 = \begin{pmatrix} 
+	1 & 0 & 0 & 0  \\
+    0 & 0 & 1 &  0\\
+    0 &  1 &    0   &  0 \\
+    0 & 0 &    0   &  1
+	\end{pmatrix}$
+	
+  \item \(E_2: f_i \gets cf_j \ \ \)
+  	$E_1 = \begin{pmatrix} 
+	1 & 0 & 0 & 0  \\
+    0 & 1 & 0 &  0\\
+    0 &  0 &    c   &  0 \\
+    0 & 0 &    0   &  1
+	\end{pmatrix}$
+	
+  \item \(E_3: f_i \gets cf_j +f_i \ \ \)
+  	$E_1 = \begin{pmatrix} 
+	1 & 0 & 0 & 0  \\
+    0 & 1 & 0 &  0\\
+    0 &  c &    1   &  0 \\
+    0 & 0 &    0   &  1
+	\end{pmatrix}$
+  
+\end{itemize}
+Ahora podemos expresar $\tilde{A} = REF(A)$ (the Row Echelon Form of $A$ REF) como: \[\tilde{A}=EA\] con $E$ como producto de matrices elementales. \\ 
+\\
+Podemos también transformar esta matriz en una REF (los pivotes son unos y encima hay ceros) como: 
+\[RREF(A)=\tilde{E}\tilde{A}=\tilde{E}EA=E'A\]
+
+\subsection{Rouché-Frobenius}
+$Rank(A):=$ \# pivotes en la REF.
+\begin{itemize}
+  \item $Rank(A)=rank(A') \implies$ Consistente con $n-rank(A)$ variables libres
+  \item $Rank(A) \neq rank(A') \implies$ No consistente (sin solución)
+\end{itemize}
+
+\subsection{Gauss-Jordan}
+Transformar una matriz a REF:
+\[Ax=b, \ A'=
+\left(
+\begin{array}{cccc|c}
+a_{11} & a_{21} & a_{31} & a_{41} & b_1\\
+a_{12} & a_{22} & a_{32} & a_{42} & b_2\\
+a_{13} & a_{23} & a_{33} & a_{43} & b_3	
+\end{array}
+\right)
+\implies
+\left(
+\begin{array}{cccc|c}
+a_{11} & a_{21} & a_{31} & a_{41} & b_1\\
+0 & a_{22} & a_{32} & a_{42} & b_2\\
+0 & 0 & 0 & a_{43} & b_3
+\end{array}hange of basis
+\right)
+\]
+Columnas sin pivotes son las variables libres ($x_3$ en el ejemplo).
+
+\subsection{Determinante}
+\textbf{Teorema de Laplace}
+\[\det{A}=\sum_{j=1}^{n}{(-1)^{i+j}a_{i,j} \det{A_{i,j}}} \ \ \ \ \forall i \in \{1, 2,...,n\}\]
+Propiedades del determinante:
+\begin{itemize}
+	\item Intercambiando dos filas $|A|=-|A^*|$ (Multiplicar por $E_1$)
+	\item Si $A, B, C$ solo difieren en una fila $C_i=A_i+B_i$. Entonces $|C|=|A|+|B|$
+	\item Multiplicar por $E_3$ no cambia el determinante
+	\item $|AB|=|A||B|$
+\end{itemize}
+
+\section{Espacios vectoriales}
+	\subsection{Subespacios vectoriales}
+	El subespacio vectorial (s.e.v.) $W$ de $V$ se define como:
+	\[W=[u_1,...,u_n] :=\{\lambda_1u_1,...,\lambda_nu_n \ : \lambda_i\in K\}\]
+	donde $u_i$ son vectores en $V$.\\ 
+	\\
+	Para determinar si es subespacio de un espacio:
+	\begin{itemize}
+		\item[1. ] Transformar el problema en una matriz.
+		\item[2. ] Hacer REF de la matriz y resolver el sistema con variables libres.
+		\item[3. ] Dar una base factorizando las variables libres de la solución.
+	\end{itemize}
+	
+	\subsection{Cambio de base}
+	Si tenemos dos bases $B:\{u_1,...,u_n\}$ y $C:\{v_1,...,v_n\}$ podemos cambiar las coordenadas por medio de una matriz de cambio de base $A_{B\rightarrow C}$:
+	\[M_{B\rightarrow C}=((u_1)_C,...,(u_n)_C)\]
+	\[M_{B\rightarrow C}(u_1,...,u_n)=(v_1,...,v_n)\]
+	
+	\subsection{Suma de espacios vectoriales}
+	La suma de dos espacios vectoriales se define como \(V_1+V_2=\{v_1+v_2\ : \ v_1\in V_1, v_2\in V_2\}\) \\ 
+	Si \(V_1\cap V_2=\emptyset \ \implies \) la suma es directa $V_1 \oplus V_2$\\ \\
+	\textbf{Fórmula de Grassmann}\\
+	$$\boxed{\dim(V_1+V_2)=\dim(V_1)+dim(V_2)-\dim(V_1\cap V_2)}$$
+	
+	\subsection{Buscando espacios vectoriales}
+	Para encontrar el espacio vectorial:
+	\begin{itemize}
+		\item[$\mathbf{F+G}$] Entonces $F+G=[u_1,\cdots,u_n, v_1,\cdots v_m]$, donde $u_i, v_i$ son elementos de la base de $F$ y $G$ respectivamente.  
+		\item[$\mathbf{F\cap G}$] Pon $F$ y $G$ como sistemas homogéneos y resuelve con variables libres. El subespacio de soluciones es el deseado.
+		\item[$\mathbf{E/F}$] Usa el que $E/F$ es el complementario de $F$. Comprueba que combinación de los vectores unitarios de la base lo complementa.
+	\end{itemize}
+	
+\section{Aplicaciones lineales}
+	Una aplicación lineal $f: E\to F$ se puede pensar como una matriz $A$ tal que $f(v)=Av$.\\ \\
+	Distinguimos los siguientes tipos de aplicaciones:
+	\begin{itemize}
+		\item Monomorfismo $\implies \ f$ inyectiva $\implies \ Ker(f)=0$
+		\item Epimorfismo $\implies \ f$ exhaustiva/sobreyectiva $\implies \ Im(f)=F$
+		\item Isomorfismo $\implies \ f$ biyectiva
+    \end{itemize}
+    También tenemos los subespacios $Ker(f)/Nuc(f)$ and $Im(f)$. Se relacionan por la siguiente fórmula:
+    \[\dim(Ker(f))+\dim(Im(f))=\dim(E)\]
+    \\
+	\textbf{Primer teorema de isomorfismo}
+	Sea $f: E\to F$ una aplicación lineal:
+	$$\boxed{\bar{f}: E/Ker(f) \to Im(f) \ \ \ \implies E/Ker(f) \cong Im(f) }$$
+	es un isomorfismo
+	
+	\subsection{Trabajando con bases}
+	Sea $f: E \to F, \ \ \dim(E)=n, \dim(F)=m$ y $\mathcal{B}_E=\{u_1,...,u_n\}, \mathcal{B}_F=\{v_1,...,v_m\}$:
+	\[\boxed{M_{\mathcal{B}_E,\mathcal{B}_F}(f)=(f(u_1)_{\mathcal{B}_F},...,f(u_n)_{\mathcal{B}_F})}\]
+	
+	\subsection{Espacio Dual}
+	Definimos el espacio dual $E^*$ de $E$ de la siguiente manera:\\
+	Sea $u_i^*$ una aplicación lineal $u_i^*: E\to \mathbb{R}$ \\
+	Let $\mathcal{B}_E=\{u_1,..., u_n\}, \ \ \mathcal{B}_{E^*}=\{u_1^*,..., u_n^*\}$
+	\[u_i^*u_j=\delta_i^j \ \ \ \implies \ \ \ u=u_1^*(u)u_1+\cdots + u_n^*(u)u_n\]
+	Estas aplicaciones lineales $u_i^*$ podemos pensarlas como productos escalares $u^*(v)=<u, v>$, donde $u$ es un vector columna de la misma dimensión que $v$.
+	
+	
+\section{Diagonalización}
+	\subsection{Encontrar un endomorfismo diagonal}
+	Queremos encontrar una base cuya matriz del endomorfismo sea diagonal. Si no es posible, recurriremos a la forma de Jordan:
+	\begin{itemize}
+		\item[1)] Encontrar los VAP's  $\implies$  $P_f(x)=|M-x I|=0\ \Rightarrow\ \lambda_i$
+		\item[2)] Encontrar los VEP's  $\implies$  $Nuc(M-\lambda_iI)$
+		\item[3)] $1\leq g_\lambda\leq a_\lambda$
+	\end{itemize}
+	El \textbf{Polinomio característico} $P_f(x)$ es el polinomio tal que $P_f(x)=|M-\lambda I|$\\ \\
+	El \textbf{Polinomio mínimo} $m_f(x)$ es el polinomio mónico de menor grado que anula $f$. \\
+	$m_f(x) = (x-\lambda_1)^{n_1}\cdots (x-\lambda_r)^{n_r}$, donde $n_i$ es el menor exponente $k$ tal que \[Nuc(f-\lambda_iI)^k=Nuc(f-\lambda_iI)^{k+1}\] \\ \\	
+	\textbf{Teorema de Cayley-Hamilton}
+	\[P_f(M) = 0\]
+	
+	
+	\subsection{Teoremas de diagonalización y descomposición}
+	\textbf{Primer teorema de diagonalización}\\
+	$f$ diagonaliza sobre $\mathbb{K}$ si y solo si:
+	\begin{itemize}
+		\item $P_f(x)$ descompone en factores simples en $\mathbb{K}$
+		\item $g_1+\cdots +g_r=n$ $\iff$ $a_i=g_i \ \forall i$
+	\end{itemize}
+	Si queremos que diagonalize sobre $\mathbb{C}$ la única condición que hace falta es la segunda, ya que la primera siempre se cumple. \\
+	\\
+	\textbf{Segundo teorema de diagonalización}
+	\[f \text{ diagonaliza} \iff m_f(x)  \text{ descompone en factores lineales}\]	
+	\\
+	\textbf{Primer teorema de descomposición}\\
+	Si $P_f(x)$ descompone en factores simples:
+	\[\dim \ Ker((M-\lambda_iI)^{a_i})=a_i \ \ \iff \ \ E=Ker((M-\lambda_1I)^a_1)\oplus \cdots \oplus Ker((M-\lambda_rI)^a_r)\]
+	
+	
+	\subsection{Matrices positivas}
+	Una matriz $A$ es positiva $(A>0) \iff a_{ij}>0 \ \forall i,j$ \\
+	\\
+	\textbf{Teorema de Perron-Frobenius}
+	Sea $A$ una matriz positiva, entonces se cumple:
+	\begin{itemize}
+		\item Tiene un VAP $\lambda_1 > 0$ dominante
+		\item El VEP de $\lambda_1, v_1$ es positivo
+		\item No hay otros VEP's positivos
+	\end{itemize}
+	\subsection{Matrices estocásticas}
+	Se trata de matrices donde las columnas sumen $1$. Su propiedades son:
+	\begin{itemize}
+		\item $\lambda_1=1$ VAP dominante con VEP positivo por Perron-Frobenius
+		\item Si $x$ suma 1 $\Rightarrow$ $Ax$ también 
+	\end{itemize}
+	
+	\subsection{Algunas propiedades}
+	\begin{itemize}
+		\item[-] $|A|$ y $tr(A)$ no dependen de la elección de la base
+		\item[-] $u, v$ son VEP's de diferentes VAP's $\Rightarrow$ son l.i.
+	\end{itemize}
+	
+	
+\section{Ortogonalidad}
+	\subsection{Algunas definiciones}
+	\textbf{Producto escalar}. Forma bilineal $<u, v>$ tal que:
+	\begin{itemize}
+		\item Bilineal $<u+\lambda v, t> = <u, t> + \lambda <v, t>$
+		\item Simétrica $<u, v>=<v, u>$
+		\item Definida positiva (Criterio de Sylvester $\Rightarrow$ Todos los determinantes principales son positivos) $\iff$ $<u, u> \geq 0 \ \forall u$
+	\end{itemize}
+	
+	
+	En $\mathbb{R}^n$ el producto escalar viene definido por:
+	\[<u, v>= \begin{pmatrix} 
+    u_1 & u_2 & u_3
+	\end{pmatrix}
+	\begin{pmatrix} 
+	<u_1, v_1> & <u_1, v_2> & <u_1, v_3> \\
+    <u_2, v_1> & <u_2, v_2> & <u_2, v_3> \\
+    <u_3, v_1> & <u_3, v_2> & <u_3, v_3> 
+    \end{pmatrix}
+	\begin{pmatrix} 
+	v_1 \\
+	v_2 \\
+	v_3
+	\end{pmatrix}
+	\]
+	\textbf{Norma}. La norma $\norm{v}=\sqrt{<v, v>}$ debe cumplir:
+	\begin{itemize}
+		\item $\norm{v}\geq 0$
+		\item $\norm{\lambda v} = |\lambda|\norm{v}$
+		\item $\norm{v}\norm{u} \geq <u, v>$
+		\item $\norm{v} + \norm{u} \geq \norm{u+v¨}$
+	\end{itemize}
+	\textbf{Dinstancia} $d(u, v)= \norm{u-v}$ \\
+	\\
+	\textbf{Ángulo} $cos\alpha=\frac{<u, v>}{\norm{u}}$ \\
+	\\
+	\textbf{Ortogonales} $u\perp v \iff <u, v> = 0$\\
+	
+	\subsection{Algoritmo de Gram-Schmidt}
+	Se usa para convertir una base ${u_1, \cdots , u_n}$ en otra ortogonal ${v_1, \cdots , v_n}$:
+	\[v_d=u_d - \frac{<v_1, u_d>}{<v_1, v_1>}u_1 - \cdots - \frac{<v_{d-1}, u_d>}{<v_{d-1}, v_{d-1}>}u_{d-1}\]
+	
+	\subsection{Subespacio complementario ortogonal}
+	Este espacio se define como:
+	\[F^{\perp} = \{ u\in E \ : \ <u, v>=0 \ \forall v \in F \} \]
+	Algunas propiedades son:
+	\begin{itemize}
+		\item[a)] $F \subset G \Rightarrow G^{\perp} \subset F^{\perp}$
+		\item[b)] $(F+G)^{\perp} = F^{\perp}\cap G^{\perp}$
+		\item[c)] $(F \cap G)^{\perp} = F^{\perp} + G^{\perp}$
+		\item[d)] $Ker(A)^{\perp} = Im(A^T)$
+	\end{itemize}
+	
+	\subsection{Proyección ortogonal}
+	Podemos escribir de una única forma cada vector de $E$ como $v=w+w'$ con $w\in F$ y  $w' \in F^{\perp}$.\\
+	De esta forma $w= proj_F(v)$ y $w'=proj_{F^{\perp}}(v)$. \\
+	Como tenemos que $w\in F$ y $(v-w) \in F^{\perp} \ \Rightarrow \ <u_i, w>= <u_i,v>$. Por tanto si $w=c_1u_1+\cdots + c_du_d$
+	\[\begin{pmatrix} 
+	<u_1, u_1> & <u_1, u_2> & <u_1, u_3> \\
+    <u_2, u_1> & <u_2, u_2> & <u_2, u_3> \\
+    <u_3, u_1> & <u_3, u_2> & <u_3, u_3> 
+    \end{pmatrix}
+    \begin{pmatrix} 
+	c_1 \\
+	c_2 \\
+	c_3
+	\end{pmatrix}
+	= 
+	\begin{pmatrix} 
+	<u_1,v> \\
+	<u_2,v> \\
+	<u_3,v>
+	\end{pmatrix}
+    \]
+	
+	\subsection{Teorema espectral}
+	Sea $A=A^T$ simétrica:
+	\begin{itemize}
+		\item $A$ tiene todos los VAP'S reales 
+		\item $A$ diagonaliza
+		\item $\exists$ base ortogonal formada por VEP's de $A$
+    \end{itemize}		
+		
+	\subsection{Descomposición SVD}
+	Sea $A$ una matriz $m\times n$, queremos encontrar las siguientes matrices:
+	\begin{itemize}
+		\item[-] $U\ m\times m$ ortogonal
+		\item[-] $D\ m\times n$ diagonal con $\sigma_1\geq \cdots \geq\sigma_r$ y $r=Rank(A)$
+		\item[-] $V\ n\times n$ ortogonal		
+	\end{itemize}
+	Con ellas podemos expresar $A=UDV^T$. Para encontrar estas matrices seguimos los siguientes pasos
+	\begin{itemize}
+		\item[1)] $A^TA=VD^TDV^T \Rightarrow $ podemos diagonalizar $A^TA$ (simétrica), obteniendo $V, V^T$ y $D$, dado que $\sigma_i=\sqrt{\lambda_i}$
+		\item[2)] Los vectores columna que forman $U$ son $u_i=\frac{1}{\sigma_i}Av_i$ 
+		 
+	\end{itemize}
+	
+	\subsection{Teorema Fundamental del Álgebra}
+	Sea $f : \mathbb{R}^n \rightarrow \mathbb{R}^m$ una aplicación lineal definida por la matriz $A$. Entonces tenemos los siguientes espacios:
+	\begin{itemize}
+		\item $Im(A)=[u_1, \cdots , u_r]$
+		\item $Ker(A)=[v_{r+1}, \cdots , v_n]$
+		\item $Im(A^T)=[v_1, \cdots , v_r]$
+		\item $Ker(A^T)=[u_{r+1}, \cdots , u_n]$
+	\end{itemize}
+	Con los que se cumple $\mathbb{R}^n=Ker(A)\otimes Im(A^T)$ y $\mathbb{R}^m=Ker(A^T)\otimes Im(A)$. \\
+	Además se cumple por las propiedades de $5.3$ que los espacios son complementos ortogonales.
+	
+	\subsection{Norma de una matriz}
+	La norma de una matriz se define como
+	\[\norm{A}_2=\text{max}_{\norm{x}=1} \norm{Ax} \ =\text{max} \frac{\norm{Ax}}{\norm{x}}\]
+	Algunas propiedades son:
+	\begin{itemize}
+		\item $\norm{A}\geq 0$
+		\item $\norm{\lambda A}=\lambda \norm{A}$
+		\item $\norm{AB}\leq \norm{A}\norm{B}$ igaldad cuando $B$ es ortogonal
+		\item $\norm{A}=\sigma_1$ (SVD) $\Rightarrow \ \norm{A^{-1}}= \frac{1}{\sigma_r}$
+	\end{itemize}	
+	\textbf{Torema de Eckart-Young}. \\
+	Sea $A=UDV$, sabemos que $\norm{A}=\sigma_1$. Sea $A_k$ la matriz SVD de rango $k$:
+	\begin{itemize}
+		\item $\norm{A-M_k}=\sigma_{k+1}$
+		\item $\norm{A-M} \geq \norm{A-M_k} \ \forall M$ de rango k
+	\end{itemize}
+
+
+\end{document}

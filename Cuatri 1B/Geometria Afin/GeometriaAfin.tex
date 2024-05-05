@@ -1,0 +1,214 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+
+\def\env@matrix{\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{*\c@MaxMatrixCols c}}
+  
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\h}{\hspace{1em}}
+\newcommand{\w}[1]{\text{#1}}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Geometría afín y euclidea}
+\author{Abel Doñate}
+
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Espacio afín}
+\subsection{Definición y propiedades}
+Un espacio afín es una terna $\mathbf{A} = (A, E, \delta)$ 
+$
+\begin{cases}
+    A \text{ Conjunto (puntos)} \\
+    E \ \text{K-espacio vectorial (vectores)} \\
+    \delta:A\times A \to E \implies \delta(p,q) = \overline{pq}
+\end{cases}$
+\\
+\textbf{Propiedades}
+\begin{itemize}
+    \item[(1)] $\delta(p,q) = 0 \iff p=q$
+    \item[(2)] $\delta(q,p) = -\delta(p,q)$
+    \item[(3)] Regla del paralelogramo $\delta(p_1, p_2)=\delta(p_3, p_4) \iff \delta(p_1, p_3)=\delta(p_2, p_4)$
+\end{itemize}
+
+\subsection{Sistemas de referencia}
+Sea $R =\{p_0; B\}, \hspace{.5em} \Bar{R} =\{\Bar{p_0}; \Bar{B}\}$ tal que $(\Bar{p_0})_R = \begin{pmatrix}
+    a_1 \\
+    \vdots \\
+    a_n
+\end{pmatrix}$
+Sea $S$ la matriz cambio de base $S = M_{\Bar{B}\to B} = ((\Bar{u}_1)_B, \cdots, (\Bar{u}_n)_B)$. Entonces:
+\[
+\begin{pmatrix}
+    x_1 \\
+    \vdots \\
+    x_n \\
+    1
+\end{pmatrix}
+= 
+\begin{pmatrix}[ccc|c]
+     &  &  & a_1 \\
+     & S & & \cdots \\
+     &  &  & a_n \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+    \Bar{x}_1 \\
+    \vdots \\
+    \Bar{x}_n \\
+    1
+\end{pmatrix}
+=
+\widetilde{S}
+\begin{pmatrix}
+    \Bar{x}_1 \\
+    \vdots \\
+    \Bar{x}_n \\
+    1
+\end{pmatrix}
+\implies 
+\widetilde{S}^{-1} = 
+\begin{pmatrix}[ccc|c]
+     &  &  &  \\
+     & S^{-1} & & -S^{-1}a \\
+     &  &  &  \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{pmatrix}
+\]
+
+\subsection{Variedades lineales}
+Si tenemos $F\subset E$ un subespacio vectorial, entonces tenemos que $V = a+F$ es un variedad lineal. \\
+\textbf{Fórmulas de Grassmann} 
+\begin{itemize}
+    \item Si $V\cap W \neq \phi \implies \dim(V+W)=\dim V + \dim W -\dim(F\cap G)$
+    \item Si $V\cap W = \phi \implies \dim(V+W)=\dim V + \dim W -\dim(F\cap G)+1$
+\end{itemize}
+
+\section{Afinidades}
+
+\subsection{Puntos fijos y Varidedades invariantes}
+\textbf{Definition:} $p$ es un punto fijo $\iff f(p) = p$. \\
+El subespacio vectorial generado por estos puntos es $W = p_0+ \ker(f-I)$ (solución particular + subespacio homogéneo) \\
+\\
+\textbf{Definition:} $V$ es una variedad invariante $\iff f(V) \subseteq V$. \\
+Para ello debe ocurrir $\begin{cases} \widetilde{f}(F) \subseteq F \\ \overline{af(a)} \in F \end{cases}$ \\
+\\
+Hiperplano $ax + by +cz +d = 0$: es invariante si y solo si $\begin{pmatrix}[c]
+    a \\ b\\ c\\ d
+\end{pmatrix}  $ VEP de $\Tilde{A}^T$
+
+
+
+\subsection{Tipos de afinidades}
+\subsubsection{Traslación}
+$f(p+u) = f(p) + u \implies \widetilde{f} = I$ \\
+Sin puntos fijos.
+
+\subsubsection{Homotecia}
+$f(p) = o + \lambda \overline{op} \implies \widetilde{f}=\lambda I$, donde el punto $o$ es el centro de la homotecia. \\
+El punto fijo es $o$.
+
+\subsubsection{Proyección}
+$f^2 = f \implies \widetilde{f}^2-\widetilde{f} = 0$. 
+El polinomio anulador es $P(t)=t(t-1)$. \\
+Los puntos fijos son el subespacio afín $V=Im(f)=q + Im(\widetilde{f})$
+
+\subsubsection{Simetría}
+$f^2 = I \implies \widetilde{f}^2 = I$. El polinomio anulador es $P(t) = t^2-1$.
+Los puntos fijos son $\frac{1}{2}p+\frac{1}{2}f(p)$. \\
+\\
+Si tenemos un sistema de referencia $\overline{R} = \{p_0; u_1, \cdots , u_r, u_{r+1}, \cdots, u_n\}$, donde $u_1, \cdots , u_r$ son VEPs de VAP $1$ y $u_{r+1}, \cdots, u_n$ son VEPs de VAP $-1$. La matriz asociada de la función es:
+\[
+M_{\overline{R}}(f) = 
+\begin{pmatrix}[ccccc|c]
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & -1 & 0 \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 \\
+\end{pmatrix}
+\]
+\subsubsection{Homología}
+$f$ tiene un hiperplano de puntos fijos. $V = p_o + F, \dim(F) = n-1$ con $F = \ker(f-I)$. \\
+El poinomio anulador es $P=(x-1)^{n-1}(x-a)$
+
+\section{Teoremas}
+\subsection{Teorema de Thales}
+\subsection{Teorema de Ceva}
+\subsection{Teorema de Menelao}
+\subsection{Teorema de Pappus}
+\subsection{Teorema de Desargues}
+
+\section{Espacio euclídeo}
+Un espacio Euclideo es un espacio vectorial dotado con un producto escalar 
+\[<,>: E\times E \longrightarrow \R \begin{cases}
+    \text{bilineal} \\
+    \text{simétrico} \\
+    \text{definido positivo}
+\end{cases}
+, \h
+<u, v> = u^TMv,  \h M = (<u_i, u_j>)\]
+
+\subsection{Proyección}
+Tenemos el subespacio $F = [v_1, \cdots , v_d]$, y su subespacio ortogonal $F^\perp$.
+\[u = u' +u'', \h u' = \pi_F(u)\in F,\ u''=\pi_{F^\perp}(u)\in F^\perp
+\implies u' = \sum \alpha_iv_1 \h M\Bar{\alpha}=(<u, v_i>)\]
+
+\subsection{Producto vectorial}
+
+\subsection{Ángulos y orientaciones}
+\[\cos \alpha = \frac{<u,v>}{||u||||v||} \h
+\begin{cases} (\det V)^2
+    \alpha \in (0, \pi \text{ si } \{u, v\} \text{ es base positiva } (\det S>0)) \\
+    \alpha \in (\pi, 2\pi \text{ si } \{u, v\} \text{ es base negativa } (\det S<0))
+\end{cases}
+\]
+
+\subsection{Determinante de Gram}
+Este determinante nos da el volumen (n-dimensional) al cuadrado de la transformación lineal. 
+\[G(v_1\cdots , v_n) = \det(<v_i, v_j>) = \det(V^TV) \,\stackrel{\text{si V es base}}{=}\, (\det V)^2\]
+
+\[G(v_1, \cdots ,v_m) = ||v_m'||^2G(v_1, \cdots, v_{m-1}), \h \w{donde} \h v_m' = \pi_{[v_1, \cdots, v_{m-1}]^\perp}(v_m)\]
+
+\subsection{Distancias}
+\textbf{Distancia punto-recta}
+\[d(p, r) = \frac{V(v_1, p-p_1)}{V(v_1)} = \frac{||v_1\wedge (p-p_1)|| }{||v_1||}\]
+\noindent
+\textbf{Distancia recta-recta}
+\[d(r_1,r_2) = \frac{V(v_1, v_2, p_2-p_1)}{V(v_1, v_2)} = \frac{\sqrt{(\det(v_1, v_2, p_2-p_1))}}{||v_1\wedge v_2||} \] 
+\noindent
+\textbf{Distancia punto-hiperplano}
+\[d(p, H) = \frac{|A_1a_1+\ldots A_na_n + D|}{\sqrt{A_1^2+ \ldots A_n^2}}\]
+
+\section{Movimientos}
+
+\section{Cónicas y cuádricas}
+
+\end{document}
+

@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+
+\def\env@matrix{\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{*\c@MaxMatrixCols c}}
+  
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\h}{\hspace{1em}}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+
+%Geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Teoría Geometría}
+\author{Abel Doñate \\ abel.donate@estudiantat.upc.edu}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Varietats lineals}
+\textit{Varietats lineals. Definició i propietats bàsiques. Inclusió, intersecció i suma. Dimensions i Fórmula de Grassman.} \\
+\\
+\underline{Variedad lineal}:
+\[V = p + F \h \t{donde} \h p\in \A, F\subset \E, \h \dim F = \dim V\]
+\underline{Suma}
+\[V+W:=[V, W] \t{ (comb afines) } =p + [F, G, p-q]\]
+\underline{Intersección}
+\[V\cap W := \{x\in \A | x\in V, x\in W\} = c + F\cap G\]
+\underline{Posiciones relativas}
+\begin{itemize}
+    \item Si $V\cap W = \phi$ y $F\subseteq G$ ó $G\subseteq F \implies$ son paralelas
+    \item Si $V\cap W \neq \phi$ $\implies$ se cortan
+    \item Si no se cortan ni son paralelas $\implies$ se cruzan
+\end{itemize}
+\underline{Fórmula de Grassmann} \\
+\[
+\begin{cases}
+    (1) \t{ Si } V\cap W \neq \phi \implies \dim(V+W) = \dim V + \dim W -\dim(F\cap G) \\
+    (2)\t{ Si } V\cap W = \phi \implies \dim(V+W) = \dim V + \dim W -\dim(F\cap G) + 1
+\end{cases}
+\]
+Dem: \\
+(1) Se demuestra que $p-q\in F+G$. Aplicamos Grassmann para espacios vectoriales sabiendo dim($V$) = dim($F$). \\
+(2) Se demuestra que $p-q\notin F+G$. Aplicamos Grassmann para espacios vectoriales sabiendo dim($V$) = dim($F$). \\
+
+
+\section{Teoremes clàssics de la geometria afí plana}
+\subsection{Thales}
+$H_1, H_2, H_3$ hiperplanos paralelos entre ellos, $r, s$ dos rectas concurrentes ($r\cap s = P$) no paralelas a $H_i$:
+\[\t{Si } A_i = H_i\cap r, B_i = H_i\cap s \implies (A_1, A_2, A_3) = (B_1, B_2, B_3)\]
+\underline{Demostración} \\
+Consideramos la referencia $\mathcal{R} = \{P; \t{ base de } F, v\}$. Tenemos entonces:
+\[\begin{cases}
+    A_1 = (\ldots, a), B_1 = (\ldots, a) \\
+    A_2 = (\ldots, b), B_2 = (\ldots, b) \\
+    A_3 = (\ldots, c), B_3 = (\ldots, c)
+\end{cases} \implies \lambda = \frac{c-a}{b-a} = \frac{c-a}{b-a} \iff (A_1, A_2, A_3) = (B_1, B_2, B_3)\]
+
+\subsection{Ceva}
+\[r_i = <p_i, q_i> \t{ paralelas o concurrentes }\iff (q_1, p_2, p_3)(q_2, p_3, p_1)(q_3, p_1, p_2) = -1\]
+\underline{Demostración}
+\[r_1:(1-a)x-ay=0, \h r_2 = bx+y=b, \h r_3:x+cy=c\]
+Por tanto si se cortan debe ocurrir (sistema compatible determinado)
+\[\det\begin{pmatrix}
+    1-a & -a & 0\\
+    b & 1 & b\\
+    1 & c & c
+\end{pmatrix}=0 \iff \frac{a}{a-1}\frac{b}{b-1}\frac{c-1}{c}=(q_1, p_2, p_3)(q_2, p_3, p_1)(q_3, p_1, p_2) = -1\]
+\subsection{Menelao}
+\[q_1, p_2, q_3 \t{ alineados }\iff (q_1, p_2, p_3)(q_2, p_3, p_1)(q_3, p_1, p_2) = 1\]
+\underline{Demostración}
+\[q_1q_2=(-a,a+b-1), \h q_1q_3=(c-a,a-1)\]
+\[q_1, q_2, q_3 \t{ alineados } \iff -a(a-1)=(c-a)( a+b-1) \iff (q_1, p_2, p_3)(q_2, p_3, p_1)(q_3, p_1, p_2) = 1\]
+
+\subsection{Pappus}
+$p_1, p_2, p_3$ en una recta, $q_1, q_2, q_3$ en otra recta.
+\[A_i=<p_j, q_l>\cap <p_l, q_j> \implies A_1, A_2, A_3 \t{ alineados}\]
+\underline{Demostración} \\
+Consideramos $t_i=<p_i, q_j>\cap<p_l, q_i>$. Por el teorema de Menelao tenemos:
+\begin{align}
+    (q_1, t_1, t_3)(q_3, t_3, t_2)(q_2, t_2, t_1)=1 \\
+    (p_3, t_1, t_3)(p_2, t_3, t_2)(p_1, t_2, t_1)=1 \\
+    (A_1, t_2, t_1)(q_1, t_1, t_3)(p_2, t_3, t_2)=1 \\
+    (A_2, t_1, t_3)(q_3, t_3, t_2)(p_1, t_2, t_1)=1 \\
+    (A_3, t_3, t_2)(q_2, t_2, t_1)(p_3, t_1, t_3)=1
+\end{align}
+Si hacemos:
+\[\frac{(3)(4)(5)}{(1)(2)}=(A_1, t_2,t_1 )(A_2, t_1,t_3 )(A_3, t_3,t_2 )=1 \iff A_1, A_2, A_3 \t{ están alineados}\]
+\subsection{Desargues}
+Sean $ABC, A'B'C'$ dos triángulos:
+\[<A,A'>, <B, B'>, <C, C'> \t{ son concurrentes } \iff \begin{cases}
+    P = <A, B>\cap<A',B'> \\
+    Q = <B, C>\cap<B',C'> \\
+    M = <C, A>\cap<C',A'>
+\end{cases} \t{ están alineados}\]
+
+\section{Propietats de les afinitats}
+\textit{Propietats bàsiques. Caracterització geomètrica de les
+afinitats.} \\  
+\\
+Designaremos una afinidad como $f:\A \to \A$. Entonces existe una aplicación lineal $\Tilde{f}: \E \to \E$ tal que: \\
+\underline{Propiedades}
+\begin{itemize}
+    \item $f(p)-f(q) = \Tilde{f}(p-q) \iff f(p+\Bar{u}) = f(p) + \Tilde{f}(\Bar{u})$
+    \item $f$ inyectiva $\implies$ $\tilde{f}$ inyectiva, $f$ exhaustiva $\implies$ $\tilde{f}$ exhaustiva, $f$ biyectiva $\implies$ $\tilde{f}$ biyectiva
+    \item Si $\sum \lambda_i = 1 \implies f(\sum \lambda_ip_i)=\sum \lambda_if(p_i)$
+    \item Si $f$ afinidad, $g$ afinidad $\implies f\circ g$ afinidad
+\end{itemize}
+\underline{Caracterización geométrica} \\
+$f$ afinidad $\iff$ conserva los puntos alineados y las razones simples. ($\mathbb{K}\neq\mathbb{Z}_2$) \\
+Sean $a, b, c$ alineados con $b-a = u, c-a=\lambda u$
+\[f(c)-f(a) = \tilde{f}(c-a)=\tilde{f}(\lambda u)= \lambda \tilde{f}(u)\]
+\[f(b)-f(a) = \tilde{f}(b-a)=\tilde{f}(u)=\tilde{f}(u)\]
+
+
+\section{Simetries i projeccions} 
+\textit{Definicions, propietats, formes reduïdes i interpretació
+geomètrica.} \\
+\\
+\underline{Simetrías}. Realiza una simetría con respecto a la variedad de puntos fijos (con VAP 1)\\
+\[f^2 = I, \implies \Tilde{f}^2 = I, \h \t{Puntos fijos } V = \{\frac{1}{2}p + \frac{1}{2} f(p) \ \forall p\}, \h P(t)= t^2-1 \implies \lambda_i = \pm 1\]
+Si la simetría se hace sobre un hiperplano podemos usar la fórmula $M = I - 2\dfrac{uu^T}{u^Tu}$ \\
+\\
+\underline{Proyecciones}. Realiza una proyección sobre la variedad de puntos fijos (con VAP 1).
+\[f^2 = f, \implies \Tilde{f}^2 = \Tilde{f}, \h \t{Puntos fijos } V = Im(f), \h P(t)= t(t-1) \implies \lambda_i = 0, 1\]
+\[M_{\Bar{R}}(f_{sim}) = 
+\begin{pmatrix}[ccccc|c]
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & -1 & 0 \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 \\
+\end{pmatrix}, \h 
+M_{\Bar{R}}(f_{proy}) = 
+\begin{pmatrix}[ccccc|c]
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 \\
+\end{pmatrix}\]
+
+\section{Isometries}
+\textit{Definició, caracterització i propietats. El Teorema de Classificació (en
+dimensió arbitrària).} \\
+\underline{Definición Isometría} \\
+\[\varphi \t{ es una isometría} \iff <\varphi(u), \varphi(v)> = <u, v> \forall u, v \in \E\]
+\underline{Caracterización} \\
+$$
+\varphi \text{ isometría} \iff A^TA = I
+$$
+\underline{Propiedades} \\
+Las isometrías son giros o rotaciones.
+\begin{itemize}
+    \item $\norm{\varphi(u)} = \norm{u} \ \forall u\in \E$
+    \item $B= \{u_1,\ldots, u_n\}$ es b.o $\implies B'= \{\varphi(u_1),\ldots, \varphi(u_n)\}$ es b.o
+    \item $M_B(\varphi)$ ortogonal
+\end{itemize}
+\underline{Teorema de la clasificación} \\
+Si $\varphi$ es una isometría, entonces existe una base donde la matriz se puede expresar como:
+\[
+M_B(\phi)=\begin{pmatrix}[cccccc]
+    1 &  &  &  &  &  \\
+     & \ddots &  &  &  &  \\
+     &  & -1 &  &  &  \\
+     &  &  & \ddots &  &  \\
+     &  &  &  & \boxed{B_1} &  \\
+     &  &  &  &  & \ddots \\
+\end{pmatrix}, \h \t{ con } \boxed{B_i} = 
+\begin{pmatrix}
+    \cos\alpha_i & -\sin\alpha_i \\
+    \sin\alpha_i & \cos\alpha_i
+\end{pmatrix}
+\]
+A su vez $\phi$ se puede descomponer en una simetría y una rotación:
+\[M_B(\phi) = M_B(\phi_{sim})M_B(\phi_{rot})= 
+\begin{pmatrix}[cccccc]
+    1 &  &  &  &  &  \\
+     & \ddots &  &  &  &  \\
+     &  & -1 &  &  &  \\
+     &  &  & \ddots &  &  \\
+     &  &  &  & 1 &  \\
+     &  &  &  &  & \ddots \\
+\end{pmatrix}
+\begin{pmatrix}[cccccc]
+    1 &  &  &  &  &  \\
+     & \ddots &  &  &  &  \\
+     &  & 1 &  &  &  \\
+     &  &  & \ddots &  &  \\
+     &  &  &  & \boxed{B_1} &  \\
+     &  &  &  &  & \ddots \\
+\end{pmatrix}\]
+Dem: \\
+Tenemos si un VAP $\lambda$ de VEP $v$ es complejo, entonces sus conjugados también lo son. Sea $v= v_1 + iv_2,  \lambda = a + bi$ tenemos $f(v_1)=cv_1 + dv_2, f(v_2)=ev_1 + fv_2$
+
+\section{Moviments}
+\textit{Definició. Teorema de caracterització de moviments. Teorema de
+classificació (en dimensió arbitrària).}\\
+\\
+\underline{Definición}  \\
+$f$ movimiento $\iff d(f(p_1), f(p_2))=d(p_1, p_2) \ \forall p_1, p_2$\\
+\\
+\underline{Caracterización} \\
+$f$ movimiento $\iff \tilde{f}$ isometría y $f$ afinidad\\
+Dem:\\
+$\Leftarrow$\\
+$\norm{f(p_1)-f((p_2)}=\norm{\tilde{f}(p_1-p_0)-\tilde{f}(p_2-p_0)}=\norm{\tilde{f}(p_1-p_2)}=\norm{p_1-p_2}$
+\\
+$\Rightarrow$\\
+Obs: $f$ mov $\implies f$ inyectiva \\
+Lema: $a, b, c$ alineados (en orden) $\iff$ $d(a, c) = d(a, b) + d(b, c)$ \\
+$f$ movimiento $\implies$ mantiene distancias $\implies$ (Lema) mantiene alineaciones y razones simples $\implies f$ afinidad. \\
+$\norm{\tilde{f}(u)}= \norm{f(p+u)-f(p)} =\norm{p+u-p}= \norm{u} \implies \tilde{f}$ isometría\\
+\\
+\underline{Teorema de clasificación} \\
+Podemos clasificar todos los movimientos de la siguiente manera:
+\[
+M_{\Bar{R}}(f) = 
+\begin{pmatrix}[ccc|c]
+     &  &  & a  \\
+     & M_B &  & 0 \\
+    & &  & 0   \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{pmatrix}, \h M_B(\tilde{f})\text{ es la matriz de la isometría }\tilde{f} 
+\]
+Dem:\\
+Por el teorema de caracterización de movimientos, sabemos que $\tilde{f}$ es una isometría.\\
+Si $\exists p_0$ punto fijo, hemos acabado. Si no existe, $\exists V$ formada por VEPs de VAP 1 con una b.o. $\{u_{r+1}, \ldots, u_n\}$. Cogiendo $u_1 = \dfrac{f(p_0)-p_0}{\norm{f(p_0)-p_0}}$, tenemos que $f(p_0)=p_0+a u_1$ y siempre podemos coger los vectores $u_2, \ldots, u_r$ ortonormales a los demás.
+
+
+
+
+\end{document}
+

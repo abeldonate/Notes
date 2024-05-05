@@ -1,0 +1,8 @@
+\frametitle{}
+\begin{block}{}
+If $R$ is regular, and $E$ is an injective $R-$module then $F(E)\cong E$.
+\end{block}
+
+\begin{block}{(Huneke,-Sharp)} Let $(R, \mathfrak{m})$ a regular local ring of characteristic $p$. Then the Bass numbers $\mu_{i}(\mathfrak{p}, H_I^j(R))$ are finite.
+\end{block}
+\end{block}

@@ -1,0 +1,908 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array} \usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{svg}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Formulario Estadística}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\textbf{Tabla de distribuciones discretas}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+	\hline
+	$Modelo$ &  $p(X=k)$ &  $E[X]$ &  $Var[X]$ &  $G_X(z)$ \\
+	\hline
+	\makecell{\textbf{Bernoulli}\\ $\sim Be(p)$ }  & $\begin{cases}  p(X=1)=p \\  p(X=0) = 1-p \end{cases}$ & $p$ &  $p(1-p)$ &  $(1-p) + pz$ \\
+	\hline
+	\makecell{\textbf{Binomial}\\ $\sim Bin(N, p)$} & $\displaystyle\binom{N}{k}p^i(1-p)^{N-k}$ & $Np$ &  $Np(1-p)$ &  $((1-p)+pz)^N$ \\
+	\hline
+	\makecell{\textbf{Uniforme} \\ $\sim U(1, N)$} &  $\displaystyle\frac{1}{N}$ & $\displaystyle\frac{N+1}{2}$ & $\displaystyle\frac{N^2-1}{12}$ & $\displaystyle\frac{1}{N} \frac{z(z^N-1)}{z-1}$ \\
+	\hline
+	\makecell{\textbf{Poisson} \\ $\sim Po(\lambda)$} & $\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$ & $\displaystyle e^{\lambda(z-1)}$ \\
+	\hline
+	\makecell{\textbf{Geométrica} \\ $\sim Geom(p)$} & $\displaystyle p(1-p)^{k-1}$ &  $\displaystyle\frac{1}{p}$ &  $\displaystyle\frac{1-p}{p^2}$ &  $\displaystyle \frac{pz}{1-(1-p)z}$ \\
+	\hline
+	\makecell{\textbf{Binomial negativa} \\ $\sim BinN(r, p)$} & $\begin{cases} 0 & \text{ si } k<r \\ \binom{k-1}{r-1}p^r(1-p)^{k-r} & \text{ si } k\ge r \end{cases}$ & $\displaystyle\frac{r}{p}$ & $\displaystyle r \frac{1-p}{p^2}$ & $\displaystyle \left( \frac{pz}{1-(1-p)z} \right)^r $ \\
+	\hline
+  \end{tabular}
+\end{center}
+
+
+\textbf{Tabla de distribuciones continuas}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+	\hline
+	$Modelo$ &  $f_X(x)$ &  $E[X]$ &  $Var[X]$ &  $G_X(z)$ \\
+	\hline
+	\makecell{\textbf{Uniforme}\\ $\sim U(a,b)$ }  & $\displaystyle\frac{1}{b-a}\mathbb{I}_{[a,b]}$ & $\displaystyle \frac{b+a}{2}$ &  $\displaystyle \frac{(b-a)^2}{12}$ &  $1 $ en $\displaystyle t=0, \frac{e^{ibt}-e^{iat}}{it(b-a)}$ \\
+	\hline
+	\makecell{\textbf{Exponencial}\\ $\sim Exp(\lambda)$} & $\displaystyle\lambda e^{-\lambda x}, x\ge 0, \lambda>0$ & $\displaystyle \frac{1}{\lambda}$ & $\displaystyle \frac{1}{\lambda^2}$ & $\displaystyle \frac{\lambda}{\lambda-it}$ \\
+	\hline
+	\makecell{\textbf{Normal} \\ $\sim N(\mu, \sigma^2)$} & $\displaystyle \frac{1}{\sqrt{2\pi \sigma ^2}}e^{- \frac{(x-\mu)^2}{2\sigma^2}}$ & $\mu$ & $\sigma^2$ & $\displaystyle e^{i\mu t- \frac{\sigma ^2 t^2}{2}}$ \\
+	\hline
+	\makecell{ \textbf{Gamma} \\ $\sim Gamma(\lambda, \tau )$} & $\displaystyle \frac{\lambda^\tau }{\Gamma (\tau )}x^{\tau -1}e^{-\lambda x}, x>0, \lambda, \tau >0$ & $\displaystyle\frac{\tau}{\lambda}$ & $\displaystyle\frac{\tau}{\lambda^2}$ & $\displaystyle \left( 1-\frac{it}{\lambda} \right)^{-\tau } $\\
+	\hline
+	\makecell{\textbf{Beta}\\ $\sim Beta(\alpha , \beta )$} & $\displaystyle \frac{\Gamma (\alpha +\beta)}{\Gamma (\alpha ) \Gamma (\beta )} x^{\alpha -1}(1-x)^{\beta -1}, x\in [0, 1]$ & $\displaystyle \frac{\alpha}{\alpha +\beta }$ & $\displaystyle \frac{\alpha \beta }{(\alpha + \beta )^2(\alpha +\beta +1)}$ & Sin forma sencilla\\
+	\hline
+	\makecell{\textbf{Weibull}\\ $\sim Weibull(\alpha , \beta )$} & $\displaystyle \frac{\alpha}{\beta } \left(\frac{x}{\beta }\right)^{\alpha -1}e^{-(x /\beta )^\alpha }, x, \alpha , \beta >0$ & $\displaystyle\beta \Gamma \left(1+\frac{1}{\alpha }\right)$ & $\displaystyle \beta ^2\left[\Gamma (1+\frac{2}{\alpha })-\Gamma^2(1+\frac{1}{\alpha })\right]$ & $\displaystyle \sum_{k\ge 0} \frac{(it)^k\beta^k}{k!}\Gamma (1+\frac{k}{\alpha })$ \\
+	\hline
+	\makecell{\textbf{Cauchy} \\ $\sim Cauchy(\theta , \gamma)$} & $\displaystyle \frac{1}{\pi \gamma} \frac{1}{1+(\frac{x-\theta }{\gamma})^2}, \gamma >0$ & No definida & No definida & $\displaystyle e^{\theta it-\gamma |t|}$ \\
+	\hline
+	$\chi^2_p$ & $\displaystyle \frac{1}{\Gamma (p /2) 2^{p /2}}x^{\frac{p}{2}-1} e^{-\frac{x}{2}}, x>0, p\in\mathbb{N}$ & $p$ & $2p$ & $\displaystyle (1-2it)^{-\frac{p}{2}}$\\
+	\hline
+	\makecell{\textbf{Doble expon} \\ $\sim DobExp(\mu, \gamma )$} & $\displaystyle \frac{1}{2\gamma }e^{-\frac{|x-\mu|}{\gamma }}, \gamma >0$ & $\mu$ & $2\gamma ^2$ & $\displaystyle \frac{e^{\mu it}}{1+\gamma^2t^2}$\\
+	\hline
+	\makecell{\textbf{Lognormal} \\ $\sim LogN(\mu, \sigma ^2)$} & $\displaystyle \frac{1}{\sigma \sqrt{2\pi} }\frac{1}{x} e^{- \frac{(\ln x -\mu)^2}{2\sigma ^2}}, x, \sigma >0$ & $\displaystyle e^{\mu+ \frac{\sigma ^2}{2}}$ & $\displaystyle e^{2(\mu+\sigma ^2)} - e^{2\mu+ \sigma ^2}$ & Sin forma sencilla\\
+	\hline
+  \end{tabular}
+\end{center}
+
+
+\newpage
+
+\begin{multicols}{2}[\columnsep2em]
+
+
+\section{Notación}
+
+$\tilde{X}$ representa un vector, mientras que $\Bar{X}$ representa la media.
+
+Para los intervalos de confianza tomamos $t_\beta$ como el $t$ tal que tiene una probabilidad de $\beta$ a la derecha.
+
+\includesvg{ic}
+
+\section{Intro}
+
+ \begin{proposition}
+Sea $\tilde{X}$ absolutamente continua con $f_{\tilde{X}}(x_1,\ldots,x_n)$. Sea $g:\mathbb{R}^n\to \mathbb{R}^n \in \mathcal{C}^1$ biyectiva. Si  $g(\tilde{X})=\tilde{Y}$ encontramos $f_{\tilde{Y}}$ de la siguiente forma:
+
+Sea $h:=g^{-1}$:
+\[
+f_{\tilde{Y}}(y_1, \ldots, y_n) = f_{\tilde{X}}(h(y_1,\ldots,y_n))|J_h(y_1,\ldots,y_n)|
+\] 
+\end{proposition}
+
+\begin{definition}[Varianza, covarianza y correlación]
+  \begin{align*}
+&s_x^2 = \frac{1}{N}\sum (x_i-\overline{x}_N)^2\\
+&s_{xy}=\frac{1}{N}\sum(x_i-\overline{x}_N)(y_i-\overline{y}_N) \\
+&r_{xy} = \frac{s_{xy}}{s_xs_y}
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Parámetros a estimar]
+\[
+X \sim F \Rightarrow \theta = \Phi(F)
+\] 
+\end{definition}
+
+\begin{definition}[Estimador] $X_1, \ldots, X_n$
+\[
+\hat{\theta } = T(X_1, \ldots, X_n)
+\] 
+\end{definition}
+
+\begin{definition}[Función de distribución empírica]
+  \[
+	F_n(x) = \frac{1}{n}\sum I_{(\infty, x]}(x_i)
+  \] 
+\end{definition}
+
+\begin{theorem}[]$X_1, \ldots, X_n, x \in \mathbb{R}$
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item $E(F_n(x))=F(x), \quad Var(F_n(x))= \frac{1}{n}F(x)(1-F(x))$
+	\item $F_n(x) \to  F(x)$ casi seguro
+	\item $\frac{\sqrt{n} (F_n(x)-F(x))}{\sqrt{F(x)(1-F(x))} } \to  N(0,1)$ en distribución
+	\item $\frac{\sum (x_i -\mu)}{\sigma \sqrt{n}} = \frac{\sqrt{n} (\bar{X}_n-\mu) }{\sigma } \to N(0,1)$, \ TCL
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Glivenko-Cantelli] $\{X_n\}$ vaiid 
+  \[
+	\sup_{x\in \mathbb{R}} |F_n(x)-F(x)| \to 0
+  \] 
+\end{theorem}
+
+\begin{theorem}[]
+Sean $x_1, \ldots, x_n$,  $S^2 =\frac{1}{n-1}\sum (x_i-\overline{x}) ^2$ la varianza muestral
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\min_a \sum (x_i-a)^2 = \sum (x_i-\overline{x})$ 
+  \item $(n-1)S^2 = \sum (x_i-\overline{x})^2 = \sum x_i^2-n\overline{x}^2$
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Media muestral]
+$\overline{X} = \frac{1}{n}\sum X_i$
+\end{definition}
+
+\begin{definition}[Varianza muestral]
+$S^2 = \frac{1}{n-1}\sum (X_i-\overline{X})^2$
+\end{definition}
+
+\begin{theorem}[] $X$ con media  $\mu$ y varianza $\sigma ^2$  
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $E(\overline{X}) = \mu$
+  \item $V(\overline{X}) = \frac{\sigma ^2}{n}$ 
+  \item $E(S^2)=\sigma ^2$
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+\[
+N(\mu_1, \sigma_1^2) + N(\mu_2, \sigma _2^2) = N(\mu_1+\mu_2, \sigma_1^2+\sigma _2^2)
+\]  
+\end{proposition}
+
+\begin{theorem}[]
+\[
+  \psi _{\overline{X}}(t) = (\psi_X \left( \frac{t}{n} \right) )^n
+\] 
+\end{theorem}
+
+\begin{definition}[Distribución $\chi_k^2$] Sea $X_i \sim N(0,1)$
+\[
+\chi_k^2 = \sum X_i^2 = \Gamma\left(\frac{n}{2}, \frac{1}{2}\right)
+\] 
+\end{definition}
+
+\begin{proposition} Sea $\tilde{X} \sim N_p(\tilde{\mu}, \Sigma)$ 
+  \[
+  \tilde{Y} = A\tilde{X} \sim N_p(A\tilde{\mu}, A\Sigma A^t)
+  \] 
+\end{proposition}
+
+\begin{proposition}Sea $\tilde{X}\sim N_p(\tilde{\mu}, \Sigma)$ 
+  \[
+	(\tilde{X}-\tilde{\mu})^t\Sigma^{-1}(\tilde{X}-\tilde{\mu})\sim \chi^2_{p}
+  \] 
+\end{proposition}
+
+\begin{theorem}[Fisher] $X_i \sim  N(\mu, \sigma ^2)$ vaiid entonces
+\[
+\overline{X} \sim N\left(\mu,\frac{\sigma ^2}{n}\right), \quad \frac{(n-1)}{\sigma ^2}S^2 \sim \chi _{n-1}^2 \quad \text{ indep}
+\] 
+\end{theorem}
+
+\begin{definition}[t de Student] Sean $X \sim N(0,1), Y\sim \chi _r^2$ indep
+\[
+T = \frac{X}{\sqrt{\frac{Y}{r}}} \sim t_r, \quad f_T(t) = \frac{\Gamma (\frac{r+1}{2})}{\sqrt{\pi r}\Gamma \left( \frac{r}{2} \right)  } \left( 1+ \frac{t^2}{r} \right)^{-\frac{r+1}{2}}
+\] 
+Si  $r>1 \Rightarrow E(T)=0$, si $r>2  \Rightarrow Var(T) = \frac{r}{r-1}$
+\end{definition}
+
+\begin{proposition}Sean $X_i \sim N(\mu, \sigma )$ vaiid
+  \[
+  \frac{\sqrt{n} (\overline{X}-\mu)}{S} \sim t_{n-1}
+  \] 
+\end{proposition}
+
+
+\begin{definition}[Distribución $F$] Sean $X \sim \chi_r^2, Y\sim \chi _s^2$ indep
+\[
+F = \frac{X/r}{Y/s} \sim F_{r,s}, \quad f_F(t) = \frac{r\Gamma((r+s)/2)}{s\Gamma(r/2)\Gamma(s/2)} \frac{(xr/s)^{r/2-1}}{(1+xr/s)^{(r+s)/2}}
+\] 
+$s>2 \Rightarrow E(F)=\frac{s}{s-2}, \quad s>4  \Rightarrow Var(F) = \frac{2s^2(r+s-2)}{r(s-2)^2(s-4)}$
+\end{definition}
+
+\begin{proposition}
+$ F^{-1} \sim F_{s, r}, \quad T^2 \sim F_{1, r} $
+
+Sean $ X_1, ..., X_n \sim N(\mu_1, \sigma_1), Y_1, ..., Y_m \sim N(\mu_2, \sigma_2)$ vaiid
+\[ \frac{S_X^2/\sigma_1^2}{S_Y^2/\sigma_2^2} \sim F_{n-1, m-1}\]
+\end{proposition}
+
+
+\begin{definition}[Localización y escala]
+\[
+  X = \mu + \sigma Z, \quad f(x|\mu, \sigma )= \frac{1}{\sigma }f\left( \frac{x-\mu}{\sigma } \right) 
+\]
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $Z \sim f(x) \iff X = \mu + \sigma Z \sim f(x|\mu, \sigma )$
+  \item $X\sim f(x|\mu, \sigma ) \iff \frac{X-\mu}{\sigma } \sim  f(x)$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Estimador plug-in]
+ \[
+   F_n(x) = \frac{1}{n} \sum I_{(-\infty, x]}(X_i), \Rightarrow \hat{\theta }_n = \Phi (F_n)
+\] 
+\end{definition}
+
+\begin{definition}[Método de los momentos]
+Sea $\mu_k = E(X^k)$ y que existe una biyección
+\[
+\mu_i = g_i(\theta_1, \ldots, \theta _k) \iff \theta _i = h_i(\mu_1, \ldots, \mu _k)
+\] 
+entonces $\hat{\theta }_i = h_i(m_1,\ldots, m_k)$ con $m_j = \frac{1}{n}\sum X^j$
+\end{definition}
+
+\begin{definition}[Estimador máximo verosímil]
+\[
+l(\theta , \tilde{x})= \ln L(\theta , \tilde{x}) = \ln f_{\tilde{x}}(\theta ) \Rightarrow \hat{\theta } = \arg \max_{\theta } l(\theta , \tilde{x})
+\] 
+\end{definition}
+
+\begin{theorem}[Principio de invariancia]
+    $\psi = \Psi(\theta)$ con $\Psi$ biyectiva $\Rightarrow \hat\psi_{ML} = \Psi(\hat\theta_{ML})$.
+\end{theorem}
+
+\begin{definition}[Kullback-Leiber]
+  \begin{align*}
+  &D_{K, L}(f \| g) = \int_S \ln\left( \frac{f(x)}{g(x)}\right)f(x)dx \ge 0\\
+  &E_f(\ln(f(X)))\ge E_f(\ln(g(X)))
+  \end{align*}
+\end{definition}
+
+\begin{theorem}[Bayes]
+  \[
+  f_{X|Y=y}(x)= \frac{P(Y=y|X=x)f_X(x)}{P(Y=y)}
+  \] 
+
+\end{theorem}
+
+\section{Tema 3}
+\begin{definition} $T_n(X_1,\ldots, X_n)$ estadístico. Llamamos \textbf{distribución de muestreo} a la distribución de $T_n$ y  \textbf{error estándar} a la desviación estándar de $T_n$.
+\end{definition}
+\begin{definition}[Sesgo]
+$B(\hat{\theta })=E(\hat{\theta })-\theta$
+\end{definition}
+
+\begin{definition}[ECM] $ECM(\hat{\theta })=E((\hat{\theta }-\theta )^2) = (B(\hat{\theta }))^2+ Var(\hat{\theta})$
+\end{definition}
+
+\begin{definition}
+    Un estimador $W(\tilde X)$ de $\theta_F$ es \textbf{inadmisible} si $\exists V(\tilde X): ECM_F(W, \theta_F) \ge ECM_F(V, \theta_F) \ \forall F \in \mathcal{F}, \quad \exists F_0: ECM_{F_0}(W, \theta_{F_0}) > ECM_{F_0}(V, \theta_{F_0})$.
+\end{definition}
+
+\begin{definition} [Eficiencia relativa de W respecto V]
+    \[
+    ER(\theta_F, W, V) = \frac{Var_F(V)}{Var_F(W)} = \frac{1/Var_F(W)}{1/Var_F(V)} = \frac{Precision(W)}{Precision(V)}
+    \]
+\end{definition}
+
+\begin{theorem}[Cramer-Rao] Sea $W(\tilde{X})$ un estimador insesgado para $\tau (\theta )$
+  \[
+	Var(W(\tilde{X}))\ge \frac{\left(\frac{d \tau (\theta )}{d \theta } \right)^2}{E\left[ \left( \frac{\partial}{\partial\theta } \log f(\tilde{X}|\theta ) \right)^2 \right]}
+  \] 
+\end{theorem}
+
+\begin{definition}[Información de Fisher]
+  \begin{align*}
+  I_{\tilde{x}}(\theta ) & = E_\theta \left[ \left(  \frac{\partial}{\partial \theta } \ln f_{\tilde{x}} \right) ^2 \right]  = Var_\theta \left(\frac{\partial}{\partial \theta }\ln f_{\tilde{x}}\right) \\
+  I_{\tilde{x}}(\theta ) & = -E_\theta \left[  \frac{\partial^2}{\partial \theta ^2} \ln f_{\tilde{x}} \right]
+  \end{align*}
+\end{definition}
+
+\begin{proposition} $I_{\tilde{x}}(\theta ) = nI_{x_i}(\theta )$
+\end{proposition}
+
+\begin{theorem}[Alcanzar CR] $W(\tilde{X})$ estimador de $\tau (\theta )$ alcanza CR  $\iff$
+\[
+\frac{\partial}{\partial \theta } \ln f_{\tilde{x}} = a(\theta )(W(\tilde{X})-\tau (\theta ))
+\] 
+\[\iff f_{\tilde{x}}(\tilde X) = u(\tilde X)h(\theta) \exp (W(\tilde{X}) k(\theta))\]
+\end{theorem}
+
+\begin{definition}[Estadístico suficiente] $\frac{f(\tilde{x}|\theta )}{q(T(\tilde{x})|\theta )}$ no dep. de $\theta $
+\end{definition}
+
+\begin{theorem}[Factorización] $T(\tilde{X})$ suficiente $\iff$ 
+\[
+f(\tilde{x}; \theta ) = g(T(\tilde{x});\theta )h(\tilde{x})
+\] 
+\end{theorem}
+
+\begin{definition}[Estadístico suficiente minimal] $T(X)$ suficiente es minimal  $\iff$ para cualquier otro $S(X)$ suficiente,  $T(X)$ es función de $S(X)$ 
+\end{definition}
+
+\begin{theorem} $f(\tilde{x}|\theta )$ la verosimilitud. Si 
+  \[
+  \frac{f(\tilde{x}|\theta)}{f(\tilde{y}|\theta)} = g(\tilde x, \tilde y, \xcancel \theta) \iff T(\tilde{x}) = T(\tilde{y})
+  \] 
+  Entonces $T(x)$ es suficiente minimal
+\end{theorem}
+
+\begin{definition}[Completitud] Si
+   \[
+	 E_\theta [g(T)] = 0 \ \forall \theta \Rightarrow P(g(T)=0)=1 \ \forall \theta 
+  \] 
+  entonces decimos que $T$ es completo
+\end{definition}
+
+\begin{proposition}
+suficiente completo $\Rightarrow$ suficiente minimal (el recíproco no es cierto)
+\end{proposition}
+
+\begin{theorem}$X$ familia exponencial 
+\[
+f(x|\theta ) = h(x)c(\theta ) \exp(\sum g_j(\theta) t_j(x))
+\] 
+entonces el estadístico $T(\tilde{X}) = (T_1(\tilde{x}), \ldots, T_k(\tilde{X}))$, donde $T_j(\tilde{X}) = \sum t_j(X_i)$ es suficiente completo
+\end{theorem}
+
+\begin{theorem} [Pitman-Koopman-Darmois]
+    Si el soporte de las distribuciones no depende de $\theta$ y $\exists$ un estadístico suficiente, el modelo es de una familia exponencial.
+\end{theorem}
+
+\begin{theorem}[Rao-Blackwell] $T(\tilde{X})$ suficiente $W(\tilde{X})$ insesgado de $\tau (\theta )$. Definimos $W_T = E_\theta (W|T)$
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $W_T$ función únicamente de  $T(X)$
+	\item  $E_\theta (W_T) = \tau (\theta ) \ \forall \theta$
+	\item $Var_\theta (W_T) \le Var_\theta (W) \ \forall \theta$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proposition} Si $W$ es el mejor estimador insesgado de  $t(\theta)$ y su varianza es finita, entonces $W$ es único 
+\end{proposition}
+
+\begin{definition}[Ruido blanco] Estadístico $U$ tal que  $E_\theta (U)=0 \ \forall \theta $
+\end{definition}
+
+\begin{theorem} $W$ estimador insesgado de  $\tau (\theta )\ \forall \theta $. $W$ UMVUE  $\iff W$ incorrelado con todos los ruidos blancos. 
+\end{theorem}
+
+\begin{proposition}$W$ insesgado de  $\tau (\theta )$ UMVUE $\iff$ es función del estadístico minimal suficiente $T$ para $\theta$ y está incorrelado con los estimadores insesgados de $\theta $ que sean función del estadístico $T$ minimal suficiente para $\theta$
+\end{proposition}
+
+\begin{theorem}[Lehmann-Scheffé] $T(\tilde{X})$ suficiente y completo para $\theta$, $W(\tilde{X})$ estimador insesgado cualquiera de $\tau (\theta )$, entonces  
+  \[
+  W_T(\tilde{X}) = E_\theta (W|T(\tilde{X}))
+  \] 
+  es UMVUE de $\tau (\theta )$. Si la variancia es finita $\ \forall \theta \Rightarrow W_T$ es único
+
+\end{theorem}
+
+\begin{proposition}$T(\tilde{X})$ suficiente y completo
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $W$ insesgado de  $\tau (\theta )$ y función de $T$, entonces  $W$ es UMVUE 
+	\item Cualquier función de  $T$ que tenga esperanza finita es el UMVUE de su esperanza.
+  \end{enumerate}
+\end{proposition}
+
+
+
+
+
+
+
+\begin{definition}[Consistencia en probabilidad] La sucesión $\hat{\theta}_n = T(\tilde{X})$ es consistente si 
+\[
+\lim P(|\hat{\theta }_n-\theta |<\varepsilon ) = 1 \ (\iff \lim \hat{\theta }_n = \theta \ en \ probabilidad)
+\] 
+\end{definition}
+
+\begin{theorem} Si $\hat{\theta }_n$ verifica
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\lim Var(\hat{\theta }_n) = 0 \ \forall \theta$
+	\item $\lim B_\theta(\hat{\theta }_n;\theta) = 0 \ \forall \theta $
+  \end{itemize}
+entonces $\hat{\theta}_n$ es consistente en media cuadrática y en probabilidad
+\end{theorem}
+
+\begin{theorem} $\hat{\theta }_n$ consistente en probabilidad
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $a_n \to  1, \ b_n \to  0 \Rightarrow (a_n \hat{\theta }_n + b_n)$ consistente
+	\item $g$ continua $\Rightarrow g(\hat{\theta}_n)$ consistente para $g(\theta)$
+	\item $\hat{\delta}_n$ estimadores consistentes para $\delta$, $g(\theta , \delta)$ continua  $\Rightarrow g(\hat{\theta }_n, \hat{\delta}_n)$ consistente para $g(\theta , \delta)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}[Normalidad asintótica]  $\hat{\theta }_n$ la presenta si $\ \exists v_n(\theta ) \to  0$ no negativos tal que
+  \[
+	\frac{(\hat{\theta }_n-\theta )}{\sqrt{v_n(\theta )} } \to_D N(0,1) \Rightarrow \hat{\theta }_n \sim AN(\theta , v_n(\theta ))
+  \] 
+\end{definition}
+
+\begin{definition}[Eficiencia relativa asintótica] $T_n(\tilde{X}), S_n(\tilde{X})$ estimadores de $\theta$ asintoticamente normales varianza del orden $1 / n$
+  \begin{align*}
+	 &\sqrt{n}(T_n(\tilde{X})-\theta )  \to _D N(0, \sigma_T^2(\theta)) \\
+	 &\sqrt{n}(S_n(\tilde{X})-\theta )  \to _D N(0, \sigma_S^2(\theta)) \\
+	 &ARE(\theta, S_n, T_n) = \frac{\sigma ^2_T(\theta )}{\sigma ^2_S(\theta )}
+  \end{align*}
+
+\end{definition}
+
+\begin{theorem}[Slutzky] $X_n \to _D X, Y_n \to _P a$. Entonces
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item $X_n + Y_n \to _D X+a$ 
+	\item $X_nY_n \to _D aX$
+	\item $g(x,y)$ continua  $\Rightarrow g(X_n, Y_n) \to _D g(x,y)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Método delta] $a_n \to \infty$
+  \begin{align*}
+  &a_n(\hat{\theta }_n-\theta ) \to _D N(0, \sigma ^2(\theta )) \Rightarrow \\
+  & \Rightarrow a_n(g(\hat{\theta }_n)-g(\theta) ) \to _D N(0, (g'(\theta ))^2 \sigma ^2(\theta ))
+  \end{align*}
+  Estimador de momentos: $\hat{\theta }_n = \bar x_n, \theta = E[X] \Rightarrow \\ a_n = \sqrt{n}, \sigma ^2(\theta) = Var(X)$
+\end{theorem}
+
+\begin{theorem}[] Si se verifican 
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Distinta $\theta$ $\rightarrow$ distinta distribución ($\theta$ identificable)
+	\item $\{x:f(x|\theta )>0\}$ es el mismo $\ \forall \theta $
+	\item $E_{\theta _0}( \log (\frac{f(X|\theta )}{f(X|\theta _0)}))$ existe $\ \forall \theta, \theta_0 $ 
+	\item  $\Theta$ es un abierto
+	\item  $\frac{\partial f(x|\theta )}{\partial \theta }$ es continua en $\theta$
+  \end{enumerate}
+  entonces si 1, 2, y 3:
+  \[
+	E_{\theta _0}\left[ \log \left( \frac{L(\theta |X_n)}{L(\theta _{0}|X_n)} \right)  \right] <0, \lim P_{\theta _0}\{L(\theta _0|X_n)>L(\theta |X_n)\} = 1
+  \] 
+  Si además 4 y 5: $\quad \displaystyle \frac{\partial}{\partial\theta }\log L(\theta |X_n)=0$ 
+\end{theorem}
+
+\begin{theorem} Si además $\ \exists \frac{\partial^3}{\partial \theta ^3}$ acotada por $K(x)$ tal que  $E_\theta (K(X))\le k$, $\theta_n$ raíces del score: $\hat{\theta }_n \to _P \theta _0$, entonces
+  \[
+  \sqrt{n}(\hat{\theta }_n-\theta_0) \to _D N(0, \frac{1}{I_X(\theta _0)}), \quad X \sim  f(x;\theta _0)
+  \] 
+\end{theorem}
+
+\begin{theorem} Los estimadores
+  \[
+  O_n = -\frac{\partial^2 \log L(\theta | X_n)}{\partial\theta ^2}|_{\theta =\hat{\theta }_n}, \quad E_n = I_{X_n}(\hat{\theta }_n) 
+  \] 
+  divididos por $n$ son estimadores consistentes de  $I_X(\theta _0)$
+
+\end{theorem}
+
+
+
+
+
+
+
+\section{Estimación por intervalos}
+
+\begin{definition}[Estimador por intervalos] $[L(\tilde{X}), U(\tilde{X})]$
+\end{definition}
+
+\begin{definition}[Probabilidad de cobertura]
+$P_\theta(\theta \in [L(\tilde{X}), U(\tilde{X})])$
+\end{definition}
+
+\begin{definition}[Coeficiente de cobertura (confianza)] 
+$\inf_{\theta }P_\theta(\theta \in [L(\tilde{X}), U(\tilde{X})])$
+\end{definition}
+
+\begin{definition}[Intervalo de confianza] $IC_{1-\alpha }(\theta)$
+\end{definition}
+
+\begin{proposition} 
+  $IC_{1-\alpha }$ de $\theta$ es $[L(X), U(X)] \Rightarrow IC_{1-\alpha}$ de $\tau (\theta )$ es $[\tau (L(X)), \tau(U(X))]$ si es creciente (al revés si decreciente)
+\end{proposition}
+
+\begin{definition}[Cantidad pivotal] $Q(\tilde{X}, \theta )$ es cantidad pivotal si $f_Q$ no depende de  $\theta $.
+
+e.g. $(\overline x - \mu)/\sigma$ en familias de localización y escala.
+\end{definition}
+
+\begin{proposition}
+  Sea $A_\alpha : P(Q(\tilde{X}, \theta )\in A_\alpha) = 1-\alpha$ entonces $C_\alpha (\tilde{x}) = \{\theta : Q(\tilde x,\theta)\in A_\alpha \}$ es conjunto de confianza $1-\alpha$
+\end{proposition}
+
+\begin{proposition}$X_1, ..., X_n \sim N(\mu, \sigma )$ \\
+  $IC_{1-\alpha }(\mu) = [\overline{x}_n \mp z_{\alpha /2} \frac{\sigma }{\sqrt{n} }]$ si $\sigma $ conocida \\
+  $IC_{1-\alpha }(\mu) = [\overline{x}_n \mp t_{n-1,\alpha /2} \frac{S_n }{\sqrt{n} }]$ si $\sigma $ desconocida \\
+  $IC_{1-\alpha}(\sigma^2) = \left[\frac{(n-1)S^2_n}{\chi^2_{n-1, \alpha/2}}, \frac{(n-1)S^2_n}{\chi^2_{n-1, 1-\alpha/2}} \right]$
+\end{proposition}
+
+\begin{definition}[Cant. pivotal asintótica] $Q_n(\tilde{X}_n, \theta ) \to_D Q$ e.g.
+  \[
+  Q_n = \frac{T(\tilde{X}_n) - E_{\theta }^A (T(\tilde{X}_n))}{\sqrt{V_\theta ^A(T(\tilde{X}_n))} } \to _D N(0,1)
+  \] 
+\end{definition}
+
+\begin{proposition}$\frac{\hat \theta_n - \theta}{\hat{se}(\hat{\theta }_n)} \to_D N(0, 1) \Rightarrow [\hat{\theta }_n \mp z_{\alpha /2}\hat{se}(\hat{\theta }_n)]$ \quad intervalo de confianza $(1-\alpha )$ asintótico para $\theta$
+\end{proposition}
+
+\begin{definition}[Intervalo EMV] $\left[\hat{\theta }_n \mp z_{\alpha /2} \sqrt{(\hat{I}_n(\theta ))^{-1}} \right]$
+  \[
+	Q_n^{EMV} = \frac{\hat{\theta }_n-\theta }{\sqrt{(I_n(\theta ))^{-1}} } \to _D Z \sim N(0,1)
+  \] 
+\end{definition}
+
+\begin{definition}[Función score] $S_n = \frac{\partial}{\partial \theta } \log L$
+  \[
+	Q_n^{S} = \frac{S_n}{\sqrt{I_n(\theta )} } \to _D Z \sim N(0,1)
+  \] 
+\end{definition}
+
+\begin{definition}[Precisión] $\Delta $ es la mitad del intervalo
+\end{definition}
+
+
+\section{Contrastes de hipótesis}
+\begin{definition} $H_0$ hipótesis nula, $H_1$ hipótesis alternativa
+\end{definition}
+
+\begin{definition}[Contraste de hipótesis] $\begin{cases}
+  H_0: F \in \mathcal{F}_0\\
+  H_1: F \in \mathcal{F}_1
+\end{cases}$ 
+es una función de decisión $D:\mathcal{X}^n \to \{0,1\}, \tilde{x} \mapsto D(x)$
+\end{definition}
+
+\begin{definition} $R$ región crítica tal que  $D(R)=1$ (rechaza)
+\begin{align*}
+  & \alpha = P(\text{error tipo I }) = P(X\in R|H_0 \text{ cierta}) \text{ (significación)}\\
+  & \eta = P(\text{error tipo II}) = P(X \not\in  R|H_0 \text{ falsa})
+\end{align*}
+\end{definition}
+
+\begin{definition}[Potencia del test] $\beta = 1-\eta$ probabilidad de decidir de forma acertada rechazar $H_0$
+\end{definition}
+
+\begin{definition}[p-valor] ínfimo de los $\alpha $ para los cuales se rechazaría la hipótesis nula.
+  Probabilidad de que, siendo $H_0$ cierta, se observe otra muestra que sea al menos tan poco favorable a la hipótesis nula como la que se ha observado.
+\end{definition}
+
+\begin{proposition}$p(\tilde{x}) = \sup_{\theta \in \Theta_0} P_\theta(T(\tilde{X})\ge T(\tilde{x}))$ 
+\end{proposition}
+
+\begin{definition}[Función de potencia]
+\[
+\beta (\theta ) = P(X\in R) = \begin{cases}
+  P(\text{Error tipo I}) & \text{ si } \theta \in \Theta_1 \\
+  1-P(\text{Error tipo II}) & \text{ si } \theta \in \Theta_2 
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Nivel] $\sup \beta (\theta )\le \alpha $
+\end{definition}
+
+\begin{theorem}[Neyman-Pearson] $H_0: \theta = \theta_0$ vs $H_0: \theta = \theta_1$. Región crítica del contraste más potente de tamaño $\alpha$:
+\begin{align*}
+  & R = \left\{ \tilde{x} : \frac{L(\theta _1;\tilde{x})}{L(\theta _0;\tilde{x})}\ge A_\alpha  \right\}\\
+  & p-\text{valor} = P\left( \frac{L(\theta _1;\tilde{X})}{L(\theta _0; \tilde{X})}\ge \frac{L(\theta _1;\tilde{x})}{L(\theta _0;\tilde{x})} \right) 
+\end{align*}
+
+\end{theorem}
+
+\begin{definition}[Uniformemente más potente de tamaño $\alpha$]
+\[\beta (\theta ) \leq \alpha \ \forall \theta \in \Theta_0, \quad \beta (\theta ) \text{ máximo } \forall \theta \in \Theta_1\]
+\end{definition}
+
+\begin{theorem}[Neyman-Pearson] $H_0: \theta = \theta_0$ vs $H_0: \theta \in \Theta_1$. Si $R(\theta_1)$ (del teorema anterior) no depende de $\theta_1$, la prueba estadística de $R$ es UMP de tamaño $\alpha$.
+\end{theorem}
+
+\begin{proposition}
+$X \sim N(\mu, \sigma ^2), \begin{cases}
+  H_0: \mu=\mu_0\\
+  H_1:\mu>\mu_0
+\end{cases}$ 
+\[
+  R = \{x: \overline{x}\ge B\}, \text{ con } B = \mu_0+z_\alpha \frac{\sigma}{\sqrt{n}}
+\] 
+\end{proposition}
+
+\begin{theorem} $f(x;\theta ) = c(\theta )h(x)e^{\eta(\theta )t(x)}$ con $\eta(\theta )$ creciente.
+El test de NP es UMP si $H_1: \theta > \theta_0$.
+\end{theorem}
+
+\begin{definition}[Razón de verosimilitudes]
+\[
+  \lambda = \lambda(x) = \frac{\max_{\theta \in \Theta _0 }L(\theta ;x)}{\max_{\theta \in \Theta}L(\theta ;x)} \Rightarrow R = \{x:\lambda(x)\le A\}
+\] 
+\end{definition}
+
+\begin{theorem} $\begin{cases}
+  H_0: \theta \in \Theta_0\\
+  H_1:\theta \in \Theta_1
+\end{cases}$ 
+\[
+Q_n = -2\log (\lambda(X_n)) \to _n \chi ^2_d, \quad d=\dim (\Theta)-\dim(\Theta_0)
+\] 
+bajo la hipótesis nula
+\end{theorem}
+
+Dos tests para $\begin{cases}
+  H_0:\theta =\theta _0\\ H_1: \theta \neq \theta _0
+\end{cases}$
+
+\begin{definition}[Test del Score] $S_n(\theta ;x_n) = \frac{\partial \log L}{\partial \theta }$
+\[
+T_n^s(X_n) = \frac{S_n(\theta _0;X_n)^2}{I_n(\theta _0)}, \quad S_n(\theta _0;X_n) \approx N(0,I_n(\theta _0))
+\] 
+Rechaza $H_0$ si  $T_n^S(x_n)>\chi ^2_{1,\alpha} $
+\end{definition}
+
+\begin{definition}[Test de Wald] $\hat{\theta }_n \approx N(\theta _0, (I_n(\theta _0))^{-1})$
+\[
+W_n = (\hat{\theta }_n-\theta _0)^2I_n(\theta _0) \approx_{en \ H_0} \chi ^2_1
+\] 
+Rechaza $H_0$ si  $W_n^S(x_n)>\chi ^2_{1,\alpha} $
+\end{definition}
+
+
+
+
+
+\section{Modelo lineal normal}
+
+\begin{definition}[Modelo teórico] $y_i|x_i \sim N(\beta _0+ \beta_1x_{1i}+ \cdots + \beta_{p-1i}, \sigma ^2)$, $e_i = y_i-\hat{y}_i$, $e_i, e_j$ son independientes $\forall i, j$.
+\end{definition}
+
+Formulación matricial $Y = X\beta + \epsilon$:
+\[
+Y = \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix} , \epsilon = \begin{pmatrix} \epsilon_1\\ \vdots \\ \epsilon_n \end{pmatrix} 
+X = \begin{pmatrix} 1 & x_{11} & \cdots & x_{p-11} \\ \vdots & & & \vdots \\ 1 & x_{1i} & \cdots & x_{p-1i} \end{pmatrix} 
+\] 
+\begin{theorem}[Minimos cuadrados] $ b = (X^TX)^{-1}X^TY$
+\end{theorem}
+Propiedades: $\overline e = 0$ y pasa por $(\hat x_1, ... , \hat x_{p-1}, \hat y)$
+
+\begin{proposition} Una variable explicativa
+\[
+b_1 = \frac{\sum (x_i-\overline{x})(y_i-\overline{y})}{\sum (x_i-\overline{x})^2}, \quad b_0 = \overline{y} - b_1 \overline{x}
+\]  
+\end{proposition}
+
+\begin{proposition} Con diferente varianza y $V$ matriz diagonal de varianza:
+\[
+b = (X^TV^{-1}X)^{-1}X^TV^{-1}Y
+\] 
+\end{proposition}
+
+\begin{definition}[ANOVA decomposition] $SS_T = SS_R + SS_E$
+  \begin{align*}
+  & SS_T = \sum (y_i - \overline{y})^2, SS_R = \sum (y_i-\hat{y}_i)^2, SS_E = \sum (\hat{y}_i-\overline{y})^2 \\
+  & s_E^2 = \frac{SS_E}{p-1}, \quad s_R^2 = \frac{SS_R}{n-p}, \quad F = \frac{s_E^2}{s_R^2}
+  \end{align*}
+\end{definition}
+
+$\hat{\sigma^2} = s_R^2$
+
+\begin{definition}[Coeficiente determinación]
+  \[
+  R^2 = 100 \frac{SS_E}{SS_T} = 100(1-\frac{SS_R}{SS_T}), R_{adj}^2 = 100(1- \frac{s_R^2}{s_R^2}) 
+  \] 
+\end{definition}
+
+\begin{proposition} $b|X \sim N(\beta , \sigma^2(X^TX)^{-1})$
+\end{proposition}
+
+\begin{proposition} Una variable $Cov(b_0, b_1|x) = \frac{-\sigma ^2 \overline{x}}{\sum (x_i- \overline{x})^2}$
+\begin{align*}
+  b_0|x \sim  N(\beta_0, \frac{\sigma ^2}{n} \frac{\sum x_i^2}{\sum (x_i- \overline{x})^2}), \quad
+  b_1|x \sim  N(\beta_1, \frac{\sigma ^2}{\sum (x_i- \overline{x})^2})
+\end{align*} 
+\end{proposition}
+
+\begin{proposition} $s_R^2 |X \sim \frac{\sigma^2 }{n-p}\chi ^2_{n-p}$ 
+\end{proposition}
+
+\begin{proposition} $Var(b_j|x) = s_{b_j}^2$, $t_j = b_j / s_{b_j}$
+  \begin{align*}
+	(b_j \mp t_{n-p}^{\alpha / 2} s_{b_j}) \simeq  (b_j \mp 2 s_{b_j})
+  \end{align*}
+Si 0 en el intervalo, se puede quitar la variable del modelo
+\end{proposition}
+
+\begin{definition} $SS_{R0}$ suma sin las $q$ variables a retirar
+\[
+F = \frac{ (SS_{R0}-SS_R) / q}{ (SS_R) / (n-p)}, \quad \begin{cases}
+  + F \Rightarrow \text{no retirar} \\
+  -F \Rightarrow \text{retirar}
+\end{cases}
+\]
+Si se pueden retirar, $F \sim F_{q, n-p}$. \\ $F = s^2_e/s^2_R$ para comparar vs el modelo nulo, $N(\overline{y}, \sigma^2)$.
+\end{definition}
+
+
+\begin{proposition} Intervalo de confianza $1-\alpha $ de $E(y|x_0)$
+  \[
+       \left(\hat{y}(x_0)\pm t_{n-p}^{\alpha / 2} s_R\sqrt{\frac{1}{n}+ \frac{(x_0-\overline{x})^2}{\sum (x_i-\overline{x})^2}} \right)
+  \] 
+\end{proposition}
+
+\begin{proposition} Intervalo de predicción $1-\alpha $ de $y(x_0)$
+  \[
+       \left(\hat{y}(x_0)\pm t_{n-p}^{\alpha / 2} s_R\sqrt{1+\frac{1}{n}+ \frac{(x_0-\overline{x})^2}{\sum (x_i-\overline{x})^2}} \right)
+  \] 
+\end{proposition}
+El intervalo de $95\%$ podemos tener en cuenta  $t^{0.25}_{n-p}\approx 2$
+
+Para más de una variable, $\hat y (x_0) \sim N(E(y|x_0), \sigma^2 x_0'(X'X)^{-1}x_0)$ son respectivamente
+\begin{align*}
+       &\left(\hat{y}(x_0)\pm t_{n-p}^{\alpha / 2} s_R \sqrt{x_0^T(X^TX)^{-1}x_0}  \right) \\
+       &\left(\hat{y}(x_0)\pm t_{n-p}^{\alpha / 2} s_R \sqrt{1+ x_0^T(X^TX)^{-1}x_0}  \right)
+\end{align*} 
+
+\underline{Tipos de errores:}
+\begin{enumerate}
+    \item \textit{Regular}: $e_i = y_i-\hat y_i$, $e = Y- \hat Y \sim N(0, \sigma^2(I-H))$ $H = X(X'X)^{-1}X'$ es la projection/hat matrix
+    \item \textit{Standarized}: $e_i^s = e_i / s_{e_i}$. ($s_{e_i}$ aproxima se) Si el modelo es correcto, $95\%$ deberían estar en $(-2, 2)$.
+    \item \textit{Deleted}: $e_i^{sd} = (y_i - \hat y_{(i)}) / s_{e_{(i)}}$. Como los standarized, pero para la $i$-ésima predicción se hace un modelo con todos los datos excepto el $i$. No hace "trampas".
+\end{enumerate}
+
+\begin{definition}[Distance in X-space]
+\[
+H = X(X^TX)^{-1}X^T, \quad h_{ii} = \frac{1}{n} + \frac{(x_i-\Bar{x})^2}{\sum (x_i-\Bar{x})^2}
+\]
+If $h_{ii}>3p/n$, the observation $i$ is unusually far. (No indication by itself that model is wrong)
+\end{definition}
+
+\begin{definition}[Degree of outlierness]
+$|e_i^s|$
+\end{definition}
+
+\begin{definition}[Influence on the fitted model]
+Se mide con la distancia de Cook:
+\[
+DC_i = \frac{(\hat Y - \hat Y_{(i)})'(\hat Y - \hat Y_{(i)})}{s_R^2p} = (e_i^s)^2\frac{h_{ii}}{1-h_{ii}}\frac{1}{p}
+\]
+o con $DFFIT_i = \hat y_i - \hat y_{(i)}$
+\end{definition}
+
+
+\underline{Criterios para la selección de modelos:}
+\begin{enumerate}
+    \item Maximizar $R^2_{adj}$
+    \item Minimizar $C_p = \frac{SS_R}{s_R^2}+2p-n$ donde $s_r^2$ es la varianza residual del modelo con todas las variables.
+    \item Minimizar $AIC = Const + n\log(SS_R)+2p$.
+    \item Minimizar $BIC = Const + n\log(SS_R)+p\log(n)$.
+\end{enumerate}
+
+\underline{Tipos de cross validation:}
+
+Sirven para medir el rendimiento del modelo más "honestamente"
+\begin{enumerate}
+    \item \textit{One-shot}: Separar los datos en dos, uno para entrenar y el otro para medir. Barato pero poco fiable.
+    \item \textit{Leave-one-out}: Para cada dato, predecirlo con un modelo entrenado con todos los otros datos. $PRESS = SS_R^{l.one.out} = \sum_i^n (e_i^d)^2$. Muy costoso, pero fiable.
+    \item \textit{Leave-p-out}: Para cada subconjunto de $p$ datos, predecirlo con un modelo entrenado con los otros. Aún más costoso y fiable.
+    \item \textit{k-fold}: Separar en $k$ grupos del mismo tamaño y predecir cada uno con un modelo entrenado con los otros. $SS_R^{kfold} = \sum_{i=1}^n (y_i - \hat y_{(i)}^{kfold})^2, \quad R_{kfold}^2 = 100(1-SS_R^{kfold}/SS_T)$. Es el bueno.
+\end{enumerate}
+
+Si hay alguna categórica, con $k$ posibles categorías, se añaden $k-1$ variables indicadoras (una es la \textit{baseline}) y en el modelo se ponen estas indicadoras y el producto de las indicadoras por las variables continuas. Después se intenta simplificar el modelo con los estadísticos $t$ y $F$.
+
+
+
+
+\section{Modelo de respuesta categórica}
+
+Queremos hacer un modelo para una variable binaria $y$ que dependa de variables continuas $x_i$.
+
+En nuestros datos, tenemos $n_i$ experimentos con las explicatorias $x_i$, de los cuales $y_i$ han sido $si$, y $n_i - y_i$ $no$.
+
+\begin{definition}[Modelo teórico] $y_i | x_i \sim Bin(n_i, \pi(x_i))$
+    \[
+    \pi(x_i) = \frac{e^{\beta_0+\beta_1 x_{1i} + ... + \beta_{p-1} x_{(p-1)i}}}{1+e^{\beta_0+\beta_1 x_{1i} + ... + \beta_{p-1} x_{(p-1)i}}}
+    \]
+    \[
+    \log \frac{\pi(x_i)}{1-\pi(x_i)} = \log Odds(x_i) = \beta_0+\beta_1 x_{1i} + ... + \beta_{p-1} x_{(p-1)i}
+    \]
+\end{definition}
+
+Se entrena minimizando el \textit{Pearson statistic} (que da menos importancias a los cercanos a 0 o 1):
+    \[
+    X^2(Y, \hat Y) = \sum_{i=1}^n \frac{(y_i - n_i\hat\pi(x_i))^2}{n_i\hat\pi(x_i)(1-\hat\pi(x_i))} = \sum_{i=1}^n \left(e_i^P\right)^2
+    \]
+o la \textit{deviance} ($\approx SS_R$ en modelos lineales): $ResDev =$
+    \[
+    2\sum_{i=1}^n \left(y_i\log\frac{y_i}{n\hat\pi(x_i)} + (n_i-y_i)\log\frac{n_i-y_i}{n_i(1-\hat\pi(x_i))} \right) = \sum_{i=1}^n \left(e_i^D\right)^2
+    \]
+Si el modelo es correcto, $ResDev \sim \chi^2_{n-p}$ y el $95\%$ de los $e_i^D$ deberían estar en $(-2, 2)$.
+
+
+
+\section{Miscelánea}
+
+\textbf{Propiedades de la distribución Gamma}
+\underline{Parametrización con scale} $\theta$
+\begin{align*}
+& f(x) = \frac{1}{\Gamma(\alpha)\theta ^\alpha} x^{\alpha-1} e^{-x/\theta}, \quad
+E(X) = \alpha \theta , \quad Var(X) = \alpha \theta^2 \\
+& \Gamma (\alpha_1, \theta) + \Gamma (\alpha_2, \theta) \sim \Gamma (\alpha_1+\alpha_2, \theta), \quad c\Gamma (\alpha, \theta) \sim \Gamma (\alpha, c\theta) \\
+& X \sim \Gamma(\alpha, scale=\theta) \Rightarrow \frac{2}{\theta} X \sim \chi^2_{2\alpha}
+\end{align*}
+
+\underline{Parametrización con rate} $\beta$
+\begin{align*}
+& f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad 
+E(X) = \frac{\alpha}{\beta} , \quad Var(X) = \frac{\alpha}{\beta^2} \\
+& \Gamma (\alpha_1, \beta) + \Gamma (\alpha_2, \beta) \sim \Gamma (\alpha_1+\alpha_2, \beta), \quad c\Gamma (\alpha, \beta) \sim \Gamma (\alpha, \frac{\beta}{c}) \\
+& X \sim \Gamma(\alpha, rate=\beta) \Rightarrow 2\beta X \sim \chi^2_{2\alpha}
+\end{align*}
+
+\begin{align*}
+  &\sum_{0}^\infty nx^{n-1} = \frac{1}{(1-x)^2} \\
+  &\Gamma (n) = (n-1)!, \quad B(a, b) = \int_0^1 t^{a-1}(1-t)^{b-1}dt = \frac{\Gamma (a)\Gamma (b)}{\Gamma (a+b)}\\
+  &aN(\mu, \sigma ^2) + b \sim N(a\mu+b, (a\sigma )^2) \\
+  &aN(\mu_1, \sigma_1^2) + bN(\mu_2, \sigma _2^2) = N(a\mu_1+b\mu_2, (a\sigma_1)^2+(b\sigma _2)^2)
+\end{align*}
+
+\[
+X \sim Weibull(\alpha, \beta) \Rightarrow X^\alpha/\beta \sim Exp(1)
+\]
+
+
+
+\end{multicols}
+\end{document}
+
+
+Quizá se pueden añadir las asunciones de los modelos lineales
+Y porque se escoge mínimos cuadrados
+Falta mucho texto, a partir de la 18 del tema 6 sobre todo
+

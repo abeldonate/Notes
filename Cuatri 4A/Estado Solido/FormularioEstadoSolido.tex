@@ -1,0 +1,514 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array} \usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{svg}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\begin{center}
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+\end{center}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Formulario Estado Sólido}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+
+\begin{multicols}{2}[\columnsep2em]
+
+\textbf{Constantes y aclaraciones}
+\begin{align*}
+& G(x) = \frac{dN}{dx} = \text{dens. de est.}; \quad g(x)= \frac{dn}{dx} = \frac{\text{dens. de est.}}{V}\\
+&k_B = 1.381\times 10^{-23}JK^{-1} = 8.62\times 10^{-5}eVK^{-1}\\
+&m_e = 9.11\times 10^{-31}kg = 0.511MeVc^{-2}\\
+&m_p = 1.67\times 10^{-27}kg = 938MeVc^{-2}\\
+&\varepsilon _0 = \frac{1}{4\pi K} = 8.85\times 10^{-12} Fm^{-1}\\
+&\hbar = 1.055\times 10^{-34} Js = 6.58\times 10^{-16}eVs \\
+&e = 1.602 \times 10^{-19} C\\
+&\text{Fermions: }e^-, p, n \quad (n_F(x) = \frac{1}{e ^{x}+1})\\
+& \text{Bosons: phonon, photon} \quad (n_B(x)=\frac{1}{e ^{x} -1})\\
+& n\sim 10 ^{22}cm ^{-3}; \tau \sim 10 ^{-15}s; v\sim 10 ^{-5}\frac{m}{s}
+\end{align*}
+\begin{minipage}{0.5\columnwidth}
+\incfig{fermibose}
+\end{minipage}
+\begin{minipage}{0.7\columnwidth}
+  \underline{$T$ bajas}\\
+ $n_F(x) \approx n_B(x)\approx e ^{-x}$
+
+  \underline{$T$ altas}\\
+ $n_F(x) \approx \frac{1}{2+x}$ \\
+ $n_B(x) \approx \frac{1}{x}$
+
+\end{minipage}
+
+
+\section{Estructura cristalina}
+\subsection{Redes de Bravais}
+\begin{minipage}{0.45\columnwidth}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+$a$ & triclínica  \\ \hline
+$m$ & monoclínica\\ \hline
+$o$ & ortorómbica\\ \hline
+$t$ & tetragonal \\ \hline
+$h$ & hexagonal\\ \hline
+$c$ & cúbica \\ \hline
+\end{tabular}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.45\columnwidth}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+$P$ & Primitiva \\\hline
+$S$ & Centrada en una cara\\\hline
+$I$ & Centrada en el cuerpo\\\hline
+$R$ & Centrada romboidal\\\hline
+$F$ & Centrada en las caras \\\hline
+\end{tabular}
+\end{center}
+\end{minipage}
+
+14 posibles redes de Bravais
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Tric. & Monoc. & Ortor. & Tetra. & Hex. & Cúbico \\\hline
+$aP$ &  $mP, mS$ &  $oP, oS, oF, oI$ &  $tP, tI$ &  $hP, hR$ &  $cP, cF, cI$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection{Cosas}
+Base dual y matriz métrica
+\begin{align*}
+  & a^* = \frac{b\times c}{V}, \quad b^* = \frac{c\times a}{V}  , \quad c^* = \frac{a\times b}{V}, \quad V = \det(\overline{a}, \overline{b}, \overline{c})  \\
+  & (\overline{a}^*, \overline{b}^*, \overline{c}^*)=\begin{pmatrix} \overline{a}^T\\\overline{b}^T\\\overline{c}^T \end{pmatrix} ^{-1}, G = \begin{pmatrix} a\cdot a & a\cdot b & a\cdot c \\ b\cdot a & b\cdot b & b\cdot c \\ c\cdot a & c\cdot b & c\cdot c \end{pmatrix}, G^* = G^{-1}
+\end{align*}
+
+Cambio de base
+\begin{align*}
+  (\overline{a}', \overline{b}', \overline{c}') = (\overline{a}, \overline{b}, \overline{c})P, \quad \begin{pmatrix} x' \\ y' \\z' \end{pmatrix} =P^{-1} \begin{pmatrix} x\\y\\z \end{pmatrix} \\
+  (x, y, z) = (x^*, y^*, z^*)P, \quad \begin{pmatrix} a'^* \\ b'^* \\z'^* \end{pmatrix} =P^{-1} \begin{pmatrix} a^*\\b^*\\c^* \end{pmatrix} 
+\end{align*}
+
+Distancia interplanar $g_{hkl}= \frac{1}{d_{hkl}}; \quad g_{hkl}^2 = (hkl)G^*\begin{pmatrix} h\\k\\l \end{pmatrix}  $
+
+Transferencia de momento $Q = \frac{4\pi \sin\theta }{\lambda}$
+
+Condiciones de Laue $\overline{Q}=2\pi \overline{g}_{hkl}$
+
+Ley de Bragg $g_{hkl} = \frac{2\sin \theta_{hkl}}{\lambda}$ 
+
+Módulo de Young $\nu_s = \sqrt{\frac{\gamma}{\rho }} $
+
+Factor de estructura $F_{hkl} = \sum_p f_p e^{-i2\pi \overline{g}_{hkl}\cdot \overline{r}_p}; I \propto |F_{hkl}|^2 $
+
+\subsection{Estructuras comunes}
+
+FCC (primitiva volumen 1/4)
+\[
+\begin{cases}
+  \overline{a} = \frac{1}{2} (1\ 1\ 0) \\
+  \overline{b} = \frac{1}{2} (0\ 1\ 1) \\
+  \overline{c} = \frac{1}{2} (1\ 0\ 1)
+\end{cases} \quad 
+\begin{cases}
+  \overline{a}^* = (1\ 1\ -1)\\
+  \overline{b}^* = (-1\ 1\ 1 )\\
+  \overline{c}^* = (1\ -1\ 1)
+\end{cases} 
+\]
+BCC (primitiva volumen 1/2)
+\[
+\begin{cases}
+  \overline{a} = \frac{1}{2} (1\ 1\ -1) \\
+  \overline{b} = \frac{1}{2} (-1\ 1\ 1) \\
+  \overline{c} = \frac{1}{2} (1\ -1\ 1)
+\end{cases} \quad 
+\begin{cases}
+  \overline{a}^* = (1\ 1\ 0)\\
+  \overline{b}^* = (0\ 1\ 1 )\\
+  \overline{c}^* = (1\ 0\ 1)
+\end{cases} 
+\]
+\begin{minipage}{\columnwidth}
+\incfig{fcc}
+\end{minipage}
+
+Hexagonal
+\[
+\begin{cases}
+  \overline{a} = (1, 0)\\
+  \overline{b} = (-\frac{1}{2}, \frac{\sqrt{3} }{2})
+\end{cases} \quad
+\begin{cases}
+  \overline{a}^* = \frac{2 \sqrt{3} }{3}(\frac{\sqrt{3} }{2}, \frac{1}{2}) \\
+  \overline{b}^* = \frac{2 \sqrt{3} }{3}( 0, 1)
+\end{cases}
+\]
+\[
+  G = \begin{pmatrix} a^2 & -\frac{a^2}{2} & 0 \\ -\frac{a^2}{2} & a^2 & 0 \\ 0 & 0 & c^2\end{pmatrix} , \quad
+  G^* = \begin{pmatrix} \frac{4}{3a^2} & \frac{2}{3a^2} & 0 \\ \frac{2}{3a^2} & \frac{4}{3a^2} & 0 \\ 0 & 0 & \frac{1}{c^2}\end{pmatrix} 
+\] 
+\begin{minipage}{0.7\columnwidth}
+  \incfig{hexagonal}
+\end{minipage}
+\begin{minipage}{0.3\columnwidth}
+  \incfig{brillouinezones}
+\end{minipage}
+
+En una hcp $c = 1.633a$
+
+\subsection{Grupos}
+\[
+  m_{100} = \begin{pmatrix} -1&0&0\\0&1&0\\0&0&1 \end{pmatrix};
+  n_{001} = \begin{pmatrix} \cos\left( \frac{360}{n} \right) &-\sin\left( \frac{360}{n} \right) &0\\ \sin\left( \frac{360}{n} \right) &\cos\left( \frac{360}{n} \right) &0\\0&0&1 \end{pmatrix}
+\] 
+Cambio de base a $\mathcal{B}=\{\overline{u}, \overline{v}, \overline{w}\}$
+\[
+  M_{\mathcal{C}} = M_{\mathcal{B}\to \mathcal{C}} M_{\mathcal{B}} M_{\mathcal{B}\to \mathcal{C}}^{-1}, \quad M_{\mathcal{B}\to \mathcal{C}} = (\overline{u}, \overline{v}, \overline{w})
+\] 
+
+Reflexión vector director $(a, b, c)$
+ \[
+   M = \frac{1}{a^2+b^2+c^2} \begin{pmatrix} -a^2 + b^2+c^2 & -2ab & -2ac \\ -2ab & a^2-b^2+c^2 & -2bc \\ -2ac & -2bc & a^2+b^2-c^2 \end{pmatrix} 
+\] 
+Rotación respecto $\hat{u}=(u_x, u_y, u_z)$ ($c=\cos\theta , \quad s=\sin \theta $). $R = $
+\[
+\begin{pmatrix} c+u_x^2(1-c) & u_xu_y(1-c)-u_zs & u_xu_z(1-c)+u_ys \\
+	u_yu_x(1-c)+u_zs & c+u_y^2(1-c) & u_yu_z(1-c)-u_xs\\
+	u_zu_x(1-c)-u_ys & u_zu_y(1-c) + u_xs & c + u_z^2(1-c)
+  \end{pmatrix} 
+\] 
+Centrosimétricos $(x, y, z)\to (-x, -y, -z)$ no tienen polarización espontánea
+
+\section{Dinámica de cristales}
+\subsection{Densidad de estados}
+\[
+  \overline{k} = \begin{pmatrix} \frac{2\pi}{L}n & \frac{2\pi}{L}m & \frac{2\pi}{L}l \end{pmatrix} \ \forall n, m, l \in \mathbb{Z}
+\] 
+Número de estados hasta $k$
+ \[
+N(k) = \int_{(\frac{2\pi}{L})^2(n^2 + m^2+l^2)\le k^2} dV =\frac{L^3}{6\pi^2}k^3 = \frac{V}{6\pi^2}k^3
+\] 
+1, 2 y 3 dimensiones respectivamente (y se cumple $\omega = \nu_s k$)
+\begin{align*}
+  \begin{cases}
+    G(k) = \frac{L}{\pi} \\  G(\omega ) = \frac{L}{\pi \nu} 
+  \end{cases}
+  \begin{cases}
+    G(k) = \frac{L^2}{2\pi}k \\  G(\omega ) = \frac{L^2}{2\pi \nu^2}\omega 
+  \end{cases}
+  \begin{cases}
+    G(k) = \frac{V}{2\pi^2}k^2 \\  G(\omega ) = \frac{V}{2\pi^2 \nu_s^3}\omega ^2
+  \end{cases}
+\end{align*}
+
+\subsection{Dispersión}
+Oscilador con masa $m$ y constante $k_s$
+\[
+F_n =m\ddot{x}_n = k_s(x_{n+1}+x_{n-1}-2x_n)
+\]
+\begin{align*}
+   &-m\omega ^2 Ae^{i(kna-\omega t)} = k_sAe^{i(kna-\omega t)}(e^{ika}+e^{-ika}-2) =\\
+   &=-4k_s \sin^2\left( \frac{ka}{2} \right)  \Rightarrow \boxed{\omega = 2 \sqrt{\frac{k_s}{m}}\left|\sin \left( \frac{ka}{2} \right) \right| }
+\end{align*}
+
+Oscilador con masa $m$ y constantes alternadas  $k_1, k_2$
+\[
+  \begin{cases}
+m\ddot{x}_n = k_1(y_{n-1}-x_n)+k_2(y_n-x_n)\\
+m\ddot{y}_n = k_1(x_{n+1}-y_n)+k_2(x_n-y_n)
+  \end{cases}
+\] 
+Ansatz
+\[
+x_n = A e^{i(kna-\omega t)} \qquad
+y_n = B e^{i(kna-\omega t)}
+\] 
+Ecuaciones
+\[
+  \begin{cases}
+-m\omega ^2 A = -A(k_1+k_2)+ B(k_1e^{ika}+k_2)\\
+-m\omega ^2 B = -A(k_1e^{ika}+k_2)+ B(-k_1-k_2)
+  \end{cases}
+\] 
+Forma matricial
+\[
+  m\omega ^2 \begin{pmatrix} A\\B \end{pmatrix} = \begin{pmatrix} (k_1+k_2) & -k_2 -k_1e^{ika} \\ -k_2-k_1e^{ika} & (k_1+k_2) \end{pmatrix}  \begin{pmatrix} A\\B \end{pmatrix} = K\begin{pmatrix} A\\B \end{pmatrix} 
+\] 
+ \[
+0 = \det(K-m\omega ^2I) = |(k_1+k_2)-m\omega ^2|^2 - |k_2 +k_1e^{ika}|^2
+\] 
+\[
+  \boxed{\omega _{\pm}(k) = \sqrt{ \frac{k_1+k_2}{m}\pm \frac{1}{m} \sqrt{(k_1+k_2)^2-4k_1k_2\sin^2(ka / 2)} } }
+\] 
+Si $m_1\neq m_2$ y $k_s$ es la misma, sea  $K_i = \frac{k}{m_i}$, entonces
+\[
+  \boxed{\omega _{\pm}(k) = \sqrt{ (K_1+K_2)\pm \sqrt{(K_1+K_2)^2-4K_1K_2\sin^2(ka / 2)} } }
+\] 
+\begin{minipage}{0.5\columnwidth}
+\incfig{dispersion}
+\end{minipage}
+\begin{minipage}{0.5\columnwidth}
+\incfig{dispersion2}
+\end{minipage}
+
+Si hay $N$ átomos / celda:  $3N$ ramas:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item 3 acústicas (2 trans. < 1 long.)
+  \item $3N-3$ ópticas
+\end{itemize}
+
+\subsection{Modelo de Einstein}
+\begin{align*}
+  &E_n = \hbar \omega (n+\frac{1}{2}) \quad \Rightarrow \quad Z_1 = \frac{1}{2 \sinh(\frac{\beta \hbar \omega }{2})} \\
+  &\langle E_1 \rangle = - \frac{\partial }{\partial \beta } \ln Z_1 = \frac{\hbar\omega }{2} \coth \left( \frac{\beta \hbar \omega }{2} \right) 
+\end{align*}
+  Energía y capacidad calorífica
+\begin{align*}
+&\langle E\rangle = \frac{3}{2} N \hbar \omega \coth \left( \frac{\beta \hbar \omega  }{2} \right) \\
+&C_v = \frac{\partial \langle E\rangle}{\partial T}  = 3Nk_B (\beta \hbar \omega )^2 \frac{e^{\beta \hbar \omega }}{(e^{\beta \hbar \omega }-1)^2}
+\end{align*}
+
+Definimos ahora $T_E = \frac{\hbar \omega_E}{k_B}$. En los límites
+
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Si  $T\gg T_E \quad \Rightarrow \quad C_v = 3Nk_b$
+  \item Si  $T\ll T_E \quad \Rightarrow \quad C_v = 3Nk_b (\frac{T_E}{T})^2 \frac{1}{\sinh ^2(\frac{T_E}{2T})}$
+\end{itemize}
+
+\subsection{Modelo de Debye}
+Aproximamos la ecuación de dispersión para $k$ baja como  $\omega = \nu k$
+\[
+  3N = \int_0^{\omega _D} 3G(\omega )d\omega = \frac{V}{2\pi^2 \nu^3}\omega _D^3 \Rightarrow \boxed{\omega _D = \sqrt[3]{\frac{6\pi^2\nu^3N}{V}} }
+\] 
+donde hemos contado cada partícula y cada estado 3 veces y hemos usado
+\[
+\omega = \nu k, \qquad G(k)=\frac{V}{2\pi^2}k^2, \qquad G(\omega )= \frac{V}{2\pi^2 \nu^3}\omega ^2 = 3N \frac{\omega ^2}{\omega ^3_D}
+\]
+La energía y la capacidad calorífica
+\begin{align*}
+  \langle E \rangle &= \int_0^{\omega _D}\hbar \omega 3G(\omega )\left( \frac{1}{e^{\beta \hbar \omega }-1} +\frac{1}{2} \right) d\omega  =\\
+					&=E_0 + \frac{3V\hbar }{2\pi^2\nu^3} \int_0^{\omega _D}\frac{\hbar \omega ^3}{e^{\beta \hbar \omega }-1} d\omega \qquad (x=\frac{\hbar \omega }{k_B T})\\
+  T_D :&= \frac{\hbar \omega_D }{k_B} \quad   \Rightarrow  \boxed{\langle E \rangle = \frac{3Vk_B^4T^4}{2\pi^2\nu^3\hbar ^3}\int_0^{\frac{T_D}{T}}\frac{x^3}{e^x-1}dx }
+\end{align*}
+La capacidad calorífica $C_v = \frac{\partial \langle E \rangle }{\partial T}$ en los extremos:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Si $T\gg T_D \quad \Rightarrow \quad \langle E \rangle \sim 3Nk_BT \quad \Rightarrow \quad C_v \sim  3Nk_B $
+  \item Si $T\ll T_D \quad \Rightarrow \quad \langle E \rangle \sim  \frac{3\pi^4Nk_BT^4}{5T_D^3}\quad\Rightarrow \quad C_v \sim  \frac{12\pi^4}{5}Nk_B \left( \frac{T}{T_D} \right)^3 $
+\end{itemize}
+
+\section{Electrones en los sólidos}
+\underline{Modelo de Drude}
+\begin{align*}
+  &n=\frac{N}{V}; \quad\frac{dp}{dt} = -\frac{p}{\tau}+F; \quad \overline{j} = -ne \overline{v} = \sigma \overline{E}\\
+  & \sigma _0 = \frac{e^2\tau n}{m}; \quad \text{si } F -e\text{Re}[E_0e ^{i\omega t}] \Rightarrow \sigma (\omega ) = \frac{\sigma _0}{1-i\omega t}\\
+  & mv=p=-e\tau E; \quad R_H = \frac{-1}{ne} = \frac{\rho_{yx}}{|B|}\\
+  &\overline{E} = \tilde{\rho }\overline{j}; \quad \rho _{x x} = \rho _{yy}=\rho _{zz} \frac{m}{ne^2\tau }; \quad \frac{1}{2}mv_0^2= \frac{3}{2}k_BT
+\end{align*}
+
+Efecto Hall (2 portadores con la misma carga opuesta)
+\[
+\mu_i =\frac{\tau_i }{m_i};\quad \sigma =ne^2(\mu _1+\mu _2);\quad R_H=\frac{\mu _2^2-\mu _1^2}{n_0e(\mu _1+\mu _2)^2}e ^{\beta E}
+\] 
+Hall resistivity $\rho _{xy}=-\rho_{yx} = \frac{B}{ne}$ $(\overline{B}\propto \hat{z} )$
+
+Peltier coefficient $\Pi = -\frac{k_BT}{2e}= \frac{-c_vT}{3e}$
+
+Seebeck coefficient $S = \frac{\Pi}{T}$
+\[
+  \langle v\rangle_{gas id.} = \sqrt{\frac{8k_BT}{\pi m}} ; \quad \kappa = \frac{1}{3} nc\langle v\rangle ^2\tau = \frac{4}{\pi }\frac{n\tau k_B^2T}{m}
+\]
+\underline{Capacidad Calorífica}
+\begin{align*}
+  &g(\varepsilon ) = \frac{3n}{2(E_F)^{\frac{3}{2}}}\varepsilon ^{\frac{1}{2}} = \frac{(2m)^{\frac{3}{2}}}{2\pi ^2\hbar ^3}\varepsilon ^{\frac{1}{2}} , \quad k = \sqrt{\frac{2\varepsilon m}{\hbar ^2}}  \\
+  & n = \int_0^\infty \hspace{-0.5em} d\varepsilon g(\varepsilon )n_F(\beta (\varepsilon -\mu )), \quad
+  \frac{E_T}{V} = \int_0^\infty \hspace{-0.5em} d\varepsilon \varepsilon g(\varepsilon )n_F(\beta (\varepsilon -\mu ))\\
+  & C = \frac{\pi ^2}{3}\left( \frac{3Nk_B}{2} \right) \left( \frac{T}{T_F} \right)
+\end{align*}
+\[
+\overline{M} = g(E_F)\mu _B^2 \overline{B}; \quad \mu _B = 0.67 \left( \frac{K}{Tesla} \right) k_B
+\] 
+\incfig{freemodel}
+\incfig{quasifreemodel}
+\incfig{brillouinejemplo}
+
+\textbf{Teorema de Bloch} ($V(\overline{r})$ periódico)
+\[
+  \psi _{\overline{k}} (\overline{r}) = u_{\overline{k}}(\overline{r})e^{i \overline{k}\cdot \overline{r}}, \quad E(\overline{k}) = E(\overline{k}+\overline{G})
+\] 
+(1D) Fourier del potencial de dos formas
+\[
+V(x)=V_0 + \sum _{j=1}^\infty V_j\cos\left( \frac{2\pi j}{a}x \right)  \quad \text{ ó } \quad 
+V(x)=\sum_{j=-\infty}^\infty V_{\frac{2\pi j}{a}} e ^{i\frac{2\pi j}{a}x}
+\]
+Con las relaciones $V_j = 2 V_{\frac{2\pi j}{a}}$, y donde los coeficientes son
+\[ V_j = \frac{2}{a} \int _{-\frac{a}{2}} ^{\frac{a}{2}} dx V(x)\cos\left( \frac{2\pi j}{a}x \right); \quad V_{\frac{2\pi j}{a}} = \frac{1}{a} \int _{-\frac{a}{2}} ^{\frac{a}{2}} dx V(x)e ^{-i\frac{2\pi j }{a}x}
+\]
+
+\underline{Gas de electrones libres}
+\begin{align*}
+\overline{k}=\frac{2\pi}{L}(n_x, n_y, n_z), \quad E(\overline{k})=\frac{\hbar ^2}{2m}|\overline{k}|^2, \quad n_F(x)=\frac{1}{e^x+1}\\
+N = 2\sum_{\overline{k}} n_F(\beta(E(\overline{k})- \mu)) = 2 \frac{V}{(2\pi)^3}\int d \overline{k}n_F(\beta (E( \overline{k})-\mu))
+\end{align*}
+
+Fermi energy $(E_F = \mu (T\to 0))$ (d numero de dimensiones)
+\begin{align*}
+&\varepsilon _F = \frac{\hbar ^2k_F^2}{2m}=k_BT_F; \quad p_F = \hbar k_F; \quad U_T=\frac{3}{5}\varepsilon _FN \\
+&N = 2 \frac{V}{(2\pi)^d}\int _{|k|<k_F} dk \Rightarrow k_F = (3\pi ^2n)^{\frac{1}{3}}, \quad \varepsilon _F = \frac{\hbar ^2(3\pi ^2n)^{\frac{2}{3}}}{2m}
+\end{align*}
+Considerando los dos espines (multiplicamos por 2)
+\[
+N_T = 2 \cdot \left( \frac{4}{3}\pi (n_x^2+n_y^2+n_z^2)^{3 / 2} \right) \quad \Rightarrow \quad k_{max}^2 = k_F^2 = (3n\pi ^2) ^{ \frac{2}{3}}
+\]
+$e^-$ excitados por encima de  $\varepsilon _F$
+\[
+n_{e^-} = 2 \cdot \frac{1}{2} \cdot (2k_BT) (\frac{1}{2}g(\varepsilon _F))=k_BTg(\varepsilon _F); \quad \frac{n_{e^-}}{n}=\frac{3}{4}\frac{k_BT}{\varepsilon _F}
+\] 
+
+
+\underline{Electrones casi-libres}
+\begin{align*}
+  &\psi _+ \sim \cos (\pi \frac{x}{a}), \quad \psi _- \sim  \sin(\pi \frac{x}{a})\\
+  &E^{\pm} = \frac{1}{2}(E^0_{\overline{k}-\overline{G}} + E^0_{\overline{k}})\pm \sqrt{\frac{1}{4}(E^0_{{\overline{k}}-\overline{G}}-E^0_{\overline{k}})^2 + |V_{\overline{G}}|^2} 
+\end{align*}
+
+\underline{Enlace fuerte, celda primitiva cúbica} ($B=\gamma, A = \beta $)
+\begin{align*}
+  &\varepsilon(\overline{k}) = E- \left( \frac{\beta +\sum _{r_i\neq 0}\gamma(r_i)e ^{i \overline{k}\cdot \overline{r}_i}}{1+\sum_{r_i\neq 0}\alpha (r_i)e ^{i \overline{k}\cdot \overline{r}_i}} \right) \\
+  &E(\overline{k}) \approx E_i-A-2B (\cos k_xa + \cos k_ya + \cos k_za)\\
+  &A = -\langle \varphi _{i, n} | v | \varphi _{i,n} \rangle , \quad 
+  B = -\langle \varphi _{i, m} | v | \varphi _{i,n} \rangle\\
+  &\overline{v} = \nabla _{\overline{k}} \omega (\overline{k}) = \frac{1}{\hbar}\nabla _{\overline{k}}E(\overline{k})
+\end{align*}
+
+Carga de un campo $\overline{\mathcal{E}}$
+\begin{align*}
+  \dot{v}_i = \frac{1}{\hbar ^2}\sum_{j} \frac{\partial^2E}{\partial k_i\partial k_j} (-e\mathcal{E}_j), \quad \left( \frac{1}{m^*} \right)_{ij} = \frac{1}{\hbar ^2} \frac{\partial ^2E(\overline{k})}{\partial k_i\partial k_j}
+\end{align*}
+
+Caso totalmente degenerado
+\begin{align*}
+  m^* = \frac{\hbar ^2}{\left( \frac{d^2E}{dk^2} \right) }, \quad E(\overline{k}) = E_0 + \frac{\hbar^2}{2m^*}|k|^2, \quad \sigma \simeq \frac{e^2\tau (E_F)n}{m^*}
+\end{align*}
+
+\incfig{fermisufraces}
+
+\underline{Tipos de materiales}
+
+\textbf{Aislante:} Banda llena (2$e^-$). $V_g>4eV$\\
+\textbf{Semiconductor} Banda llena ($2e^-$).  $V_g<4eV$.\\
+\textbf{Metal} Banda semillena ($1e^2$ ó $2e^-$ con bandas solapantes).
+
+\incfig{tiposmateriales}
+
+\section{Semiconductores}
+extrínseco = dopado\\
+Opacos si $h \nu > E_g$\\
+Nivel de Fermi $E_F = \mu$\\
+Densidad de estados ($n$ electrones, $p$ holes)\\
+Energía de donadores / impurezas $E_D$
+\begin{center}
+\begin{tabular}{c|c|c}
+  $n$ (negativo) & $N_C$ (conducción) & $N_D$ (donadores)\\
+\hline
+  $p$ (positivo) & $N_V$ (valencia) & $N_A$ (aceptores)
+\end{tabular}
+\end{center}
+\begin{align*}
+&g_C(\varepsilon ) = \frac{(2m^*_n) ^{2 /3}}{2\pi ^2\hbar ^3}\sqrt{\varepsilon -\varepsilon _C} ; 
+g_V(\varepsilon ) = \frac{(2m^*_p) ^{2 /3}}{2\pi ^2\hbar ^3}\sqrt{\varepsilon _V-\varepsilon } \\
+& n = \int_{\varepsilon _C}^\infty d\varepsilon g_C(\varepsilon )n_F(\beta (\varepsilon -\mu ))\approx \int _{\varepsilon _C}^\infty d\varepsilon g_C(\varepsilon ) e ^{\beta (\mu -\varepsilon )}\\
+& p = \int^{\varepsilon _V}_{-\infty} d\varepsilon g_V(\varepsilon )(1-n_F(\beta (\varepsilon -\mu )))\approx \int ^{\varepsilon _V}_{-\infty} d\varepsilon g_V(\varepsilon ) e ^{\beta (\varepsilon-\mu )}\\
+&n = \frac{1}{4}\left(\frac{2 m^*_nk_BT}{\pi \hbar ^2}\right)^{3 /2} e ^{\beta(\mu -\varepsilon _C)} = N_C e ^{\beta (\mu -\varepsilon _C)}\\
+&p = \frac{1}{4}\left(\frac{2 m^*_pk_BT}{\pi \hbar ^2}\right)^{3 /2} e ^{\beta(\varepsilon _V-\mu )} = N_V e ^{\beta (\varepsilon _V-\mu )}\\
+& np = N_CN_V e ^{-\beta E_g} = 4 \left(\frac{k_BT}{2\pi \hbar ^2}\right)^3(m_n^*m_p^*)^{3 / 2}e ^{-\beta E_g}\\
+& e ^{2\beta \mu } = \frac{N_V}{N_C} e ^{\beta (\varepsilon _V + \varepsilon _C)}, \quad
+\mu  = \frac{\varepsilon _C+\varepsilon _V}{2} + \frac{3}{4}k_BT\ln\left( \frac{m_p^*}{m_n^*} \right) \\
+& \mu = \frac{e\tau }{m^*}, \quad \sigma  = e(n\mu _n+ p\mu _p), \quad E_g = \varepsilon _C-\varepsilon _V\\
+& n = p = \sqrt{N_CN_V}e ^{-\frac{\beta E_g}{2}} \quad \text{ si intrínseco}
+\end{align*}
+Semiconductores dopados ($n=1$ ionización) $\varepsilon = \varepsilon _0\varepsilon_r$
+\begin{align*}
+  &E_n = \frac{m^*e^4}{2(4\pi \varepsilon \hbar )^2} \frac{1}{n^2}, \quad r_n = \varepsilon \frac{4\pi \hbar ^2}{m^*e^2}n^2\\
+  &n_n \approx \frac{2N_D}{1+\sqrt{1+4 \frac{N_D}{N_C} e ^{\beta E_d} }} 
+\end{align*}
+Unión p-n
+\begin{align*}
+  &n_n = N_C e ^{\beta (\mu -\varepsilon _C^n)}; \quad p_p = N_V e ^{\beta (\varepsilon _V^p-\mu )}\\
+  &d^0_n = \sqrt{ \frac{2\varepsilon V_D}{e} \frac{N_A / N_D}{N_A+N_D}}; \quad d_p^0 = \sqrt{\frac{2\varepsilon V_D}{e}\frac{N_D / N_A}{N_A+N_D}} \\
+  & d_n(V) = d_n^0 \sqrt{\frac{V_D-V}{V_D}}; \quad d_p(V) = d_p^0 \sqrt{\frac{V_D-V}{V_D}}\\
+  &\text{ancho de zona de carga espacial} = d_n(V)+d_p(V)\\
+  &eV_D=k_BT\ln\left( \frac{n_np_p}{n^2_i}\right); \quad I(V) = (I_n ^{gen} +I_p ^{gen})(e ^{\beta eV}-1)
+\end{align*}
+p-Dopado ($N_A\gg N_D$):
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $T$ bajas  $\Rightarrow p\approx N_Ve ^{-\beta E_A}$
+  \item $T$ intermedias  $\Rightarrow p\approx N_A-N_D $
+  \item $T$ alta  $\Rightarrow p=n = \sqrt{N_CN_V}e ^{-\beta \frac{E_g}{2}} $
+\end{itemize}
+
+
+
+\section{Mates}
+\begin{align*}
+&\sin^2 \left(\frac{x}{2}\right) = \frac{1-\cos x}{2}\\
+&\int_0^\infty \frac{1}{e^x-1}dx = +\infty, \quad \int_0^\infty \frac{1}{e^x+1}dx = \ln(2)\\
+&\int_0^\infty \frac{x}{e^x-1}dx = \frac{\pi^2}{6}, \quad \int_0^\infty \frac{x}{e^x+1}dx = \frac{\pi^2}{12} \\
+&\int_0^\infty \frac{x^2}{e^x-1}dx = 2\zeta(3), \quad \int_0^\infty \frac{x^2}{e^x+1}dx = \frac{3}{2}\zeta(3)\\
+&\int_0^\infty \frac{x^3}{e^x-1}dx = \frac{\pi^4}{15}, \quad \int_0^\infty \frac{x^3}{e^x+1}dx = \frac{7\pi^4}{120} 
+\end{align*}
+
+\end{multicols}
+\end{document}

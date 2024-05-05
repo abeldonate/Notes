@@ -1,0 +1,229 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{a}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Notation}
+\section{Systems}
+\begin{definition}[System] A system is a transformation of an input signal
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Analog $T: x(t) \mapsto y(t) = T[x(t)]$
+    \item Discrete $T: x[n] \mapsto y[n] = T[x[n]]$
+  \end{itemize}
+\end{definition}
+
+Some examples of transformations are
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Amplitude gain & $y(t) = ax(t)$\\
+\hline
+Temporal delay & $y(t)=x(t-\Delta)$\\
+\hline
+Time rotation & $y(t) = x(-t)$\\
+\hline
+Time scaling & $y(t) = x(at)$\\
+\hline
+Integrator or accumulator & $\displaystyle y(t) = \int_{-\infty}^t x(\tau )d\tau$ \\
+\hline
+Differentiator & $\displaystyle y(t) = \frac{d x(t)}{d t}$ \\
+\hline
+Averaging & $\displaystyle y(t) = \frac{1}{T} \int_{t-T}^t x(\tau ) d\tau $\\
+\hline
+\end{tabular}
+\end{center}
+
+
+Systems can be classified into the following categories:
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Linear} & $T[ax_1(t) + bx_2(t)] = ay_1(t) by_2(t)$ \\
+\hline
+\textbf{Time-Invariant} & $T[x(t-\Delta )] = y(t-\Delta )$\\
+\hline
+\textbf{Static (no memory)} & $y(t) = f(x(t))$\\
+\hline
+\textbf{Causal} & Does not depend on future values of the input\\
+\hline
+\textbf{Stable (bounded)} & $\ \forall  x(t): |x(t)|\le M_x \Rightarrow \ \exists M_y: |y(t)|\le M_y$ \\
+\hline
+\textbf{Invertible} & $\ \exists U: y(t)  \mapsto x(t)$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Now we focus on Linear Time-Invariant systems (LTI). Because of the properties, we only need a impulse response in order to describe completely the system. This input signal will be 
+\[
+T: x(t) = \delta(t) \mapsto h(t) \qquad \text{and} \qquad 
+T: x[n] = \delta(n) \mapsto h[n]
+\]
+Then, if we know this function $h(t)$ we can compute the transformation of an arbitrary signal as
+ \[
+y(t) = \int_{-\infty}^\infty x(\tau )h(t-\tau )d\tau = x(t)*h(t) \qquad \text{and} \qquad y[n] = \sum x[m]h[n-m] = x[n]*h[n]
+\] 
+
+Now we can classify the types of LTI systems
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Casual $\iff h(t)=0 \ \forall t<0$
+  \item Stable $\iff \int_{\mathbb{R}} |h(t)|dt < \infty $ 
+  \item Invertible $\iff \ \exists h_1(t): h(t)*h_1(t) = \delta(t)$
+\end{itemize}
+
+\section{Transform domains}
+\subsection{Transforms}
+\textbf{Fourier series}
+\[
+x(t) = \sum_{\mathbb{Z}} c_ne^{jn\omega _0 t} = \sum_{\mathbb{Z}} |c_n|e^{j(n\omega_0t + \varphi _n)} \qquad \text{where} \qquad c_n = \frac{1}{T}\int_{0}^T x(t)e^{-jn\omega _0t}dt
+\] 
+Power (Parseval's inequality) $\displaystyle P_{med}=\frac{1}{T_0}\int_{T_0 }|x(t)|^2dt = \sum_{\mathbb{Z}}|c_n|^2$
+
+\textbf{Laplace transform}
+\[
+x(t)\mapsto X(s) = L[x(t)] = \int_0^{\infty} x(t)e^{-st}dt
+\] 
+
+\textbf{Fourier transform}
+\[
+x(t)\mapsto X(\omega ) = F[x(t)] = \int_{-\infty}^{\infty} x(t)e^{-j\omega t}dt
+\] 
+
+\textbf{Z transform}
+\[
+x[n]\mapsto X(z) = Z[x[n]] = \sum_{\mathbb{Z}} x[n] z^{-n} , \qquad Z^{-1}[X(z)]= \frac{1}{2\pi j}\oint_{ROC} X(z)z^{n-1}dz
+\] 
+Para calcular las inversas de la z-transform
+\[
+X(z)=\sum_{r=0}^{M-N}B_rz^{-r} + \sum_{k=1}^{N} \frac{A_k}{1-p_kz^{-1}} \Rightarrow x[n]= \sum_{r=0}^{M-N} B_r \delta[n-r] + \sum_{k=1}^{N} A_kp_k^n u[n]
+\] 
+
+\subsection{Analog systems}
+\begin{definition}[Transference function]$H(\omega ) = F(h(t))=\int_{-\infty}^{\infty} h(t)e^{-j\omega t}dt$
+\end{definition}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Input} & \textbf{Output}\\
+\hline
+$x(t)=e^{j\omega t}$ & $y(t)=e^{j\omega t}H(\omega)$\\
+\hline
+$x(t)=A\cos(\omega t+\varphi )$ & $y(t)=A|H(\omega )|\cos (\omega t+\varphi + \angle H(\omega ))$\\
+\hline
+$x(t)=\sum A_n\cos(n\omega_0 t+\varphi_n )$ & $y(t)=\sum A_n|H(n\omega_0 )|\cos (\omega t+\varphi_n + \angle H(n\omega_0 ))$\\
+\hline
+\end{tabular}
+\end{center}
+
+Properties of the Fourier transform
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Conovlution $F[f(t)*g(t)]F(\omega )G(\omega)$
+  \item Product $F[f(t)g(t)]F(\omega )*G(\omega)$
+  \item Energy preservation $\int_{-\infty}^{infty} x(t)y^*(t)dt = \frac{1}{2\pi} \int_{-\infty}^{infty} X(\omega ) Y^*(\omega )d\omega$
+  \item Time diferentiation $F[\frac{dx(t)}{dt}]=j\omega X(\omega )$
+  \item Time integration $F[\int_{-\infty}^tx(\tau ) d\tau] =  \frac{X(\omega) }{j\omega}+ \pi X(0) \delta (\omega )$
+\end{itemize}
+
+(Important transformations)
+
+Given two transference functions $H_1, H_2$ if we connect them in series $H_{eq}=H_1 \cdot H_2$ and in parallel $H_{eq}=H_1+H_2$
+
+\subsection{Digital systems}
+
+(Important transformations)
+\textbf{IIR Case}
+\[
+a_0y[n] + \ldots + a_Ny[n-N]=b_0x[n] + \ldots+ b_Mx[n-M] \Rightarrow \boxed{H(z)=z^{N-M} \frac{b_0z^M + \ldots + b_M}{a_0z^n + \ldots+ a_N}}
+\]
+The impulse response is given by
+\[
+h[n]=K_1p_1^n u[n] + K_2p_2^n u[n] + \ldots + K_Np_N^n u[n]
+\] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

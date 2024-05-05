@@ -1,0 +1,549 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{makecell}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{a}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ceros de ecuaciones y sistemas no lineales}
+\subsection{Ecuaciones en una variable}
+Existen los siguientes métodos
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textit{Método} & \textit{Iteración} &  \textit{Orden de convergencia} \\
+\hline
+  \textbf{Bisección} &
+  $I_{k+1} = \begin{cases}
+	(a_k, x_k) &\text{si } f(a_k)f(x_k)<0\\
+	(x_k, b_k) &\text{si } f(a_k)f(x_k)>0
+  \end{cases}$ & Lineal \\
+\hline
+  \textbf{Secante} & $\displaystyle x_{k+1} = x_k-f(x_k) \frac{x_k - x_{k-1}}{f(x_k) - f(x_{k-1})}$ & No siempre, $\frac{1+\sqrt{5} }{2}$ \\
+\hline
+  \textbf{Regula falsi} & Secante + Bisección & Convergente más lenta que secante, lineal \\
+\hline
+  \textbf{Newton} & \makecell{
+    $\displaystyle x_{k+1}  = x_k - \frac{f(x_k)}{f'(x_k)}$\\
+    $\displaystyle x_{k+1}  = x_k - Df(x_k)^{-1}f(x_k)$
+  }
+  & $\begin{cases}
+  f\in \mathcal{C}^2\\
+  f'(x), f''(x)\neq 0 \\
+  c:|f'(x)| \text{ es menor } \Rightarrow |\frac{f(c)}{f'(c)}|\le b-a \\
+  \text{orden }2
+  \end{cases}$ \\
+  \hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Punto fijo] Sea $g: I = [a, b] \to  \mathbb{R} \in \mathcal{C}^1$ tal que:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $g(I)\subseteq I$
+	\item $|g'(x)|\le L <1 \quad (\Rightarrow |g(x)-g(x')|\le L|x-x'|, \ L<1)$
+  \end{itemize}
+  Entonces $\ \exists ! s: f(s)=s$ y $\ \forall x_0$ la sucesión $x_k = g(x_{k-1})$ converge a $s$ \\
+  Además se cumple $\displaystyle |x_k-s|\le \frac{L^k}{1-L}|x_1-x_0| \quad \text{ y }\quad |x_k-s|\le \frac{L}{1-L}|x_k-x_{k-1}|$
+
+\end{theorem}
+
+\begin{definition}[Orden de convergencia] La sucesión $(x_k) \to \alpha $ tiene orden de convergencia  $p$ si existen $N\ge 0, C>0$ tal que:
+  \[
+  |x_{k+1}-\alpha |\le C|x_k-\alpha |^p \ \forall k\ge N
+  \] 
+  Si existe el límite $\displaystyle L = \lim \frac{x_{k+1}-\alpha }{(x_k-\alpha )^p}$ la sucesión tendrá orden de convergencia al menos $p$
+\end{definition}
+\[
+  \text{Orden } p \iff G(\alpha )=\alpha , \ G'(\alpha )=0, \ldots ,\ G^{(p-1)}(\alpha )=0,\ G^{(p)}(\alpha )=Cp!
+\] 
+
+\subsection{Aceleración de la convergencia}
+\begin{definition}[] $\Delta x_k = x_{k+1}-x_k, \quad \Delta^2 x_{k} = \Delta x_{k+1}-\Delta x_k$
+\end{definition}
+\begin{definition}[Aceleración de Aitken]
+Consideramos la recta que pasa por la pareja de puntos $(x_k, \Delta x_k), (x_{k+1}, \Delta x_{k+1})$ y hacemos $y=0$. Tenemos la sucesión
+ \[
+x'_k = x_k -\frac{(\Delta x_k)^2}{\Delta^2 x_k}
+\]
+Si $(x_k)$ es al menos lineal  $(x'_{k})$ converge más rápidamente a $s$ que  $(x_k)$
+\end{definition}
+
+\begin{definition}[Aceleración de Steffensen] Dada una $g$ que queremos calcular su punto fijo. Orden $p\to 2p-1$
+  \[
+  G(x) = x - \frac{(g(x)-x)^2}{g(g(x)) - 2g(x) + x}
+  \] 
+\end{definition}
+
+\subsection{Sistemas de ecuaciones no lineales}
+\begin{theorem}[Punto fijo]
+Sea $T\subseteq \mathbb{R}^n$ un conjunto cerrado y $G: T\to \mathbb{R}^n$ tal que
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $G(T)\subseteq T$
+  \item $\ \exists L<1$ tal que $\|G(x_2)-G(x_1)\|\le L\|x_2-x_1\| \ \forall x_1, x_2\in T$
+\end{itemize}
+Entonces existe un único punto fijo $G(s)=s$ y la sucesión $x_k = G(x_k)$ converge a $s$. Además
+$\|x_k - s\|\le \frac{L^k}{1-L}\|x_1-x_0\| \qquad \text{y} \qquad \|x_k-s\|\le \frac{L}{1-L}\|x_k-x_{k-1}\|$
+\end{theorem}
+
+\subsection{Ceros de polinomios}
+\begin{definition}[Deflación] Cuando obtenemos un cero $p(\alpha ) \approx 0$ hacemos la división por la raíz para seguir encontrando ceros del nuevo polinomio $q(x)$ con $p(x)=(x-\alpha )q(x) + p(\alpha )$
+
+\end{definition}
+
+\begin{theorem}[Regla de Laguerre]
+Sea $p(x)$ un polinomio.
+\[
+p(x)=(x-L)(b_0 x^{n-1}+\ldots+b_{n-1}) + b_n
+\]
+Si $b_i\ge 0$ entonces $L$ es cota superior de las raíces reales de  $p(x)$
+\end{theorem}
+
+\begin{theorem}[Regla de Newton]
+Sea $p(x), L\in \mathbb{R}$ tal que $p(L), p'(L), \ldots , p^{(n)}>0$\\
+Entonces $L$ es cota superior de las raíces reales de  $p(x)$
+\end{theorem}
+
+Sea el polinomio $p(x) = a_0x^n + a_1x^{n-1} + \ldots + a_n$ y $z$ una de sus raíces. Se cumplen los dos siguientes teoremas
+\begin{theorem}[Regla de Lagrange]
+\[
+|z| \le \max \left\{ 1, \sum_{i=1}^{n} \left|\frac{a_i}{a_0}\right| \right\}
+\] 
+\end{theorem}
+
+\begin{theorem}[Regla de Cauchy]
+ \[
+|z|\le 1+\max \left\{  \left|\frac{a_1}{a_0}\right|, \left|\frac{a_2}{a_0}\right|, \ldots, \left|\frac{a_n}{a_0}\right| \right\} 
+\] 
+\end{theorem}
+
+\begin{definition}[Matriz de Frobenius] La matriz acompañante o de Frobenius es
+  \[
+	C(p) = \begin{pmatrix} 
+	  0 & 0 & \ldots & 0 & -a_n \\
+	  1 & 0 & \ldots & 0 & -a_{n-1} \\
+	  0 & 1 & \ldots & 0 & -a_{n-2} \\
+	  \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+	  0 & 0 & \ldots & 1 & -a_1
+	\end{pmatrix}   
+  \] 
+Su polinomio característico es $\det(C(p)-zI) = (-1)^np(z)$, por lo que sus VAPs son las raíces de $p(z)$
+\end{definition}
+
+En ambos métodos tenemos el siguiente caso:
+Sea el polinomio mónico $p(z)=z^n + a_1z^{n-1} + \ldots + a_{n-1}z + a_n$ y ${z_i}$ aproximaciones de sus  $n$ ceros. El objetivo es encontrar las correcciones $\Delta z_i$ tal que las nuevas aproximaciones sean $z'_i = z_i+\Delta z_i$.
+
+\textit{\textbf{Método de Durand-Kerner}}\\
+Desarrollamos la expresión y despreciamos los términos de grado $\ge 2$ de $\Delta z_i$
+\[
+p(z)=\prod(z-z'_i) = \prod (z-(z_i+\Delta z_i)) = \prod (z-z_i) - \sum  \left( \Delta z_j \prod_{k\neq j}(z-z_k) \right) 
+\] 
+Imponemos $z=z_i$ para  $i=1,\ldots, n$
+\[
+-\Delta z_i \prod_{k\neq i} (z_i-z_k) = p(z_i) \Rightarrow \boxed{z'_i = z_i - \frac{p(z_i)}{\prod_{k\neq i}(z_i-z_k)}}
+\] 
+Notas:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Convergencia cuadrática (igual a Newton)
+  \item En la primera aproximación todos los $z_i$ deben ser diferentes
+\end{itemize}
+.
+
+\textit{\textbf{Método de Ehrlich-Aberth}}\\
+Consideramos las funciones racionales tal que $R(\alpha _i)=0$ y le aplicamos Newton
+\[
+R_i(z)=-\frac{p(z)}{\prod_{k\neq i}(z-z_k)} \quad \Rightarrow\quad z'_i = z_i -\frac{R_i(z_i)}{R'_i(z_i)}\quad \Rightarrow\quad \boxed{\Delta z_i =  \frac{p(z_i)}{p'(z_i)-p(z_i)\sum_{k\neq i}\frac{1}{z_i-z_k}}}
+\] 
+Notas:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Convergencia cuadrática si el resto de $z_i$ no se mueven
+  \item Convergencia cúbica si se mueven todas las  $z_i$ a la vez
+\end{itemize}
+
+
+
+
+\section{Interpolación de funciones}
+\begin{definition}[Interpolación] Dado un conjunto de puntos $(x_k, y_k)$ hemos de encontrar una función  $f$ tal que  $f(x_k)=y_k$
+\end{definition}
+
+\subsection{Interpolación polinómica}
+\begin{theorem}[Existencia y unicidad]
+  Existe un único polinomio $p(x)$ con grado  $\le n$ que interpola $n+1$ puntos.
+\end{theorem}
+
+\begin{theorem}[Error de interpolación]
+Sea $f\in C^{n+1}(a, b)$ y $p(x)$ su polinomio interpolador en  $(x_k)$. Entonces el error de interpolación es
+\[
+|f(x)-p(x)| = \frac{f^{(n+1)}(\eta (x))}{(n+1)!}(x-x_0)\cdots (x-x_n), \qquad  \text{con}\quad \eta(x) \in (\min(x_k), \max(x_k))
+\] 
+\end{theorem}
+
+\subsection{Interpolación de Lagrange}
+Definimos unas funciones $l_k(x)$ tal que $l_k(x_j) =\begin{cases}
+  1 \text{ si } j=k \\
+  0 \text{ si } j\neq k
+\end{cases}$
+\[
+\boxed{p(x) = \sum y_kl_k(x)} , \qquad \text{donde} \qquad l_k = \frac{\prod_{i\neq k}(x-x_i)}{\prod_{i\neq k}(x_k-x_i)}
+\] 
+
+\subsection{Interpolación de Newton}
+Sea el polinomio interpolador $p(x) = c_0 + c_1(x-x_0) + \cdots + c_n(x-x_0)(x-x_2)\cdots (x-x_{n-1})$
+Imponiendo que $p(x)$ interpola tenemos
+ \[
+{\begin{pmatrix}1&&\ldots &&0\\1&x_{1}-x_{0}&&&\\1&x_{2}-x_{0}&(x_{2}-x_{0})(x_{2}-x_{1})&&\vdots \\\vdots &\vdots &&\ddots &\\1&x_{n}-x_{0}&\ldots &\ldots &\prod _{{j=0}}^{{n-1}}(x_{n}-x_{j})\end{pmatrix}}{\begin{pmatrix}c_{0}\\\\\vdots \\\\c_{{n}}\end{pmatrix}}={\begin{pmatrix}y_{0}\\\\\vdots \\\\y_{{n}}\end{pmatrix}}
+\] 
+Definimos una operación "diferencia dividida" recursivamente:
+\[
+f[x_0, \ldots, x_{k+1}] = \frac{f[x_1, \ldots , x_{k+1}] - f[x_0, \ldots x_k]}{x_{k+1}-x_0} \quad \text{y} \qquad f[x_i] =y_i
+\] 
+Entonces se cumple que  $\displaystyle \boxed{c_k = f[x_0, \ldots, x_k]}$
+
+\subsection{Chebyshev}
+\begin{definition}[Polinomio de Chebyshev]
+$T_n(x)=\cos(n\arccos(x))$ cumple $T_{n+1} = 2xT_n - T_{n-1}$
+\end{definition}
+
+\begin{theorem}[Abcisas de Chebyshev]
+La mejor elección de puntos $y_0,\ldots, y_n \in [-1,1]$ tal que $\max|(y-y_0)\ldots(y-y_n)|$ sea mínima viene dada por las raíces del polinomio de Chebyshev de grado $n+1$ y vale $\frac{1}{2^n}$ 
+\end{theorem}
+
+
+\subsection{Interpolación de Hermite}
+Queremos un polinomio que coincida con la función y su derivada en $(x_0,y_0),\ldots, (x_m, y_m)$ y $(x_0, y'_0), \ldots, (x_m, y'_m)$
+\[
+H_{2m+1}(x)= \sum y_i \varphi_i(x) + \sum y'_i\psi _i(x)  \qquad \text{con} \begin{cases}
+  \varphi _i(x) = (1-2l'_i(x_i)(x-x_i))l_i^2(x)\\
+  \psi _i(x) = (x-x_i)l_i^2(x)
+\end{cases} 
+\]
+
+El error de esta interpolación viene dado por
+\[
+f(x)-H_{2m+1}(x)= \frac{f^{2m+2}\eta (x)}{(2m+2)!}(x-x_0)^2\cdots (x-x_m)^2 \qquad \text{con} \qquad \eta(x) \in (\min(x_i, x), \max(x_i,x))
+\] 
+
+Podemos calcular los coeficientes de manera similar a Newton definiendo $f[x_i, x_i] = f'(x_i)$
+ \[
+H_{2m+1} = f[x_0] + f[x_0, x_0](x-x_0) + f[x_0, x_0, x_1](x-x_0)^2 + \cdots + f[x_0, x_0, \ldots, x_m, x_m](x-x_0)^2(x-x_1)^2\cdots(x-x_m)
+\] 
+
+\subsection{Interpolación Spline}
+\begin{definition}[Función spline] Dados los puntos $\{(x_i, y_i)\}$ la función  $s(x)$ de grado $p$ es spline si
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $s(x_i)=y_i$ 
+  \item En cada intervalo $[x_i, x_{i+1}] , s(x)$ es un polinomio de grado $p$ 
+  \item $s(x)\in \mathcal{C}^{p-1}$
+\end{enumerate}
+\end{definition}
+
+Cúbicas naturales $s''(x_0)=s''(x_n)=0$
+ \[
+\begin{cases}
+  s_i(x_i)=s_{i-1}(x_i)=y_i\\
+  s'_{i-1} = s'_i(x_i)\\
+  s''_{i-1} = s''_i(x_i)
+\end{cases}
+, \quad B_i = \frac{y_{i+1}-y_i}{h_i} - (M_{i+1}-M_i) \frac{h_i}{6} - M_i \frac{h_i}{2}
+\] 
+\[
+\Rightarrow \boxed{s_i(x)= \frac{M_{i+1}-M_i}{h_i} \frac{(x-x_i)^3}{6} + M_i \frac{(x-_i)^2}{2} + B_i(x-x_i) + A_i}
+\] 
+
+\subsection{Interpolación trigonométrica}
+\begin{definition}[Interpolacion trigonométrica]
+\[
+\hat{f}(x)=\sum_{k=-M}^M c_ke^{ikx} = \frac{a_0}{2} + \sum_{k=1}^n (a_k\cos(kx) + b_k\sin(kx)) , \quad 
+\begin{cases}
+c_0 = \frac{a_0}{2} = \frac{1}{n+1}\sum _{j=0}^n f(x_j)  \\
+a_k = c_k+c_{-k} = \frac{2}{n+1}\sum_{j=0}^nf(x_j)\cos(jhk)  \\
+b_k = i(c_k-c_{-k}) = \frac{2}{n+1}\sum_{j=0}^n f(x_j)\sin(jhk)
+\end{cases}
+\quad 
+\] 
+\end{definition}
+
+
+\section{Aproximación de funciones}
+\begin{theorem}[Aproximación continua] Dado $I, F_n = {f_n = a_0\varphi_0(x)+ \cdots + a_n\varphi_n(x)}$ l.i., se cumple
+\[
+  \exists ! f_n^* = \sum a_j^*\varphi _j(x) \text{ que minimiza } \|f-f_n\|_{2} \text{ en } F_n
+  \]
+\end{theorem}
+
+En el caso general resolvemos $\boxed{(\langle \varphi _j, \varphi _i \rangle ) a^* = (\langle f, \varphi _i \rangle )}$, si $F_n$ es ortogonal  $\boxed{a^*_j = \frac{\langle \varphi_j, f \rangle }{\langle \varphi _j, \varphi _j \rangle }}$
+
+\begin{theorem}[Gram-Schmidt] Dada la base $\{\varphi_i \}$ construimos la base ortogonal $\{\psi _i\}$ 
+  \[
+  \psi_0 = \varphi_0, \quad
+  \psi_1 = \varphi _1 - \frac{\langle \varphi _1, \psi_0 \rangle }{\langle \psi_0, \psi_0 \rangle } \psi_0, \quad 
+  \psi_n = \varphi _n - \frac{\langle \varphi _n, \psi_0 \rangle }{\langle \psi_0, \psi_0 \rangle } \psi_0 - \cdots - \frac{\langle \varphi _n, \psi _{n-1} \rangle }{\langle \psi _{n-1}, \psi _{n-1} \rangle }
+  \] 
+\end{theorem}
+
+\begin{definition}[Familia ortogonal de polinomios] $A_j$ es el coeficiente dominante de  $\psi _j$
+\[
+\begin{cases}
+  \psi _0 = A_0\\
+  \psi _{j+1}=\alpha _j(x-\beta _j)\psi _j - \gamma_j\psi _{j-1}
+\end{cases} \text{ donde }
+\begin{cases}
+  \alpha _j = \frac{A_{j+1}}{A_j}, \quad \gamma_0 = 0 \\
+  \beta _j = \frac{\langle \psi _j, x\psi _j \rangle }{\langle \psi _j, \psi _j \rangle } = \frac{\langle \psi _j, x\psi _j \rangle }{\alpha _j}\\
+  \gamma _j = \frac{\alpha _j}{\alpha _{j-1}} \frac{\langle \psi _j, \psi _j \rangle }{\langle \psi _{j-1}, \psi _{j-1} \rangle } = \frac{\alpha _j}{\alpha _{j-1}} \frac{ \langle  \psi _j, \psi _j \rangle}{\langle \psi _{j-1}, \psi _{j-1}\rangle} 
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Polinomios de Legendre] Familia ortogonal en $I = [-1,1]$ con  $w(x)=1$
+\[
+P_0(x) = 1, \quad P_n(x) = \frac{1}{2^nn!} \frac{d^n}{d x^n} ((x^2-1)^n), \qquad \langle P_n, P_n \rangle = \frac{2}{2n+1}  \qquad
+\begin{cases}
+  \alpha _j = \frac{2j+1}{j+1}\\
+  \beta _j = 0\\
+  \gamma_j = \frac{j}{j+1}
+\end{cases}
+\] 
+\end{definition}
+
+Otros tipos de bases ortogonales
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Chebyshev $w(x)=\frac{1}{\sqrt{1-x^2} }, \quad I = [-1, 1]$
+  \item Hermite $w(x) = e^{-x^2}, \quad I = (-\infty , \infty)$
+  \item Generalizados de Legendre $w(x) = x^\alpha e^{-x}, I = (0, \infty)$
+\end{itemize}
+
+\begin{definition}[Aproximación trigonométrica]
+\[
+f^*_n(x ) = \frac{a^*_{0}}{2} + \sum (a_j^*\cos(jx) + b_j^*\sin(jx) \quad \text{con} \quad
+\begin{cases}
+  a^*_0 = \frac{1}{\pi}\int_{-\pi}^\pi f(x)dx\\
+  a^*_j = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(jx)dx\\
+  b^*_j = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(jx)dx\\
+\end{cases}
+\] 
+\end{definition}
+
+\section{Derivación e integración numéricas}
+\begin{definition}[Derivación]
+\begin{align*}
+  \text{Hacia adelante }& \quad f'(a) = \frac{f(a+h) - f(a)}{h} - \frac{f''(\xi)}{2!}h & \xi \in [a, a+h] \\
+  \text{Centrada } & \quad f'(a) = \frac{f(a+h) - f(a-h)}{2h} - \frac{f'''(\xi_1)+f'''(\xi_2)}{2\cdot 3!}h^2 & \xi_1, \xi_2  \in [a, a+h]
+\end{align*}
+\end{definition}
+
+\begin{definition}[Método 1]
+\begin{align*}
+  \int_a^b f(x)dx = \int_a^b \sum y_kl_k(x)dx = \sum y_k \overbrace{\int_a^b l_k(x)dx}^{w_k(x)}
+\end{align*}
+\end{definition}
+
+\begin{definition}[Formula de Simpson]
+\begin{align*}
+  & \int_a^b f(x)dx = \frac{b-a}{2}\int_{-1}^1 s(t)dt \approx \frac{b-a}{6} \left[f(a) + 4 f(\frac{a+b}{2}+f(b)\right] \\
+  & \int _{c-h}^{c+h} f(x)dx \approx \frac{h}{3}[f(c-h) + 4f(c) + f(c+h)] \quad E = \frac{-h^5}{90}f^{(4)}(\xi)
+\end{align*}
+\end{definition}
+
+\begin{definition}[Formula general error integración interpolativa]
+\[
+E = \int_{a}^b \frac{f^{(m+1)}(\xi}{(m+1)!}(x-x_0) \cdots (x-x_m)dx
+\] 
+\end{definition}
+
+Fórmulas de Newton-Cortes
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+$m$ & Método & Integral & Error\\
+\hline
+$m=1$ & Trapecio & $\frac{h}{2}[f(x_0)+f(x_1)]$ & $\frac{h^3}{12}f''(c), \quad h=b-a$\\
+\hline
+$m=2$ & Simpson & $\frac{h}{3}[f(x_0)+4f(x_1)+f(x_2)]$ & $\frac{h^5}{90}f^{(4)}(c), \quad h=\frac{b-a}{2}$\\
+\hline
+$m=3$ & Regla 8/3 & $\frac{3}{8}h[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]$ & $\frac{3}{80}h^5f^{(4)}(c), \quad h=\frac{b-a}{3}$\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{definition}[Fórmula trapecios compuesta] $h = \frac{b-a}{N}$
+\[
+\int_a^b f(x)dx \approx \frac{h}{2}[f(a) + 2f(a+h) + \cdots + 2f(b-h)+f(b)], \qquad E = \frac{b-a}{12}h^2f''(\xi)
+\] 
+\end{definition}
+
+\begin{definition}[Fórmula compuesta de Simpson] $h = \frac{b-a}{N}$
+\[
+\int_a^bf(x)dx \approx \frac{h}{3}[f(a) + 4f(a+h) + 2f(a+2h) + 4f(a+3h) + \cdots + 4f(b-h)+ f(b)], \qquad E = \frac{h^4}{180}(b-a)f^{(4)}(\xi)
+\] 
+\end{definition}
+
+\begin{definition}[Integración gaussiana]
+\[
+\int_{a}^b f(x)w(x)dx \approx \int_a^b P_m(x)w(x)dx = \sum \left( \overbrace{\int_a^b l_i(x)w(x)dx}^{\tilde{w}_i} \right) y_i, \qquad E = \frac{1}{A_{m+1}^2(2m+2)!}f^{2m+2}(\xi)\langle \psi _{m+1}, \psi _{m+1} \rangle 
+\] 
+\end{definition}
+
+\begin{theorem}[Ceros de elemento de base ortogonal] Sea $w(x)$ continua positiva en  $(a,b]$. Sea $\varphi _m(x)$ el polinomio ortogonal de grado $m$ respecto del producto escalar con  $w$. Entonces  $\varphi _m$ tiene $m$ ceros simples en $[a,b]$
+
+  Además si $f$ es un polinomio de grado  $\le 2m+1$ la integración gaussiana es exacta con los puntos tomados en los ceros de  $\varphi_{m+1}(x)$
+\end{theorem}
+
+\begin{definition}[Formula del error de Gauss-Legendre]
+\[
+E_{m+1}(f) = \frac{(b-a)^{2m+3}(m+1)!^4}{(2m+3)(2m+2)!^3}f^{(2m+2)}(\xi)
+\] 
+\end{definition}
+
+
+\begin{definition}[Extrapolacion de Richardson] Sea $F(h)=v+a_1h^{p_1}+ a_2h^{p_2}+ \ldots$ 
+\[
+F_2(h)=\frac{q^{p_1}F_1(h)-F_1(qh)}{q^{p_1}-1} = v + a_2^{(2)}h^{p_2} + \ldots
+\] 
+\end{definition}
+
+\section{Métodos numéricos para EDOs}
+\begin{definition}[Problema de Cauchy]
+$\begin{cases}
+  y'(x) = f(x, y(x))\\
+  y(x_0) = y_0
+\end{cases}$
+\end{definition}
+
+\begin{definition}[Método de integración de un paso]
+\[
+\begin{cases}
+  y_0=y(a)\\
+  y_{n+1}= y_n + h\Phi (x_n, y_n, h)
+\end{cases}
+\quad \text{con} \quad |\Phi (x, y, h)-\Phi (x, \overline{y}, h)|\le L|y-\overline{y}| 
+\] 
+\end{definition}
+
+\begin{definition}[Orden del error] Un método de integración tiene orden global $p$ si
+  \[
+  \mathcal{O}(h^p) \iff e_n \le kh^p \qquad \text{con} \qquad e_n = |y(x_n)-y_n|
+  \] 
+\end{definition}
+
+
+\begin{definition}[Método de Euler] $\mathcal{O}(h)$ (método de Taylor de orden 1)
+\[
+y(x) \approx y(x_0) + y'(x_0)(x-x_0) = y_0+f(x_0,y_0)(x-x_0)
+\] 
+\end{definition}
+
+\begin{definition}[Método de Taylor] Tenemos en cuenta $y''(x_0) = f_x(x_0, y_0)+ f_y(x_0, y_0)f(x_0, y_0)$
+ \[
+y(x) \approx y_0+ f(x_0,y_0)(x-x_0) + y''(x_0) \frac{(x-x_0)^2}{2!}
+\] 
+\end{definition}
+
+\begin{definition}[Métodos de Runge-Kutta]
+\[
+  \begin{cases}
+  y(x_0)=y_0\\
+  y_{n+1} = y_n + h\sum_{i=1}^k c_ik_i^n
+\end{cases} \text{ con } 
+\begin{cases}
+  k_1^n = f(x_n, y_n) \\
+  k_i^n = f(x_n+a_ih, y_n+h\sum_{j=1}^{i-1} b_{ij}k_j^n
+\end{cases} \text{ con } c_i, a_i, b_{ij} \text{ a determinar}
+\]
+\end{definition}
+
+\begin{definition}[Método multipaso de paso $k$]
+\[
+\begin{cases}
+  y_0 = y(x_0)\\
+  y_{n+1}= \sum_{i=i}^k \alpha _iy_{n+1-i} + h\sum_{i=0}^k \beta _i f(x_{n+1-i}, y_{n+1-i} 
+\end{cases} \text{ con } \alpha _i, \beta _i \text{ por determinar}
+\] 
+Si $\beta _0=0$ tenemos el método  \textbf{Adams-Bashforth}. $Si  \beta_0\neq 0$ tenemos el método  \textbf{Adams-Moulton}
+\end{definition}
+
+\begin{definition}[Sistemas de ecuaciones de EDOs]
+\[
+  \begin{cases}
+  Y'(x)=(f^1(x, y^1(x), \ldots , y^m(x)), \ldots , f^m(x, y^1(x), \ldots , y^m(x)) )^T\\
+  Y(x_0) = Y_0
+\end{cases}
+\] 
+\end{definition}
+
+\begin{definition}[Métodos de Adam-Bashforth] $y_{n+1} = y_n + \int_{x_n}^{x_{n+1}} \overbrace{f(x_n, y_n)}^{p(x)}dx$. Orden $\mathcal{O}(h^k)$
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $K=1 \Rightarrow \Phi  = f(x_n, y_n)$
+    \item $K=2 \Rightarrow \Phi  = \frac{1}{2}(3f(x_n, y_n) - f(x_{n-1}, y_{n-1}))$
+    \item $K=3 \Rightarrow \Phi  = \frac{1}{12}(23f(x_n, y_n) - 16f(x_{n-1}, y_{n-1}) + 5f(x_{n-2}, y_{n-2}))$
+    \item $K=4 \Rightarrow \Phi  = \frac{1}{24}(55f(x_n, y_n) - 59f(x_{n-1}, y_{n-1}) + 37f(x_{n-2}, y_{n-2}) - 9f(x_{n-3}, y_{n-3}))$
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Métodos de Adam-Moulton] $y_{n+1} = y_n + \int_{x_n}^{x_{n+1}} \overbrace{f(x_n, y_n)}^{p(x)}dx$. Orden $\mathcal{O}(h^k)$
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $K=1 \Rightarrow \Phi  = \frac{1}{2}(f(x_{n+1}, y_{n+1}) + f(x_{n}, y_{n}))$
+    \item $K=2 \Rightarrow \Phi  = \frac{1}{2}(5f(x_{n+1}, y_{n+1}) + 8f(x_{n}, y_{n}) - f(x_{n-1}, y_{n-1}))$
+    \item $K=3 \Rightarrow \Phi  = \frac{1}{24}(9f(x_{n+1}, y_{n+1}) + 19f(x_{n}, y_{n}) - 5f(x_{n-1}, y_{n-1}) + f(x_{n-2}, y_{n-2}))$
+  \end{itemize}
+\end{definition}
+
+
+\end{document}

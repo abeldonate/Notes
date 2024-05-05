@@ -1,0 +1,285 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+
+\pdfsuppresswarningpagegroup=1
+
+\title{a}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Electrostática}
+\subsection{Triángulo eléctrico}
+Podemos relacionar las variables eléctricas $ E, V, \rho$ con las siguientes fórmulas
+\[
+  \begin{cases}
+\displaystyle\nabla\cdot E = \frac{\rho}{\varepsilon_0} \\ \displaystyle E = -\nabla V \\ \displaystyle \nabla ^2 V = -\frac{\rho}{\varepsilon_0}
+  \end{cases}
+  \implies
+  \begin{cases}
+    \displaystyle E = \frac{1}{4\pi \varepsilon_0} \int \frac{\hat{r}}{r^2}\rho d\tau \\
+	\displaystyle V = -\int E dr \\
+	\displaystyle V = \frac{1}{4\pi \varepsilon_0 } \int \frac{\rho}{r}d\tau 
+  \end{cases}
+\] 
+
+\subsection{Dipolos}
+\subsubsection{Puntual}
+Un dipolo puntual consta de dos cargas iguales y opuestas. Por simplicidad las ponemos en el eje $z$ a una distancia de $\pm \frac{d}{2}$ del origen. Definimos $\boxed{\overline{p} = q\overline{d}}$ como el momento dipolar. Calculando el potencial y el campo en el punto $\overline{r}$
+\[
+V = \frac{q}{4\pi \varepsilon_0}(\frac{1}{r_+} - \frac{1}{r_-}) \approx \frac{\overline{p}\cdot \overline{r}}{4\pi \varepsilon _0}  \implies \overline{E} = \frac{3\overline{p}\cdot \overline{r}}{4\pi \varepsilon _0} \frac{\overline{r}}{r^5} - \frac{\overline{p}}{4\pi \varepsilon _0r^3}
+\] 
+donde la aproximación es válida para $r\gg d$
+\subsubsection{Lineal}
+Un dipolo lineal consta de dos barras con carga uniforme y opuesta. Por simplicidad ponemos las barras a distancia $\frac{d}{2}$ del origen paralelas al eje $z$. Definimos $\boxed{\overline{\mathcal{P}} = \lambda \overline{d}}$. Calculamos el potencial y el campo en el punto $\overline{r}$
+\[
+V = \frac{\lambda}{2\pi \varepsilon _0} \ln(\frac{s_-}{s_+}) \approx \frac{\overline{\mathcal{P}}\cdot \overline{s}}{2\pi\varepsilon _0s^2} \implies \overline{E} = \frac{1}{2\pi\varepsilon _0}\left( \frac{2\overline{\mathcal{P}}\cdot \overline{s}}{s^4}\overline{s} - \frac{\overline{\mathcal{P}}}{s^2} \right) 
+\] 
+
+\subsection{Conductores}
+\begin{theorem}
+Propiedad electrostática de los conductores. Dentro de un conductor se cumple $\boxed{\overline{E}=0}$ 
+\end{theorem}
+
+\begin{theorem}
+Teorema de unicidad. Si se conoce $V$ el una superficie que encierra una región y la distribución de cargas, entonces la ecuación de Laplace $\nabla ^2V=0$ dentro de la región tiene una única solución
+\end{theorem}
+
+\subsection{Método de las cargas imagen}
+\underline{Bloque conductor}\\
+Tenemos una configuración con una carga $q$ en la posición  $h\hat{z}$ y un bloque conductor en $z\le 0$. La carga inducirá una distribución de carga $\sigma_f $en la superficie del conductor, y entre $q$ y la carga superficial se creará un campo eléctrico $\overline{E}$
+
+Para resolver este problema aprovechamos el teorema de unicidad y planteamos una situación equivalente donde tenemos la carga $q$ en  $h\hat{z}$ y una carga ficticia $-q$ en $-h\hat{z}$. Observamos que:
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item El potencial en el plano $z=0$ y en el infinito es el mismo en ambos problemas
+  \item La distribución de cargas en $z\ge 0$ es la misma en ambos problemas
+\end{enumerate}
+Por tanto por el teorema de unicidad el potencial es el mismo en $z\ge 0$ en ambos problemas. Calcularemos $\overline{E}$ con la ley de Coulomb y la $\sigma _f$ con el Teorema de Gauss en $z=0 \implies \sigma f=\varepsilon _0 E_0$.
+
+\underline{Esfera conductora} \\
+Si tenemos una esfera conductora bajo un campo eléctrico uniforme $E_0\hat{z}$ la imagen será un dipolo puntual $\overline{p}_{IM}$ paralelo al campo tal que genere el mismo potencial en todos los puntos de la superficie de la esfera.
+
+\underline{Cilindro conductor} \\
+Si tenemos un cilindro conductor bajo un campo eléctrico uniforme $E_0\hat{z}$ perpendicular al eje del cilindro, la imagen será un dipolo lineal $\overline{\mathcal{P}}_{IM}$ paralelo al campo tal que genere el mismo potencial en todos los puntos de la superficie del cilindro.
+
+\section{Dieléctricos y medios polarizados}
+\section{Medios polarizados}
+Definimos el momento dipolar por unidad de volumen $\boxed{\overline{P} = \frac{\sum \overline{p_i}}{d\tau}}$
+
+En un medio polarizado con $\overline{P}$ se tienen dos densidades de carga que generan un potencial:
+
+\begin{minipage}{0.4\textwidth}
+\[
+\begin{cases}
+  \rho _b = -\nabla\cdot P\\
+  \sigma _b = P\cdot \hat{n}
+\end{cases}
+\implies
+\] 
+\end{minipage}
+\begin{minipage}{0.6\textwidth}
+\[
+V(r)=\frac{1}{4\pi\varepsilon _0}\int_V \frac{\rho _b}{ |r'-r|}d\tau + \frac{1}{4\pi\varepsilon _0}\int_S \frac{\sigma _b}{|r'-r|}da
+\] 
+\end{minipage}
+
+\subsection{Dieléctricos lineales}
+En un dieléctrico lineal se cumple $P = \varepsilon_0 \chi E_{tot} = \varepsilon _0\chi (E_{ext}+E_{dep})$ donde $E_{ext}$ es el campo externo dado y $E_{dep}$ el campo creado por $P$ (sentido contrario a $P$).
+
+Cuando aplicamos un campo $E_{ext}$ al dieléctrico lineal se crea un momento dipolar $\overline{P}$ que crea una distrbución de carga $\sigma _b, \rho _b$. Esta distribución de carga crea un campo opuesto a $\overline{P}$.
+
+Dependiendo de la geometría del dieléctrico definimos $\gamma$ tal que 
+\[
+E_{dep} = -\gamma \frac{\overline{P}}{\varepsilon _0} \implies \boxed{\overline{P}=\frac{\chi }{1+\chi \gamma}\varepsilon _0E_{ext}}
+\] 
+
+\section{Campo de desplazamiento $\overline{D}$}
+Si ahora tenemos en cuenta las cargas libres en un dieléctrico, podemos definir el campo de desplazamiento como
+\[
+\boxed{\overline{D} = \varepsilon _0 \overline{E} + \overline{P}} \implies \begin{cases}
+  \nabla\cdot D = \rho _f \\
+  \nabla\times D = \nabla\times P
+\end{cases}
+\] 
+En un dieléctrico lineal tenemos
+\[
+\overline{D} = \chi \varepsilon _0 \overline{E} \implies \boxed{D = \varepsilon _r\varepsilon _0\overline{E}} \text{ con } \varepsilon _r = 1+\chi 
+\] 
+
+
+\subsection{Condensadores}
+
+
+
+\section{Magnetostática}
+Podemos establecer la siguiente analogía con el campo eléctrico
+
+\begin{minipage}{0.5\textwidth}
+  \centering 
+  \textbf{Campo eléctrico}
+\begin{align*}
+  \overline{F_e} &= q\overline{E} \\
+  \overline{p} &= q \overline{d}\\
+  \overline{\Gamma} &= \overline{p}\times \overline{E} \\
+  U &= -\overline{p}\cdot \overline{E}\\
+  \overline{P} &= \frac{\sum \overline{p}}{d\tau  }\\
+  \rho _b = -\nabla\cdot \overline{P},& \ \  \sigma _b = \overline{P}\cdot \hat{n}\\
+  V(r)=\frac{1}{4\pi\varepsilon _0}\int_V \frac{\rho _b}{ |r'-r|}d\tau &+ \frac{1}{4\pi\varepsilon _0}\int_S \frac{\sigma _b}{|r'-r|}da \\
+  \overline{E} &= -\nabla V\\
+  \overline{D} &= \varepsilon _0\overline{E} + \overline{P}\\
+  \overline{E}_{dep} &= -\gamma \frac{\overline{P}}{\varepsilon _0}
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \textbf{Campo magnético}
+\begin{align*}
+  \overline{F_m} &= q_m\overline{B} \\
+  \overline{m} &= q_m \overline{d}\\
+  \overline{\Gamma} &= \overline{m}\times \overline{B} \\
+  U &= -\overline{m}\cdot \overline{B}\\
+  \overline{M} &= \frac{\sum \overline{m}}{d\tau  }\\
+  \rho _m = -\nabla\cdot \overline{M},& \ \  \sigma _m = \overline{M}\cdot \hat{n}\\
+  \Xi(r)=\frac{1}{4\pi}\int_V \frac{\rho _m}{ |r'-r|}d\tau &+ \frac{1}{4\pi}\int_S \frac{\sigma _m}{|r'-r|}da\\
+  \overline{H}&=-\nabla \Xi\\
+  \overline{H} &= \frac{\overline{B}}{\mu_0} - \overline{M}\\
+  \overline{H}_{dep} &= -\gamma \overline{M}
+\end{align*}
+
+\end{minipage}
+
+
+\section{Corriente}
+We begin with the definitions of Current density $\overline{J}$, average or drift velocity $\langle v \rangle = \overline{v}_{drift} $
+\[
+\overline{J} = -e\frac{\sum\overline{v_1}}{d\tau} = -en\overline{v}_{drift} \qquad v_{drift} = \frac{\sum \overline{v}_i }{\delta N} \qquad  \text{con } n = \frac{dN}{d\tau }  
+\] 
+
+\begin{theorem}[Continuity equation] $\displaystyle \nabla\cdot JJ+ \frac{\partial \rho }{\partial t} = 0$
+\end{theorem}
+
+\subsection{Currents of free and bound charges}
+$J = J_f + J_b$ with  $\nabla\cdot J_i + \partial_t \rho _f = 0$
+
+Note that in steady conditions $J_b = 0 \implies \nabla\cdot J_f = 0 \implies J_{f, 1}\cdot \hat{n} = J_{f, 2}\cdot \hat{n}$
+
+We found for the bound charge $\boxed{J_b = \frac{\partial P}{\partial t}}$
+
+ \subsection{Ohm's law}
+ $J_f = gE \implies \Delta V = IR$ con $G = R^{-1} = \frac{gA}{l}$
+
+
+\subsection{Laws for magnetism and current}
+\textbf{Biot-Savart Law} $\displaystyle \boxed{B(r) = \frac{\mu_0}{4\pi}\int Id\overline{l}\times \frac{\overline{r}-\overline{r'}}{|\overline{r}-\overline{r'}|^3}}$
+
+\textbf{Ampere's Law} $\displaystyle \boxed{\nabla\times \overline{B} = \mu_0 \overline{J} \iff \oint \overline{B}\cdot d\overline{l} = \mu_0 I}$
+
+
+
+
+\subsection{Analogy Electric and Magnetic circuits}
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  Electric Circuit & Magnetic Circuits \\
+\hline
+  $ \mathcal{E} = \int \overline{E} \cdot d\overline{l}$ & $\mathcal{M} = \int \overline{H}\cdot d\overline{l}$\\
+  \hline
+  $\displaystyle\mathcal{E} = -\frac{d\Phi}{dt}$ & $\begin{cases}
+    \text{Generated by coil } \mathcal{M} = NI \\
+	\text{Generated by magnet }  \mathcal{M} = ML 
+  \end{cases}$ \\
+  \hline
+	$\displaystyle I = \iint_S \overline{J}\cdot d\overline{a}, \quad I = JA$ & $\displaystyle \Phi = \iint \overline{B}_i \cdot d\overline{a} \quad \Phi = BA$ \\
+	\hline
+	$J = gE$  & $B = \mu_0\mu_r H$ \\
+	\hline
+	$\mathcal{E} = RI$ & $\mathcal{M}=R\Phi$ \\
+	\hline
+	$\displaystyle R = \frac{l}{gA}$ & $\displaystyle R = \frac{l}{\mu_0\mu_r A}$ \\
+	\hline
+
+
+\end{tabular}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

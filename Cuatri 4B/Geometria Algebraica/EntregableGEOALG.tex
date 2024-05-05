@@ -1,0 +1,364 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+
+\newcommand{\com}[1]{\textcolor{red}{\uppercase{#1}}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{images/#1}
+\end{center}
+}
+\pdfsuppresswarningpagegroup=1
+
+\newcommand{\prob}[1]{\fbox{\parbox{\textwidth}{#1}}}
+
+
+\title{Entregable GEOALG}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Puntos de inflexión}
+Primero probaremos la indicación. Utilizaremos la formula de Euler un par de veces:
+\[
+ df = xf_x + yf_y + zf_z, \qquad (d-1)f_x = xf_{x x} + yf_{xy}  + zf_{xz}
+\] 
+Con esto simplificamos la Hessiana
+\[
+  H(F) = \left| \begin{matrix} f_{x x} & f_{xy} & f_{xz} \\ f_{xy} & f_{yy} & f_{yz} \\ f_{xz} & f_{yz} & f_{zz} \end{matrix} \right| = 
+  \frac{(d-1)}{z} \left| \begin{matrix} f_{x x} & f_{xy} & f_{xz} \\ f_{xy} & f_{yy} & f_{yz} \\ f_x & f_y & f_z \end{matrix} \right|
+  =\frac{(d-1)}{z^2} \left| \begin{matrix} f_{x x} & f_{xy} & (d-1)f_{x} \\ f_{xy} & f_{yy} & (d-1)f_{y} \\ f_x & f_y & df \end{matrix} \right|
+\] 
+donde en el primer paso hemos hecho $xf_1 + yf_2 + zf_3 \mapsto f_3$ y en el segundo hemos hecho $xc_1+yc_2+zc_3 \mapsto c_3$ y hemos aplicado las fórmulas de Euler. La expansión del determinante proporciona la fórmula de la indicación.
+
+\prob{1. Sea $p\in F$. Probad que $p\in C(p)$}
+
+Aplicando la fórmula de Euler dos veces tenemos
+\[
+d(d-1)f(x_1, x_2, x_3) = \sum_{i, j} \frac{\partial^2 f}{\partial x_i \partial x_j}x_ix_j = C((x_1, x_2, x_3))
+\] 
+Por lo que $p\in F \Rightarrow p\in C(p)$.
+
+\prob{2. Si $p\in F$ es un punto no singular probad que $p$ es de inflexión  $\iff$ $C(p)=L_1\cup L_2$. En este caso, probad que la $T_p(F)$ es una de las rectas}
+
+Tal y como nos indican, fijamos $p=(0,0,1)$ y  $T_p(F): x=0$. Con esta variedad tangente tenemos que podemos escribir  $f(x,y,1)= x + Ax^2 +Bxy + \cdots $ como el Taylor en $p$.
+
+La ventaja que tiene este sistema de referencia es que al realizar las derivadas de la Hessiana solo tendremos los términos con $x$ (es decir, $f_{x x}, f_{xy}, f_{xz}$) al evaluar en $p$. Explícitamente:
+\[
+  C(p) = \begin{pmatrix} x & y & z \end{pmatrix} \begin{pmatrix} 2A & B & C\\ B & 0 & 0 \\ C & 0 & 0 \end{pmatrix} \begin{pmatrix} x\\y\\z \end{pmatrix} = x(2Ax + 2By + 2Cz)
+\] 
+que evidentemente son dos rectas.
+
+Hacia la otra dirección tenemos, por teoría que $H(F)(p)=0 \iff p$ es de inflexión. Por tanto como que  $C(p)=L_1\cup L_2 \Rightarrow H(F)(p)=0$, ya lo tenemos.
+
+
+\prob{3. Probad
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Si $p$ es inflexión ordinaria  $i_p(F, H(F))=1$
+	\item Si $p$ es nodo ordinario  $i_p(F, H(F))=6$
+	\item Si  $p$ es una cúspide ordinaria  $i_p(F, H(F))=8$
+  \end{enumerate}
+  \vspace{1em}
+}
+
+(1) Tenemos que como es inflexión ordinaria $i_p(F, T_p(F))= i_p(f, x)=3$. Calculamos
+\[
+i_p(F, H(F)) = i_p(f, \frac{d-1}{z^2}(df(f_{x x}f_{yy}-(f_{xy}^2))+(d-1) (2f_xf_yf_{xy}-f_x^2f_{yy}-f_y^2f_{x x})  )) = i_p(f, 2f_xf_yf_{xy}-f_x^2f_{yy} - f_y^2f_{x x})
+\] 
+ya que la parte que hemos eliminado es múltiplo de $f$.
+
+Si calculamos el cono tangente del segundo polinomio y lo evaluamos en $p$ tenemos
+ \[
+2f_{yy}f_yf_{xy} + 2f_x f_{yy}f_{xy} + 2f_xf_yf_{xyy} - 2f_xf_{xy}f_{yy} -f_x^2 f_{yyy} -2f_y f_{yy}f_{x x} -f_y^2 f_{x xy} = f_{yyy}(p) \neq 0
+\] 
+ya que los demás términos se anulan. Tenemos, por tanto, que la multiplicidad $m_p$ de este cono es 1 y que, además, la recta  $x=0$ no pertenece al cono tangente este, por lo que la multiplicidad de intersección se puede multiplicar de la siguiente forma:
+\[
+i_p = m_p(F)m_p(K) = 1
+\] 
+(2) Tenemos que como es nodo ordinario $i_p(F, H(F))= 6$
+
+Podemos suponer $CT_p(F): xy=0$. $f = xy + K_1x^3 + K_2 y^3 + \cdots$. Si hacemos los cálculos de la Hessiana sustituyendo por los términos de primer orden de $f, f_x, f_y, f_{x x}, f_{y y}, f_{xy}$ tenemos 
+\[
+H(F) = \frac{d-1}{z^2} ((d-2)xy -dK_1x^3 -dK_2 y^3 + \cdots)
+\] 
+por tanto 
+\begin{align*}
+&i_p(xy + K_1x^3 + K_2y^3 + \ldots, (d-2)xy -dK_1x^3 -dK_2 y^3 + \cdots)) = i_p(xy+K_1x^3 + K_2y^3 + \ldots, K_1x^3 + K_2y^3 +\ldots) =\\
+&=m_p((1))\cdot m_p((2)) = 2\cdot 3 = 6
+\end{align*}
+Ya que las variedades no tienen componentes en común.
+
+
+(3) Tenemos que como es cúspide ordinaria $i_p(F, H(F))=8$. 
+
+En este caso el cono tangente lo podemos tomar como  $CT_p=x^2$. $f=x^2 + K_1y^3 + K_2xy^2\cdots $ De nuevo, haciendo los cálculos de $H$ tenemos
+ \[
+H(F) = \frac{d-1}{z^2} ( x^2y(-12dK_1 + 24K_1) + x^3 (4K_2)(d-1) + y^4 (-6dK_1^2 + 18K_1^2) + \cdots)
+\] 
+Entonces
+\[
+i_p(x^2 + K_1y^3 + K_2xy^2 + \cdots, H(F))  = i_p(x^2 + K_1 y^3 + \cdots, 6(d-1)K_1^2y^4 + \cdots) =  m_p((1))m_p((2))=2 \cdot 4 = 8
+\] 
+Ya que las variedades no tienen componentes en común.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La curva polar}
+
+\prob{1. Probad que $\partial_q (F)\cap F = \{\text{singularidades de }F\}\cup \{p\in F|q\in T_p(F)\}$}
+
+Fijamos el punto $q = (a,b,c)$. Buscamos los puntos $p$ tal que 
+\[
+\begin{cases}
+  f_x(p)a + f_y(p)b + f_z(p)c=0\\
+  f(p) = 0
+\end{cases}
+\]
+que tiene solución en los puntos $p$ que, o bien las parciales se anulan (entonces singularidad), o bien están en el cono tangente, ya que cumplen la primera ecuación. Al revés también funciona, las singularidades se satisfacen con las parciales igual a cero y los puntos $p\in F | q\in T_p(F)$ pertenecen a la polar.
+
+  \prob{2. Probad que $\partial_q(F)\cap F$ es finito}
+Cuando intersecamos dos curvas planas por el Teorema de Bezout tenemos un número finito de puntos como intersección si estas no tienen ninguna componente en común. Pero este no puede ser el caso, ya que, como $F$ es irreductible se tendría que dar  $f|(f_xa+f_yb+f_zc)$, cosa que no puede pasar porque el segundo polinomio es de grado menor que el primero.
+
+\prob{3. Probad que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Si $p\in F$ es liso y no es de inflexión, $i_p(F, \partial_p(F))=1$
+  \item Si $p\in F$ es un nodo ordinario y $q\not\in CT_p(F) , i_p(F, \partial_p(F))=2$
+  \item Si $p\in F$ es una cúspide ordinaria y $q\not\in CT_p(F), i_p(F, \partial_p(F))=3$
+\end{enumerate}
+\vspace{1em}
+} 
+
+(a) Tomaremos el mismo sistema de referencia que en el apartado anterior. Supondremos $p=(0,0,1), CT_p(F): x=0$. Además fijaremos el punto  $q=(0,1,0)$. Entonces $f = x+Ky^2 + \cdots$
+
+Con todo este sistema la curva polar es $\delta_q(F): f_y(x, y, z) = 2Ky + \cdots=0$. Si calculamos la multiplicidad de intersección en $p$
+ \[
+i_p(F, \partial_p(F)) = i_p(x + Ky^2 + \cdots, 2Ky + \cdots) = 1
+\] 
+ya que no comparten componentes.
+
+(b) Sea $q=(1, 0, 0)\not\in CT_p(F)$. Sabemos que, al ser nodo ordinario  $m_p(F) = 2$ y además  $F$ y  $f_x(x, y, z)$ no comparten componente por el argumento de (2). Por tanto
+ \[
+i_p(F, f_x(x,y,z)) = m_p(F)\cdot m_p(f_x(x,y,z)) = 2 \cdot 1
+\]
+
+(c) En este caso podemos tomar $q=(0,0,1)$ y  $CT_p(F)=y^2$. Entonces $f=y^2+Kx^3+\cdots$ y la polar $\partial_q(F) = 2y + \cdots$. Calculamos la multiplicidad de intersección
+\[
+i_p(F, \partial_p(F)) = i_p(y^2 + Kx^3 +\cdots, 2y + \cdots) = i_p(x^3 + \cdots, y+\cdots) = 3 \cdot 1 = 3
+\] 
+ya que no tienen componentes en común.
+
+
+
+
+
+
+
+
+
+\section{La curva dual}
+
+\prob{1. Mostrad las siguientes descripciones alternativas de la curva dual:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Si $h(x,y)=0$ es una ecuación afín de  $F$, entonces  $\varphi $ aplica un punto $(x,y)$ de la curva sobre  $\left( \frac{-h_x}{xh_x+yh_y}, \frac{-h_y}{xh_x+yh_y} \right) $. ¿Qué pasa si $xh_x+yh_y=0$?
+  \item Si localmente alrededor de un punto $p\in F$ tenemos una parametrización de $F$ del tipo  $t \mapsto (t, g(t))$ entonces alrededor de $\varphi (p)$ la curva dual es $t \mapsto (\frac{-g_t}{tg_t-g}, \frac{1}{tg_t-g})$ 
+  \item Si localmente alrededor de un punto $p\in F$ tenemos una parametrización de $F: t\mapsto (x(t), y(t))$ entonces alrededor de $\varphi (p)$ la curva dual es
+	\[
+	t \mapsto \left( \frac{y'(t)}{y(t)x'(t)-x(t)y'(t)}, \frac{x'(t)}{x(t)y'(t)-x'(t)y(t)} \right) 
+	\] 
+\end{enumerate}
+}
+
+a) Sea  $h(x, y)=0$ una ecuación afín de  $F$. Entonces podemos expresar la homogénea del proyectivo como  $\tilde{H}: f(x, y, z)= z^d(h(\frac{x}{z}, \frac{y}{z}))=0$, con $z\neq 0$. Si calculamos ahora las rectas tangentes tenemos 
+\[ \varphi (x, y, z) = (z ^{d-1} h_x(\frac{x}{z}, \frac{y}{z}), z ^{d-1}h_y (\frac{x}{z}, \frac{y}{z}), dz ^{d-1}h(\frac{x}{z}, \frac{y}{z})-z ^{d-2}(xh_x+yh_y))
+\] 
+Si ahora deshomogeneizamos con $z=1$ y tenemos en cuenta que $h(x,y)=0$, tenemos
+ \[
+   \varphi (x, y, z) = ( \frac{-h_x}{xh_x + yh_y}, \frac{-h_y}{xh_x+yh_y}, 1) \quad  \Rightarrow \quad \tilde{\varphi}(x, y) = ( \frac{-h_x}{xh_x + yh_y}, \frac{-h_y}{xh_x+yh_y}) 
+\] 
+La condición de que el denominador corresponde a los puntos donde la tercera coordenada del dual es nula, esto es, su recta del infinito. En el afín no tenemos en cuenta esta recta, pero en el proyectivo la podemos recuperar.
+
+
+c) La condición de parametrización $t \mapsto h(t):= (x(t), y(t))$ implica $\frac{d}{dt}h(t) = x'h_x + y'h_y = 0$. Multiplicando en numerador y denominador la expresión de a) por  $x'$ tenemos
+ \begin{align*}
+   t \mapsto \left( \frac{-x'h_x}{x x'h_x + x'yhy}, \frac{-y'h_y}{y'xh_x+y'yh_y} \right)  = \left( \frac{y'h_y}{-xy'h_y + x'yh_y}, \frac{xh_x}{y'xh_x - yx'h_x } \right) = \left( \frac{y'}{yx'-xy'}, \frac{x'}{xy'-yx'} \right) 
+\end{align*}
+
+b) Es el caso particular $x(t)=t$, que se puede comprobar fácilmente.
+
+
+\prob{2. 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Encontrad la curva dual de $F:x^2-yz=0$
+  \item Encontrar la curva dual de la curva afín $y=x^3+1$ y comprobad que  $\varphi $ lleva el punto de inflexión a una cúspide. De hecho $\varphi $ establece una biyección entre los puntos de inflexión de $F$ y las cúspides de  $F^\vee$.
+\end{enumerate}
+\vspace{1em}
+}
+ a) Tenemos 
+ \[
+   (a, b, c):a^2 =bc \mapsto (2a, -c, -b) : a^2=bc \quad \Rightarrow \quad \begin{cases}
+     x=2a\\
+	 y = -c\\
+	 z=-b
+   \end{cases} \quad \Rightarrow \quad (x, y, z): x^2 =4yz
+ \]
+
+Por lo que la curva dual es $F^\vee : x^2-4yz=0$
+
+b) Evidentemente el punto de inflexión de la curva afín se encuentra en $p=(0,1)$.
+
+Parametrizamos como $t \mapsto (x(t), y(t))=(t, t^3+1)$. La curva dual, siguiendo lo probado anteriormente, será
+\[
+t \mapsto \left( \frac{-3t^2}{2t^3-1}, \frac{1}{2t^3-1} \right) = (x, y)
+\] 
+eliminando la $t$ tenemos
+\[
+t^3 = \frac{1}{2y}+\frac{1}{2}, \quad x^3 = -27 t^6 y^3 = -27y^3 (t^3)^2 = -27y^3 \left( \frac{1+y}{y} \right)^2  \Rightarrow -27y(1+y)^2 = 4x^3
+\] 
+Y finalmente nuestra curva dual es $f(x,y)=4x^3+27y(y+1)^2=0$.
+
+Debemos ver ahora que el punto  $(0,-1)$ (el que obtenemos con $t=0$) es una cúspide. Calculando la multiplicidad de intersección entre $F$ y su cono tangente $CT_p(F): (y+1)^2$, que sabemos que tiene la forma de un nodo por el primer problema. Si calculamos su multiplicidad de intersección teniendo en cuenta que $L: y+1$
+ \[
+i_p(F, L) = i_p(x^3, y+1) = 3
+\] 
+por lo que $(0,-1)$ es una cúspide y en efecto el punto de inflexión va a parar a una cúspide como requeríamos.
+
+
+
+\prob{3. Se tiene que $(F^\vee)^\vee=F$. Probadlo localmente en un punto $p\in F$ que sea liso y tal que $\varphi (p)\in F^\vee$ sea liso.
+}
+
+
+Sea $p\in F$ un punto liso. Podemos coger un entorno $U= (a, b)$ tal que $\ \forall t\in U$ exista una parametrización $t\mapsto (x(t), y(t))$. Entonces, según lo probado en 1c) tenemos la aplicación dual:
+ \begin{align*}
+  &\varphi : t \mapsto (\tilde{x}, \tilde{y}) = \left( \frac{y'}{tx'-xy'}, \frac{x'}{xy'-yx'} \right) ; \quad 
+  \varphi^2 t \mapsto (\tilde{\tilde{x}}, \tilde{\tilde{y}}) = \left( \frac{\tilde{y}'}{t\tilde{x}'-\tilde{x}\tilde{y}'}, \frac{\tilde{x}'}{\tilde{x}\tilde{y}'-\tilde{y}\tilde{x}'} \right) =\\
+  &=\left(  (yx'-xy')\frac{x(y'x''-x'y'')}{x'y(y''x'-y'x'') - y'x(y''x'-y'x'')} , (yx'-xy')\frac{y(-y'x''+x'y'')}{-x'y(y''x'-y'x'') + y'x(y''x'-y'x'')} \right) = (x, y)
+\end{align*}
+
+\prob{4. Justificad intuitivamente que la aplicación $p$ lleva los puntos de bitangencia de $F$ a nodos de  $F^\vee$. Así, nodos y bitangencias son conceptos duales.}
+
+\incimg{dual.png}
+
+Vemos en el dibujo que si la recta tangente $T_p(F)=T_q(F)$ con $p, q$ puntos de bitangencia, entonces en el dual definirar el mismo punto. Pero las tantenges de este punto del dual serán dos: la que está en correspondencia con  $p$ y la que está en correspondencia con  $q$ a través del bidual.
+
+
+\section{Plücker}
+
+\prob{1. ¿Qué relación hay entre $m$ y  $F^\vee$?}
+
+
+
+Lo que nos dice la condición  $m$ el nombre de tangentes a  $F$ por  $q$ es que si consideramos la curva dual  $F^\vee$, esta $m$ será el número de intersecciones entre  $F^\vee$ y una linea cualquiera de  $\mathbb{P}^2_{\mathbb{C}}$, esto es, la dimensión de la curva dual $d^*$. Por tanto  $m=d^*$, siendo  $d^*$ la dimensión de la curva dual.
+
+
+\prob{2. Probad las cuatro fórmulas de Plücker:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\iota + 6\delta +8\kappa = 3d(d-2)$
+  \item $m+2\delta +3\kappa = d(d-1)$
+  \item $\kappa +6b+8\iota = 3m(m-2)$
+  \item $d+2b+3\iota = m(m-1)$
+\end{enumerate}
+\vspace{1em}
+}
+
+
+Sin pérdida de generalidad podemos trabajar en el problema con $q=(0,0,1)$. 
+
+(a) Sabiendo que $F\cap H(F)$ son las singularidades de  $F$ y los puntos de inflexión de  $F$, entonces
+ \[
+   \#\{F \cap H(F)\} = \begin{cases}
+     d\cdot 3(d-1)\\
+	 \iota + 6\delta + 8\kappa 
+   \end{cases} \Rightarrow \quad \iota + 6\delta + 8\kappa = 3d(d-2)
+\] 
+Donde la primera igualdad viene aplicando Bezout directamente y la segunda tiene en cuenta la multiplicidad de las inflexiones ($\iota$), de los nodos ($6\delta$) y de las cúspides ($8\kappa $).
+
+(b) Para ser tangente un punto de $p\in F$ a  $q$ debe pasar que  $\frac{\partial f}{\partial z}(p)=0$. Definimos la curva polar $\partial: \frac{\partial f}{\partial z}=0$, que evidentemente tiene grado $d-1$. Tenemos
+ \[
+   \#\{\partial \cap H\} = \begin{cases}
+     d(d-1)\\
+	 2\delta + 3\kappa +m
+   \end{cases} \Rightarrow \quad m+2\delta+3\kappa = d(d-1)
+\] 
+Donde la primera igualdad viene directamente de Bezout y la segunda es consecuencia de contar los nodos con su multiplicidad ($2\delta$), las cúspides con su multiplicidad ($3\kappa $) y las tangentes a $F$ por  $q$ ($m$).
+
+
+Para demostrar $(c)$ y  $(d)$ solo hace falta ver que $\iota^* = \kappa $ y que $\delta^* = b $. Entonces podemos aplicar $(a)$ y  $(b)$ respectivamente a  $F^\vee$ y tenemos las formulas deseadas. Realmente ya hemos visto la segunda de estas propiedades el el apartado  $3)$. Probamos ahora $\iota^* = \kappa$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

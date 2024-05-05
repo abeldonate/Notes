@@ -1,0 +1,404 @@
+\documentclass{myclass} \usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+
+\pdfsuppresswarningpagegroup=1
+
+\title{Funciones de Varible Compleja}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Funciones Holomorfas}
+\begin{definition}
+$f$ es \textbf{Holomorfa} ($f\in \mathcal{H}$) si
+\[
+\exists f'(z_0) = \lim_{z\to z_0} \frac{f(z)-f(z_0)}{z-z_0}
+\] 
+\end{definition}
+
+De la definición se deduce que si $f$ es holomorfa  $\implies \exists \ f_x, f_y$.
+
+\begin{definition}
+$f$ es  \textbf{Analítica} en $U$ si  $\ \forall z_0\in U$ existe una serie de potencias con radio de convergencia positivo.
+\end{definition}
+
+En variable compleja se cumple holomorfa  $\iff$ analítica
+
+\begin{theorem}
+Ecuaciones de Cauchy-Riemann (CR en adelante) (condiciones necesarias para que $f$ sea holomorfa)
+\[
+f_y(z_0) = if_x(z_0) 
+\iff 
+\begin{cases}
+u_x = v_y \\
+u_y = -v_x
+\end{cases}
+\iff
+\begin{cases}
+f_z = f'\\
+f_{\overline{z}} = 0
+\end{cases}
+\] 
+\end{theorem}
+
+\begin{theorem}
+Condiciones suficientes para que $f$ sea holomorfa
+\[
+\begin{cases}
+  u, v\in \mathcal{C}(\Omega) \\
+  CR
+\end{cases}
+\implies
+f\in \mathcal{H}(\Omega)
+\] 
+\end{theorem}
+Si las funciones $f, g$ son holomorfas, entonces son holomorfas
+\[
+\lambda f+\mu g , \quad fg, \quad \frac{f}{g}, \quad f\circ g
+\] 
+y sus derivadas coinciden con las derivadas en el caso $z\in \mathbb{R}$
+
+\begin{definition}
+Una función $L$ es lineal $\iff L(z) = \mu z = re^{i\varphi }z$ 
+\[
+  L(z) = L(x + iy) = \begin{pmatrix} a & -c \\ c & a \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} 
+\] 
+Observamos que se trata de una rotación + homotecia
+\end{definition}
+
+\begin{proposition}
+$L$ preserva ángulos y orientación $\implies L $ es $\mathbb{C}-$lineal
+\end{proposition}
+
+\begin{definition}
+$f$ es conforme en $\Omega \iff f$ preserva ángulos y orientación
+\end{definition}
+
+Se cumple $f$ conforme  $\iff f$ lineal
+
+\begin{definition}
+Una función $u$ es armónica si $\Delta u = u_{x x} + u_{yy} = 0$ 
+
+Si $f = u + iv$ holomorfa  $\implies u, v$ armónicas
+\end{definition}
+
+\begin{definition}
+Sea $a_n$ una sucesión, definimos la serie de potencias centrada en $a$
+\[
+\sum_{n\ge 0} a_n(z-a)^n
+\] 
+y su radio de convergencia como
+\[
+R = \frac{1}{\limsup_{n\to \infty} \sqrt[n]{|a_n|} }
+\] 
+\end{definition}
+
+\begin{theorem}
+Cauchy-Hadamard. Sea $R$ el radio de convergencia de  $S = \sum_{n\ge 0} a_n (z-a)^n$.
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+  \item $S$ es absolutamente convergente en  $|z-a|<R$ 
+  \item $S$ es divergente en  $|z-a|>R$ 
+  \item $S$ es uniformemente convergente en $|z-a|\le r$ con $r<R$
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Criterio M de Weierstrass. Sea $f_n$ una sucesión de funciones en $S$ tal que existe una sucesión de reales  $M_n$ tal que  $|f_n(z)|<M_m \ \forall z\in S$  y $\sum_{n\ge 0} M_n<\infty$, entonces
+\[
+\sum_{n\ge 0} f_n(z) \text{ es absolutamente y uniformemente convergente en } S
+\] 
+\end{theorem}
+
+Observamos que no podemos saber nada de la convergencia en el borde del disco $|z-a|=R$ con Cauchy-Hadamard
+
+\begin{theorem}
+Picard. 
+\[
+\text{si } \begin{cases}
+  c_j\ge 0, c_j\in \mathbb{R} \\
+  c_j\ge c_{j+1} \\
+  \lim c_j = 0
+\end{cases}
+\implies \sum_{n\ge 0} c_nz^n \text{ es convergente } \ \forall |z|=1 \text{ excepto quizá para } z=1
+\] 
+\end{theorem}
+
+\begin{theorem}
+Sea $f(z) = \sum a_n(z-a)^n$ con radio de convergencia $R$S. Se cumple
+ \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $f\in H(D(a;R))$
+  \item $f\in \mathcal{C}^\infty(D(a;R))$ 
+  \item $f^{(k)}$ tiene radio de convergencia $R$
+\end{enumerate}
+\end{theorem}
+
+\section{Teoría local de Cauchy}
+\begin{definition}
+La integral de $f$ sobre un camino $\Gamma$ con parametrización $\gamma(t):[a, b]\to \mathbb{C}$ se define como
+\[
+\int_\Gamma f(z)dz = \int_a^b f(\gamma(t))\gamma'(t)dt
+\] 
+\end{definition}
+
+Si integramos una función derivada, tenemos un campo potencial $\int_\Gamma f'(z)dz = f(\gamma(b))-f(\gamma(a)) $
+
+\begin{theorem}
+Teorema de Green
+\[
+  \iint_R \frac{\partial F}{\partial \overline{z}}dxdy = \frac{1}{2i}\int_\gamma f(z)dz
+\] 
+\end{theorem}
+
+\begin{theorem}[Cauchy-Goursat]
+$f\in C(\Omega )\cap H(\Omega -\{w\} \implies \displaystyle \int_{\partial R^+} f(z)dz=0$
+\end{theorem}
+
+\begin{theorem}[Existencia de primitivas]
+$f\in C(D)\cap H(D-\{w\}) \implies \ \exists F\in H(D): F'(z) = f(z)$
+\end{theorem}
+
+\begin{theorem}[Cauchy]
+\[
+f\in H(D)\cap \mathcal{C}(\overline{D}) \implies f(w) = \frac{1}{2\pi i}\int \frac{f(z)}{z-w}dz
+\] 
+\end{theorem}
+
+\begin{theorem}[Representación en serie de potencias] $f\in H(\Omega )$
+\[
+f(z) = \sum c_n(z-a)^n \implies c_n = \frac{f^{(n)}(a)}{n!} = \frac{1}{2\pi i} \int_{\partial D(a, r)+} \frac{f(z)}{(z-a)^{n+1}}dz
+\] 
+\end{theorem}
+
+\begin{theorem}
+Extensión analítica. $f\in H(\Omega)$. Si $\ \exists U$ abierto $: f|_U=0 \implies f=0$ en todo $\Omega$
+\end{theorem}
+
+\begin{theorem}
+Si $f\in H(\Omega) \implies f$ el conjunto de los ceros de $f$ es numerable
+\end{theorem}
+
+\begin{theorem} Sea $f\in H(\Omega), f\neq 0$. Sea $E = \{z\in \Omega : f(z) = 0\}$ el conjunto de ceros. Entonces
+  \[
+  \ \forall a\in \Omega \ \exists ! \ m\ge 1 : f(z) = (z-a)^mg(z) \quad \text{con} \quad g\in H(\Omega),\ g(a)\neq 0
+  \] 
+
+\end{theorem}
+
+\begin{theorem}[Desigualdad de Cauchy]
+Sea $f\in H(D(a;R))$, definimos $M(r) = \sup_{z\in \partial D(a, r)} \{|f(z)|\}$. Entonces
+\[
+|f^{(n)}(a)|\le n! M(r) r^{-n}
+\] 
+\end{theorem}
+
+Como consecuencia tenemos los dos siguientes teoremas
+
+\begin{theorem}[Liouville]
+Sea $f$ entera y acotada. Entonces $f(z) = c \ \forall z\in \mathbb{C}$ 
+\end{theorem}
+
+\begin{theorem}[Fundamental del Álgebra]
+Sea $p(z) = a_0 + a_1z + \ldots + a_nz^n$ un polinomio de grado $n\ge 1$. Entonces 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $P$ tiene  $n$ raíces en  $\mathbb{C}$ (contando multiplicidad) 
+  \item Factoriza como  $p(z)= a_n(z-\alpha _1) \cdots (z-\alpha _n)$
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+Si $f$ entera y $\ \exists r, M, \lambda: |f(z)|\le M|z|^\lambda \ \forall |z|\ge r$, entonces $f$ es un polinomio de grado  $\le \lambda$
+\end{proposition}
+
+\begin{theorem}[Valor medio]
+Sea $f\in H(\Omega)$, el valor de $f$ en el centro de un disco es el promedio del de la frontera
+\[
+f(a) = \frac{1}{2\pi}\int_0^{2\pi}f(a+ re^{i \theta}) d\theta
+\] 
+\end{theorem}
+
+\begin{theorem}[Principio del máximo fuerte]
+Sea $f\in H(\Omega)$. Si $|f|$ alcanza el supremo en $\Omega^{\circ} \implies f(z) = c$
+\end{theorem}
+
+\begin{theorem}[Principio del mínimo fuerte]
+Sea $f\in H(\Omega)$, $f(z)\neq 0 \ \forall z\in \Omega$. Si $|f|$ alcanza el ínfimo en  $\Omega^\circ \implies f(z) = c$
+\end{theorem}
+
+\begin{theorem}[Teorema de la función inversa] Sea $f\in H(\Omega), f'(a)\neq 0$, entonces $f$ tiene una inversa local holomorfa tal que  $f^{-1}(f(a))=a$. Es decir, $\ \exists r>0$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $D(a;r) \subseteq  \Omega, f(D(a;r))$ abierto
+	\item $f: D(a;r) \to f(D(a;r)$ biyectiva
+	\item $(f^{-1})'(f(w))=\frac{1}{f'(w)}$
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem} Sea $f\in H(\Omega), f\neq c$. Sea $m\ge 1$ el orden del cero de $f(z)-f(a)$ en  $z = a$. Entonces  $\ \exists U\subseteq \Omega$ entorno de $a$, $\varphi \in H(U)$ y $r>0$ tal que
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $f(z) = f(a) + (\varphi (z))^m \ \forall z\in U$
+	\item $\varphi '(z) \neq 0 \ \forall z\in U$ y $\varphi : U \to D(0;r)$ es biyectiva
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Teorema de la aplicación abierta]
+Sea $f\in H(\Omega), f\neq c$,  $f$ es abierta (envía abiertos a abiertos)
+\end{theorem}
+
+\begin{theorem}[Weierstrass]
+Sea $f_i \in H(\Omega) \in i\ge 1$. $\ \forall K\subseteq \Omega$ compacto $f_n|_K \to f|_K$ es uniformemente convergente a la función $f:\Omega \to \mathbb{C}$. Entonces $f\in H(\Omega)$
+\end{theorem}
+
+\section{Teoría global de Cauchy}
+\begin{definition}[Indice respecto a un punto] sea $\Gamma$ un camino cerrado y orientado en $\mathbb{C}$, definimos el indice de $\Gamma$ respecto al punto $a$ como
+  \[
+  n(\Gamma, a) := \frac{1}{2\pi i} \int_{\Gamma} \frac{dz}{z-a}
+  \] 
+\end{definition}
+
+\begin{theorem}
+Sea $\Gamma$ un camino cerrado y orientado fijado. Entonces $n(\Gamma, \cdot): \mathbb{C}-\Gamma \to \mathbb{Z}$
+es constante en cada una de sus componentes conexas y $0$ en la no fitada
+\end{theorem}
+
+\begin{definition}[Ciclos homólogos]
+$\Gamma$ es homólogo a $0$ en $\Omega (\Gamma \sim 0) \iff \ \forall a \not\in \Omega \ n(\Gamma, a) = 0$ 
+
+Dos ciclos son homólogos en $\Omega (\Gamma_1 \sim \Gamma_2) \iff \Gamma_1-\Gamma_2 \sim 0$ 
+\end{definition}
+
+\begin{definition}[Homotopía de caminos]
+Dos caminos son homótopos $(\Gamma_1 \simeq \Gamma_2)$ si se pueden deformar de forma continua en $\Omega$. Es decir
+\[
+\ \exists F: [0, 1]\times [0, 1] \to \Omega, F\in \mathcal{C}^0 : \begin{cases}
+  F(0, t) = \gamma_1(t) \\
+  F(1, t) = \gamma_2(t) \\
+  F(s, 1) = F(s, 0)
+\end{cases}
+\] 
+\end{definition}
+
+Observamos que $\Gamma_1 \simeq \Gamma_2 \implies \Gamma_1 \sim \Gamma_2$ pero $\Gamma_1 \sim \Gamma_2 \not\implies \Gamma_1 \simeq \Gamma_2$
+
+
+\begin{theorem}[Teorema de Cauchy Global]
+Sea $f\in H(\Omega)$ y $\Gamma$ ciclo tal que $\Gamma \sim 0$ en $\Omega$
+\[
+\int_\Gamma f(z)dz = 0, \qquad n(\Gamma, a)f^{(k)}(a) = \frac{k!}{2\pi i}\int_\Gamma \frac{f(z)}{(z-a)^{k+1}}dz  \quad \ \forall a\in \Omega-\Gamma
+\] 
+\end{theorem}
+
+\begin{definition}[Singularidades] .
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Evitable} si $\ \exists \lim_{z\to a}f(z)=L\in \mathbb{C}$ $\implies$ prolongación holomorfa con $f(a) = L$ 
+  \item \textbf{Polo} si $\ \exists \lim_{z\to a}|f(z)|=\infty$ $\implies f(z) = (z-a)^{-m}h(z)$ con $h$ holomorfa
+  \item \textbf{Esencial} si $\not \exists \lim_{z\to a}f(z)$ $\implies f(D(a;\varepsilon )-\{a\})$ es denso en $\mathbb{C}$ (Casorati-Weierstrass)
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Series de Laurent]
+Sea $f\in H(A(R_1, R_2))$, entonces f admite un desarrollo
+\[
+f(z) = \sum_{n\in \mathbb{Z}} a_n(z-a)^n, \qquad a_n = \frac{1}{2\pi i} \int_{\partial D(a;r)^+} \frac{f(z)}{(z-a)^{n+1}}dz, \qquad R_1<r<R_2
+\] 
+\end{theorem}
+
+\begin{definition}[Residuo]
+Sea $f\in H(\Omega)$ y $a$ una singularidad aislada de $f$ 
+\[
+Res(f, a) = \frac{1}{2\pi i}\int_{\partial D(a; \varepsilon) } f(z)dz \qquad \varepsilon >0 : D(a;\varepsilon )-\{a\} \subseteq \Omega
+\] 
+\end{definition}
+Observamos que si $\displaystyle  f(z) = \sum_{n\in \mathbb{Z}} a_n(z-a)^n  \implies Res(f, a) = a_{-1} =  \frac{1}{(m-1)!} \lim_{z\to a} \frac{d^{m-1}}{dz^{m-1}}\left((z-a)^mf(z)\right)$ 
+
+\begin{theorem}[Residuos]
+Sea $f\in H(\Omega-\{a_j\}$ con $\{a_j\}$ conjunto de singularidades aisladas finitas o numerables y $\Gamma \sim 0$ un ciclo  $a_j\not\in \Gamma$.
+\[
+\int_\Gamma f(z)dz = 2\pi i \sum_j n(\Gamma, a_j)Res(f, a_j)
+\] 
+\end{theorem}
+
+\begin{definition}[Función meromorfa]
+Sea $f\in H(\Omega)$ con $\{a_j\}$ conjunto de singularidades aisladas finitas o numerables.  $f$ es meromorfa si todas las $a_j$ son polos.
+\end{definition}
+
+\begin{theorem}[Principio del argumento]
+Sea $f$ meromorfa en $\Omega$ con ceros $\{a_j\}$ y polos  $\{b_j\}$. Sea $\Gamma \sim 0$ un ciclo tal que $a_j, b_j \not \in \Gamma $ :
+\[
+n(f(\Gamma ), 0) = \frac{1}{2\pi i} \int_\Gamma \frac{f'(z)}{f(z)}dz = \sum_j n(\Gamma , a_j) - \sum_k n(\Gamma , b_k)
+\]
+\end{theorem}
+
+\begin{theorem}[Rouche]
+Sea $f\sim 0: \ \forall z\in \Omega -\Gamma , \ n(\Gamma , z)= 0 \text{ ó } 1, \quad f, g \in H(\Omega ), \quad |f(z)-g(z)|< |f(z)| \ \forall z\in \Gamma  \implies \#z_{f, \Gamma } = \#z_{g, \Gamma }$
+
+\end{theorem}
+
+\begin{proposition} Son equivalentes:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\Omega $ simplemente conexo
+  \item Para todo ciclo $\Gamma \subseteq \Omega $ se cumple $\Gamma \sim 0$ 
+  \item Sea $f\in H(\Omega )$ existe $F\in H(\Omega )$ primitiva holomorfa tal que $F' = f$
+  \item $f\in H(\Omega ), \Gamma \subseteq \Omega$ se tiene $\int_\Gamma f(z)dz = 0$ 
+  \item Sea  $f \in H(\Omega ), f(z)\neq 0 \ \forall z\in \Omega $. Existe $g \in H(\Omega ): f = e^g$ ($g=\log f$ determinación holomorfa del logaritmo)
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}[Gauss-Lucas]
+Sea $p(z)$ un polinomio. Las raíces de $p'(z)$ están en la envoltura convexa de las raíces de  $p(z)$
+\end{theorem}
+
+
+
+
+
+
+
+
+\end{document}

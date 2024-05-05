@@ -1,0 +1,218 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array} \usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{svg}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\begin{center}
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+\end{center}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Formulario Estado Sólido}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+
+\begin{multicols}{2}[\columnsep2em]
+
+\textbf{Constantes y aclaraciones}
+\begin{align*}
+& G(x) = \frac{dN}{dx} = \text{dens. de est.}; \quad g(x)= \frac{dn}{dx} = \frac{\text{dens. de est.}}{V}\\
+&k_B = 1.381\times 10^{-23}JK^{-1} = 8.62\times 10^{-5}eVK^{-1}\\
+&m_e = 9.11\times 10^{-31}kg = 0.511MeVc^{-2}\\
+&m_p = 1.67\times 10^{-27}kg = 938MeVc^{-2}\\
+&\varepsilon _0 = \frac{1}{4\pi K} = 8.85\times 10^{-12} Fm^{-1}\\
+&\hbar = 1.055\times 10^{-34} Js = 6.58\times 10^{-16}eVs \\
+&e = 1.602 \times 10^{-19} C\\
+&\text{Fermions: }e^-, p, n \quad (n_F(x) = \frac{1}{e ^{x}+1})\\
+& \text{Bosons: phonon, photon} \quad (n_B(x)=\frac{1}{e ^{x} -1})\\
+& n\sim 10 ^{22}cm ^{-3}; \tau \sim 10 ^{-15}s; v\sim 10 ^{-5}\frac{m}{s}
+\end{align*}
+\begin{minipage}{0.5\columnwidth}
+\incfig{fermibose}
+\end{minipage}
+\begin{minipage}{0.7\columnwidth}
+  \underline{$T$ bajas}\\
+ $n_F(x) \approx n_B(x)\approx e ^{-x}$
+
+  \underline{$T$ altas}\\
+ $n_F(x) \approx \frac{1}{2+x}$ \\
+ $n_B(x) \approx \frac{1}{x}$
+
+\end{minipage}
+
+
+
+\section{Semiconductores}
+extrínseco = dopado\\
+Opacos si $h \nu > E_g$\\
+Nivel de Fermi $E_F = \mu$\\
+Densidad de estados ($n$ electrones, $p$ holes)\\
+Energía de donadores / impurezas $E_D$
+\begin{center}
+\begin{tabular}{c|c|c}
+  $n$ (negativo) & $N_C$ (conducción) & $N_D$ (donadores)\\
+\hline
+  $p$ (positivo) & $N_V$ (valencia) & $N_A$ (aceptores)
+\end{tabular}
+\end{center}
+Degenerado si $E_C-E_F <2kT$
+\begin{align*}
+&g_C(\varepsilon ) = \frac{(2m^*_n) ^{2 /3}}{2\pi ^2\hbar ^3}\sqrt{\varepsilon -\varepsilon _C} ; 
+g_V(\varepsilon ) = \frac{(2m^*_p) ^{2 /3}}{2\pi ^2\hbar ^3}\sqrt{\varepsilon _V-\varepsilon } \\
+& n = \int_{\varepsilon _C}^\infty d\varepsilon g_C(\varepsilon )n_F(\beta (\varepsilon -\mu ))\approx \int _{\varepsilon _C}^\infty d\varepsilon g_C(\varepsilon ) e ^{\beta (\mu -\varepsilon )}\\
+& p = \int^{\varepsilon _V}_{-\infty} d\varepsilon g_V(\varepsilon )(1-n_F(\beta (\varepsilon -\mu )))\approx \int ^{\varepsilon _V}_{-\infty} d\varepsilon g_V(\varepsilon ) e ^{\beta (\varepsilon-\mu )}\\
+&n_0 = n_i e ^{\beta (E_F-E_i)} = N_C e ^{\beta (E_F -E _C)}\\
+&p_0 = n_i e ^{\beta (E_i-E_F)} = N_V e ^{\beta (E_V-E_F )}\\
+& N_C = 2 \left( \frac{2\pi m_n^* kT}{h^2} \right) ^{\frac{3}{2}}; \quad N_V = 2 \left( \frac{2\pi m_p^* kT}{h^2} \right) ^{\frac{3}{2}} \\
+& n_0p_0 = n_i^2 = N_CN_V e ^{-\beta E_g} = 4 \left(\frac{k_BT}{2\pi \hbar ^2}\right)^3(m_n^*m_p^*)^{3 / 2}e ^{-\beta E_g}\\
+& e ^{2\beta E_F } = \frac{N_V}{N_C} e ^{\beta (E_V + E_C)}, \quad
+E_F  = \frac{E_C+E_V}{2} + \frac{3}{4}k_BT\ln\left( \frac{m_p^*}{m_n^*} \right) \\
+& E_F = \frac{p\tau }{m^*}, \quad \sigma  = q(n\mu _n+ p\mu _p), \quad E_g = E_C-E_V\\
+& n_0 = p_0 = \sqrt{N_CN_V}e ^{-\frac{\beta E_g}{2}} \quad \text{ si intrínseco}
+\end{align*}
+
+
+Dopado tipo $N$ no degenerado
+ \begin{align*}
+  &\text{T bajas } n_0 = N_D\\
+  & \text{T altas } n_0 = p_0+N_D; \quad n_0= \frac{N_D + \sqrt{N_D^2+4n_i^2} }{2}
+\end{align*}
+
+Dopado
+p-Dopado ($N_A\gg N_D$):
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $T$ bajas  $\Rightarrow p\approx N_Ve ^{-\beta E_A}$
+  \item $T$ intermedias  $\Rightarrow p\approx N_A-N_D $
+  \item $T$ alta  $\Rightarrow p=n = \sqrt{N_CN_V}e ^{-\beta \frac{E_g}{2}} $
+\end{itemize}
+
+Corrientes
+\begin{align*}
+&\rho = \frac{1}{\sigma }; \quad R = \rho \frac{L}{A} = \frac{1}{G};\\
+&J_{drift} = J_{n,drift} + J_{p, drift} = q(n\mu _n+p\mu _p )E_{el} = \sigma E_{el}\\
+& J_{diff} = J_{n,diff} + J_{p, diff} = qD_n \frac{dn}{dx} -qD_p \frac{dp}{dx}\\
+&D_n = \mu _nV_T; \quad D_p = \mu _pV_T; \quad V_T = \frac{kT}{q}\\
+\end{align*}
+
+En equilibrio
+\[
+J_{p_0, drift} + J_{p_0, diff} = J_{n_0, drift} + J_{n_0, diff} = 0
+\] 
+
+
+
+Ecuaciones de continuidad
+\begin{align*}
+  & \frac{\partial p}{\partial t} = G_L -R - \frac{1}{q} \frac{\partial J_p}{\partial x}; \quad  \frac{\partial n}{\partial t} = G_L -R + \frac{1}{q} \frac{\partial J_n}{\partial x}\\
+  & \frac{d^2\Delta n(x)}{dx^2} - \frac{\Delta n(x)}{L_n^2} = -\frac{G_L(x)}{D_n}; \quad L_n = \sqrt{D_n \tau _n}\\
+  & \rho = q(p-n+N_D^+-N_A^-); \quad \frac{\rho}{\varepsilon } = \frac{dE_{el}}{dx}\\
+  & E_{el} = -\frac{dV}{dx} = \frac{1}{q} \frac{dE_i}{dx}; \quad V = -\frac{E_i}{q}\\
+  & G_L \text{ const. } \Delta n(x) = A e^{- \frac{x}{L_n}} + Be^{\frac{x}{L_n}} + G_L\tau _n
+\end{align*}
+
+$S_F$ velocidad de recombinación
+\begin{align*}
+  & G_L(x) = -\frac{d\phi_T(x) }{dx}; \quad \Delta p(x=0) = \frac{D_p \frac{d\Delta p}{dx}(x=0)}{S_F(0)}\\
+  & \text{sup. dañada } S_F\to \infty ; \quad \text{pasivada ideal } S_F \to 0 
+\end{align*}
+
+Algoritmo electrostática. Empezamos $\rho (x)=0$. Conocemos $N_D(x)$
+\begin{align}
+  & n_0(x) = N_D(x)- \frac{\rho (x)}{q} \\
+  & E_{el}(x) = - \frac{V_T}{n_0(x)} \frac{dn_0(x)}{dx}\\
+  & \rho = \varepsilon _0\varepsilon _r \frac{dE_{el}}{dx}\\
+  & \text{volver a } (1).\ V_0(x) = -\int E_{el}(x)dx; \quad E_{F_i} = -qV_0
+\end{align}
+
+
+
+Unión PN
+\begin{align*}
+  & \text{unión abrupta } V_{bi} = V_T \ln \left(  \frac{N_AN_D}{n_i^2} \right) \\
+  &n_n = N_C e ^{\beta (\mu -\varepsilon _C^n)}; \quad p_p = N_V e ^{\beta (\varepsilon _V^p-\mu )}\\
+  &d^0_n = \sqrt{ \frac{2\varepsilon V_{bi}}{e} \frac{N_A / N_D}{N_A+N_D}}; \quad d_p^0 = \sqrt{\frac{2\varepsilon V_{bi}}{e}\frac{N_D / N_A}{N_A+N_D}} \\
+  & d_n(V) = d_n^0 \sqrt{\frac{V_{bi}-V}{V_D}}; \quad d_p(V) = d_p^0 \sqrt{\frac{V_{bi}-V}{V_D}}\\
+  &\text{ancho de zona de carga espacial } W_{zce} = d_n(V)+d_p(V)\\
+  & W_{zce} = \sqrt{ \frac{2\varepsilon }{q} \left( \frac{1}{N_A} + \frac{1}{N_D} \right)(V_{bi}-V) } \\
+  & I(V) = (I_n ^{gen} +I_p ^{gen})(e ^{\beta qV}-1)
+\end{align*}
+
+Consideraciones
+\begin{align*}
+  & E_F \to E_i \text{ si } T \to \infty \\
+  & E_g, N_C, N_V \text{ no cambian mucho con } T\\
+  & (E_i-E_F)_P = kT \ln\left( \frac{N_A}{n_i} \right) \\
+  & (E_F - E_i)_N = kT \ln \left( \frac{N_D}{n_i} \right) \\
+  & \text{aprox. vaciamiento } \rho (x) = -qN_A; \rho (x)=qN_D\\
+  & \text{unión } p^+n \Rightarrow \text{dopado P alto} \Rightarrow \text{zce en la N}
+\end{align*}
+
+
+
+
+
+
+
+
+
+\section{Mates}
+\begin{align*}
+&\sin^2 \left(\frac{x}{2}\right) = \frac{1-\cos x}{2}\\
+&\int_0^\infty \frac{1}{e^x-1}dx = +\infty, \quad \int_0^\infty \frac{1}{e^x+1}dx = \ln(2)\\
+&\int_0^\infty \frac{x}{e^x-1}dx = \frac{\pi^2}{6}, \quad \int_0^\infty \frac{x}{e^x+1}dx = \frac{\pi^2}{12} \\
+&\int_0^\infty \frac{x^2}{e^x-1}dx = 2\zeta(3), \quad \int_0^\infty \frac{x^2}{e^x+1}dx = \frac{3}{2}\zeta(3)\\
+&\int_0^\infty \frac{x^3}{e^x-1}dx = \frac{\pi^4}{15}, \quad \int_0^\infty \frac{x^3}{e^x+1}dx = \frac{7\pi^4}{120} 
+\end{align*}
+
+\end{multicols}
+\end{document}

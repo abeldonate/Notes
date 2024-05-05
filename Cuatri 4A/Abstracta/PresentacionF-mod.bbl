@@ -1,0 +1,58 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ILL{\etalchar{+}}24}
+
+\bibitem[Bli04]{blickle}
+Manuel Blickle.
+\newblock The intersection homology d--module in finite characteristic.
+\newblock {\em Mathematische Annalen}, 328:425--450, 2004.
+
+\bibitem[EH08]{enescu2008frobenius}
+Florian Enescu and Melvin Hochster.
+\newblock The frobenius structure of local cohomology.
+\newblock {\em Algebra \& Number Theory}, 2(7):721--754, 2008.
+
+\bibitem[HS77]{hartshorne1977local}
+Robin Hartshorne and Robert Speiser.
+\newblock Local cohomological dimension in characteristic p.
+\newblock {\em Annals of Mathematics}, 105(1):45--79, 1977.
+
+\bibitem[ILL{\etalchar{+}}24]{iyengar24hours}
+Srikanth Iyengar, Anton Leykin, Graham Leuschke, Claudia Miller, Ezra Miller,
+  Anurag~K Singh, and Uli Walther.
+\newblock Hours of local cohomology.
+\newblock {\em Graduate Studies in Mathematics}, 87, 24.
+
+\bibitem[Lyu97]{lyu97}
+Gennady Lyubeznik.
+\newblock F-modules: applications to local cohomology and d-modules in
+  characteristic p> 0.
+\newblock 1997.
+
+\bibitem[Lyu00]{lyubeznik2000finiteness}
+Gennady Lyubeznik.
+\newblock Finiteness properties of local cohomology modules: a
+  characteristic-free approach.
+\newblock {\em Journal of Pure and Applied Algebra}, 151(1):43--50, 2000.
+
+\bibitem[PS73]{pesk}
+Christian Peskine and Lucien Szpiro.
+\newblock Dimension projective finie et cohomologie locale.
+\newblock {\em Publications Math{\'e}matiques de l'IH{\'E}S}, 42:47--119, 1973.
+
+\bibitem[QD22]{quingles}
+Guillem Quingles~Dav{\'\i}.
+\newblock Finiteness properties of local cohomology modules.
+\newblock Master's thesis, Universitat Polit{\`e}cnica de Catalunya, 2022.
+
+\bibitem[WZ21]{walther2021local}
+Uli Walther and Wenliang Zhang.
+\newblock Local cohomology—an invitation.
+\newblock In {\em Commutative Algebra: Expository Papers Dedicated to David
+  Eisenbud on the Occasion of his 75th Birthday}, pages 773--858. Springer,
+  2021.
+
+\bibitem[Zha]{zhangintroduction}
+Wenliang Zhang.
+\newblock Introduction to local cohomology and frobenius.
+
+\end{thebibliography}

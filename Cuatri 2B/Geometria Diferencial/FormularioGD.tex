@@ -1,0 +1,247 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+
+\begin{document}
+
+\begin{multicols}{2}[\columnsep2em]
+
+Parámetro arco 
+\[
+s(t) = \int_{t_0}^t \|\beta' (u)\| du
+\]
+Triedro de Frenet (bon)
+ \[
+   T(t) = \frac{\beta'(t)}{\|\beta'(t)\|} \quad N(t) =
+\frac{T'(t)}{\|T'(t)\|} \quad
+B = T\times N
+\] 
+Curvatura y torsión
+ \[
+k(s) = \|T'(s)\|= \langle T'(s) , N(s) \rangle
+\]
+\[
+  \tau(s) = \langle N'(s) , B(s) \rangle 
+\]
+Para parámetro arbitrario
+\[
+k = \frac{\|\gamma' \times \gamma''\|}{\|\gamma'\|^3}, \quad \tau = \frac{\det\left( \gamma', \gamma'', \gamma^{3)} \right) }{\|\gamma'\times \gamma''\|^2}
+\]
+Si la curva es bidimensional
+\[
+k = \frac{\det(\gamma',\gamma'')}{\|\gamma'\|^3}
+\] 
+
+Fórmulas de Frenet
+\begin{align*}
+  T' &= kN \\
+  N' &= -kT + \tau B \\
+  B' &= -\tau N 
+\end{align*}
+
+Superficie parametrizada
+\[
+\sigma(u, v) = \begin{pmatrix} x(u, v) \\ y(u, v) \\ z(u, v) \end{pmatrix}, \quad D\sigma = \begin{pmatrix} x_u & x_v \\ y_u & y_v \\ z_u & z_v \end{pmatrix}
+\]
+Primera forma fundamental
+\[
+P =   \begin{pmatrix} E & F \\ F & G \end{pmatrix} = \begin{pmatrix} \langle \sigma_u , \sigma_u \rangle & \langle \sigma_u , \sigma_v \rangle \\ \langle \sigma_u , \sigma_v \rangle & \langle \sigma_v , \sigma_v \rangle   \end{pmatrix} 
+\]
+Cálculo de longitudes:
+\[
+\begin{pmatrix} u(t)  \\ v(t) \end{pmatrix} \implies   L = \int_a^b \sqrt{Eu'^2 + 2Fu'v' + Gv'^2}dt
+\] 
+
+Cálculo de áreas
+\[
+A = \iint_X\|\sigma _u\times \sigma _v\|dudv=  \iint_X \sqrt{EG-F^2}dudv
+\]
+Cálculo de ángulos
+\[
+\cos \alpha  = \frac{\langle u, v \rangle }{\|u\|\|v\|} = \frac{u^TPv}{\sqrt{u^TPu}\sqrt{v^TPv}  }
+\] 
+
+Aplicación de Gauss
+\[
+N: S\to \mathbb{S}^2 \quad N(q) = \frac{\sigma _u\times \sigma _v}{\|\sigma _u\times \sigma _v\|}
+\]
+Aplicación de Weingarten.
+\[
+  DN \text{ matriz } A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix} \text{ en base }\sigma _u, \sigma _v 
+\]
+Segunda forma fundamental
+\[
+  S = \begin{pmatrix} e & f \\ f & g \end{pmatrix} = \begin{pmatrix} -\langle \sigma _u , N_u \rangle & -\langle \sigma _u , N_v \rangle \\ -\langle \sigma _v , N_u \rangle & -\langle \sigma _v , N_v \rangle   \end{pmatrix}= \]
+  \[=   \begin{pmatrix} \langle \sigma _{uu} , N \rangle & \langle \sigma _{uv} , N \rangle \\ \langle \sigma _{uv} , N \rangle & \langle \sigma _{vv} , N \rangle   \end{pmatrix} =  -PA = -A^TP 
+\]
+\[
+II(w) = -\langle w, DN w \rangle  = w^TSw \text{ (base } \sigma_u, \sigma _v)
+\] 
+\[
+k_1=-\lambda_1 \quad k_2 = -\lambda_2 \text{  (VAPs de A)}
+\] 
+\[
+  k_i^2 -2Hk_i+K = 0
+\] 
+Curvatura de Gauss
+\[
+\det(DN) = \det(A) = \frac{\det(S)}{\det(P)} = k_1k_2
+\]
+$K>0$ elíptico,  $K<0$ hiperbólico \\
+$K=0, k_1\neq 0$ parabólico,  $K=0, k_i=0$ plano
+
+Curvatura Media
+\[
+H = \frac{k_1+k_2}{2} = \frac{-a_{11}-a_{22}}{2}= \frac{eG-2Ff+Eg}{2(EG-F^2)}
+\] 
+(fórmulas de aij)
+\[
+a_{11} = \frac{Ff-eG}{EG-F^2}, \quad a_{12} = \frac{gF-Fg}{EG-F^2}
+\] 
+\[
+  a_{21}=\frac{eF-Ef}{EG-F^2}, \quad a_{22} = \frac{fF-Eg}{EG-F^2}
+\] 
+
+Curvatura normal ($T$ vector tangente)
+\[
+k_n = T^TST
+\] 
+
+Símbolos de Cristoffel
+  \[
+  \begin{cases}
+    \sigma _{uu} = \Gamma_{11}^1\sigma _u + \Gamma_{11}^2 \sigma _v + eN \\
+    \sigma _{uv} = \Gamma_{12}^1\sigma _u + \Gamma_{12}^2 \sigma _v + fN \\
+    \sigma _{vv} = \Gamma_{22}^1\sigma _u + \Gamma_{22}^2 \sigma _v + gN
+  \end{cases}
+  \]
+Los calculamos como
+\[
+  \begin{pmatrix} \Gamma_{11}^1 & \Gamma_{12}^1 & \Gamma_{22}^1 \\ \Gamma_{11}^2 & \Gamma_{12}^2 & \Gamma_{22}^2 &  \end{pmatrix}  = P^{-1} \begin{pmatrix} \frac{1}{2}E_u & \frac{1}{2}E_v & F_v - \frac{1}{2}G_u \\ F_u - \frac{1}{2}E_v & \frac{1}{2}G_u & \frac{1}{2}G_v \end{pmatrix} 
+\]
+
+Fórmulas de Gauss
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $EK = (\Gamma_{11}^2)_v - (\Gamma_{12}^2)_u + \Gamma_{11}^1\Gamma_{12}^2 + \Gamma_{11}^2\Gamma_{22}^2 - \Gamma_{12}^1\Gamma_{11}^2 - \Gamma_{12}^2\Gamma_{12}^2$
+    \item $FK = (\Gamma_{12}^1)_u - (\Gamma_{11}^1)_v + \Gamma_{12}^1\Gamma_{12}^2 - \Gamma_{11}^2\Gamma_{22}^1$
+    \item $GK = (\Gamma_{22}^1)_u - (\Gamma_{12}^1)_v + \Gamma_{11}^1\Gamma_{22}^1 + \Gamma_{12}^1\Gamma_{22}^2 - \Gamma_{12}^1\Gamma_{12}^1 - \Gamma_{12}^2\Gamma_{22}^1$
+  \end{enumerate}
+
+  Codazzi-Mainardi
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $e_v-f_u = e\Gamma_{12}^1 + f(\Gamma_{12}^2 - \Gamma _{11}^1) - g\Gamma_{11}^2$
+	\item $f_v-g_u = e\Gamma_{22}^1 + f(\Gamma_{22}^2-\Gamma_{12}^1)-g\Gamma_{12}^2$
+  \end{enumerate}
+
+
+\end{multicols}
+\newpage
+
+Campo tangente
+\[
+X(u(t), v(t)) = a(u(t), v(t))\sigma _u + b(u(t), v(t))\sigma _v
+\]
+
+Derivada Covariante
+\[
+  \nabla _wX = \left[ a' + \begin{pmatrix} a & b \end{pmatrix} \begin{pmatrix} \Gamma_{11}^1 & \Gamma _{12}^1 \\ \Gamma _{12}^1 & \Gamma_{22}^1 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix}   \right] \sigma _u + \left[ b' + \begin{pmatrix} a & b \end{pmatrix} \begin{pmatrix} \Gamma _{11}^2 & \Gamma _{12}^2 \\ \Gamma _{12}^2 & \Gamma _{22}^2 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix}   \right] \sigma _v
+\]
+
+Geodésicas
+\[
+  \begin{cases}
+   u'' + \begin{pmatrix} u' & v' \end{pmatrix} \begin{pmatrix} \Gamma_{11}^1 & \Gamma _{12}^1 \\ \Gamma _{12}^1 & \Gamma_{22}^1 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix} =0  \\
+  v'' + \begin{pmatrix} u' & v' \end{pmatrix} \begin{pmatrix} \Gamma _{11}^2 & \Gamma _{12}^2 \\ \Gamma _{12}^2 & \Gamma _{22}^2 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix} = 0
+  \end{cases}
+\]
+
+Relación de Clairut. En una superficie de revolución
+\[
+\begin{cases}
+  x = \varphi (u)\cos v\\
+  y = \varphi (u)\sin v \\
+  z = \psi (u)
+\end{cases}
+\text{ con } \varphi '^2 + \psi '^2 = 1
+\] 
+Entonces una geodésica $(u(t), v(t))$ satisface $\varphi (u)\cos \theta = \text{const}$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

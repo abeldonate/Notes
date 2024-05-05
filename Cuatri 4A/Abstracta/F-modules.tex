@@ -1,0 +1,781 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1.3in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{observation}{Observation}[section]
+\newtheorem{note}{Note}[section]
+\newtheorem{example}{Example}[section]
+
+\newcommand{\catname}[1]{{\mathbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Mod}{\catname{R-Mod}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\cd}{cd}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\heigth}{ht}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ann}{Ann}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{F-Modules}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+
+\begin{titlepage} % Suppresses headers and footers on the title page
+
+	\centering % Centre everything on the title page
+	
+	\scshape % Use small caps for all text on the title page
+	
+	\vspace*{\baselineskip} % White space at the top of the page
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	\vspace{0.75\baselineskip} % Whitespace above the title
+	
+	{\LARGE $F-$modules} 
+	
+	\vspace{0.75\baselineskip} % Whitespace below the title
+	
+	\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule{\textwidth}{1.6pt} % Thick horizontal rule
+	
+	\vspace{2\baselineskip} % Whitespace after the title block
+	
+	%------------------------------------------------
+	%	Subtitle
+	%------------------------------------------------
+
+	Article presented for the subject of Abstract Algebra
+	
+	\vspace*{3\baselineskip} % Whitespace under the subtitle
+	
+	%------------------------------------------------
+	%	Editor(s)
+	%------------------------------------------------
+
+	\vspace{0.5\baselineskip} % Whitespace before the editors
+	
+	{\scshape\Large Abel Doñate Muñoz} % Editor list
+	
+	\vspace{0.5\baselineskip} % Whitespace below the editor list
+	
+	\textit{Universitat Politècnica de Catalunya (UPC)} % Editor affiliation
+	
+	\vfill % Whitespace between editor names and publisher logo
+	
+	%------------------------------------------------
+	%	Publisher
+	%------------------------------------------------
+	
+	
+	\vspace{0.3\baselineskip} % Whitespace under the publisher logo
+	
+	2024, January % Publication year
+	
+	%{\large publisher} % Publisher
+
+\end{titlepage}
+
+\newpage
+
+\begin{abstract}
+  $F-$modules were first introduce by Gennady Lyubeznik in \cite{lyu97} in an attempt to partially solve problems related with the homological complexity of modules stated in \cite{hun92} in the case of rings of positive characteristic. We will properly define what is an  $F-$module, and discuss some properties and basic results that have allowed proving local cohomology results with the aid of this extra structure.
+\end{abstract}
+
+\section{Introduction}
+
+In this article $R$ will always denote a noetherian ring with positive characteristic $p>0$. Throughout the article we will need some previous knowledge of definitions and properties of rings. For those unfamiliar with basic notions of dimension theory, it is suggested to read the appendix, in which some definitions and basic properties for the development of the article are needed.
+
+The sources from which we are building this article are mainly \cite{quingles}, \cite{blickle} and \cite{lyu97}. Other references consulted as well can be found at the end of the article. The notation used in the article is very similar to the one used in \cite{quingles}. We will stablish a comparison between them throughout the article.
+
+The study of $F-$modules is stimulated by the set of problems known as \textit{Huneke list}:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item When is $H_I^j(M)=0$?
+  \item When is  $H_I^j(M)$ finitely generated? 
+  \item When is $H_{I}^j$ artinian?
+  \item If  $M$ is finitely generated, is the number of associated primes of  $H_I^j(M)$ always finite?
+  \item What annihilates  $H_I^j$?
+\end{enumerate}
+
+Since structure of this modules is very hard to characterize, much more compute, $F-$modules provided a fresh approach in the study of such cohomology modules, completely settling the list for the case of modules over regular rings with prime characteristic.
+
+The task for the article is to give the fundamental tools for starting the study and first properties of  $F-$modules via some useful examples.
+
+\section{The Frobenius functor}
+
+\begin{definition}[Frobenius endomorphism] The maps
+\[
+  f: R \to R \quad \text{such that} \quad f(r) = r^p, \qquad 
+  f ^{(e)}: R \to R \quad \text{such that} \quad f(r) = f^e(r) r^{p^e}
+\] 
+define ring morphisms in a ring of characteristic $p$ known as Frobenius endomorphisms.
+\end{definition}
+
+In advance $f$ will denote a p-Frobenius endomorphism, whereas  $f^{(e)}$ will denote a  $p^e$-Frobenius endomorphism.
+
+Notice that the application $f$ is, in fact, a morphism. The behaviour for the product $f(ab)=(ab)^p=a^pb^p=f(a)f(b)$, and for the sum we have to make use of binomial expansion
+\[
+  f(a+b) = (a+b)^p = a^p + \binom{p}{1} a^{p-1}b^1 + \cdots + \binom{p}{p-1}a^{1}b^{p-1} + b^p = a^p + b^p = f(a) + f(b)
+\] 
+since $p|\binom{p}{k} \ \forall k=1, \ldots, p-1$.
+
+\begin{observation} $f$ is not necessarily injective nor surjective. Some counterexamples are
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	 \item Let $R = \mathbb{F}_p[x] / (x^2)$. Then $f$ is not injective.
+	 \item Let  $R = \mathbb{F}_p(T)$, with $T$ transcendental over  $\mathbb{F}_p$.
+  \end{enumerate}
+\end{observation}
+
+To see (1) it suffices to prove that $\ker f\neq 0$. In fact $\ker f = \{0, \overline{x}, \overline{2x}, \ldots, \overline{(p-1)x}\}$.
+
+To see (2) it suffices to prove there is no element $\frac{q(T)}{r(T)}\in \mathbb{F}_p(T)$ with $q, r$ rational functions whose image is  $T$, since that would imply  $q(T)^p-r(T)^pT = 0$, which is a contradiction with the fact that $T$ is trascendental.
+
+From now we will take advantage of the Frobenius morphism, that will change the structure of an R-module by changing the action.
+
+\begin{definition}[Module with Frobenius action] Given $M$ an  $R-$Module, we define the module  $M^{(e)}$ induced by  $f^{(e)}$ as the abelian group $M$ endowed with the action
+  \[
+  r \cdot  m  = f ^{(e)}(r)m = r ^{p^e} m
+  \] 
+We will write for the cases in which $e=1$ for simplicity $M':=M ^{(1)}$, $R':=R ^{(1)}$
+\end{definition}
+
+
+\begin{definition}[Frobenius functor] The functor $F:\Mod \to \Mod$ with the assignments 
+% https://q.uiver.app/#q=WzAsNixbMywwLCIoTSJdLFs0LDAsIk4pIl0sWzUsMCwiUidcXG90aW1lc19SIE0iXSxbNiwwLCJSJ1xcb3RpbWVzX1JOIl0sWzAsMCwiTSJdLFsxLDAsIlInXFxvdGltZXNfUk0sIl0sWzAsMSwiXFxwaGkiXSxbMiwzLCJpZFxcb3RpbWVzX1JcXHBoaSJdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw1LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}
+	M & {R'\otimes_RM,} && {(M} & {N)} & {R'\otimes_R M} & {R'\otimes_RN}
+	\arrow["\phi", from=1-4, to=1-5]
+	\arrow["{id\otimes_R\phi}", from=1-6, to=1-7]
+	\arrow[maps to, from=1-5, to=1-6]
+	\arrow[maps to, from=1-1, to=1-2]
+\end{tikzcd}\]
+is called the Frobenius functor. In the same way the functor $F ^{(e)}$ can be defined replacing $R'$ by  $R ^{(e)}$.
+\end{definition}
+
+The Frobenius functor can also be found in the literature as the Peskine-Szpiro functor, first introduced by the authors on \cite{pesk}.
+
+\begin{example} Let $M = R$, then we have the isomorphism of $R-$modules $F(R) \cong R$ with Frobenius action.
+
+For the proof we construct two applications $g$ and  $h$ and see that they are well defined morphisms and they are inverse each other.
+
+ \begin{minipage}{0.5\textwidth}
+   \begin{align*}
+	 g: R'\otimes _R R &\to  R \\
+	 r'\otimes r &\mapsto r'r^p
+   \end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  h: R &\to  R'\otimes_R R\\
+  r&\mapsto r\otimes 1
+\end{align*}
+\end{minipage}
+\end{example}
+
+To see they are well defined morphisms note that 
+\[
+g(a \cdot (r'\otimes r)) = a^p g(r'\otimes r) = a\cdot g(r'\otimes r), \quad h(a\cdot r)= (a^pr)\otimes 1 = a\cdot (r \otimes 1) = a \cdot h(r)
+\]
+with Frobenius action. Finally we see they are inverse each other
+\[
+g(h(r)) = g(r\otimes 1) = 1, \quad h(g(r'\otimes r)) = h(r'r^p) = (r'r^p)\otimes 1 = r\cdot (r'\otimes 1) = r'\otimes r
+\] 
+Thus, we have the isomorphism.
+
+
+
+
+
+\begin{definition}[Frobenius of a complex] Given the complex $M^{\bullet}$, we define its induced complex $F(M^{\bullet})$ as the complex
+  % https://q.uiver.app/#q=WzAsMTAsWzEsMCwiTV97ay0xfSJdLFsyLDAsIk1fe2t9Il0sWzMsMCwiTV97aysxfSJdLFsxLDEsIkYoTV97ay0xfSkiXSxbMywxLCJGKE1fe2srMX0pIl0sWzIsMSwiRihNX3trfSkiXSxbMCwwLCJcXGNkb3RzIl0sWzQsMCwiXFxjZG90cyJdLFs0LDEsIlxcY2RvdHMiXSxbMCwxLCJcXGNkb3RzIl0sWzAsMywiRiJdLFsxLDUsIkYiXSxbMiw0LCJGIl0sWzAsMSwiaF97ay0xfSJdLFsxLDIsImhfayJdLFszLDUsIkYoaF97ay0xfSkiXSxbNSw0LCJGKGhfaykiXSxbNiwwXSxbMiw3XSxbNCw4XSxbOSwzXV0=
+\[\begin{tikzcd}
+	\cdots & {M_{k-1}} & {M_{k}} & {M_{k+1}} & \cdots \\
+	\cdots & {F(M_{k-1})} & {F(M_{k})} & {F(M_{k+1})} & \cdots
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["F", from=1-4, to=2-4]
+	\arrow["{h_{k-1}}", from=1-2, to=1-3]
+	\arrow["{h_k}", from=1-3, to=1-4]
+	\arrow["{F(h_{k-1})}", from=2-2, to=2-3]
+	\arrow["{F(h_k)}", from=2-3, to=2-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+Exactly the same construction works for $F ^{(e)}$.
+\end{definition}
+
+The choice of Frobenius functor as a tool in rings of positive characteristic is not arbitrary. This functor has fairly good functorial properties. We list the most important for the developement of this article in the following proposition.
+
+\begin{proposition} Some properties of the Frobenius functor are
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $F$ is right exact. Furthermore, if $R$ is regular, then $R'$ is flat and  $F$ is exact.
+  \item $F$ commutes with direct sums.
+  \item $F$ commutes with localization.
+  \item $F$ commutes with direct limits. 
+  \item $F$ preserves finitely generation of modules.
+  \item If $R$ is regular, then $F$ commutes with cohomology of complexes.
+\end{enumerate}
+\end{proposition}
+We provide sketches of the proof of some of them:
+
+(1) If $R$ is flat from Kunz's theorem we have that the Frobenius endomorphism is flat, and thus $R'$ is flat. Thus, since the functor  $F$ is constructed by tensoring the module with a flat module, the functor is exact.
+
+(6) Since $R$ is regular, then the Frobenius functor is exact. We only need to prove that exact functors preserve cohomology.
+
+We start the proof considering the following diagram
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiXFxjZG90cyJdLFswLDEsIlxcY2RvdHMiXSxbMSwwLCJNX3trLTF9Il0sWzEsMSwiTSdfe2stMX0iXSxbMiwwLCJNX3trfSJdLFsyLDEsIk0nX3trfSJdLFszLDEsIk0nX3trKzF9Il0sWzMsMCwiTV97aysxfSJdLFs0LDAsIlxcY2RvdHMiXSxbNCwxLCJcXGNkb3RzIl0sWzAsMl0sWzEsM10sWzIsMywiRiJdLFs0LDUsIkYiXSxbNyw2LCJGIl0sWzIsNCwiZF97ay0xfSJdLFs0LDcsImRfayJdLFs1LDYsImQnX2siXSxbMyw1LCJkJ197ay0xfSJdLFs3LDhdLFs2LDldXQ==
+\[\begin{tikzcd}
+	\cdots & {M_{k-1}} & {M_{k}} & {M_{k+1}} & \cdots \\
+	\cdots & {M'_{k-1}} & {M'_{k}} & {M'_{k+1}} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["F", from=1-4, to=2-4]
+	\arrow["{d_{k-1}}", from=1-2, to=1-3]
+	\arrow["{d_k}", from=1-3, to=1-4]
+	\arrow["{d'_k}", from=2-3, to=2-4]
+	\arrow["{d'_{k-1}}", from=2-2, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+In which every element with the $'$ has suffered a transformation through $F$. Let
+\[
+\begin{cases}
+  Z_n := \ker d_n\\
+  B_n := \im d_{n-1}
+\end{cases} \quad
+\begin{cases}
+  Z'_n := \ker d'_n\\
+  B'_n := \im d'_{n-1}
+\end{cases}
+\] 
+To see that $Z_n' = F(Z_n)$ we consider the transformation of exact sequences
+and by exactness we have  $Z_n'=\ker (d'_n)\cong F(Z_n)$
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlpfbiJdLFsyLDAsIk1fbiJdLFszLDAsIkJfe24rMX0iXSxbNCwwLCIwIl0sWzUsMCwiMCJdLFs5LDAsIjAiXSxbNiwwLCJGKFpfbikiXSxbNywwLCJGKE1fbikiXSxbOCwwLCJGKEJfe24rMX0pIl0sWzUsN10sWzcsOCwiaSciXSxbOCw5LCJkJ19uIl0sWzAsMV0sWzEsMiwiaSJdLFsyLDMsImRfbiJdLFszLDRdLFs5LDZdXQ==
+\[\begin{tikzcd}
+	0 & {Z_n} & {M_n} & {B_{n+1}} & 0 & 0 & {F(Z_n)} & {F(M_n)} & {F(B_{n+1})} & 0
+	\arrow[from=1-6, to=1-7]
+	\arrow["{i'}", from=1-7, to=1-8]
+	\arrow["{d'_n}", from=1-8, to=1-9]
+	\arrow[from=1-1, to=1-2]
+	\arrow["i", from=1-2, to=1-3]
+	\arrow["{d_n}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-9, to=1-10]
+\end{tikzcd}\]
+
+To see that $B'_n = F(B_n)$ we perform diagram chasing
+ \[
+   B'_n = \im (d'_{k-1}) = d'_{k-1}(F(M_{k-1})) = F(d_{k-1}(M_{k-1})) = F(\im d_{k-1}) = F(B_n)
+\] 
+
+Finally making the cohomology considering the transformation of the short exact sequences
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkJfbiJdLFsyLDAsIlpfbiJdLFszLDAsIkhfbiJdLFs0LDAsIjAiXSxbNSwwLCIwIl0sWzYsMCwiRihCX24pIl0sWzcsMCwiRihaX24pIl0sWzgsMCwiRihIX24pIl0sWzksMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldXQ==
+\[\begin{tikzcd}
+	0 & {B_n} & {Z_n} & {H_n} & 0 & 0 & {F(B_n)} & {F(Z_n)} & {F(H_n)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-6, to=1-7]
+	\arrow[from=1-7, to=1-8]
+	\arrow[from=1-8, to=1-9]
+	\arrow[from=1-9, to=1-10]
+\end{tikzcd}\]
+and from exactness of $F$ we have
+\[
+F(H_n(M)) \cong  \frac{F(Z_n)}{F(B_n)} \cong  \frac{Z_n'}{B_n'} \cong H_n(F(M))
+\] 
+Proving that an exact functor commutes with cohomology (and homology).
+
+As we have seen, some of the properties we may expect from a useful functor come from assuming the regularity of $R$. We will assume in advance that $R$ is regular.
+
+\begin{definition}[Frobenius power ideal] Given  $I = (x_1, \ldots, x_n)$ an ideal of $R$, we define its Frobenius $e-$power ideal as
+   \[
+	 I _{p^e} := (x_1^{p^e}, \ldots, x_n ^{p^e})R
+  \] 
+\end{definition}
+Notice that the ideal $I _{p^e}$ does not depend on the choice of the elements $x_i$. The proof begins with $I _{p^e} = (x_1, \ldots, x_n) = (y_1, \ldots, y_n)$. Then, there exists $r_1, \ldots, r_n \in R$ such that $y_1 = r_1x_1+\ldots+ r_nx_n$. Then $y_1 ^{p^e} = r_1 ^{p^e}x_1 ^{p^e} + \ldots+ r_n^{p^e}x_n^{p^e}$, which means $y_1 ^{p^e} \in (x_1 ^{p^e}, \ldots, x_n ^{p^e})$, and thus $(y_1 ^{p^e}, \ldots, y_n ^{p^e})\subseteq (x_1 ^{p^e}, \ldots, x_n ^{p^e})$. By symmetry we also have the inverse containment, so both ideals are equal.
+
+Now we have defined the ideal $I _{p}$, we see why this ideal naturally arises from the following example.
+
+\begin{example} Let $I = (x_1, \ldots, x_n)$. Then $F(R / I) \cong R / I _{p}$. For the proof we consider the following right exact sequence:
+  % https://q.uiver.app/#q=WzAsNCxbMiwwLCJSIl0sWzMsMCwiUi9JIl0sWzQsMCwiMCJdLFswLDAsIlJebiJdLFswLDEsIlxccGkiXSxbMSwyXSxbMywwLCJnID0gKHhfMSBcXGxkb3RzIHhfbikiXV0=
+\[\begin{tikzcd}
+	{R^n} && R & {R/I} & 0
+	\arrow["\pi", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{g = (x_1 \ldots x_n)}", from=1-1, to=1-3]
+\end{tikzcd}\]
+ From the exactness of the Frobenius functor and the fact that $F(R)\cong R \Rightarrow F(R^n)\cong R^n$, the right exact sequence transforms into
+ % https://q.uiver.app/#q=WzAsNCxbMiwwLCJGKFIpXFxjb25nIFIiXSxbMywwLCJGKFIvSSkiXSxbNCwwLCIwIl0sWzAsMCwiRihSXm4pXFxjb25nIFJebiJdLFswLDEsIlxccGknIl0sWzEsMl0sWzMsMCwiZycgPSAoeF8xXnAgXFxsZG90cyB4X25ecCkiXV0=
+\[\begin{tikzcd}
+	{F(R^n)\cong R^n} && {F(R)\cong R} & {F(R/I)} & 0
+	\arrow["{\pi'}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{g' = (x_1^p \ldots x_n^p)}", from=1-1, to=1-3]
+\end{tikzcd}\]
+which means that, by the first isomorphism theorem $F(R / I) \cong R / \ker \pi' \cong R / \im g' \cong R / I_{p} $, since clearly the image of $g'$ is  $I _{p}$.
+\end{example}
+
+
+\begin{example} Let $I = (x_1, \ldots, x_n)$. Then $F(I) \cong I _{p}$. In the same way as we did before, we consider the functor applied to a, this time, short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiSSJdLFsyLDAsIlIiXSxbMywwLCJSL0kiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & I & R & {R/I} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow[two heads, from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+From the exactness of the Frobenius functor and the fact that $F(R)\cong R, F(R / I) \cong R / I _{p}$, the short exact sequence transforms into
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiRihJKSJdLFsyLDAsIlIiXSxbMywwLCJSL0lee1twXX0iXSxbNCwwLCIwIl0sWzAsMV0sWzEsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {F(I)} & R & {R/I^{[p]}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow[two heads, from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+meaning that $R / I _{p} \cong R / F(I) \Rightarrow F(I)\cong I _{p}$.
+\end{example}
+
+
+
+
+\section{F-modules}
+
+\begin{definition}[F-Module] An $F-module$ is an $R-$module $M$ equipped with an $R-$isomorphism  $\theta:M \to F(M)$ called the structure morphism.
+\end{definition}
+
+We will denote an $F-$module as  $(M, \theta_M)$, being $M$ an  $R-$module and  $\theta _M$ its structure morphism.
+
+\begin{observation} In \cite{blickle} the $R-$ module is defined with an equipped $R-$ linear map $\vartheta : F(M)\to M$, that needs not to be an isomorphism. Those modules in which $\vartheta$ induces an isomorphism are called \textbf{unit} $F-$modules. We will only work in this article with them.
+\end{observation}
+
+$F-$modules can also be thought as a module over the ring  $R[F]$, that is, the ring  $R$ in which we have adjoined the non-commutative variable  $F$ with the relations  $r^pF = Fr \ \forall r\in R$. This characterization is presented in \cite{blickle}, and the notation $R[F]-$module taken in the thesis is very suggestive once we know where it comes from.
+
+
+
+\begin{definition}[Morphism of $F-$modules] Given two  $F-$ modules  $(M, \theta _M)$ and $(N, \theta _N)$, we say $g:M\to N$ is a morphism of $F-$modules if the following diagram commutes
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIkYoTSkiXSxbMSwxLCJGKE4pIl0sWzAsMiwiXFx0aGV0YV9NIl0sWzEsMywiXFx0aGV0YV9OIl0sWzAsMSwiZyJdLFsyLDMsIkYoZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{F(M)} & {F(N)}
+	\arrow["{\theta_M}", from=1-1, to=2-1]
+	\arrow["{\theta_N}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{F(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{example} In the case $M=R$ is the ring itself with  $R-$module structure, we have a natural isomorphism  $\theta : R \to F(R)$, which makes $(R, \theta )$ an $F-$module. This isomorphism is given by
+  \begin{align*}
+	\theta : R &\to F(R)\cong R' \otimes _R R \\
+	r &\mapsto r \otimes 1
+  \end{align*}
+
+\end{example}
+
+Another important example is the $F-$module of the localization by a multiplicative set $S$ of the ring $R$.
+
+\begin{example} Let  $M=S ^{-1}R$, then we have the isomorphism of $R-$modules $F(S^{-1}R)\cong S^{-1}R$. This is shown from the commutativity of the Frobenius functor with localization $F(S^{-1}R)\cong S^{-1}F(R)\cong S^{-1}R$. The natural isomorphism is given by
+   \begin{align*}
+	\theta : S ^{-1}R & \to R'\otimes _R S ^{-1}R\\
+	\frac{r}{s} &\mapsto rs ^{p-1} \otimes \frac{1}{s}
+   \end{align*}
+To explicitly prove this isomorphism we consider the two maps
+
+\begin{minipage}{0.5\textwidth}
+   \begin{align*}
+	g : S ^{-1}R & \to R'\otimes _R S ^{-1}R\\
+	\frac{r}{s} &\mapsto rs ^{p-1} \otimes \frac{1}{s}
+   \end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+   \begin{align*}
+	 h : R'\otimes _R S ^{-1}R & \to  S^{-1}R\\
+	 r' \otimes \frac{r}{s} & \mapsto \frac{r'r^p}{s^p}
+   \end{align*}
+\end{minipage}
+
+To see that the morphisms are well-defined note that
+\[
+g\left(a \cdot \frac{r}{s}\right) = g\left(\frac{ar}{s}\right) = a^prs ^{p-1} \otimes \frac{1}{s} = a \cdot g\left(\frac{r}{s}\right)
+\] 
+and 
+\[
+h\left(a \cdot r'\otimes \frac{r}{s}\right) = h\left(\left(a^pr'\right)\otimes \frac{r}{s}\right) = h\left(r'\otimes \frac{ar}{s}\right) = \frac{a^pr'r^p}{s^p} = a\cdot h\left(r'\otimes \frac{r}{s}\right)
+\] 
+with frobenius action. Finally we see that they are inverse each other
+\[
+  g\left(h\left(r'\otimes \frac{r}{s}\right)\right) = g\left(\frac{r'r^p}{s^p}\right) = r'r^p s ^{p\left({p-1}\right)} \otimes \frac{1}{s^p} = rs^{p-1} \cdot \left(r' \otimes \frac{1}{s^p}\right) = r' \otimes \frac{rs ^{p-1}}{s^p} = r' \otimes \frac{r}{s} \Rightarrow g\circ h = Id
+\] 
+and 
+\[
+h\left( g \left( \frac{r}{s} \right)  \right) = h \left( rs ^{p-1} \otimes \frac{1}{s} \right) = \frac{rs ^{p-1}\cdot 1}{s^p} = \frac{r}{s} \Rightarrow h\circ g = Id
+\] 
+\end{example}
+
+The key point is that $F-$modules form an Abelian category whose objects are  $F-$modules itself and the morphisms are the latter defined  $F-$modules morphisms.
+
+We introduce now a powerful tool in the theory of $F-$modules, which is the concept of  $F-$finite module. For this task we will need some previous definitions.
+
+\begin{definition}[Generating morphism] Given an $F-$module  $(M, \theta )$ we define its generating morphism  $\theta_0 :M_0 \to F(M_0)$ as the morphisms in the direct system 
+  % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiTV8wIl0sWzAsMSwiRihNXzApIl0sWzEsMCwiRihNXzApIl0sWzEsMSwiRl4yKE1fMCkiXSxbMiwxLCJGXjMoTV8wKSJdLFsyLDAsIkZeMihNXzApIl0sWzMsMCwiXFxjZG90cyJdLFszLDEsIlxcY2RvdHMiXSxbNCwwLCJNIl0sWzQsMSwiRihNKSJdLFswLDIsIlxcdGhldGFfMCJdLFsxLDMsIkYoXFx0aGV0YV8wKSJdLFszLDQsIkZeMihcXHRoZXRhXzApIl0sWzIsNSwiRihcXHRoZXRhXzApIl0sWzAsMSwiXFx0aGV0YV8wIl0sWzIsMywiRihcXHRoZXRhXzApIl0sWzUsNCwiRihcXHRoZXRhXzApIl0sWzUsNiwiRl4yKFxcdGhldGFfMCkiXSxbNCw3LCJGXjMoXFx0aGV0YV8wKSIsMV0sWzgsOSwiXFx0aGV0YSJdXQ==
+\[\begin{tikzcd}
+	{M_0} & {F(M_0)} & {F^2(M_0)} & \cdots & M \\
+	{F(M_0)} & {F^2(M_0)} & {F^3(M_0)} & \cdots & {F(M)}
+	\arrow["{\theta_0}", from=1-1, to=1-2]
+	\arrow["{F(\theta_0)}", from=2-1, to=2-2]
+	\arrow["{F^2(\theta_0)}", from=2-2, to=2-3]
+	\arrow["{F(\theta_0)}", from=1-2, to=1-3]
+	\arrow["{\theta_0}", from=1-1, to=2-1]
+	\arrow["{F(\theta_0)}", from=1-2, to=2-2]
+	\arrow["{F(\theta_0)}", from=1-3, to=2-3]
+	\arrow["{F^2(\theta_0)}", from=1-3, to=1-4]
+	\arrow["{F^3(\theta_0)}", from=2-3, to=2-4]
+	\arrow["\theta", from=1-5, to=2-5]
+\end{tikzcd}\]
+whose limit is the module $M$ and the morphism $\theta$ 
+\end{definition}
+
+\begin{definition}[$F-$finite module] We say that the module $M$ is  $F-$finite if  $M$ has a generating morphism  $\theta _0 : M_0 \to F(M_0)$ with $M$ a finitely generated  $R-$module.
+\end{definition}
+
+
+
+
+
+
+
+We introduce now  $F-$modules in the study of local cohomology. Firs we present two equivalent forms of computing the local cohomology of an ideal  $I\subseteq R$.
+
+\begin{definition}[Local cohomology (via torsion functor)] Let $\Gamma_I= \{m\in M : I^nm = 0 \text{ for some }n\in \mathbb{N} \}$. One can check this induces the so-called functor that transform the functions in the following natural way
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIlxcR2FtbWFfSShNKSJdLFsxLDEsIlxcR2FtbWFfSShOKSJdLFswLDIsIlxcR2FtbWFfSSJdLFsxLDMsIlxcR2FtbWFfSSJdLFswLDEsImciXSxbMiwzLCJcXEdhbW1hX0koZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{\Gamma_I(M)} & {\Gamma_I(N)}
+	\arrow["{\Gamma_I}", from=1-1, to=2-1]
+	\arrow["{\Gamma_I}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{\Gamma_I(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+Then taking an injective resolution $E^\bullet$ of $M$, we define the j-th local cohomology module of $M$ with support in  $I$ as the  $j-$th right derived functor of $\Gamma_I $, that is
+\[
+H_I^j(M)=H^j(\Gamma _I (E^\bullet) )
+\] 
+\end{definition}
+
+\begin{definition}[Local cohomology (via \v{C}ech complex)] Let $I=(x_1, \ldots, x_n)\subseteq R$. We define the \v{C}ech complex $\check{C}^{\bullet}(M, I)$ on the ideal $I$ as
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIlxcZGlzcGxheXN0eWxle1xcYmlnb3BsdXNfezFcXGxlIGlcXGxlIG59IE1fe3hfaX19Il0sWzMsMCwiXFxkaXNwbGF5c3R5bGV7XFxiaWdvcGx1c197MVxcbGUgaTxqXFxsZSBufSBNX3t4X2l4X2p9fSJdLFs0LDAsIlxcY2RvdHMiXSxbNSwwLCJNX3t4XzFcXGNkb3RzIHhfbn0iXSxbNiwwLCIwIl0sWzAsMV0sWzEsMiwiZF8wIl0sWzIsMywiZF8xIl0sWzMsNCwiZF8yIl0sWzQsNSwiZF97bi0xfSJdLFs1LDZdXQ==
+\[\begin{tikzcd}
+	0 & M & {\displaystyle{\bigoplus_{1\le i\le n} M_{x_i}}} & {\displaystyle{\bigoplus_{1\le i<j\le n} M_{x_ix_j}}} & \cdots & {M_{x_1\cdots x_n}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{d_0}", from=1-2, to=1-3]
+	\arrow["{d_1}", from=1-3, to=1-4]
+	\arrow["{d_2}", from=1-4, to=1-5]
+	\arrow["{d_{n-1}}", from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+where the differential maps $d_i$ are defined via the canonical localization morphism and alternating the sign in order to have $d_i\circ d_{i-1}=0$. Explicitly we have the morphisms of every component $d_p: M_{x_{i_1}\cdots x_{i_p}} \to M_{x_{j_1}\cdots x_{j_{p+1}}}$ as
+\[
+  d_p(m) = \begin{cases}
+	(-1)^{k+1} \frac{m}{1} &\text{ if } \{i_1, \ldots, i_p\} = \{j_1, \ldots, \hat{j}_k,\ldots, j_{p+1}\}\\ 0 &\text{ otherwise}
+  \end{cases}
+\] 
+\end{definition}
+
+\begin{observation}The \v{C}ech complex can also be thought as a direct limit of a Koszul complex
+  \[
+	\check{C}^{\bullet}(M; x_1, \ldots, x_n) = \varinjlim_{l} K^{\bullet}(M; x_1^l, \ldots, x_n^l)
+  \] 
+\end{observation}
+
+Once we know what is local cohomology, we can define the cohomological dimension of a module.
+
+\begin{definition}[Cohomological dimension] Let $M$ be an  $R-$module and  $I\subseteq R$ an ideal. The cohomological dimension of $M$ with support in  $I$ is defined as
+   \[
+	 \cd_I(M)   = \sup \{k : H_I^k(M) \neq 0\}
+  \] 
+\end{definition}
+
+The problem of finding the cohomological dimension is, in fact, similar to the problem to compute the vanishing cohomological modules. This problem has been studied by many authors, and is still open in the majority of the cases. However, in positive characteristic working with $F-$modules some results can be obtained.
+
+We list two of the main properties of local cohomology, these will be useful later. Let $I$ an ideal of  $R$, $M$ and $N$ an $R-$module and $A-$module respectively. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $H^j_I(M) = H^j_{\sqrt{I} }(M)$ 
+  \item If $f:R\to A$ is flat, then $A\otimes _RH^j_I(N) \cong H_{IA}^j(A\otimes_R N)$
+\end{itemize}
+
+\vspace{0.5em}
+
+The key observation is that if we have computed the local cohomology modules of some module M, then the cohomology of the $F-$module $(M, \theta_M)$ can be computed via the induced $F-$module structure of the cohomology modules of $M$. This fact is a direct consequence of the commutativity of the Frobenius functor with cohomology of complexes, since local cohomology can be computed by the cohomology of an injective resolution.
+
+Thus, given the structure morphism of $M$, the structure morphism of $H_I^j(M)$ are determined
+ \[
+\theta_M : M \to F(M)  \qquad \Longrightarrow \qquad
+\theta_{H_I^j (M)} : H_{I}^j(M) \to F(H_I^j(M))
+\] 
+
+\begin{proposition} If the ring $R$ is regular, then for every ideal $I\subseteq R$ we have $F(H_I^j(R)) \cong  H_{I}^j(R)$
+\end{proposition}
+
+The proofs is based on two of the properties we have presented earlier. Notice that $\sqrt{I}=\sqrt{I_p}$. Pick $A = R'$ and $f$ as t he Frobenius endomorphism (notice that since $R$ is regular, $f$ is flat). We have
+\[
+F(H_I^j(R)) = R'\otimes _RH_I^j(R) \cong H_{IR'}^j(R'\otimes _R R) \cong H_{I_p}^j(R) = H_{\sqrt{I_p}}^j(R) = H_{\sqrt{I}}^j(R)= H_{I}^j(R)
+\] 
+finishing the proof.
+
+Now we get back to the concept of $F-$finitess in modules, which is crucial to understand how local cohomology behaves when viewing the modules as $F-$modules.
+
+ \begin{proposition} Given an ideal $I$ of $R$, if $M$ is $F-$finite, then  $H^j_I(M)$ is  $F-$finite.
+\end{proposition}
+
+Observe this is not the classical behaviour of finitely generated $R-$modules, since in general  for finitely generated module $M$ we will have non-finitely generated $H^j_I(M)$.
+
+\begin{example} Local cohomology of $R = \mathbb{Z} / p\mathbb{Z}[x]$ with $I = (x)$.
+  \begin{align*}
+	0 \to R & \to R_x \to 0 \\
+	r &\mapsto \frac{r}{1}
+  \end{align*}
+  If we compute the local cohomology modules we get 
+  \[
+  H^0_{I} = \frac{\ker(d_0)}{0} = 0, \quad H^1_{I} = \frac{R_x}{\im(d_0)} \cong  \frac{R_x}{R}=  \mathbb{Z} / p\mathbb{Z}\langle \frac{1}{x^k}: k>0 \rangle 
+\]
+  which is not finitely generated.
+\end{example}
+
+\begin{proposition} Given $(M, \theta )$ an $F-$module, $I\subseteq R$ an ideal and $H^j_I(M)$ the local cohomology modules of $M$ with  $F-$module structure. Then
+   \[
+  \beta :\Ext_{R}^j (R / I, M) \to F(\Ext_R^j(R / I, M)) = \Ext_R^j(F(R / I), F(M))
+  \] 
+  induced by the maps
+  \[
+  \theta : M \to F(M) , \qquad F(R / I) = R'\otimes _R (R / I) \to R / I
+  \] 
+  is a generating morphism of $H_I^j(M)$.
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Injective modules}
+
+Injective modules form an important and heavily studied subset of the category of modules. Most of the importance relies in the fact that we can always consider an injective resolution of a module. Knowing precisely how injective modules behave can simplify the understanding and the computation of homological complexity of a module.
+
+In this section we provide an introduction of these modules and we will provide some propositions and theorems that has been proved with the aid of $F-$module structure.
+
+\begin{definition}[Injective module] We say the $R-$module $E$ is injective if for all $R-$modules $M, N$ and morphisms $f:M\to N$ injective and $g:M\to E$ arbitrary there exists a morphism  $h:N\to E$ such that $h\circ f=g$. This is, the following d This is, the following diagram commutes:
+  % https://q.uiver.app/#q=WzAsNCxbMCwxLCIwIl0sWzEsMSwiTSJdLFsyLDEsIk4iXSxbMSwwLCJFIl0sWzAsMV0sWzEsMywiZyJdLFsxLDIsImYiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDMsImgiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["g", from=2-2, to=1-2]
+	\arrow["f", hook, from=2-2, to=2-3]
+	\arrow["h"', dashed, from=2-3, to=1-2]
+\end{tikzcd}\]
+\end{definition}
+
+There are three equivalent characterizations, meaning that the following statements are equivalent
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $E$ is an injective module.
+  \item Any short exact sequence $0\to E \to M \to N \to 0$ splits.
+  \item If $E$ is a submodule of $M$, then there exists another submodule $N\subseteq M$ such that $E \oplus N = M$.
+  \item The functor  $\Hom(-,E)$ is exact.
+\end{itemize}
+
+\begin{definition}[Injective hull] Given a module $M$, we define its injective hull as the maximal essential extension $N = E_R(M)$. That is, given an injective $\theta :M\to N$, if $\varphi \circ \theta $  is injective, then $\varphi $ is also injective.
+% https://q.uiver.app/#q=WzAsNCxbMCwxLCIwIl0sWzEsMSwiTSJdLFsyLDEsIk4iXSxbMiwwLCJFIl0sWzAsMV0sWzEsMiwiXFx0aGV0YSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiXFx2YXJwaGkiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9LCJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwzLCJcXHZhcnBoaVxcY2lyY1xcdGhldGEiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dXQ==
+\[\begin{tikzcd}
+	&& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["\theta", hook, from=2-2, to=2-3]
+	\arrow["\varphi", dashed, hook, from=2-3, to=1-3]
+	\arrow["\varphi\circ\theta", hook, from=2-2, to=1-3]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{example} The localization of a ring $S^{-1}R$ (as an $R-$module) is an essential extension
+\end{example}
+
+The main property of injective modules is that they decompose into another injective modules in a precise fashion, which we are discussing in the following theorem.
+
+\begin{theorem}[Structure theorem] Every injective $R-$module $E$ is the direct sum of indecomposable injective modules with the form
+  \[
+	E \cong \bigoplus _{\mathfrak{p}\in \Spec (R)} E_R( R / \mathfrak{p})^{\mu _{\mathfrak{p}}}
+  \] 
+with the \textit{Bass numbers} $\mu _{\mathfrak{p}}$ independent of the decomposition.
+\end{theorem}
+
+Bass numbers can be computed as the rank of the $\Hom$ sets of residue fields in the following way:
+ \[
+\mu _{\mathfrak{p}} =\Hom _{R_{\mathfrak{p}}}(k(\mathfrak{p}), E_{\mathfrak{p}})
+\] 
+
+Notice all $R-$modules admit a minimal injective resolution  $E^\bullet$. Applying structure theorem to all the $E^j$ we have the bass numbers  $\mu _i(\mathfrak{p}, M)$ such that 
+\[
+E^i = \bigoplus_{\mathfrak{p}\in \Spec (R)} E_R(R / \mathfrak{p}) ^{\mu _i(\mathfrak{p}, M)}
+\] 
+in which the Bass numbers are computed as follows
+\[
+  \mu _i(\mathfrak{p}, M) = \rank _{k(\mathfrak{p})}\Ext ^i_{R_{\mathfrak{p}}} (k(\mathfrak{p}), M_{\mathfrak{p}})
+\] 
+
+One of the main questions on injective modules is the finiteness of these Bass numbers. One classic result is that if $M$ finitely generated, then . Another important result in injective modules is the following proposition.
+
+ \begin{proposition} If $R$ is regular, and $E$ is an injective $R-$module then $F(E)\cong E$.
+\end{proposition}
+
+We end this section by stating an theorem on positive characteristic rings.
+
+\begin{theorem}[Huneke-Sharp] Let $(R, \mathfrak{m})$ a regular local ring of characteristic $p$. Then the Bass numbers $\mu_{i}(\mathfrak{p}, H_I^j(R))$ are finite.
+\end{theorem}
+
+
+
+
+
+
+\section{Appendix}
+
+\begin{definition}[Height and Krull dimension] Given a prime ideal $\mathfrak{p}$, we define his height as
+  \[
+	\heigth (\mathfrak{p}) := \sup \{t: \mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \cdots \subsetneq  \mathfrak{p}_t = \mathfrak{p} \} \quad \text{for } \mathfrak{p}_i\in \Spec(R)
+  \]
+We define the Krull dimension of the ring $R$ as
+ \[
+ \dim (R) :=  \sup \{\heigth (\mathfrak{p}) : \mathfrak{p}\in \Spec(R)\}
+\] 
+\end{definition}
+
+\begin{definition}[Krull dimension of a module] If  $R$ is a commutative Noetherian ring, then the Krull dimension of the  $R-$module  $M$ is
+   \[
+\dim(M) := \dim (R / \Ann _R(M))
+  \] 
+  where $\Ann_R(M) = \{r \in R : rM = 0\}$ is the annihilator ideal of $R$.
+\end{definition}
+
+Following the definition of height and Krull dimension for a ring, an analogous construction can be repeated for the category of $R-$modules.
+
+\begin{definition}[Length of a module] Given $M$ an $R-$module, we define the length of  $M$ as the supremum of the length $n$ of the chains of modules, that is
+  \[
+	\ell(M)= \sup \{n: 0 = M_0\subsetneq M_1 \subsetneq \cdots \subsetneq M_n = M\}
+  \] 
+\end{definition}
+
+\begin{observation} If $R = K$ a field, and $M$ is a free finitely generated $R-module$, then the length of  $M$ coincides with the usual dimension of $M$ as vector space.
+\end{observation}
+
+\begin{example} Let $R = \mathbb{R}$ and $M = R\langle x_1, \ldots, x_n\rangle$, that can be thought as a vector space over $\mathbb{R}$ of dimension $n$. Then one maximal chain of modules is
+  \[
+  0\subsetneq R\langle x_1\rangle \subsetneq R \langle x_1 , x_2\rangle \subsetneq \ldots \subsetneq R\langle  x_1, \ldots, x_n \rangle = M
+  \]
+  and indeed the dimension agrees with the length.
+
+\end{example}
+
+\begin{definition}[Regular local ring] Let $(R, \mathfrak{m})$ a Noetherian local ring and $\{x_1, \ldots, x_n\}$ a minimal set of generators of $\mathfrak{m}$. We say $R$ is regular if $\dim R=n$, where  $\dim$ is the Krull dimension.
+\end{definition}
+
+Assuming the ring is local sometimes is very strong and we need some notion of regularity in a non-local ring. The following definition provides a suitable deffinition for a regular ring that is not necessarily local
+\begin{definition}[Regular ring] $R$ is regular if the localizaion at every prime ideal is a regular local ring
+\end{definition}
+
+\begin{example} Some examples of regularity and locality of rings are listed below. Let $k$ be a field, then:
+
+  (1) The ring $R = k[x] / (x^2)$ is local but non-regular. It has a unique maximal and prime ideal  $\mathfrak{m}=(\overline{x})$, so the Krull dimension is $\dim = 0\neq 1$, so the ring is non-local.
+
+  (2) The ring $R = k[x_1, \ldots, x_n]$ is non-local, but regular. Maximal ideals are not unique, and they are of the form $(x_1+a_1, \ldots, x_n+a_n)$ with  $a_i\in k$. The regularity is a consequence of Hilbert's syzygy theorem.
+
+  (3) The ring $R = k[[x_1, \ldots, x_d]]$ is local and regular. The locality came from the fact that $\mathfrak{m} = (x_1, \ldots, x_n)$ is the only maximal ideal since every other element is invertible. Furthermore, is regular because we can consider the chain $\mathfrak{p}_i = (x_1, \ldots, x_i)$ and see that $\dim R = n$.
+\end{example}
+
+\begin{theorem}[Kunz] The ring  $R$ is regular if and only if the Frobenius endomorphism $f:R\to R$ is flat.
+\end{theorem}
+
+
+
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
+\end{document}

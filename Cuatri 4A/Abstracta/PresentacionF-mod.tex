@@ -1,0 +1,394 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{svg}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\newcommand{\catname}[1]{{\mathbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Mod}{\catname{R-Mod}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\heigth}{ht}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ann}{Ann}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[F-módulos] %optional
+{$F-$módulos}
+
+%\subtitle{}
+
+\author[Abel Doñate] % (optional)
+{Abel Doñate Muñoz}
+
+\institute[UPC] % (optional)
+{
+  Universitat Politècica de Catalunya
+}
+
+\date[Enero 2024] % (optional)
+{Presentación del trabajo final, Enero 2024}
+
+%\logo{\includegraphics[height=1cm]{overleaf-logo}}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+%------------------------------------------------------------
+
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+
+%---------------------------------------------------------
+%This block of code is for the table of contents after
+%the title page
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------
+
+
+\section{Functor de Frobenius}
+
+%---------------------------------------------------------
+\begin{frame}{}
+\begin{block}{Endomorfismo de Frobenius}
+Sea $R$ un anillo con característica $p>0$. Definimos el endomorfismo de Frobenius como el mapa
+\begin{align*}
+f: R &\to R \\
+r &\to r^p
+\end{align*}
+\end{block}    
+
+\begin{block}{Observación}
+    Este morfismo en general no es inyectivo ni exhaustivo.
+\end{block}
+\end{frame}
+
+\begin{frame}{}
+\begin{block}{Module with Frobenius action} Given $M$ an  $R-$Module, we define the module  $M^{(e)}$ induced by  $f^{(e)}$ as the abelian group $M$ endowed with the action
+  \[
+  r \cdot  m  = f ^{(e)}(r)m = r ^{p^e} m
+  \] 
+\end{block}
+\begin{block}{Notation} For simplicity we will write $M^{(1)}$ as  $M'$ and $R^{(1)}$ as  $R'$.
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functor de Frobenius}
+\begin{block}{Functor de Frobenius}
+  Definimos el functor de Frobenius como el el functor $F:\Mod \to \Mod$ que envía
+  \[\begin{tikzcd}[column sep=small]
+	M & {R'\otimes_RM,} & {(M} & {N)} & {R'\otimes_R M} & {R'\otimes_RN}
+	\arrow["\phi", from=1-3, to=1-4]
+	\arrow["{id\otimes_R\phi}", from=1-5, to=1-6]
+	\arrow[maps to, from=1-4, to=1-5]
+	\arrow[maps to, from=1-1, to=1-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\begin{block}{Frobenius of a complex}
+  Given the complex $M^{\bullet}$, we define its induced complex $F(M^{\bullet})$ as the complex
+\[\begin{tikzcd}
+	\cdots & {M_{k-1}} & {M_{k}} & {M_{k+1}} & \cdots \\
+	\cdots & {F(M_{k-1})} & {F(M_{k})} & {F(M_{k+1})} & \cdots
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["F", from=1-4, to=2-4]
+	\arrow["{h_{k-1}}", from=1-2, to=1-3]
+	\arrow["{h_k}", from=1-3, to=1-4]
+	\arrow["{F(h_{k-1})}", from=2-2, to=2-3]
+	\arrow["{F(h_k)}", from=2-3, to=2-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+Exactly the same construction works for $F ^{(e)}$.
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Properties}
+\begin{block}{Properties of Frobenius functor}
+\begin{enumerate}
+  \item $F$ is right exact. Furthermore, if $R$ is regular, then $R'$ is flat and  $F$ is exact.
+  \item $F$ commutes with direct sums.
+  \item $F$ commutes with localization.
+  \item $F$ commutes with direct limits. 
+  \item $F$ preserves finitely generation of modules.
+  \item If $R$ is regular, then $F$ commutes with cohomology of complexes.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Properties}
+\begin{block}{Frobenius power ideal}
+ Given  $I = (x_1, \ldots, x_n)$ an ideal of $R$, we define its Frobenius $e-$power ideal as
+   \[
+	 I _{p^e} := (x_1^{p^e}, \ldots, x_n ^{p^e})R
+  \] 
+\end{block}
+\begin{block}{Some examples of transformations}
+  \begin{itemize}
+	\item $F(R)\cong R$
+	\item $F(I) \cong I_{p^e}$
+	\item $F(R / I)\cong R / I_{p^e}$
+  \end{itemize}
+\end{block}
+\end{frame}
+
+%---------------------------------------------------
+%---------------------------------------------------
+
+\section{$F-$modules}
+
+\begin{frame}[fragile]{$F-$module}
+\begin{block}{Definition of $F-$module}
+An $F-module$ is an $R-$module $M$ equipped with an $R-$isomorphism  $\theta:M \to F(M)$ called the structure morphism.
+\end{block}
+\begin{block}{Morphism of $F-$modules}
+Given two  $F-$ modules  $(M, \theta _M)$ and $(N, \theta _N)$, we say $f:M\to N$ is a morphism of $F-$modules if the following diagram commutes
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIkYoTSkiXSxbMSwxLCJGKE4pIl0sWzAsMiwiXFx0aGV0YV9NIl0sWzEsMywiXFx0aGV0YV9OIl0sWzAsMSwiZyJdLFsyLDMsIkYoZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{F(M)} & {F(N)}
+	\arrow["{\theta_M}", from=1-1, to=2-1]
+	\arrow["{\theta_N}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{F(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{}
+\begin{block}{An alternative form}
+$F-$modules can also be thought as a module over the ring  $R[F]$, that is, the ring  $R$ in which we have adjoined the non-commutative variable  $F$ with the relations  $r^pF = Fr \ \forall r\in R$. This characterization is presented in \cite{blickle}, and the notation $R[F]-$module taken in the thesis is very suggestive once we know where it comes from.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Two important cases}
+\begin{block}{}
+  In the case $M=R$ is the ring itself with  $R-$module structure, we have a natural isomorphism  $\theta : R \to F(R)$, which makes $(R, \theta )$ an $F-$module. This isomorphism is given by
+  \begin{align*}
+	\theta : R &\to F(R)\cong R' \otimes _R R \\
+	r &\mapsto r \otimes 1
+  \end{align*}
+\end{block}
+\begin{block}{}
+Let  $M=S ^{-1}R$, then we have the isomorphism of $R-$modules $F(S^{-1}R)\cong S^{-1}R$. This is shown from the commutativity of the Frobenius functor with localization $F(S^{-1}R)\cong S^{-1}F(R)\cong S^{-1}R$. The natural isomorphism is given by
+   \begin{align*}
+	\theta : S ^{-1}R & \to R'\otimes _R S ^{-1}R\\
+	\frac{r}{s} &\mapsto rs ^{p-1} \otimes \frac{1}{s}
+   \end{align*}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{$F-$finite modules}
+\begin{block}{Generating morphism}
+Given an $F-$module  $(M, \theta )$ we define its generating morphism  $\theta_0 :M_0 \to F(M_0)$ as the morphisms in the direct system 
+\[\begin{tikzcd}
+	{M_0} & {F(M_0)} & {F^2(M_0)} & \cdots & M \\
+	{F(M_0)} & {F^2(M_0)} & {F^3(M_0)} & \cdots & {F(M)}
+	\arrow["{\theta_0}", from=1-1, to=1-2]
+	\arrow["{F(\theta_0)}", from=2-1, to=2-2]
+	\arrow["{F^2(\theta_0)}", from=2-2, to=2-3]
+	\arrow["{F(\theta_0)}", from=1-2, to=1-3]
+	\arrow["{\theta_0}", from=1-1, to=2-1]
+	\arrow["{F(\theta_0)}", from=1-2, to=2-2]
+	\arrow["{F(\theta_0)}", from=1-3, to=2-3]
+	\arrow["{F^2(\theta_0)}", from=1-3, to=1-4]
+	\arrow["{F^3(\theta_0)}", from=2-3, to=2-4]
+	\arrow["\theta", from=1-5, to=2-5]
+\end{tikzcd}\]
+whose limit is the module $M$ and the morphism $\theta$ 
+\end{block}
+\begin{block}{$F-$finite module}
+We say that the module $M$ is  $F-$finite if  $M$ has a generating morphism  $\theta _0 : M_0 \to F(M_0)$ with $M$ a finitely generated  $R-$module.
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Local cohomology}
+  \begin{block}{Torsion functor}
+Let $\Gamma_I= \{m\in M : I^nm = 0 \text{ for some }n\in \mathbb{N} \}$. One can check this induces the so-called functor that transform the functions in the following natural way
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTiJdLFswLDEsIlxcR2FtbWFfSShNKSJdLFsxLDEsIlxcR2FtbWFfSShOKSJdLFswLDIsIlxcR2FtbWFfSSJdLFsxLDMsIlxcR2FtbWFfSSJdLFswLDEsImciXSxbMiwzLCJcXEdhbW1hX0koZykiXV0=
+\[\begin{tikzcd}
+	M & N \\
+	{\Gamma_I(M)} & {\Gamma_I(N)}
+	\arrow["{\Gamma_I}", from=1-1, to=2-1]
+	\arrow["{\Gamma_I}", from=1-2, to=2-2]
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["{\Gamma_I(g)}", from=2-1, to=2-2]
+\end{tikzcd}\]
+  \end{block}
+  \begin{block}{LC via torsion functor}
+Taking an injective resolution $E^\bullet$ of $M$, we define the j-th local cohomology module of $M$ with support in  $I$ as the  $j-$th right derived functor of $\Gamma_I $, that is
+\[
+H_I^j(M)=H^j(\Gamma _I (E^\bullet) )
+\] 
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Local cohomology}
+  \begin{block}{LC via \v{C}ech complex}
+Let $I=(x_1, \ldots, x_n)\subseteq R$. We define the \v{C}ech complex $\check{C}^{\bullet}(M, I)$ on the ideal $I$ as
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIlxcZGlzcGxheXN0eWxle1xcYmlnb3BsdXNfezFcXGxlIGlcXGxlIG59IE1fe3hfaX19Il0sWzMsMCwiXFxkaXNwbGF5c3R5bGV7XFxiaWdvcGx1c197MVxcbGUgaTxqXFxsZSBufSBNX3t4X2l4X2p9fSJdLFs0LDAsIlxcY2RvdHMiXSxbNSwwLCJNX3t4XzFcXGNkb3RzIHhfbn0iXSxbNiwwLCIwIl0sWzAsMV0sWzEsMiwiZF8wIl0sWzIsMywiZF8xIl0sWzMsNCwiZF8yIl0sWzQsNSwiZF97bi0xfSJdLFs1LDZdXQ==
+\[\begin{tikzcd}
+	0 & M & {\displaystyle{\bigoplus_{1\le i\le n} M_{x_i}}} & {\displaystyle{\bigoplus_{1\le i<j\le n} M_{x_ix_j}}} & \cdots & {M_{x_1\cdots x_n}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{d_0}", from=1-2, to=1-3]
+	\arrow["{d_1}", from=1-3, to=1-4]
+	\arrow["{d_2}", from=1-4, to=1-5]
+	\arrow["{d_{n-1}}", from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+where de differential maps $d_i$ are defined via the canonical localization morphism and alternating the sign in order to have $d_i\circ d_{i-1}=0$. Explicitly we have the morphisms of every component $d_p: M_{x_{i_1}\cdots x_{i_p}} \to M_{x_{j_1}\cdots x_{j_{p+1}}}$ as
+\[
+  d_p(m) = \begin{cases}
+	(-1)^{k+1} \frac{m}{1} &\text{ if } \{i_1, \ldots, i_p\} = \{j_1, \ldots, \hat{j}_k,\ldots, j_{p+1}\}\\ 0 &\text{ otherwise}
+  \end{cases}
+\] 
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Properties of LC}
+\begin{block}{Two important properties of LC}
+\begin{itemize}
+  \item $H^j_I(M) = H^j_{\sqrt{I} }(M)$ 
+  \item Let $N$ be an  $A-$module and the flat morphism $f:R\to A$. Then $A\otimes _RH^j_I(N) \cong H_{IA}^j(A\otimes_R N)$
+\end{itemize}
+\end{block}
+\begin{block}{}
+ If the ring $R$ is regular, then for every ideal $I\subseteq R$ we have $F(H_I^j(R)) \cong  H_{I}^j(R)$
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{$F-$finiteness}
+  \begin{block}{$F-$finiteness of LC modules}
+Given an ideal $I$ of $R$, if $M$ is $F-$finite, then  $H^j_I(M)$ is  $F-$finite.
+\end{block}
+  \begin{block}{Observation}
+Observe this is not the classical behaviour of finitely generated $R-$modules, since in general  for finitely generated module $M$ we will have non-finitely generated $H^j_I(M)$.
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Injective modules}
+\begin{block}{Injective module}
+We say the $R-$module $E$ is injective if for all $R-$modules $M, N$ and morphisms $f:M\to N$ injective and $g:M\to E$ arbitrary there exists a morphism  $h:N\to E$ such that $h\circ f=g$. This is, the following d This is, the following diagram commutes:
+  % https://q.uiver.app/#q=WzAsNCxbMCwxLCIwIl0sWzEsMSwiTSJdLFsyLDEsIk4iXSxbMSwwLCJFIl0sWzAsMV0sWzEsMywiZyJdLFsxLDIsImYiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDMsImgiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["g", from=2-2, to=1-2]
+	\arrow["f", hook, from=2-2, to=2-3]
+	\arrow["h"', dashed, from=2-3, to=1-2]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Injective modules}
+\begin{block}{Equivalent characterizations}
+There are three equivalent characterizations, meaning that the following statements are equivalent
+\begin{itemize}
+  \item $E$ is an injective module.
+  \item Any short exact sequence $0\to E \to M \to N \to 0$ splits.
+  \item If $E$ is a submodule of $M$, then there exists another submodule $N\subseteq M$ such that $E \oplus N = M$.
+  \item The functor  $\Hom(-,E)$ is exact.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Injective modules}
+\begin{block}{Injective hull}
+Given a module $M$, we define its injective hull as the maximal essential extension $N = E_R(M)$. That is, given an injective $\theta :M\to N$, if $\varphi \circ \theta $  is injective, then $\varphi $ is also injective.
+\[\begin{tikzcd}
+	&& E \\
+	0 & M & N
+	\arrow[from=2-1, to=2-2]
+	\arrow["\theta", hook, from=2-2, to=2-3]
+	\arrow["\varphi", dashed, hook, from=2-3, to=1-3]
+	\arrow["\varphi\circ\theta", hook, from=2-2, to=1-3]
+\end{tikzcd}\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Injective modules}
+\begin{block}{The structure theorem}
+Every injective $R-$module $E$ is the direct sum of indecomposable injective modules with the form
+  \[
+	E \cong \bigoplus _{\mathfrak{p}\in \Spec (R)} E_R( R / \mathfrak{p})^{\mu _{\mathfrak{p}}}
+  \] 
+with the \textit{Bass numbers} $\mu _{\mathfrak{p}}$ independent of the decomposition.
+\end{block}
+\begin{block}{Computing Bass numbers}
+Bass numbers can be computed as the rank of the $\Hom$ sets of residue fields in the following way:
+ \[
+\mu _{\mathfrak{p}} =\Hom _{R_{\mathfrak{p}}}(k(\mathfrak{p}), E_{\mathfrak{p}})
+\] 
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{}
+\begin{block}{}
+If $R$ is regular, and $E$ is an injective $R-$module then $F(E)\cong E$.
+\end{block}
+
+\begin{block}{(Huneke,-Sharp)} Let $(R, \mathfrak{m})$ a regular local ring of characteristic $p$. Then the Bass numbers $\mu_{i}(\mathfrak{p}, H_I^j(R))$ are finite.
+\end{block}
+\end{block}
+\end{frame}
+
+
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
+\end{document}
+
+
+\begin{frame}[fragile]{}
+\begin{block}{}
+\end{block}
+\end{frame}

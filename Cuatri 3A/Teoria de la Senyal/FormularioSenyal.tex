@@ -1,0 +1,578 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{physics}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+{\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+\par}
+}
+
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=0.5in}
+
+
+\newcommand{\incimg}[1]{%
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+
+\begin{document}
+
+\begin{multicols}{2}[\columnsep2em]
+Author: Abel Doñate Muñoz
+\section{Tema 1: Señales}
+
+Types of signals
+\begin{align*}
+  \Pi(t) &= 1 \text{ in } t\in (-\frac{1}{2}, \frac{1}{2}) \\
+  \Delta(t)&= 1-|t| \text{ in } |t|<1 \\
+  sinc(t) &= \frac{\sin(\pi t)}{\pi t}
+\end{align*}
+
+Types of systems
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Linear: $ax_1+bx_2 \to ay_1+ay_2$
+  \item Invariant: $x(t-\Delta ) \to y(t-\Delta)$
+  \item Casual: depende de las anteriores 
+  \item Stable: $|x(t)|<M_x \Rightarrow |y(t)|<M_y$
+\end{itemize}
+
+Energy and power
+\[
+E = \int |x(t)|^2dt, \qquad P = \lim \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} |x(t)|^2dt
+\] 
+
+Linear time-invariant (LTI)
+\[
+y(t) = x(t)\ast h(t) = \int x(\tau )h(t-\tau )d\tau = \sum x[i]h[n-i]
+\] 
+
+Differences equation LTI
+\[
+y[n] = \sum_0^M b_jx[n-j] - \sum_1^N a_iy[n-i] \Rightarrow H(z) = \frac{\sum_{k=0}^M b_kz^{-k}}{\sum_{k=0}^{N}a_kz^{-k}}
+\] 
+Forma directa 1
+\incfig{DirectForm1}
+
+Forma directa 2 ($N=M$)
+\incfig{DirectForm2}
+
+\section{Tema 2: Transformadas}
+
+Transforms
+\begin{align*}
+  x(t) &\to X(\omega )= \int x(t)e^{-j\omega t}dt \qquad x(t)= \frac{1}{2\pi}\int X(\omega )e^{j\omega t} \\
+  x[n] &\to X(z) = \sum x[n]z^{-n}
+\end{align*}
+
+Fourier series
+\begin{align*}
+	x(t) &= \frac{a_0}{2} + \sum \left( a_n\cos(n\omega _0t) + b_n \sin(n\omega _0t )\right)\\
+		 &= A_0 + \sum A_n\cos(n\omega _0t + \varphi_n) = \sum c_n e^{jn\omega_0 t}\\
+	a_n &= \frac{2}{T}\int_T x(t)\cos(n\omega _0t)dt,   b_n = \frac{2}{T}\int_T x(t)\sin(n\omega _0t)dt\\
+	A_n &= \sqrt{a_n^2 + b_n^2}, \varphi_n = \arctan(\frac{-b_n}{a_n}) \\
+	c_n &= \frac{a_n-jb_n}{2}, \quad c_{-n} = c_n^*\\
+	P_m &= \frac{1}{T}\int_T|x|^2dt= \sum |c_n|^2= A_0^2 + \sum A_n^2
+\end{align*}
+
+LTI response to $x(t)=\sum A_n \cos(n\omega _0t + \varphi _n)$
+\[
+y(t) = \sum A_n|H(n\omega _0)|\cos(n\omega_0t+ \varphi + \angle H(n\omega _0))
+\] 
+
+Fourier transform properties
+\begin{align*}
+&x(at)\to  \frac{1}{|a|}X(\frac{\omega}{a}), \qquad x(t) \to  \to  2\pi x(\omega) \\
+&x(t-\Delta) \to X(\omega )e^{-j\omega \Delta}, \qquad x(t)e^{j\omega_0 t} \to X(\omega -\omega _0)\\
+&\frac{d x(t)}{d t} \to j\omega X(\omega), \qquad \int_{-\infty}^tx(\tau)d\tau \to \frac{X(\omega )}{j\omega  }+ \pi X(0)\delta(\omega ) \\
+&f(t)\ast g(t) \to F(\omega )G(\omega ), \qquad f(t)g(t) \to \frac{1}{2\pi}F(\omega )\ast G(\omega )
+\end{align*}
+
+\begin{center}
+\begin{tabular}{cc}
+  \textbf{Signal} & \textbf{Fourier transform}\\
+  $\delta(t)$ & $1$ \\
+  $1$ & $2\pi \delta(\omega)$\\
+  $u(t)$ &  $\pi \delta(\omega ) + \frac{1}{j\omega }$ \\
+  $\Pi (\frac{t}{T})$ & $Tsinc(\frac{\omega T}{2\pi})$ \\
+  $\Delta  (\frac{t}{T})$ & $Tsinc^2(\frac{\omega T}{2\pi})$ \\
+  $\cos(\omega _0t)$ & $\pi\delta(\omega -\omega _0)+ \pi\delta(\omega +\omega _0)$\\
+  $\sin(\omega _0t)$ & $-j\pi\delta(\omega -\omega _0)+ j\pi\delta(\omega +\omega _0)$\\
+  $sinc(\frac{\omega _0 t}{\pi})$ & $\frac{\pi}{\omega _0}\Pi(\frac{\omega }{2\omega _0})$\\
+  $sign(t)$ &   $\frac{2}{j\omega }$\\
+  $e^{-at}u(t)$ & $\frac{1}{a+j\omega }$ \\
+  $\frac{1}{t}$ & $-j\pi sign(\omega)$
+\end{tabular}
+\end{center}
+
+Z-transform properties
+\begin{align*}
+  &x[n-n_0] \to z^{-n_0}X(z), \quad x[-n] \to X(\frac{1}{z})\\
+  &a^nx[n] = X(\frac{z}{a}), \quad nx[n] \to -z\frac{d X(z)}{d z} 
+\end{align*}
+
+\begin{center}
+\begin{tabular}{cc}
+  \textbf{Signal} & \textbf{Z-transform}\\
+  $\delta[n]$ & $1$ \\
+  $p_N[n]$ &  $\frac{1-z^{-N}}{1-z^{-1}}$ \\
+  $u[n]$ &  $\frac{1}{1-z^{-1}}$ \\
+  $\cos(\Omega_0n)u[n]$ & $\frac{1-\cos(\Omega_0)z^{-1}}{1-2\cos(\Omega _0)z^{-1}+z^{-2}}$\\
+  $\sin(\Omega_0n)u[n]$ & $\frac{\sin(\Omega_0)z^{-1}}{1-2\cos(\Omega _0)z^{-1}+z^{-2}}$
+\end{tabular}
+\end{center}
+
+Compute inverse Z-transform
+\begin{align*}
+  & X(z) = \frac{d_0+d_1z^{-1}+\cdots d_Mz^{-M}}{c_0 + c_1z^{-1} + \cdots c_Nz^{-N}} \\
+  & X(z) = \sum_{r=0}^{M-N} B_rz^{-r} + \sum_{k=1}^{N} \frac{A_k}{1-p_kz^{-1}}\\
+  & x[n] = \sum_{r=0}^{M-N} B_r \delta(n-r) + \sum_{k=1}^{N}A_kp_k^n u[n]
+\end{align*}
+
+Connections
+
+Serie: $H = H_1H_2$ \quad Parallel:  $H = H_1+H_2$
+
+Estabilidad
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Estable si $p_k \in D \ \forall k$
+  \item Marginalmente estable si $p_k \in \overline{D} \ \forall k$ 
+  \item Inestable si $\ \exists k: p_k \not\in \overline{D}$ 
+\end{itemize}
+
+DFT
+\begin{align*}
+  & X_N[k]  = DFT_{N}[x[n]] = X(e^{j\Omega})|_{\Omega = k \frac{2\pi}{N}} =\\
+  &= \sum_{n=0}^{N-1}x[n]e^{-j\Omega n} |_{\Omega =k \frac{2\pi}{N}} = \sum_{n=0}^{N-1}x[n]e^{-j \frac{2\pi}{N}kn} \\
+  & x_N[n] = \frac{1}{N}\sum_{k=0}^{N-1} X_N[k]e^{j \frac{2\pi}{N}kn}
+\end{align*}
+
+Properties
+\begin{align*}
+  x[n]e^{j \frac{2\pi}{N}k_0n} &\to \tilde{X}_{N}[k-k_0]p_N[k]\\
+  x[n]\cdot y[n] &\to \frac{1}{N} X_N[k]\circ Y_N[k]\\
+  x[n] \circ y[n] & \to  X[n]Y[n]\\
+  \tilde{x}_N[n-m]\cdot p_N[n] &\to X_N[k]e^{-j \frac{2\pi}{N}km}
+\end{align*}
+
+DFT of $A\cos(2\pi \frac{k_0}{N})$ :
+\[
+  X(k) = 
+\begin{cases}
+  \frac{AN}{2} &\text{ si } k = k_0, N-k_0 \\
+  0 &\text{ otherwise}
+\end{cases}
+\] 
+
+\section{Tema 3: Conversores A/D y D/A }
+\begin{center}
+\begin{tabular}{cc}
+  $f_s=\frac{1}{T}$ & frecuencia de sampleo (Hz)\\
+  $\omega _2 = \frac{2\pi}{T}=2\pi f_s$ & frecuencia de sampleo (rad/s)\\
+  $\omega _m$ & frecuencia máxima
+\end{tabular}
+\end{center}
+
+Criterio de Nyquist $\omega_s>2\omega _m$
+
+Antialiasing filter $H(\omega )=\Pi(\frac{\omega }{\omega _s}), \ \Omega  = \omega T$
+
+Tipos de interpolación
+\begin{center}
+\begin{tabular}{cc}
+  Linear & $h(t)=\Lambda(\frac{t}{T}), \ $ \\
+  ZOH & $h(t)=\Pi(\frac{t-T /2}{T}), \ H(\omega ) = Tsinc( \frac{\omega}{\omega _s})e^{-j\omega \frac{T}{2}}$\\
+  Ideal & $h(t)=sinc\left(\frac{t}{T}\right), \ H(\omega )=\Pi (\frac{\omega }{\omega _s})$
+\end{tabular}
+\end{center}
+
+Transformada señal digital
+\begin{align*}
+  p(t) = \sum \delta(t-nT) \Rightarrow P(\omega ) = \frac{2\pi}{T}\sum \delta (\omega -\frac{2\pi}{T}k) \\
+  y(t)=x(t)p(t) \Rightarrow Y(\omega ) = \frac{1}{T}\sum X(\omega -\frac{2\pi}{T}k)
+\end{align*}
+
+Diezmado
+\incfig{Diezmado}
+
+Interpolacion
+\incfig{Interpolacion}
+
+\section{Tema 4: Random signals}
+
+Cumulative distrubution function (cdf) and probability density function (pdf)
+\[
+F_X(x_1;t_1) = P(X(t_1)\le x_1), \quad f_X(x_1;t_1) = \frac{\partial F_X(x_1; t_1)}{\partial x_1}
+\] 
+
+\begin{definition}[Mean]
+\[
+m_X(t) = E[X(t)] = \int_{-\infty}^\infty xf_X(x, t)dx
+\] 
+\end{definition}
+
+\begin{definition}[Auto-correlation]
+\begin{align*}
+  & r_X(t_1, t_2) = E[X(t_1)X^*(t_2)] = \int \int x_1x_2^* f_X(x_1, x_2; t_1, t_2)dx_1dx_2 \\
+  & \overline{r}_{X}(\tau ) = \frac{1}{T} \int_{0}^T r_X(t+\tau ,t) dt
+\end{align*}
+\end{definition}
+
+
+\begin{definition}[Instantaneous power]
+\[
+P_X(t) = E[|X(t)|^2] = r_X(t,t)
+\] 
+\end{definition}
+
+\begin{definition}[Auto-covariance]
+\[
+c_X(t_1, t_2) = r_X(t_1, t_2) - m_X(t_1)m_X(t_2)
+\] 
+\end{definition}
+
+\begin{definition}[Variance]
+\[
+\sigma^2_{X}(t) = c_X(t,t) = r_X(t, t) - m_X(t)m_X^*(t)
+\] 
+\end{definition}
+
+\begin{definition}[Cross-correlation] Orthogonal $ r_{XY} = 0$
+\[
+r_{XY}(t_1, t_2) = E[X(t_1)Y^*(t_2)]= \int\int xy^*f_{XY}(x, y; t_1, t_2)dxdy
+\] 
+\end{definition}
+
+\begin{definition}[Cross-Covariance] Uncorrelated $ c_{XY} = 0$
+\[
+c_{XY}(t_1,t_2) = r_{XY}(t_1,t_2) - m_X(t_1)m_Y^*(t_2)
+\] 
+\end{definition}
+
+Independence $\Rightarrow$ Uncorrelation
+\begin{align*}
+  & \text{Independence} \iff f_{XY}(x, y) = f_X(x)f_Y(y) \\
+  & \text{Uncorrelation} \iff E[XY] = E[X]E[Y]
+\end{align*}
+
+\begin{definition}[Stationary] .
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item 1st order:  $f_X(x;t)=f(x; t+\Delta ) \ \forall t, \Delta $
+    \item 2nd order:  $f_X(x_1, x_2;t_1,t_2)=f(x_1,x_2; t_1+\Delta, t_2+\Delta ) \ \forall t_1, t_2, \Delta $
+	\item WSS  $m_X(t) = cte, \quad r_X(t_1, t_2) = r_X(\tau )$
+	\item jointly WSS  $X, Y $ WSS$, \quad r_{XY}(t_1, t_2) = r_X(\tau )$
+	\item Cyclostationary $m_x(t), r_X(t, t+\tau $ periodic
+  \end{itemize}
+\end{definition}
+
+Properties
+\begin{align*}
+& r_{X}(\tau ) = r^*_{X}(-\tau ), \quad r_{XY}(\tau ) = r^*_{XY}(-\tau )\\
+& |r_{XY}(\tau )| \le \sqrt{r_X(0)r_Y(0)}\\
+& r_{X+Y} = r_X(\tau ) + r_Y(\tau ) + r_{XY}(\tau ) + r_{YX}(\tau )
+\end{align*}
+
+\begin{definition}[Power spectral density (PSD)]
+\[
+S_X(\omega ) = \lim_{T\to  \infty} \frac{E[|X_T(\omega , S)|^2]}{2T}
+\]
+\end{definition}
+
+\begin{theorem}[Wiener-Khinchin]
+  $S_X(\omega )=F[\overline{r}_X(\tau )]$
+\end{theorem}
+
+Properties of PSD
+\begin{align*}
+  & S_X(\omega ) \ge 0, \quad S_X(\omega ) = S_X(-\omega ) \\
+  & P_X = \frac{1}{2\pi} \int_{-\infty}^{\infty} S_X(\omega ) d\omega 
+\end{align*}
+
+WSS process before filter $H(\omega )$
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Mean $m_Y = m_xH(0)$
+  \item  Cross-correlation  $r_{YX}(\tau ) = r_X(\tau )\ast h(\tau )$ 
+  \item Auto-correlation $r_Y(\tau )=r_X(\tau )\ast h(\tau )\ast h^*(-\tau )$
+  \item Spectral density $S_Y(\omega ) = S_X(\omega )|H(\omega )|^2$
+\end{itemize}
+
+\begin{definition}[Auto-correlation matrix]
+\[
+  R_X=  \begin{pmatrix} r_X[0] & r_X[1] & \cdots & r_X[L-1] \\
+	r^*_X[1] & r_X[0] & \cdots & r_X[L-2] \\
+	\vdots & \vdots & \ddots & \vdots \\
+	r^*_X[L-1] & r_X^*[L-2] & \cdots & r_X[0]
+\end{pmatrix} 
+\] 
+\end{definition}
+
+Properties of $R_X$
+ \begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $T_X = Q\Lambda Q^H$
+  \item  $P_Y=h^HR_Xh = \sum \lambda_i|h^Hq_i|^2$
+\end{itemize}
+
+\begin{definition}[Gaussian random variable]
+\begin{align*}
+  &f_X(x)=\frac{1}{\sqrt{2\pi\sigma _X^2}} e^{-\frac{(x-m_x)^2}{2\sigma ^2_{X}}}\\
+  &f_X(x)=\frac{1}{\pi\sigma _X^2} e^{-\frac{|x-m_x|^2}{\sigma ^2_{X}}} \\
+  &f_X(x)=\frac{1}{(2\pi)^{L /2}|C_X|^{1 /2}} e^{-\frac{1}{2}(x-\mu_X)^TC_X^{-1}(x-\mu_X)}\\
+  &f_X(x)=\frac{1}{(\pi)^{L}|C_X|} e^{-(x-\mu_X)^HC_X^{-1}(x-\mu_X)}
+\end{align*}
+\end{definition}
+
+\section{Tema 5: Estimation theory}
+
+\begin{definition}[Bias] $b_{\hat{\theta}} = E[\hat{\theta} (x)-\theta ] = \mu_{\hat{\theta }} -\theta $
+\end{definition}
+
+\begin{definition}[Covariance] 
+  \[
+    C_{\hat{\theta }} = E[(\hat{\theta }(x)-\mu_{\hat{\theta }})(\hat{\theta }(x)-\mu_{\hat{\theta }})^H], \qquad \sigma_{\hat{\theta}_i}^2 = (C_{\hat{\theta }})_{i,i}
+  \] 
+\end{definition}
+
+\begin{definition}[Mean square error (MSE)]
+  \[
+    M_{\hat{\theta }} = E[(\hat{\theta }(x)-\theta )(\hat{\theta }(x)-\theta )^H] = C_{\hat{\theta }} + b_{\hat{\theta }}b_{\hat{\theta }}^H
+  \] 
+\end{definition}
+
+\begin{definition}[Minimum Variance Unbiased Estimator (MVUE)]
+$b_{\hat{\theta }}=0, \quad \sigma_{\hat{\theta }}^2|_{min}$
+\end{definition}
+
+\begin{definition}[Sharpness] $\displaystyle S = -E\left[\frac{\partial^2 \ln (f_{\theta }(x))}{\partial \theta ^2}\right]$
+\end{definition}
+
+\begin{definition}[Cramer-Rao Lower Bound (CRLB)]
+\[
+\sigma ^2_{\hat{\theta }} \ge \frac{1}{E\left[ \left| \frac{\partial ln (f_\theta (x)}{\partial \theta^* } \right|^2  \right]} = \frac{1}{-E\left[ \frac{\partial^2 ln (f_\theta (x)}{\partial \theta^* \partial\theta }  \right]}
+\] 
+\end{definition}
+
+\begin{definition}[Efficient estimator]
+\[
+\hat{\theta (x)}-\theta = CRLB(\theta )\cdot \frac{\partial \ln (f_\theta (x))}{\partial \theta } 
+\] 
+\end{definition}
+
+\begin{definition}[Fisher information matrix]
+\[
+  (J(\theta ))_{i, j} = E \left[ \frac{\partial^2 \ln f_\theta (x)}{\partial \theta^* _i \partial\theta _j} \right] = -E \left[ \frac{\partial \ln f_\theta (x)}{\partial \theta^* _i} \frac{\partial \ln f_\theta (x)}{\partial\theta _j} \right]
+\] 
+\end{definition}
+
+\begin{definition}[CRLB for multiple parameters] 
+\[
+  \sigma ^2_{\hat{\theta}_{i}}\ge (J^{-1}(\theta ))_{i, i}
+\] 
+\end{definition}
+
+\begin{definition}[Maximum Likelihood Estimator (MLE)]
+\[
+\hat{\theta }_{ML}(x) = \arg (\max_{\theta }f_\theta (x))
+\] 
+\end{definition}
+
+\begin{definition}[Maximum A Posteriori (MAP)]
+\[
+\hat{\theta }_{MAP}(x) = \arg (\max_{\theta }f_{\theta |x}(\theta |x))= \arg (\max_{\theta } f_{x|\theta }(x|\theta )f_\theta (\theta ))
+\] 
+\end{definition}
+
+\begin{definition}[Minimum Mean Square Error (MMSE)]
+\[
+\hat{\theta }_{MMSE}(x) = \int \theta f_\theta (\theta ) f_{x|\theta }(x|\theta )
+\] 
+\end{definition}
+
+
+
+
+\section{Tema 6: Spectral estimation}
+\begin{definition}[Windowed sequence] 
+  \[
+  x_v[n]=x[n]v[n]=x[n]p_N[n], \quad |V(e^{j\Omega})|=\frac{\sin(N\Omega / 2)}{\sin(\Omega  / 2)}
+  \] 
+\end{definition}
+
+\begin{definition}[Triangular window] 
+  \[
+    w[m]=\frac{1}{N}v[m]*v[-m] , \quad W(e^{j\Omega})=\frac{1}{N}\left|V(e^{j\Omega})\right|^2 
+  \] 
+\end{definition}
+
+\begin{definition}[Biased estimation of auto-correlation]
+  \begin{align*}
+  \hat{r}_X[m] = \frac{1}{N} x_v[m]\ast x_v^*[-m] = \frac{1}{N}\sum x[n+m]x^*[n]v[n+m]v[n]\\
+  E[\hat{r}_X[m]] = \left( 1-\frac{|m|}{N} \right) r_X[m],\ |m|\le N-1; \ 0 \text{ otherwise} 
+  \end{align*}
+\end{definition}
+
+
+
+\begin{definition}[Periodogram] Biased
+  \begin{align*}
+	\hat{S}_p(e^{j\Omega })&=F[\hat{r}[m]]=\frac{1}{N}|X_v(e^{j\Omega })|^2 \\
+	E[\hat{S}_p(e^{j\Omega })] &= \frac{1}{2\pi}\int_{-\pi}^{\pi}S_X(e^{j(\Omega-\theta )})\frac{1}{N}W(e^{j\theta })d\theta 
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Variance] (Very complicated, approximation)
+\[
+Var[\hat{S}_p(e^{j\Omega})]\approx (S_x(e^{j\Omega}))^2
+\] 
+\end{definition}
+
+\begin{definition}[Estimation of the power] Unbiased
+  \begin{align*}
+    \hat{P}_X = \frac{1}{2\pi}\int_{-\pi}^{\pi} \hat{S}_p(e^{j\Omega})d\Omega = \frac{1}{N}\sum|x[n]|^2 \\
+	E[\hat{P}_{X}] = E[\hat{r}_X[0]]=P_X
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Unbiased estimator of auto-correlation]
+\begin{align*}
+  &\breve{r}_X[m]= \begin{cases}
+    \frac{1}{N-|m|}\sum_0^{N-|m|-1}x[n+|m|]x^*[n],\ |m|\le N-1\\
+	0 \text{ otherwise}
+  \end{cases}\\
+  &E[\breve{r}_X[m]]=r_X[m] \text{ si } |m|\le N-1
+\end{align*}
+\end{definition}
+
+\begin{definition}[Modified Periodogram] (Any window)
+\[
+  \hat{P}_X=\frac{1}{N}\sum_{0}^{N-1}|v[n]|^2|x[n]|^2
+\] 
+\end{definition}
+
+\begin{definition}[Blackman-Tukey]
+Biased estimate of the auto-correlation ($\hat{r}_X[m], |m|\le N-1$) $\Rightarrow$ Windowing $\hat{r}_X[m]w_a[m], |m|\le L-1$ $\Rightarrow$ Fourier transform  $\hat{S}_{BT}(e^{j\Omega})=F[\hat{r}_X[m]w_a[m]]$ 
+
+The estimator is asymptotically unbiased if $N, L\to \infty , w_a[0]=1$
+\end{definition}
+
+\begin{definition}[Variance BT] $E_{W_a}$ energy of the window
+\[
+Var[\hat{S}_{BT}(e^{j\Omega})] \approx \frac{E_{W_a}}{N}S^2_X(e^{j\Omega})
+\] 
+\end{definition}
+
+(BARLETT-WELCH 36)
+\begin{definition}[Models] $w[n] \rightarrow \boxed{h(z)} \rightarrow x[n], r_w[0]=\sigma ^2$
+\begin{align*}
+  AR(p) \Rightarrow H(z)=\frac{1}{1+\sum_{1}^{p}a_kz^{-k}}\\
+  MA(q) \Rightarrow H(z) = 1+\sum_1^q b_kz^{-k}\\
+  ARMA(p,q) \Rightarrow H(z) = \frac{1+\sum_1^q b_kz^{-k}}{1+\sum _1^pa_kz^{-k}}
+\end{align*}
+\end{definition}
+
+\begin{definition}[Yule-Walker equations]
+\[
+R_x  \begin{pmatrix} a_1 \\ \vdots \\ a_p \end{pmatrix} = - \begin{pmatrix} r_x[1] \\ \vdots \\ r_x[p] \end{pmatrix} , \quad \sigma ^2 = r_x[0]+\sum_1^pa_kr_x[-k]
+\] 
+\end{definition}
+
+
+\section{Tema 7: Wiener Filtering}
+\incfig{wiener}
+\[
+g = \vb{h}^H = [h^*[0], \ldots, h^*[Q-1]], \quad \vb{x}[n] = [x[n], \ldots, x[n-Q+1]]^T
+\] 
+
+\begin{definition}[Linear MSE estimator] 
+\[
+y[n]=\vb{h}^H\vb{x}[n], \quad e[n] = d[n]-y[n]
+\] 
+\end{definition}
+
+\begin{theorem}[MSE]
+ \[
+\xi = E[|e[n]|^2] = P_d + \vb{h}^H\vb{R}_x\vb{h} - \vb{h}^H\vb{r}_{xd} -\vb{r}_{xd}^H\vb{h}
+\] 
+\end{theorem}
+
+\begin{definition}[Wiener-Hopf equations](minimize MSE)
+\[
+\vb{R}_x\vb{h}_{opt}= \vb{r}_{xd} \Rightarrow \vb{h}_{opt}=\vb{R}_x ^{-1}\vb{r}_{xd}
+\] 
+\end{definition}
+
+\begin{proposition}MSE not using Wiener filter 
+\begin{align*}
+&\xi = \xi _{min} + (\vb{h}-\vb{h}_{opt})^H\vb{R}_x(\vb{h}-\vb{h}_{opt}) \\
+&E[\xi ]= \xi_{min} + trace(\vb{R}_xE[(\vb{h}-\vb{h}_{opt})(\vb{h}-\vb{h}_{opt})^H])
+\end{align*}
+\end{proposition}
+
+
+\textbf{Linear prediction}
+\incfig{predictor}
+
+\begin{align*}
+  & y[n] = \hat{x}[n] = \vb{h}^H\vb{x}[n-\Delta], \quad \xi _{min} = r_x[0]-\vb{h}_{opt}^H\vb{R}_x\vb{h}_{opt} \\
+  & \vb{r}_{xd}=[r_x[-\Delta ], \ldots, r_x[-\Delta -Q+1]]^T,\quad \vb{h}_{opt} = \vb{R}_x ^{-1}\vb{r}_{x}[-1]
+\end{align*}
+
+Gradient method. Given a filter $h^{(k)}$ we want to find a new one $h^{(k+1)}$ with lower MSE. (Minimize $(h^{(k)}-h_{opt})^HR_x(h^{(k)}-h_{opt})$)
+\begin{align*}
+  & h^{(k+1)} = h^{(k)} - \mu \nabla_{h^*}\xi (h^{(k)}) = h^{(k)} - \mu(R_xh^{(k)} - r_{xd}) \\
+  & z^{(k)} := Q^H(h^{(k)}-h_{opt}) \Rightarrow z^{(k+1)} = (I-\mu \Lambda)z^{(k)}
+\end{align*}
+
+Condiciones de convergencia
+\begin{align*}
+& 0<\mu<\frac{2}{trace(R_x)}\le \frac{2}{\lambda_{max}}, \quad \mu_{opt}= \frac{2}{\lambda_{min}+\lambda_{max}}\\
+& N_{ite} = \frac{\ln \varepsilon }{\ln|1-\mu\lambda_i|}, \quad \chi := \frac{\lambda_{max}}{\lambda_{min}}
+\end{align*}
+
+\begin{definition}[Instantaneus estimate of gradient (LMS)]
+\[
+\nabla \xi (h^{(n)}) = -x[n]e^*[n] \Rightarrow h^{(n+1)} = h^{(n)} + \mu x[n]e^*[n]
+\] 
+\end{definition}
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,18 @@
+\frametitle{Módulos inyectivos}
+\begin{block}{Proposición}
+  Si $R$ es regular y  $E$ un $R-$módulo inyectivo, entonces $F(E)\cong E$
+\end{block}
+
+\begin{block}{$E^\bullet$ resolución inyectiva de $M$}
+\[
+E^i = \bigoplus_{\mathfrak{p}\in \Spec (R)} E_R(R / \mathfrak{p}) ^{\mu _i(\mathfrak{p}, M)}
+\]
+donde los números de Bass se pueden calcular de la siguiente manera
+\[
+  \mu _i(\mathfrak{p}, M) = \rank _{k(\mathfrak{p})}\Ext ^i_{R_{\mathfrak{p}}} (k(\mathfrak{p}), M_{\mathfrak{p}})
+\]
+\end{block}
+
+\begin{block}{(Huneke,-Sharp)} Sea $(R, \mathfrak{m})$ un anillo regular local decaracterística $p$. Entonces los números de Bass $\mu_{i}(\mathfrak{p}, H_I^j(R))$ son finitos.
+\end{block}
+\end{block}

@@ -1,0 +1,578 @@
+\documentclass[12pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {2ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {2ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\footnotesize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\tiny\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{tabular}{@{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}@{}}
+
+\begin{center}
+     \large{\textbf{Formulario de F\'{i}sica}}\\
+     \tiny{Abel Doñate Muñoz}
+\end{center}
+
+
+\section{Cinemática}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet $\Bar{a}$ constante \\
+$\bar{x}=\bar{x_0}+\bar{v_0}t+\frac{1}{2}\bar{a}t^2$ 
+\\
+\\
+
+\textbullet MCUA \\
+$a_t=\frac{v^2}{R}=\omega^2R$ 
+\\
+\\
+
+\textbullet $|a|$ constante \\
+$\bar{a}= a_t\hat{\tau}+a_n\hat{n}$ 
+\\
+\\
+
+
+\textbullet Comparación de variables \\
+$x  = r\phi$ \\
+$v  = r\omega$ \\
+$a  = r\alpha$ \\
+$m \ \Rightarrow I=mr^2$ \\
+$p=mv \Rightarrow L=I\omega=r\times p$ \\
+$F=ma \Rightarrow \tau=I\alpha=r\times F$ 
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+\subsection{Fricción}
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Estática y dinámica \\
+$F_{fmax}=\mu_eN$\\
+$F_{fd}=\mu_dN$\\
+$\mu_d<\mu_e$\\
+\\
+
+\textbullet En fluídos $v$ \\
+$F_D=-bv \Rightarrow ma=mg-bv$ \\
+$\gamma = \frac{b}{m}$ \\
+$v_z=\frac{g}{\gamma} - \left( \frac{g}{\gamma} - v_{z0} \right)e^{-\gamma t}$ \\
+$z = z_0+ \frac{g}{\gamma}t - \frac{1}{\gamma}\left( \frac{g}{\gamma} - v_0 \right)\left( 1- e^{-\gamma t} \right)$
+\\
+\\
+
+\textbullet En fluídos $v^2$ \\
+$F_D=-bv^2 \Rightarrow ma=-bv^2$ \\
+$v = \frac{v_0}{1+v_0\gamma t}$ \\
+$x=x_0 + \frac{ln(1+v_0\gamma t)}{\gamma}$
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+% SECOND COLUMN PAGE TABLE
+&
+
+\section{Energía}
+
+\begin{tabular}{@{}p{\linwidth}@{}}
+
+\textbullet Trabajo \\
+$W=\int_{r_a}^{r_b}{\bar{F}\cdot d\bar{r}}$
+\\
+\\
+
+\textbullet Energías \\
+Cinética $K= \frac{1}{2}mv^2$ \\
+Pot. gravitatoria $U=mgh$ \\
+Pot. elástica $U = \frac{1}{2}kx^2$ 
+\\
+\\
+
+\textbullet Impulso \\
+$I=\int_{t_1}^{t_2}{Fdt}=\Delta p$
+\\
+\\
+
+\textbullet Potencia\\
+$P=\frac{dW}{dt}=Fv$
+\\
+\\
+
+\textbullet En un campo conservativo \\
+$\bar{F}=-\nabla U$
+\\
+\\
+
+\textbullet Sistema no conservativo \\
+$E_{m_f}=E_{m_0}+W_{nc}$ \\
+$W_{nc}=\Delta E_c + \Delta U$ 
+\\
+\\
+
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+% THIRD COLUMN PAGE TABLE
+&
+\section{Oscilaciones}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Variables
+\begin{itemize}
+    \item $m\ddot{x} +b\dot{x}+kx=F_0cos(\omega t)$
+    \item $\omega_0=\sqrt{\frac{k}{m}}$
+    \item $\gamma=\frac{b}{2m}$
+    \item $\omega_1 = \sqrt{\omega_0^2-\gamma^2}$
+    \item $D=m\sqrt{(\omega_0^2-\omega^2)^2+(2\gamma \omega)^2}$
+    \item $A^2 = x_0^2+ \frac{v_0^2}{\omega_0^2}$
+    \item $tan(\phi)= -\frac{v_0^2}{x_0 \omega_0}$
+\end{itemize}
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+\section{Tipos de Osciladores}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Débilmente amortiguado $(\omega_0 > \gamma)$ \\
+$x=Ae^{-\gamma t}sin(\omega_1t+\phi)$\\
+$A_0^2=x_0^2+(\frac{\gamma x_0+v_0}{\omega_1})^2$\\
+$tan(\phi) = \frac{\omega_1 x_0}{\gamma x_0 + v_0}$ \\
+Muy débil $|\Delta E/E|_T \approx T/\tau_E$
+\\
+\\
+
+\textbullet Críticamente amortiguado $(\omega_0 = \gamma)$\\
+$x=(A+Bt)e^{-\gamma t}$
+\\
+\\
+
+\textbullet Fuertemente amortiguado $(\omega_0 < \gamma)$ \\
+$x=A_1e^{-\gamma_1 t} + A_2e^{-\gamma_2 t}$\\
+$\gamma_1 = \gamma - \sqrt{\gamma^2-\omega_0^2}$ \\
+$\gamma_2 = \gamma + \sqrt{\gamma^2-\omega_0^2}$ \\
+$A_1=\frac{v_0+\gamma_2 x_0}{\gamma_2 - \gamma_1}$ \\
+$A_2=\frac{v_0+\gamma_1 x_0}{\gamma_1 - \gamma_2}$
+\\
+\\
+
+\textbullet Forzado \\
+$x=x_h+x_p$\\
+$x_p=A_pcos(\omega t - \beta)$\\
+$tan\beta=\frac{2 \gamma \omega}{\omega_0^2-\omega^2} = \frac{b\omega}{k-m\omega^2}$\\    
+$A_p=\frac{F_0}{D} = \frac{F_0}{m\sqrt{(\omega_0^2-\omega^2)^2+(2\gamma \omega)^2}}$\\
+(Impedancia mecánica) \\
+$Z=\frac{D}{\omega} = \sqrt{b^2 + (mk-k/\omega)^2}$\\
+$cos(\beta - \pi)= \frac{b}{Z}, \ sin(\beta - \pi) = \frac{m\omega - k/\omega}{Z}$
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+
+
+
+
+% FOURTH COLUMN PAGE TABLE
+&
+
+
+
+\section{Energía y potencia}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet  Energía\\
+Si $\gamma << \omega_0$:\\
+$E =\frac{1}{2}kA(t)^2= \frac{1}{2}kA_0^2e^{-2\gamma t}$ \\
+\\
+
+\textbullet  Potencia\\
+$P=-F\dot v=F_0 \omega A_p cos(\omega t)sin(\omega t -\beta)$ \\
+$<P>=\frac{1}{T}\int F_{ext}vdt=\frac{bF_0^2}{2Z^2}$ \\
+\\
+
+\section{Resonancia}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet  Frecuencia\\
+$\omega_A=\omega_0 \to D_{min}=b\omega \to A_{max}$ \\ 
+Velocidad máxima \\
+$V_0=A\omega=\frac{F_0}{Z} = \frac{F_0}{b} \Rightarrow \omega = \omega_0$ \\
+$<P> = \frac{F_0^2}{4m\gamma}$ \\
+\\
+
+\textbullet  Banda\\
+$\omega=\omega_0 \pm \gamma$ \\
+$<P>=\frac{F_0^2}{8m\gamma}$ \\
+
+\end{tabular}
+
+
+\section{Variables de calidad}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet  Constante de tiempo (Energía)\\
+$\tau_E=\frac{1}{2\gamma}$ \\
+el tiempo que pasa de tener $E$ a $E/e$
+\\
+\\
+
+\textbullet Teorema del trabajo-energ\'{i}a  \\
+$n=\frac{\tau_E}{T}$ las oscilaciones antes de $\tau_E$
+\\
+\\
+
+\textbullet Factor de calidad \\
+$Q=\frac{2\pi}{|\frac{\Delta E}{E}|_T}=\frac{\omega_1}{2\gamma}=2\pi n$
+\\
+\\
+
+\end{tabular}
+
+\section{Péndulo}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet  Periodo del péndulo\\
+$T=2\pi\sqrt{\frac{l}{g}}$\\
+$\omega=\sqrt{\frac{g}{l}}$\\
+\\
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+\newpage
+
+\begin{tabular}{@{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}
+                @{}p{\linewidth / 4}@{}}
+                
+
+\section{Campo gravitatorio}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Ley de grav. universal \\
+$F(\bar{r})= -\frac{GMm}{r^2}\hat{r}$ 
+\\
+\\
+
+\textbullet Energía potencial grav. \\
+$U(r)= -\frac{GMm}{r}$ 
+\\
+\\
+
+\textbullet Momento angular y fuerza \\
+$\bar{L}=\bar{r}\times \bar{p}$ constante \\
+$\bar{\tau}=\bar{r}\times \bar{F}=\frac{d\bar{L}}{dt}=0$
+\\
+\\
+
+
+\textbullet Leyes de Kepler 
+\begin{itemize}
+    \item[1)] Órbitas elípticas casi circulares
+    \item[2)] Áreas = en tiempos =
+    \item[3)] $T^2 \propto R^3$
+\end{itemize}
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+\subsection{Coordenadas polares}
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Vectores unitarios \\
+$\bar{r}=x\hat{i}+ y\hat{j} = r\hat{r}$ \\
+$\hat{r}=cos(\theta)\hat{i} + sin(\theta)\hat{j}$\\
+$\hat{\theta}=-sin(\theta)\hat{i} + cos(\theta)\hat{j}$
+\\
+\\
+
+\textbullet  Velocidad y $L$\\
+$\bar{v}= \dot{r}\hat{r} + r\dot{\theta}\hat{\theta}=$ radial + angular \\
+$L_0=mr^2\dot{\theta}\hat{k} \Rightarrow r^2\dot{\theta}$ const 
+\\
+\\
+
+\textbullet Energía \\
+$E=K+U=\frac{1}{2}m\dot{r}^2 + V_{eff}$ \\
+$v_{eff} = \frac{L_0^2}{2mr^2} - \frac{GMm}{r}$\\
+Dependiendo de $V_{eff}$ la órbita es:
+\begin{itemize}
+    \item $E>0 \Rightarrow $ Hiperbólica
+    \item $E=0 \Rightarrow$ Parabólica
+    \item $V_{eff min}<E<0 \Rightarrow$ Elíptica
+    \item $E=V_{eff min} \Rightarrow$ Circular
+\end{itemize}
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+% SECOND COLUMN PAGE TABLE
+&
+
+\section{Órbitas}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Ecuación diferencial \\
+$\dot{\theta}= \frac{L_0}{mr^2}$\\
+$\dot{r} = \sqrt{\frac{2}{m}(E-V_{eff}(r))}$ \\
+$r(\theta) = \frac{\alpha}{1+ \varepsilon cos(\theta)}$
+\\
+\\
+
+\textbullet Variables \\
+$\alpha = \frac{L_0^2}{GMm^2} = \frac{b^2}{a} = a(1-\varepsilon^2)$ \\
+$\varepsilon = \sqrt{1+ \frac{2\alpha E}{GMm}} = \frac{c}{a}$ \\
+$T=2\pi \sqrt{\frac{a^3}{GM}}$
+Perihelio $r_p = \frac{\alpha}{1 + \varepsilon}$ \\
+Afelio $r_a = \frac{\alpha}{1 - \varepsilon}$
+\\
+\\
+
+\textbullet Órbitas circulares \\
+$V_{orb}= \sqrt{\frac{GM}{R_{orb}}}$ \\
+$V_{esc}= \sqrt{\frac{2GM}{R_{T}}}$
+\\
+\\
+
+\textbullet Órbitas circulares \\
+$2a=b+c=r_p+r_a$ \\
+$E=-\frac{GMm}{2a}$
+$V_{esc}= \sqrt{\frac{2GM}{R_{T}}}$
+\\
+\\
+
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+% THIRD COLUMN PAGE TABLE
+&
+\section{Sistemas de partículas}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet Ecuaciones centro masa\\
+$\bar{r}_{CM}=\frac{\sum m_i\bar{r}_i}{M}$ \\
+\\
+
+\textbullet Ecuaciones \\
+$\bar{p}=M\bar{v}_{CM}$ \\
+$\bar{F}=M\bar{a}_{CM}$ \\
+$F^{ext}=\frac{dp}{dt}$ \\
+\\
+
+\textbullet Conservación de variables \\
+$\bar{L}= m_i\bar{r}_i\times \bar{v}_i$ \\
+$\tau_i=\frac{dL}{dt}$\\
+$\tau^{ext}=\frac{dL}{dt}$ \\
+$E=K+U$ const. $\iff$ $F_i$ conserv. \\
+
+\subsection{Choques}
+
+\textbullet Choques elásticos \\
+$p, K$ se conservan \\
+$m_1(v_1-u_1)=m_2(u_2-v_2)$\\
+$v_2-v_1=-(u_2-u_1)$ \\
+$u_1=\frac{m_1-m_2}{m_1+m_2}v_1+\frac{2m_2}{m_1+m_2}v_2$ \\
+$u_2=\frac{2m_1}{m_1+m_2}v_1+\frac{m_2-m_1}{m_1+m_2}v_2$ \\
+\\
+
+\textbullet Choques inelásticos \\
+$p$ se conserva, $K$ no \\
+$m_1(v_1-u_1)=m_2(u_2-v_2)$\\
+$v_2-v_1=-e(u_2-u_1); \ 0\leq e<1$ \\
+\\
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+\section{Masa variable}
+
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\textbullet  Conservación de $p$)\\
+$dp=vdm + mdv -udm = 0$ \\
+$ma=-v_{rel}\frac{dm}{dt}$ \\
+$v= v_0+ v_{rel}ln(\frac{m(t)}{m_0})$
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+% FOURTH COLUMN PAGE TABLE
+&
+
+\section{Vectores}
+\begin{tabular}{@{}p{\linewidth}@{}}
+
+\hspace{0.5em} 
+$F_x = F \cos\theta$ 
+\\
+\hspace{0.5em} 
+$F_y = F \sin\theta$ 
+\\
+\hspace{0.5em} 
+$\vec{F} = \vec{F_x} + \vec{F_y} = F\cos\theta_{\hat{i}} + F\sin\theta_{\hat{j}}$ 
+\\
+\hspace{0.5em} 
+$F = \sqrt{F_x^2 + F_y^2}$ 
+\\
+\hspace{0.5em} 
+$\theta = \tan^{-1} \frac{F_y}{F_x}$ 
+\\
+\\
+
+\textbullet Distancia entre dos puntos en el espacio \\
+\hspace{0.5em} 
+$\left|P_1P_2\right| = $ 
+\\
+\hspace{0.8em} 
+$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$
+\\
+\\
+
+\textbullet Vector unitario \\
+\hspace{0.5em} 
+$\hat{u} = \frac{\vec{QP}}{\left\|\vec{QP}\right\|} = \frac{P-Q}{\left\|P-Q\right\|}$ 
+\\
+\hspace{0.5em} 
+$\vec{T} = T\hat{u}$ 
+\\
+\\
+
+
+\textbullet Cosenos directores \\
+\hspace{0.5em} 
+$\theta_x = \cos^{-1}\frac{F_x}{F}$ 
+\\
+\\
+\hspace{0.5em} 
+$\theta_y = \cos^{-1}\frac{F_y}{F}$ 
+\\
+\\
+\hspace{0.5em} 
+$\theta_z = \cos^{-1}\frac{F_z}{F}$ 
+\\
+\\
+
+\end{tabular}
+\vspace{-1.5em}
+
+
+\end{tabular}
+\vspace{-1.5em}
+
+\end{document}

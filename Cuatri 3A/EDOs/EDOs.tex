@@ -1,0 +1,142 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{a}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ecuaciones diferenciales lineales}
+\begin{definition}[EDO lineal]. Decimos que una  EDO es lineal si es de la forma $\dot{x} = A(t)x + b(t)$ \\
+  Además se llama
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Homogénea si $b(t) = 0$
+    \item De coeficientes constantes si $A$ es constante
+  \end{itemize}
+
+\end{definition}
+
+\begin{theorem}[Existencia y unicidad] Sea  $A$ una matriz con coeficientes continuos. Entonces hay una única solución $\varphi$ a
+  \[
+  \dot{x} = A(t)x + b(t), \qquad x(t_0) = x_0
+  \] 
+\end{theorem}
+
+\begin{definition}[Flujo] Por el teorema anterior está bien definida la siguiente aplicación
+  \[
+  \varphi : I \times I \times \mathbb{R}^n \to  \mathbb{R}^n \quad \text{tal que} \qquad (t, t_0, x_0) \mapsto \varphi (t, t_0, x_0)
+  \] 
+
+\end{definition}
+
+\begin{definition}[Matriz exponencial] $\displaystyle e^{tA}:= \sum \frac{A^kt^k}{k!}$
+\end{definition}
+
+\begin{theorem}[Forma canónica de Jordan] Sea $A \in \mathcal{M}_{n\times n}$. $\ \exists C\in \mathcal{M}_{n\times n}$ tal que
+  \[
+	J = C^{-1}AC = \begin{pmatrix} J_1 & & \\ & \ddots & \\ & & J_k \end{pmatrix}   \qquad \text{con} \qquad J_i =  \begin{pmatrix} \lambda_i & 1 & \cdots & 0 \\ & \lambda_i & 1 & \vdots \\ & & \lambda_i & 1 \\ & & & \lambda_i \end{pmatrix}  j
+  \] 
+\end{theorem}
+
+\begin{proposition}
+  A partir de la EDO $\dot{x} = Ax$ la podemos resolver con  $A= C^{-1}JC$ en
+  \[
+	x = e^{tA} = e^{tC^{-1}JC} = C^{-1}e^{tJ}C = C^{-1} \begin{pmatrix} e^{tJ_1} & & \\ & \ddots & \\ & & e^{tJ_k} \end{pmatrix} C
+  \] 
+\end{proposition}
+
+\begin{proposition}
+Sea $J$ un bloque de Jordan con  $\lambda$ en la diagonal. Entonces
+\[
+  e^{tJ} = \begin{pmatrix} 1 & t & \cdots & \frac{1}{(k-1)!}t^{k-1} \\ & 1 & \cdots & \frac{1}{(k-2)!}t^{k-2} \\ & & \ddots & \vdots \\ & & & 1  \end{pmatrix}  e^{t\lambda}
+\] 
+\end{proposition}
+
+\subsection{Órbitas y Retratos de fase}
+
+\begin{definition}[Órbita] Sea el sistema $\dot{x}=Ax, x_0\in \mathbb{R}^n$. Llamamos órbita de $x_0$ a
+   \[
+  \mathcal{O}(x_0) = \{\varphi (t, t_0, x_0)\in \mathbb{R}^n : t \in \mathbb{R}\}
+  \] 
+  Intuitivamente es el recorrido que hacen todas las soluciones de $\dot{x}=Ax$ que pasan en algún instante por $x_0$
+
+\end{definition}
+
+\subsection{Estabilidad}
+
+\begin{definition}[Estabilidad] Sea $\dot{x}=A(t)x+b(t)$ con $\gamma(t), \tilde{\gamma}$ decimos que el sistema es:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Estable.} $\ \forall t_0, \varepsilon >0 \ \exists \varepsilon : \|\gamma(t_0)-\tilde{\gamma}(t_0)\|<\delta \Rightarrow \|\gamma(t)-\tilde{\gamma}(t)\|<\varepsilon \ \forall t\ge t_0$
+ \item \textbf{Asintóticamente estable.} Estable y $\ \forall t_0 \ \exists \varepsilon >0: \|\gamma(t_0)-\tilde{\gamma}(t_0)\|<\varepsilon$ para algún $t_0 \Rightarrow \lim \|\gamma(t)-\tilde{\gamma}(t)\| =0$
+   \item \textbf{Inestable.} Si no es estable
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[Estabilidad según espectro] Sea el sistema $\dot{x}=Ax$ estudiamos la estabilidad de la solución $x=0$
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt] 
+    \item Si $Spec(A)\subseteq \{\Re(z)<0\} \Rightarrow $ Asintóticamente estable
+    \item Si $\ \exists \lambda\in Spec(A): \Re(\lambda)>0 \Rightarrow $ Inestable
+	\item Si $Spec(a)\subseteq \{\Re (z)\le 0\}$ y $Spec(A)\cap \{\Re(z)=0\}\neq \emptyset$ y las cajas de Jordan de $A$ con VAPs $\Re(\lambda)=0$ tienen tamaño $1 \Rightarrow $ Estable pero no Asintóticamente estable
+	\item El resto de casos $\Rightarrow$ Inestable
+  \end{enumerate}
+\end{theorem}
+
+
+
+\end{document}

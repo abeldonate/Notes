@@ -1,0 +1,329 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+\pdfsuppresswarningpagegroup=1
+
+\title{Geometría Diferencial}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Curvas}
+Podemos describir una variedad de tres maneras diferentes:
+\begin{itemize}
+  \item \textit{Explícita:} $z = f(x, y)$
+  \item \textit{Implícita:} $f(x, y)=0$
+  \item \textit{Paramétrica:} $(x(t), y(t), z(t))$
+\end{itemize}
+La que más usaremos en este curso es la paramétrica por su comodidad.
+
+\begin{definition}
+Una curva parametrizada en $\mathbb{R}^n$ es una función $\mathcal{C}^1$ 
+\[
+\beta : I \to \mathbb{R}^n
+\] 
+Se llama regular si $\|\beta'(t)\|>0 \ \forall t$
+\end{definition}
+
+Podemos calcular la longitud de un tramo de la curva de $t_0$ a $t_1$ con la integral
+\[
+\int_{t_0}^{t_1}\|\beta'(t)\|dt
+\] 
+
+\begin{definition}
+Un cambio de parámetro es una función biyectiva y $\mathcal{C}^1$
+\begin{align*}
+  \varphi : J & \to I \\
+  u & \to \varphi (u) = t
+\end{align*}
+tal que $\varphi '(u)\neq 0 \ \forall u$
+
+\end{definition}
+
+\begin{definition}
+El parámetro arco se define como
+\[
+s(t) = \int_{t_0}^{t}\|\beta '(u)\|du
+\]
+Es el parámetro con el que podemos recorrer la curva con el sentido físico de su longitud
+\end{definition}
+
+\begin{definition}
+Triedro de Frenet. $(T, N, B)$ forman una base ortonormal del espacio con
+ \[
+   T(t) = \frac{\beta'(t)}{\|\beta'(t)\|} \qquad N(t) =
+\frac{T'(t)}{\|T'(t)\|} \qquad
+B = T\times N
+\] 
+llamados los vectores \textbf{tangente}, \textbf{normal} y \textbf{binormal}
+\end{definition}
+
+\begin{definition}
+La \textbf{Curvatura} $k$ y la \textbf{Torsión} $\tau $ de de la curva $\alpha$ se definen como
+ \[
+k(s) = \|T'(s)\|= \langle T'(s) , N(s) \rangle   \qquad  \tau(s) = \langle N'(s) , B(s) \rangle 
+\] 
+\end{definition}
+Se deducen las siguientes fórmulas para parámetro arbitrario (completar):
+ \[
+k = \frac{\|\gamma' \times \gamma''\|}{\|\gamma'\|^3}
+\] 
+
+De las relaciones entre los vectores de la base de Frenet se deducen las \textbf{fórmulas de Frenet}:
+\begin{align*}
+  T' &= kN \\
+  N' &= -kT + \tau B \\
+  B' &= -\tau N 
+\end{align*}
+
+\begin{theorem}
+Teorema de Estructura. Dados $k(s), \tau (s), \alpha(0), T(0)$ existe una única $\alpha$ que reconstruye la curva
+\end{theorem}
+
+
+\section{Superficies}
+\begin{definition}
+Una \textit{superficie parametrizada regular} es una aplicación
+\[
+  \sigma : U \to \mathbb{R}^3, \quad \sigma(u, v) = \begin{pmatrix} x(u, v) \\ y(u, v) \\ z(u, v) \end{pmatrix} \text{ tal que } D\sigma = \begin{pmatrix} x_u & x_v \\ y_u & y_v \\ z_u & z_v \end{pmatrix}  \text{ tenga rango máximo} 
+\] 
+\end{definition}
+
+\begin{definition}
+Plano tangente. (completar)
+\end{definition}
+
+\subsection{Primera forma fundamental}
+La idea es codificar la superficie $S$ en una métrica sobre  $U$ para trabajar sobre las coordenadas  $u, v$
+
+Para cada punto sobre la superficie cogemos  $(\sigma_u, \sigma_v)$ como base para el plano tangente. Definimos la siguiente matriz
+\[
+P =   \begin{pmatrix} E & F \\ F & G \end{pmatrix} = \begin{pmatrix} \langle \sigma_u , \sigma_u \rangle & \langle \sigma_u , \sigma_v \rangle \\ \langle \sigma_u , \sigma_v \rangle & \langle \sigma_v , \sigma_v \rangle   \end{pmatrix} 
+\] 
+
+
+
+
+
+\subsection{Áreas}
+Si tenemos la parametrización $\sigma $, podemos calcular el area de la superficie como
+\[
+A = \iint_X\|\sigma _u\times \sigma _v\|dudv=  \iint_X \sqrt{EG-F^2}dudv
+\] 
+
+\subsection{Segunda forma fundamental}
+\begin{definition}
+Aplicación de Gauss.
+\[
+N: S\to \mathbb{S}^2 \text{ que nos devuelve el vector normal } N(q) = \frac{\sigma _u\times \sigma _v}{\|\sigma _u\times \sigma _v\|}
+\] 		
+\end{definition}
+
+\begin{definition}
+Aplicación de Weingarten.
+\[
+  DN: T_qS \to T_qS \quad \text{con la matriz } A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix} \text{ matriz de } DN \text{ en base }\sigma _u, \sigma _v 
+\] 
+\end{definition}
+
+Esta aplicación es autoadjunta (simétrica), por lo que puede definir una forma cuadrática.
+
+\begin{definition}
+\textbf{Segunda Forma Fundamental}. Dada la matriz
+\[
+  S = \begin{pmatrix} e & f \\ f & g \end{pmatrix} = \begin{pmatrix} -\langle \sigma _u , N_u \rangle & -\langle \sigma _u , N_v \rangle \\ -\langle \sigma _v , N_u \rangle & -\langle \sigma _v , N_v \rangle   \end{pmatrix} =   \begin{pmatrix} \langle \sigma _{uu} , N \rangle & \langle \sigma _{uv} , N \rangle \\ \langle \sigma _{uv} , N \rangle & \langle \sigma _{vv} , N \rangle   \end{pmatrix} =  -PA = -A^TP 
+\] 
+Tenemos la forma cuadrática asociada
+\[
+II: T_q\to \mathbb{R}, \qquad II(w) = -\langle w , DNw \rangle = w^TSw
+\] 
+en la base $\sigma _u, \sigma _v$
+\end{definition}
+
+\begin{definition}
+La \textbf{Curvatura de Gauss} es
+\[
+\det(DN) = \det(A) = \frac{\det(S)}{\det(P)}
+\] 
+\end{definition}
+Llamaremos a un punto elíptico si $K>0$ e hiperbólico si $K<0$
+
+
+\section{El teorema Egregium}
+\begin{definition}[Simbolos de Cristoffel]
+  definimos los símbolos de Cristoffel como los $\Gamma_{ij}^k$ tal que
+  \[
+  \begin{cases}
+    \sigma _{uu} = \Gamma_{11}^1\sigma _u + \Gamma_{11}^2 \sigma _v + eN \\
+    \sigma _{uv} = \Gamma_{12}^1\sigma _u + \Gamma_{12}^2 \sigma _v + fN \\
+    \sigma _{vv} = \Gamma_{22}^1\sigma _u + \Gamma_{22}^2 \sigma _v + gN
+  \end{cases}
+  \] 
+\end{definition}
+
+Podemos calcular los símbolos de Cristoffel con los siguientes sistemas
+\[
+  \begin{pmatrix} \frac{1}{2}E_u \\ F_u-\frac{1}{2}E_v \end{pmatrix}  = P\begin{pmatrix} \Gamma_{11}^1 \\ \Gamma_{11}^2 \end{pmatrix}  \qquad
+  \begin{pmatrix} \frac{1}{2}E_v \\ \frac{1}{2}G_u \end{pmatrix}  = P\begin{pmatrix} \Gamma_{12}^1 \\ \Gamma_{12}^2 \end{pmatrix} \qquad 
+  \begin{pmatrix} F_v-\frac{1}{2}G_u \\ \frac{1}{2}G_v \end{pmatrix}  = P\begin{pmatrix} \Gamma_{22}^1 \\ \Gamma_{22}^2 \end{pmatrix} 
+\] 
+O lo que viene a ser lo mismo
+\[
+  \begin{pmatrix} \Gamma_{11}^1 & \Gamma_{12}^1 & \Gamma_{22}^1 \\ \Gamma_{11}^2 & \Gamma_{12}^2 & \Gamma_{22}^2 &  \end{pmatrix}  = P^{-1} \begin{pmatrix} \frac{1}{2}E_u & \frac{1}{2}E_v & F_v - \frac{1}{2}G_u \\ F_u - \frac{1}{2}E_v & \frac{1}{2}G_u & \frac{1}{2}G_v \end{pmatrix} 
+\] 
+
+\begin{definition}[Fórmulas de Gauss] Las formulas de Gauss son:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $EK = (\Gamma_{11}^2)_v - (\Gamma_{12}^2)_u + \Gamma_{11}^1\Gamma_{12}^2 + \Gamma_{11}^2\Gamma_{22}^2 - \Gamma_{12}^1\Gamma_{11}^2 - \Gamma_{12}^2\Gamma_{12}^2$
+    \item $FK = (\Gamma_{12}^1)_u - (\Gamma_{11}^1)_v + \Gamma_{12}^1\Gamma_{12}^2 - \Gamma_{12}^2\Gamma_{11}^2$
+    \item $GK = (\Gamma_{22}^1)_u - (\Gamma_{12}^1)_v + \Gamma_{11}^1\Gamma_{22}^1 + \Gamma_{12}^1\Gamma_{22}^2 - \Gamma_{12}^1\Gamma_{12}^1 - \Gamma_{12}^2\Gamma_{22}^1$
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Egregium] La curvatura de Gauss $K$ es intrínseca
+\end{theorem}
+
+\begin{definition}[Ecuaciones de Codazzi-Mainardi] Se cumple:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $e_v-f_u = e\Gamma_{12}^1 + f(\Gamma_{12}^2 - \Gamma _{11}^1) - g\Gamma_{11}^2$
+	\item $f_v-g_u = e\Gamma_{22}^1 + f(\Gamma_{22}^2-\Gamma_{12}^1)-g\Gamma_{12}^2$
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Estructura para superficies] Sean $E, F, G, e, f, g$ funciones diferenciables tal que
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $E>0, G>0, EG-F^2>0$
+	\item Satisfacen las ecuaciones de Gauss y Codazzi-Mainardi
+  \end{enumerate}
+Entonces para cada punto $p$ existe una aplicación $\sigma $ que es la parametrización de una superficie regular con $E, F, G, e, f, g$ como coeficientes de las formas fundamentales
+\end{theorem}
+
+
+
+\section{Ejemplos de variedades}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Variedad} & \textbf{Parametrización} & \textbf{P} & \textbf{A} & \textbf{S} & \textbf{K} \\
+\hline
+Revolución & $\begin{pmatrix} \varphi (u)\cos v \\ \varphi (u) \sin v \\ \psi (u) \end{pmatrix} $ & $\begin{pmatrix} 1 & 0 \\ 0 & \varphi^2 \end{pmatrix} $ & $\begin{pmatrix} \varphi ''\psi '-\varphi '\psi ''& 0 \\ 0 & -\frac{\psi '}{\varphi } \end{pmatrix} $ & $\begin{pmatrix} \varphi '\psi ''-\varphi ''\psi '& 0 \\ 0 & \varphi \psi ' \end{pmatrix} $ & $\frac{-\varphi''}{\varphi }$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Geodésicas}
+\subsection{Isometrías}
+\begin{definition}[Isometría local]
+La aplicación $\varphi :S \to  S'$ es una isometría local en $p$ si $\ \forall p\in S, w_1, w_2\in T_pS$ tenemos 
+\[
+\langle w_1, w_2 \rangle = \langle D\varphi (w_1), D\varphi (w_2) \rangle 
+\] 
+\end{definition}
+
+\begin{proposition}
+Sean $\sigma , \tau :U\to \mathbb{R}^3$ dos parametrizaciones. $P_\sigma  = P_\tau$ (misma primera forma fundamental) $\iff \tau \circ \sigma ^{-1}$ es isometría local
+\end{proposition}
+
+\subsection{Campos vectoriales y derivada covariante}
+\begin{definition}[Campo tangente]
+ \[
+X(u, v)= a(u, v)\sigma _u + b (u, v)\sigma_v
+\] 
+Si ahora parametrizamos por la curva  $\gamma: u(t), v(t)$ 
+\[
+X(u(t), v(t)) = a(u(t), v(t))\sigma _u + b(u(t), v(t))\sigma _v
+\] 
+\end{definition}
+
+\begin{definition}[Derivada covariante]
+La derivada covariante de $X$ en la dirección $w$ es la componente tangencial de $D_w X$ 
+\[
+  \nabla _wX = \left[ a' + \begin{pmatrix} a & b \end{pmatrix} \begin{pmatrix} \Gamma_{11}^1 & \Gamma _{12}^1 \\ \Gamma _{12}^1 & \Gamma_{22}^1 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix}   \right] \sigma _u + \left[ b' + \begin{pmatrix} a & b \end{pmatrix} \begin{pmatrix} \Gamma _{11}^2 & \Gamma _{12}^2 \\ \Gamma _{12}^2 & \Gamma _{22}^2 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix}   \right] \sigma _v
+\] 
+\end{definition}
+
+\begin{definition}[Campo paralelo]
+Un campo vectorial $X(t)$ definido sobre $\alpha (t)$ es paralelo si $\nabla _{\alpha'}X=0$ 
+\end{definition}
+
+\begin{definition}[Geodésicas]
+Un curva $\alpha $ si llama geodésica si cumple $\nabla _{\alpha '}\alpha ' = 0$:
+\[
+  \begin{cases}
+   u'' + \begin{pmatrix} u' & v' \end{pmatrix} \begin{pmatrix} \Gamma_{11}^1 & \Gamma _{12}^1 \\ \Gamma _{12}^1 & \Gamma_{22}^1 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix} =0  \\
+  v'' + \begin{pmatrix} u' & v' \end{pmatrix} \begin{pmatrix} \Gamma _{11}^2 & \Gamma _{12}^2 \\ \Gamma _{12}^2 & \Gamma _{22}^2 \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix} = 0
+  \end{cases}
+\] 
+\end{definition}
+
+\begin{theorem}[Relación de Clairut]
+En una superficie de revolución
+\[
+\begin{cases}
+  x = \varphi (u)\cos v\\
+  y = \varphi (u)\sin v \\
+  z = \psi (u)
+\end{cases}
+\text{ con } \varphi '^2 + \psi '^2 = 1
+\] 
+Entonces una geodésica $(u(t), v(t))$ satisface $\varphi (u)\cos \theta = \text{const}$
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,556 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+\setcounter{section}{-1}
+
+\title{Estructuras Algebraicas}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Notación y definiciones preeliminares}
+\subsection{Notación}
+Convenimos la siguiente notación:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{PC}. Propiedad conmutativa
+  \item  \textbf{PA}. Propiedad Asociativa
+  \item  \textbf{PD$(*, +)$}. Propiedad distributiva $*$ con respecto a $+$
+  \item  \textbf{EN}. Existe un elemento neutro y es único
+  \item  \textbf{PI}. Todo elemento tiene inverso
+\end{itemize}
+
+\subsection{Definiciones estructuras}
+\begin{definition}[Semigrupo] $(G, *)$ con PA, EN
+\end{definition}
+
+\begin{definition}[Grupo] $(G, *)$ con PA, EN, PI 
+\end{definition}
+
+\begin{definition}[Anillo] (A, +, *) con 
+  $\begin{cases}
+  (A, +) \text{ grupo abeliano}\\
+  (A, *) \text{ semigrupo}\\
+  \text{PD}(*, +)
+\end{cases}$
+\end{definition}
+
+\begin{definition}[Cuerpo] $(A, +, *)$ donde todo elemento diferente de  $0$ es una unidad
+\end{definition}
+
+\begin{definition}[Módulo] $(M, +)$ es un módulo sobre el anillo $A$ si:
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $(M, +)$ grupo abeliano
+	\item  $A \times M \to M$
+	\item $a*(m_1+m_2) = a*m_1 + a*m_2$ 
+	\item $(a+b)*m = a*m+b*m$ 
+	\item $(a*b)*m =  a*(b*m)$
+	\item $1_A*m = m$
+  \end{itemize}
+\end{definition}
+
+
+\section{Anillos}
+
+\begin{definition}[Morfismo de anillos] Una aplicación $f:A \to B$ es un morfismo si preserva las operaciones:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $f(1_A) = 1_B$ 
+  \item $f(x+_A y)= f(x)+_B f(B)$ 
+  \item $f(x*_Ay)=f(x)*_Bf(y)$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Tipos de morfismo] Los tipos de morfismo son
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Monomorfismo o inmersión} $\iff $ inyectivo 
+  \item \textbf{Epimorfismo} $\iff$ exhaustivo
+  \item \textbf{Isomorfismo} $\iff$ biyectivo
+\end{itemize}
+\end{definition}
+
+
+\subsection{Ideales}
+
+\begin{definition}[Característica] La característica de un anillo es el menor $n\in \mathbb{N} $ tal que $n \cdot 1_A = 0$. En caso de no cumplirse la característica es $0$
+\end{definition}
+
+\begin{definition}[Ideal] $I\subseteq A$ es un ideal si
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $\ \forall a \in I \ \forall \lambda \in A \Rightarrow \lambda a \in I$
+  \item $\ \forall a, b \in I \Rightarrow a+b \in I$
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+$J\subseteq B$ ideal $\Rightarrow f^{-1}(J)$ ideal 
+\end{proposition}
+
+\begin{definition}[Ideales generados]Sean $I, J \subseteq A$ ideales. Son ideales
+  \begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $I+J := \{a+b: a\in I, b\in J\}$ 
+	\item $I\cap J$
+	\item $IJ = \{\sum a_ib_j: a_i\in I , b_j \in J\}$
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Ideal principal]
+  El ideal principal generado por $a$ es
+   \[
+  I = (a) := \{ra: r \in A\}
+  \] 
+\end{definition}
+
+\begin{theorem}[Propiedad universal del cociente] .\\
+\begin{minipage}{0.7\textwidth}
+  $\begin{cases}
+f:A \to  B \text{ morfismo de anillos.}\\
+I\subseteq Ker f \text{ ideal.}
+  \end{cases}\Rightarrow$
+$\ \exists ! $ morfismo $\tilde{f}:A/I \to B$ tq
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{tikzcd}
+	A & B \\
+	& {A/I}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{\tilde{f}}"', from=2-2, to=1-2]
+	\arrow["\pi"', from=1-1, to=2-2]
+\end{tikzcd}
+\end{minipage}
+\end{theorem}
+
+\begin{theorem}[Teorema de Isomorfismo] $f:A\to B$ morfismo de anillos. Hay un isomorfismo canónico $\tilde{f}$
+  \[
+  \tilde{f}: A/\ker f \to  \text{Im} f \qquad \text{tal que} \qquad A /\ker f \simeq  Im f
+  \] 
+\end{theorem}
+
+\subsection{Ideales primos y maximales}
+\begin{definition}[Ideal primo] Sea $\mathfrak{p}\subseteq A$ un ideal.
+\[
+\mathfrak{p} \text{ es primo } 
+  \iff \ \forall a, b \in A \quad ab \in \mathfrak{p} \Rightarrow 
+    a\in \mathfrak{p} \ /\ b \in \mathfrak{p}
+\] 
+o una definición equivalente y más útil a veces
+\[
+\mathfrak{p} \text{ es primo } 
+  \iff \ \forall a, b \in A \quad 
+    a\not\in \mathfrak{p} \text{ y } b \not\in \mathfrak{p} \Rightarrow ab \not\in \mathfrak{p}
+\] 
+\end{definition}
+
+\begin{definition}[Anillo integro] $A$ es integro si no tiene divisores de cero (tiene ley de cancelación)
+\end{definition}
+
+\begin{definition}[Ideal maximal] 
+El ideal $\mathfrak{m}\subset A$ es maximal si no está contenido en ningún otro ideal propio de $A$.
+\end{definition}
+
+\begin{definition}[Anillo fracción] Sean $F(A) = A\times (A-\{0\})$ y la clase de equivalencia $(a, s) \sim (b,t) \iff at-bs=0$. Entonces
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+	\item Si  $\frac{a}{s}:=(a, s)$, entonces $\frac{a}{s}+ \frac{b}{t} := \frac{at+bs}{st}$ y $\frac{a}{s}*\frac{b}{t}:=\frac{ab}{st}$
+    \item $Fr(A) = F/\sim$ es un cuerpo con las operaciones anteriores
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Propiedad universal del anillo de fracciones] Sea $A$ anillo integro y  $f:A\to B$ morfismo tal que $f(A-\{0\})\subseteq B^*$. Entonces
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Esiste un único morfismo $\varphi \circ \iota =f$ \begin{tikzcd}
+	A & B \\
+	& {Fr(A)}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["\iota"', hook, from=1-1, to=2-2]
+	\arrow["\varphi"', from=2-2, to=1-2]
+\end{tikzcd}
+  \item Si $A \xhookrightarrow{\iota'} F$ con $F$ cuerpo que satisface (1), ha de ser $F \simeq  Fr(A)$
+  \end{enumerate}
+\end{theorem}
+
+
+Algunas implicaciones sobre anillos e ideales son:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $A$ integro $\iff$ el ideal $(0)$ es primo
+  \item $\mathfrak{p}$ primo $\iff$ $A/\mathfrak{p}$ integro
+  \item $\mathfrak{m}$ maximal $\iff A /\mathfrak{m}$ cuerpo $\Rightarrow$ $\mathfrak{m}$ primo
+\end{itemize}
+
+\subsection{Elementos primos e irreductibles}
+\begin{definition}[Irreductible] $a\in A$ es irreductible si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $a\not\in A^*$
+	\item $a=bc \Rightarrow  b\in A^* \ /\  c \in A^*$
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Primo] $a\in A$ es primo si $a|bc \Rightarrow a|b \ /\  a|c$
+
+\end{definition}
+
+\begin{definition}[Anillo factorial (UFD)] A integro donde cada elemento admite una única descomposición en irreductibles (up to unidades).
+  \[
+  a = p_1^{e_{1}}\cdots p_r^{e_r} \qquad p_i = u_iq_i \quad u_i\in A^*
+  \] 
+\end{definition}
+
+\begin{definition}[Anillo principal (PID)] $A$ integro en el que todo ideal es principal. 
+
+\end{definition}
+
+\begin{definition}[Anillo euclideo] $A$ es euclideo si existe una función $\delta : A-\{0\} \to \mathbb{N} $ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\delta(ab)\ge \delta(a)$
+	\item $\ \forall a, b \ \exists q, r : a=bq+r \quad$   y   $\quad r=0 \ /\ \delta(r)<\delta(b)$
+  \end{enumerate}
+\end{definition}
+
+Estos tres tipos de anillos se relacionan por $\boxed{A \text{ Euclideo} \Rightarrow A \text{ PID}\Rightarrow A \text{ UFD}}$
+
+\begin{definition}[Máximo común divisor] $m\in A$ es un mcd si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $m| a, \quad m|b$
+	\item $d|a, \quad d|b \Rightarrow d|m$
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Mínimo común múltiplo] $M\in A$ es un MCM si
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $a|M, \quad b|M$
+	\item $a|c, \quad b|c \Rightarrow M|c$
+  \end{enumerate}
+\end{definition}
+
+El mcd y el MCM no tienen por que ser únicos.
+
+\begin{theorem}[Enteros de Gauss]  $\mathbb{Z}[i]$ es el anillo PID de los enteros de Gauss. Definimos la norma $N(a+bi)=a^2+b^2$
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Las unidades son $1, -1, i, -i$ 
+	\item $z = a+bi$ es primo  $\iff$ $z=p(\cdot u)\equiv 3 \mod 4$ o $N(z)=p$ 
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}[Anillo MCD (GCDD)] $A$ integro en el que todos dos elementos tienen mcd
+  \end{definition}
+
+\begin{proposition}[$\mathbb{Z}(\sqrt{-5} )$ no es UFD] $6 = 2 \cdot 3 = (1+\sqrt{-5} )\cdot (1-\sqrt{-5} )$
+\end{proposition}
+
+Algunas propiedades de los anillos:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $A$ PID:  $a$ irreductible $\iff a$ primo
+  \item $A$ UFD:  $a$ irreductible $\iff a$ primo
+  \item $A$ integro:  $a$ primo  $\Rightarrow a$ irreductible
+  \item $A$ integro: $a$ irreductible  $\iff (a)$ maximal 
+  \item $A$ euclideo:  $\ \exists ! mcd(a,b)$ (up to unidades)
+  \item $A$ UFD  $\Rightarrow$ $A[X]$ UFD
+  \item $A[X]$ PID, $A$ integro $\Rightarrow A$ cuerpo
+  \item $K$ cuerpo  $\Rightarrow K[X]$ Euclideo
+\end{itemize}
+
+\subsection{Anillos de polinomios}
+Durante toda la sección $A$ es UFD y  $K = Fr(A)$ el cuerpo de fracciones. 
+
+\begin{theorem} Si $K$ es un cuerpo  $\Rightarrow K[X]$ es Euclideo
+\end{theorem}
+
+\begin{definition}[Contenido]
+El contenido de un polinomio $f\in A[X]$ es el mcd de sus coeficientes
+ \[
+f = a_0 + a_1x+\cdots + a_nx^n \qquad \Rightarrow \qquad c(f) = mcd(a_0, a_1, \ldots a_n)
+\] 
+Llamamos primitivo a $f \iff c(f) = 1$
+\end{definition}
+
+\begin{theorem}[Lema de Gauss]
+$f, g$ primitivos $\Rightarrow fg$ primitivo ($\Rightarrow c(fg)= c(f)c(g)$)
+\end{theorem}
+
+\begin{theorem}[Criterio de Eisenstein]
+$A$ UFD, $p\in A$ primo. $f=\sum a_ix^i \in A[X]$. Si se cumple
+\[
+p|a_0,\quad p|a_1,\quad \ldots \quad p|a_{n-1},\quad p\not|a_n,\quad p^2\not|a_0 \qquad \Rightarrow \qquad f \text{ irreducible en } K[X]
+\] 
+\end{theorem}
+
+\begin{theorem}[Criterio de reducción]
+$A, B$ anillos, $B$ íntegro.  $\varphi :A \to  B, \ \tilde{\varphi }: A[X]\to B[X]$
+\[
+  \begin{cases}
+    
+deg(\tilde{\varphi }(f) = deg(f) \\ \tilde{\varphi }(f) \text{ irreductible en } Fr(B)
+  \end{cases}
+\Rightarrow f  \text{ no se puede descomponer como } f=gh
+\] 
+\end{theorem}
+
+\subsection{Cadena de contenciones anillos}
+Cuerpos $\subseteq $ Anillo Euclideo $\subseteq $ PID $\subseteq $ UFD $\subseteq $ GCDD $\subseteq $ Anillo Integro $\subseteq $ Anillo
+
+\section{Cuerpos}
+\begin{definition}[Extensión de cuerpo] Una extensión de cuerpo $F = K(\alpha )$ es el mínimo cuerpo $F$ tal que $K\subseteq F$ y $\alpha \in F$
+
+\end{definition}
+
+\begin{definition}[Dimensión de la extensión]
+Sea $F / K$ una extensión de cuerpo. 
+
+Llamamos $[F:K] = \dim_{K}(F)$ a la dimensión del espacio vectorial de $F$ con coeficientes en $K$.
+\end{definition}
+
+\subsection{Implicaciones de cuerpos}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $\alpha \text{ algebraico sobre }K \iff K(\alpha ) = K[\alpha ] \iff K(\alpha ) / K$ extensión finita
+  \item $\alpha , \beta $ algebraicos sobre $K$ $\Rightarrow \alpha \pm \beta , \ \alpha \beta , \ \alpha / \beta $ algebraicos sobre $K$
+\end{itemize}
+
+(FALTA TODAS LAS RELACIONES CON EL POLINOMIO IRREDUCIBLE)
+
+\subsection{Cuerpos finitos}
+
+\begin{definition}[Cuerpo cerrado algebraicamente] El cuerpo $K$ es cerrado algebraicamente si cualquier polinomio $f(x)\in K[X]$ tiene al menos una raíz $\alpha \in K$.
+
+  Esto es equivalente a decir que cualquier polinomio en $K[X]$ descompone en factores lineales en $K[X]$.
+\end{definition}
+
+\begin{definition}[Clausura algebraica] Llamamos  $K\subseteq \overline{K}$ al menor cuerpo algebraicamente cerrado tal que todo elemento de $\overline{K}$ es algebraico sobre $K$.
+\end{definition}
+
+\begin{theorem}[Wedderbrun]
+Todo cuerpo finito es conmutativo
+\end{theorem}
+
+\begin{definition}[Unicidad de los cuerpos finitos] Fijado $p$ primo y $n$ natural hay un único cuerpo finito $\mathbb{F}_{p^n}$ de tamaño  $p^n$  
+
+$\mathbb{F}_{p^n}$ es el conjunto de soluciones de $x^{p^n}-x=0$ en la clausura algebraica de $\mathbb{F}_{p}$
+\end{definition}
+
+\begin{definition}[Construcción de un cuerpo finito] Dado $p^n$ elegimos un polinomio  $P\in \mathbb{Z}/p\mathbb{Z}$ tal que  $Irred(P)=n$. Tenemos entonces $\mathbb{F}_{p^{n}} \simeq (\mathbb{Z}/p\mathbb{Z})[X]/(P)$
+
+\end{definition}
+
+\begin{theorem}[Pequeño teorema de Fermat]
+$x^p-x\in (\mathbb{Z}/p\mathbb{Z})[X]$ descompone en factores lineales en $\mathbb{Z}/p\mathbb{Z}$ 
+\[
+x^p-x = x(x-1)(x-2)\cdots(x-(p-1))
+\] 
+Una generalización es que $\displaystyle x^{p^n}-x = \prod_{a\in \mathbb{F}_{p^n}} (x-a)$
+\end{theorem}
+
+\begin{proposition}
+$\mathbb{F}_{p^m}\subseteq  \mathbb{F}_{p^n} \iff m|n$ 
+\end{proposition}
+
+\begin{theorem}[$\mathbb{F}^*_{p^n}$ es cíclico] $\ \exists \zeta \in \mathbb{F}_{p^n} : \mathbb{F}^*_{p^n} = \langle \zeta \rangle = \{1, \zeta, \ldots, \zeta^{p^n-2}\} $
+
+\end{theorem}
+
+
+\section{Grupos}
+
+\subsection{Fundamentals}
+\begin{theorem}[Cayley]
+Todo grupo finito es isomorfo a un subgrupo de un grupo simétrico
+\end{theorem}
+
+\begin{theorem}[Wilson]
+$p$ primo $\iff (p-1)! \equiv -1\ (mod \ p)$ 
+\end{theorem}
+
+\begin{definition}[Clase lateral] $G / H = \{aH: a\in G\}$
+\end{definition}
+
+\begin{theorem}[Lagrange]  $[G:H] = \frac{|G|}{|H|}$
+\end{theorem}
+
+\begin{definition}[Subgrupo normal] $H \triangleleft G \iff ghg^{-1}\in H \ \forall g\in G \ \forall h\in H$
+\end{definition}
+
+\begin{definition}[Grupo cociente] Si $H \triangleleft G \Rightarrow G / H$ grupo cociente
+\end{definition}
+
+\begin{theorem}[Primer teorema de isomorfismo] Sea $f: G \to H$ morfismo. Entonces $G / Ker(f) \simeq Im(f)$
+
+\end{theorem}
+
+\begin{theorem}[Segundo teorema de isomorfismo] Sean $K\subseteq G, H \triangleleft G$. Entonces $K / (K \cap H) \simeq HK /H$
+\end{theorem}
+
+\begin{theorem}[Tercer teorema de isomorfismo] Sean $H \triangleleft K \triangleleft G$. Se cumple
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $K/H \triangleleft G / H$
+	\item $G / K \simeq (G / H)/ (K / H)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}[Producto directo]$G$ es producto directo de sus subgrupos  $H, K$ si  
+   \[
+  H\times K \to G , \qquad (h, k) \mapsto hk \quad \text{es isomorfismo}
+  \] 
+  Entonces $H, K \triangleleft G$, $HK=G$ y  $H\cap K=\{e\}$
+\end{definition}
+
+\subsection{Acciones de grupo}
+\begin{definition}[Acción de grupo] Sea $G$ grupo y $S$ un conjunto definimos la acción de $G$ sobre $S$ como
+  \[
+  G\times S \to S \qquad \begin{cases}
+	1) \ \forall s\in S & e_Gs = s\\
+	2) \ \forall g, h \in G & g(hs)=(gh)s 
+  \end{cases}
+  \] 
+\end{definition}
+
+
+\begin{definition}[Órbita] La órbita de $s\in S$ es $GS = \{gs:g\in G\}$
+\end{definition}
+
+\begin{definition}[Estabilizador] Estabilizador de  $s\in S$ es el subgrupo $G_s = \{g\in G: gs=s\}$
+\end{definition}
+
+\begin{definition}[Acción por conjugación] Tomamos $S = G$ y el morfismo
+  \[
+  G\times G \to  G, \qquad g, s \mapsto gsg^{-1} 
+  \] 
+\end{definition}
+
+\begin{definition}[Centralizador]  Elementos que conmutan con  $s$. $Z(s) = \{g: gs = sg\}$. Es el estabilizador de la acción por conjugación.
+\end{definition}
+
+\begin{definition}[Centro] $Z(G) = \{g\in G: \ \forall h\in G \ gh =hg\} \triangleleft G$
+\end{definition}
+
+\begin{definition}[Clase de conjugación] $C_x = \{gxg^{-1}: g\in G\}$
+\end{definition}
+
+\begin{proposition}
+  Hay una biyección $Gs \leftrightarrow G/G_s$ tal que $gs \leftrightarrow gG_s$
+\end{proposition}
+
+\begin{theorem}[Fórmula de las clases] $G$ actua sobre  $S$,  $|S|<\infty $
+\[
+|S| = \sum [G:G_{s_i}] \xRightarrow[G = Z(G) \cup C_{x_1}\cup \cdots \cup C_{x_t}]{ \text{Conjugación}} |G| = |Z(G)| + \sum [G:Z(x_i)]
+\] 
+\end{theorem}
+
+\begin{proposition}
+$|G|=p^n \Rightarrow Z(G)\neq \{e\}$ 
+\end{proposition}
+
+\begin{proposition}
+Si $|G|=p^2$ es abeliano 
+\end{proposition}
+
+\begin{theorem}[Cauchy] Si $p||G| \Rightarrow \ \exists H\subseteq G: |H|=p$
+\end{theorem}
+
+\subsection{Subgrupos de Sylow}
+\begin{definition}[$p-$grupo] Subgrupo de orden $p^k$
+\end{definition}
+
+\begin{definition}[$p-$Sylow] $p-$grupo maximal (no contenido en otro $p-$subgrupo)
+\end{definition}
+
+\begin{proposition}
+$H\subseteq G$ $p-$ Sylow $\Rightarrow \ \forall g\in G gHg^{-1}$ también lo es. 
+\end{proposition}
+
+\begin{theorem}[Sylow] Sea  $|G|=p^nM$ con $p$ primo, $p\not |M$ 
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $G$ tiene un $p-$Sylow de orden $p^n$ 
+	\item Todos los  $p-$Sylows de  $G$ son conjugados
+	\item El número $n_p$ de subgrupos de Sylow satisface $n_p \cong 1\ (mod \ p), \quad n_p|M$
+	\item Todo $p-$subgrupo está contenido en un  $p-$ Sylow
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Si tots els subgrups de Sylow de $G$ son normals, llavors $G$ es producte directe dels Sylows. 
+\end{theorem}
+
+\subsection{Grupos abelianos}
+
+\begin{theorem}[Clasificación de grupos abelianos finitamente generados].
+
+Sea $G = \langle x_1, \ldots, x_n: M \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = \begin{pmatrix} 0\\ \vdots \\0 \end{pmatrix}   \rangle $ Por la forma normal de Smith sabemos que existen $P, Q, D$ tal que  $M=PDQ$ con coeficientes en el anillo.
+\[
+D = diag(\alpha _i), \qquad \alpha _i = \frac{d_i(1)}{d_{i-1}(A)}, \qquad d_i(A) = gcd(\text{menores de orden } i)
+\] 
+\end{theorem}
+
+
+\section{Apéndice con Anillos, cuerpos y grupos}
+\subsection{Anillos}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Euclideos & $\mathbb{Z},\quad \mathbb{Z}_p, \quad\mathbb{Z}[e^{i2\pi / 3}] (N(a+b\omega )=a^2+b^2-ab), \quad K[X]$ \\
+\hline
+DIP pero no Euclideos  & $\mathbb{Z}[\frac{1+\sqrt{-19} }{2}]$ \\
+\hline
+UFD pero no DIP & $K[X, Y]$\\
+\hline
+Integro pero no UFD & $\mathbb{Z}[\sqrt{-5} ]$\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\end{document}
+

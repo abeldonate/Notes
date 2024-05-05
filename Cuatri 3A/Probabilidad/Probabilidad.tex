@@ -1,0 +1,258 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Probabilidad}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Espacios de probabilidad}
+\begin{definition}[$ \sigma $-áglebra]. Tupla $(\Omega , \mathcal{A})$ con $\Omega$ un conjunto (espacio muestral) y $\mathcal{A} \subseteq \mathcal{P}(\Omega )$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\emptyset \in \mathcal{A}$
+	\item $A\in \mathcal{A} \Rightarrow A^c \in \mathcal{A}$ 
+	\item $\{A_n\}$ colección numerable de $\mathcal{A} \Rightarrow \bigcup A_n \in \mathcal{A}$
+  \end{enumerate}
+
+\begin{definition}[Espacio de probabilidad]
+Terna $(\Omega , $A$, p)$ con $p: \mathcal{A} \to \mathbb{R}$ tal que
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $p(\emptyset)=0, \quad p(\Omega ) = 1$  
+  \item $0\le p(A)\le 1$
+  \item $\{A_n\}$ colección numerable disjunta $\Rightarrow p(\bigcup A_n) = \sum p(A_n)$
+\end{enumerate}
+\end{definition}
+\end{definition}
+
+\begin{lemma}[Desigualdades de Bonferroni]
+  \[
+  p \left( \bigcup A_i \right)  \begin{cases}
+    \le \sum p(A_i) \\
+    \ge \sum p(A_i) - \sum p(A_i\cap A_j)\\
+    \le \sum p(A_i) - \sum p(A_i\cap A_j) + \sum p(A_i\cap A_j\cap A_k)\\
+  \end{cases}
+  \] 
+\end{lemma}
+
+\begin{definition}[Probabilidad condicionada] La probabilidad de $A$ condicionada a  $B$ es
+   \[
+	   p(A|B) = \frac{p(A\cap B)}{p(B)} = \frac{p(B|A)p(A)}{p(B)}
+  \] 
+\end{definition}
+\begin{theorem}[Bayes] Sea $\{A_1, \ldots, A_n\}$ un conjunto de sucesos mutuamente excluyentes y exhaustivos. Entonces si $B$ es otro suceso:
+\[
+ p(A_i|B) = \frac{p(B|A_i)p(A_i)}{\sum p(B|A_k)p(A_k)}
+\] 
+\end{theorem}
+
+\begin{definition}[Independencia] $A$ y  $B$ son independientes si (TFAE)
+\[
+  p(A\cap B) = p(A)p(B) \quad \equiv \quad p(A|B) = p(A) \quad \equiv \quad p(B|A) = p(B) 
+\] 
+\end{definition}
+\subsection{Espacio producto}
+\begin{definition}[Espacio producto] Sean $(\Omega_1, \mathcal{A}_1, p_1) $ y $\Omega _2, \mathcal{A}_2, p_2$ dos espacios de probabilidad, definimos el espacio producto $(\Omega _3, \mathcal{A}_3, p_3)$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\Omega 3 = \Omega _1 \times \Omega _2$
+	\item $\mathcal{A}_3 = \sigma (\mathcal{A}_1\times \mathcal{A}_2)$
+	\item $p_3$ cumple  $\ \forall A_1\times  A_2 \in \mathcal{A}_1\times \mathcal{A}_2 \Rightarrow p_3(A_1\times A_2)= p_1(A_1)p_2(A_2) $
+  \end{enumerate}
+\end{definition}
+
+\subsection{Borel-Cantelli}
+\begin{definition}[Límites superior e inferior] Sea $\{A_n\}\in \mathcal{A}$ definimos los límites superior e inferior como
+  \[
+  \limsup A_n =  \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k \qquad \text{y} \qquad 
+  \liminf A_n =  \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k
+  \] 
+\end{definition}
+
+\begin{proposition}
+Sea $\{A_n\}$ sucesión.  $p(\lim A_n) = \lim p(A_n) = p(A)$ 
+\end{proposition}
+\begin{theorem}[Borel-Cantelli] Sea $\{A_n\}$ una sucesión de eventos
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\sum_{n\ge 1} p(A_n) < \infty \Rightarrow p(\limsup A_n) = 0 $ 
+  \item Si $\{A_n\}$ independent y $\sum_{n\ge 1}p(A_n)=\infty \Rightarrow p(\limsup A_n)=1$
+\end{enumerate}
+\end{theorem}
+
+
+\section{Variables aleatorias}
+\subsection{Variable aleatoria}
+\begin{definition}[Variable aleatoria] Sean $(\Omega _1, \mathcal{A}_1), (\Omega _2, \mathcal{A}_2)$ espacios mesurables. Decimos que $X: \Omega _1 \to  \Omega _2$ es una variable aleatoria si
+  \[
+  X^{-1}(A_2)\in \mathcal{A}_1, \ \forall A_2 \in \mathcal{A}_2
+\] 
+En este curso siempre tomaremos $(\Omega _2, \mathcal{A}_2)=(\mathbb{R}, \mathcal{B})$
+
+\end{definition}
+Ejemplos de variables aleatorias (siendo $X, Y$ variables aleatorias)
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $c$ (función constante)
+  \item $I_A$ (función indicadora)
+  \item $X \pm Y, aX, XY, |X|, \max{X, Y}, \min{X, Y}$ 
+  \item $g(X, Y)$ con  $g$ mesurable
+\end{itemize}
+
+
+  \subsection{Esperanza y varianza}
+
+\begin{definition}[Esperanza] Sea $X$ una variable aleatoria y  $P_x$ su probabilidad asociada $P_x$se define la esperanza como
+   \[
+E[X]= \int_\Omega Xdp = \int_{\mathbb{R}} xdP_x  
+  \] 
+\end{definition}
+
+\begin{definition}[Momento] El momento de orden $r$ de  $X$ es  $E[X^r]$
+\end{definition}
+
+\begin{definition}[Varianza] $Var[X] = E[(|X-E[X]|)^2] = E[X^2]-E[X]^2 $ 
+\end{definition}
+
+\begin{definition}[Covarianza] $Cov[X, Y] = E[(|X-E[X]|)(|Y-E[Y]|)] = E[XY]-E[X]E[Y] $ 
+\end{definition}
+
+\begin{definition}[Desviación típica] $\sigma (X) = \sqrt{Var[X]} $
+\end{definition}
+
+Algunas propiedades de la esperanza y la varianza
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $E[a]=0$
+  \item  $E[aX+bY]=aE[X]+bE[Y]$
+  \item  $E[I_A]=p(A)$
+  \item $Var[a]=0$
+  \item $Var[a+X] = Var[X]$
+  \item $Var[aX]=a^2Var[X]$
+\end{itemize}
+
+\begin{proposition}
+Desigualdades
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Hölder} $E[|XY|] \le  E[|X|^p]^{\frac{1}{p}}E[|X|^q]^{\frac{1}{q}} \quad (\frac{1}{p}+\frac{1}{q} =1)$ 
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	  \item \textbf{Minkowsky} $E[|X+Y|^p]^{\frac{1}{p}}\le E[|X|^p]^{\frac{1}{p}}+E[|Y|^p]^{\frac{1}{p}}$ 
+	\end{itemize}
+\end{itemize}
+\end{proposition}
+
+\begin{theorem}[Desigualdad de Markov]
+Sea $X>0$ una variable aleatoria y  $a\in \mathbb{R}^+$. Se cumple
+\[
+p(X\ge a)\le \frac{E[X]}{a}
+\] 
+\end{theorem}
+
+\begin{theorem}[Desigualdad de Chebyshev] Sea $X$ una variable aleatoria con  $E[X]<\infty, Var[X]<\infty, Var[X]\neq 0, k>0$
+  \[
+  p(|X-E[X]|\ge kVar[X]^{\frac{1}{2}})\le \frac{1}{k^2}
+  \] 
+\end{theorem}
+
+\section{Variables aleatorias discretas}
+
+\subsection{Funciones generadoras de probabilidad}
+\begin{definition}[Función generadora] Asociamos a la variable aleatoria $X$ la función generadora
+   \[
+  G_X(z) = \sum_{n\ge 0} p(X=n)z^n
+  \] 
+\end{definition}
+
+Las funciones generadoras satisfacen las siguientes propiedades
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $G_X(0) = p(X=0), \qquad G_X(1)q = 1$
+  \item $E[X(X-1)\cdots (X-k+1)] =G^{(k)}(1)$ 
+  \item $Var(X) = G''(1)+G'(1)-G'(1)^2$ 
+  \item $X, Y$ variables aleatorias independientes  $\Rightarrow G_{X+Y} = G_XG_Y$
+\end{itemize}
+
+\subsection{Modelos discretos}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$Modelo$ &  $p(X=k)$ &  $E[X]$ &  $Var[X]$ &  $G_X(z)$ \\
+\hline
+\makecell{\textbf{Bernoulli}\\ $\sim Be(p)$ }  & $\begin{cases}  p(X=1)=p \\  p(X=0) = 1-p \end{cases}$ & $p$ &  $p(1-p)$ &  $(1-p) + pz$ \\
+\hline
+\makecell{\textbf{Binomial}\\ $\sim Bin(N, p)$} & $\displaystyle\binom{N}{k}p^i(1-p)^{N-k}$ & $Np$ &  $Np(1-p)$ &  $()$ \\
+\hline
+\makecell{\textbf{Uniforme} \\ $\sim U(1, N)$} &  $\displaystyle\frac{1}{N}$ & $\displaystyle\frac{N+1}{2}$ & $\displaystyle\frac{N^2-1}{12}$ & $\displaystyle\frac{1}{N} \frac{z(z^N-1)}{z-1}$ \\
+\hline
+\makecell{\textbf{Poisson} \\ $\sim Po(\lambda)$} & $\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$ & $\displaystyle e^{\lambda(z-1)}$ \\
+\hline
+\makecell{\textbf{Geométrica} \\ $\sim Geom(p)$} & $\displaystyle p(1-p)^k-1$ &  $\displaystyle\frac{1}{p}$ &  $\displaystyle\frac{1-p}{p^2}$ &  $\displaystyle \frac{pz}{1-(1-p)z}$ \\
+\hline
+\makecell{\textbf{Binomial negativa} \\ $\sim BinN(r, p)$} & $\begin{cases} 0 & \text{ si } k<r \\ \binom{k-1}{r-1}p^r(1-p)^{k-r} & \text{ si } k\ge r \end{cases}$ & $\displaystyle\frac{r}{p}$ & $\displaystyle r \frac{1-p}{p^2}$ & $\displaystyle \left( \frac{pz}{1-(1-p)z} \right)^r $ \\
+\hline
+\end{tabular}
+\end{center}
+
+Descripciones de cada modelo
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Bernoulli} Lanzamiento de moneda con probabilidad $p$ y  $1-p$ en cada cara
+  \item  \textbf{Binomial} Número de éxitos haciendo $N$ experimentos independientes  $\sim Be(p)$
+  \item  \textbf{Uniforme} De  $1$ a  $N$ todas las probabilidades son iguales
+  \item  \textbf{Poisson} 
+  \item \textbf{Geométrica} Número de experimentos necesarios antes de obtener el primer éxito en Bernoulli. 
+  \item \textbf{Binomial negativa} Numero de experimentos necesarios para conseguir $r$ éxitos.
+\end{enumerate}
+
+
+\end{document}

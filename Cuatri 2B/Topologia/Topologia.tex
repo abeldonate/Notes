@@ -1,0 +1,742 @@
+\documentclass{myclass}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+
+
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+
+
+\pdfsuppresswarningpagegroup=1
+
+\title{Topología}
+
+\setcounter{section}{-1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Propiedades conjuntos y funciones}
+
+De un conjunto $A$ se deducen los siguientes:
+
+\begin{tabular}{|l|l|l|}
+  \hline
+  \textbf{Interior} & $x \in  A^\circ \iff \ \exists U_x : x \in  U_x \subseteq A $ & $A^\circ \subseteq A$ \\
+  \hline
+  \textbf{Adherencia} & $x\in \overline{A} \iff \ \forall U_x \ U_x\cap A \neq \emptyset $ & $A \subseteq \overline{A}$ \\
+  \hline
+  \textbf{Frontera} & $x\in \partial A \iff \ \forall U_x \ U_x \cap A \neq \emptyset , U_x\cap A^c\neq \emptyset$ & $\partial A \subseteq \overline{A}$ \\
+  \hline
+  \textbf{Acumulación} & $x \in  A' \iff \ \forall U_x \ U_X\cap A \neq \emptyset, \{x\}$ & $A'\subseteq \overline{A}$ \\
+  \hline
+  \textbf{Aislado} & $x\in A^a \iff \ \exists U_x : U_x \cap A = \{x\}$ & $A^a \subseteq  A$ \\
+  \hline
+\end{tabular}
+
+$\overline{A} = A^\circ \sqcup \partial A = A' \sqcup A^a $
+
+En una aplicación $f:X\to Y$ se cumple (cec)
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $A\subseteq A^{ec} \iff A\subseteq f^{-1}(f(A))$ (igualdad si $f$ inyectiva)
+  \item $A^{ce}\subseteq A \iff f(f^{-1}(A))\subseteq A$ (igualdad si $f$ exhaustiva)
+\end{enumerate}
+y cumple las siguientes propiedades
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $f^{-1}(\bigcup A_i)=\bigcup f^{-1}(A_i)$, $f^{-1}(\bigsqcup A_i)=\bigsqcup f^{-1}(A_i)$
+  \item $f^{-1}(\bigcap A_i) = \bigcap f^{-1}(A_i)$
+  \item $f(\bigcup A_i)=\bigcup f(A_i)$ 
+  \item $f(\bigcap A_i) \subseteq \bigcap f(A_i)$
+\end{itemize}
+
+\section{Espacios métricos}
+\begin{definition}
+Una métrica / distancia es una aplicación $d:E\times E\to \mathbb{R}$ que cumple
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $d(x, y)\ge 0$ y $d(x, y)=0 \iff x=y$
+  \item $d(x, y)=d(y, x)$
+  \item $d(x, z) \le d(x, y) + d(y, z)$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Una norma es una aplicación $\|\cdot \|: E\to \mathbb{R}$ que cumple
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\|v\|\ge 0$ y $\|v\|=0 \iff v=0$
+  \item $\|\lambda v\| =  |\lambda |\|v\|$
+  \item  $\|u+v\|\le  \|u\|+\|v\|$
+\end{enumerate}
+Observamos que toda norma induce una distancia $d(u, v)=\|u-v\|$
+\end{definition}
+
+Algunos ejemplos de distancias y normas son
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{p-norma} (vectores) $\displaystyle\|x\|_p = \left(\sum |x_i|^p\right)^{\frac{1}{p}} \ \forall p\ge 1$ y (funciones) $\displaystyle\|f\|_p = \left(\int_a^b |f|^p\right)^{\frac{1}{p}} \ \forall p\ge 1$
+  \item \textbf{Métrica trivial} $d(x, y) = \begin{cases}
+    1 \text{ si } \neq  y\\
+    0 \text{ si } = y
+  \end{cases}$   
+  \item \textbf{Hamming} $d(a, b)=|\{i:a_i\neq b_i\}|$, es decir, la cantidad de componentes diferentes
+  \item \textbf{P-ádica} Definimos $u_p(n) = \max\{t\ge 0:p^t|n\}\implies d_p(a, b) = p^{-u_p(a-b)}$ es una distacia
+\end{itemize}
+
+\section{Espacios topológicos}
+\begin{definition}
+Una topología en un conjunto X es un subconjunto $\mathcal{T} \subset \mathcal{P}(X)$ que satisface los axiomas
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $\emptyset, X \in \mathcal{T} $
+  \item Cerrado por reuniones arbitrarias
+  \item Cerrado por intersecciones finitas
+\end{enumerate}
+\end{definition}
+Decimos que un subconjunto $C$ es abierto si $C\in\mathcal{T}$, y es cerrado si $C^c \in  \mathcal{T}$
+
+Ejemplos de topologías
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item \textbf{Discreta} $\mathcal{T} = \mathcal{P}(X)$,  \textbf{Gruesa} $\mathcal{T}=\{\emptyset, X\}$
+  \item \textbf{Complementarios finitos} $\mathcal{T}_{cd} = \{\emptyset\}\cup \{U \subset X : |U^c|<\infty\}$
+  \item \textbf{Orden} $\mathcal{T}_{\le } = \{U\subset X: \ \forall  x \in U \ \exists \alpha , \beta \in X^{\pm \infty} : x\in (\alpha , \beta)\subset U\}$
+  \item \textbf{Límite inferior} $\mathcal{T}_l = \{U\subset X : \ \forall  x\in U \ \exists \beta \in X^\infty  : [x, \beta )\subset  U\}$
+  \item \textbf{Intervalos semi-infinitos} $\mathcal{T}_{-\infty}= \{U\subset X : \ \forall  x\in U \ \exists \beta \in X^\infty  : (-\infty, \beta )\subset  U\}$
+  \item \textbf{Zariski:} $\mathcal{T}_{zar} = \{x = (x_1, \ldots, x_n)\in K^n : f(x)=0, \ \forall f\in I\subseteq K[X_1, \ldots, X_2]\}$ (ceros de polinomios)
+\end{itemize}
+
+\begin{definition}
+$N\subseteq X$ es un entorno de $x\in X$ si existe $U\in \mathcal{T}$ tal que $x\in U \subseteq  N$
+
+Si el entorno es abierto se le suele denotar $U_x$
+\end{definition}
+
+\begin{definition}
+$X$ es de \textbf{Hausdorff} si $\ \forall x\neq y \in X \ \exists U_x, U_y : U_x\cap U_y =\emptyset$
+\end{definition}
+
+\begin{definition}
+Comparación de topologías. Si $\mathcal{T}_1\subseteq \mathcal{T}_2$ se dice que $\mathcal{T}_2$ es más fina que $\mathcal{T}_1$
+\end{definition}
+
+\subsection{Bases y subbases}
+\begin{definition}
+Una base de la topología $\mathcal{T}$ es un subconjunto $\mathcal{B}\subset \mathcal{T}$ tal que todo abierto de $\mathcal{T}$ es reunión de abiertos de $\mathcal{B}$ 
+\end{definition}
+Podemos comprobar que un subconjunto $\mathcal{B}\subset \mathcal{T}$ es base de $\mathcal{T}$ si y solo si
+ \[
+\ \forall x \in X \text{ y cualquier entorno } U_x \ \exists \text{ un abierto básico } B\in \mathcal{B}: B\subseteq U_x
+\] 
+Para ver si $\mathcal{B}\subset \mathcal{P}(X)$ es base de alguna topología, tenemos que lo es si y solo si
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $X=\bigcup B: \ \forall x \in X \ \exists B \in \mathcal{B}$ con $x \in B$ 
+  \item si $B_1, B_2 \in \mathcal{B}, \ \forall x \in B_1 \cap B_2 \implies \ \exists B\in \mathcal{B}: x\in B\subset B_1\cap B_2$
+\end{enumerate}
+
+\begin{definition}
+Una subbase de la topología $\mathcal{T}$ es un conjunto $\mathcal{S}\subset X$ que genera la $\mathcal{T}$ más fina que contiene $\mathcal{S}$. Lo denotaremos $\mathcal{T} = \langle \mathcal{S} \rangle $.
+\[
+\langle \mathcal{S} \rangle  = \{U=\bigcup B_i: B_i  = S_{i, 1}\cap \ldots \cap S_{i, n}, S_{i, j}\in  \mathcal{S}\}
+\] 
+\end{definition}
+
+\subsection{Aplicaciones continuas}
+\begin{definition}
+Una aplicación $f : X\mapsto Y$ es continua en un punto $x\in X$ si todo entorno de $f(x)$ contiene la imagen de algún entorno de  $x$
+
+La aplicación es continua y lo es para todos los puntos de  $X$
+\end{definition}
+
+Para probar que $f$ es continua solo basta con probar alguna de estas
+ \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item La antiimagen de un abierto es abierto
+  \item La antiimagen de un cerrado es cerrado
+	\item La antiimagen de todo abierto subbasico (o básico) es abierto
+\end{enumerate}
+
+\begin{definition}
+Un \textbf{Homeomorfismo} es una aplicación $f: X \to Y$ tal que
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $f$ continua
+  \item  $f$ biyectiva
+  \item  $f^{-1}$ continua
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Una aplicación $f$ es \textbf{Abierta} si la imagen de todo abierto es abierto, y \textbf{Cerrada} si la imagen de todo cerrado es cerrado.
+\end{definition}
+
+Observamos que si $f$ es continua y biyectiva, nos vale con que sea abierta o cerrada para decir que es un homeomorfismo.
+
+\begin{theorem}
+\textbf{Criterio Compacto-Hausdorff}. Toda aplicación $f:K\to H$ de compacto a Hausdorff es cerrada
+\end{theorem}
+
+
+\section{Construcción de nuevos espacios topológicos}
+
+\subsection{Subespacios topológicos}
+\begin{definition}
+Un subespacio topológico de $(X, \mathcal{T})$es un subespacio $S\subset X$ con la topología $\mathcal{T}|_S\subset \mathcal{P}(S)$ obtenida como
+\[
+\mathcal{T}|_S = \{U\cap S: U\in \mathcal{T}\}
+\] 
+\end{definition}
+
+Tenemos las siguientes afirmaciones con bases y subbases
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Si $\mathcal{B} $ es base de $X \implies \mathcal{B}|_S:=\{B\cap S:B\in \mathcal{B}\}$ es base de $S$ 
+  \item Si $\mathcal{S} $ es subbase de $X \implies \mathcal{S}|_S:=\{U\cap S:U\in \mathcal{S}\}$ es subbase de $S$ 
+\end{enumerate}
+
+\begin{proposition}
+Sea $S\subset X$ un subespacio topológico e $Y$ otro espacio topológico
+ \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item La aplicación de inclusión $\iota: S \xhookrightarrow{} X$ es continua
+  \item  $\mathcal{T}|_S$ es la menos fina que hace continua $\iota$
+  \item $f:Y\to  S$ es continua $\iff$ $\iota\circ f$ es continua
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+\textbf{Lema del enganchamiento}. Sea $X=\bigcup_{i\in I} X_i$ un recubrimiento del espacio topológico $X$ que satisfacen una de las dos:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $X_i$ abierto  $\ \forall i\in I$
+  \item $X_i$ cerrado  $\ \forall i\in I$, $I$ finito 
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+Una \textbf{Inmersión} es una aplicación $f: X \xhookrightarrow{} Y$ continua e inyectiva que da un homeomorfismo entre $X \cong f(X)\subset Y$
+\end{definition}
+
+\subsection{Espacios producto}
+\begin{definition}
+Sean $(X, \mathcal{T}_X), (Y, \mathcal{T}_Y)$. El \textbf{Espacio Producto} es el conjunto cartesiano $X\times Y$ con la topología que tiene por base el producto de abiertos:
+\[
+\mathcal{B}=\{U\times V: U\in \mathcal{T}_X, V\in \mathcal{T}_Y\}
+\] 
+\end{definition}
+Algunos ejemplos y contraejemplos de estos productos son los siguientes
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $X_{dis}\times Y_{dis} = (X\times Y)_{dis}$ 
+  \item $X_{gro}\times Y_{gro}=(X\times Y)_{gro}$
+  \item $\mathbb{R}^n_{euc}\times \mathbb{R}^m_{euc} = \mathbb{R}^{n+m}_{euc}$ 
+  \item $\mathbb{R}_{cf}\times \mathbb{R}_{cf} \neq \mathbb{R}^2_{cf}$ 
+  \item $\mathbb{R}_{dis}\times \mathbb{R}_{euc} = \mathbb{R}^2_{lex}$ 
+  \item $[0,1]_{dis}\times [0, 1]_{euc} \neq  [0, 1]^2_{lex}$
+\end{itemize}
+
+\begin{proposition}
+Sea $X = \Pi X_i$ un producto de espacios e $Y$ otro espacio
+ \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Las proyecciones $\pi_j: X \to X_i$ son continuas
+  \item La topología producto en $X$ es la menos fina con la que todas las $\pi_j$ son continuas
+  \item  $f:Y\to X$ continua $\iff$ todas las $\pi_i\circ f$ continuas
+\end{enumerate}
+\end{proposition}
+
+\subsection{Espacio cociente}
+\begin{definition}
+Sea $\sim $ una relación de equivalencia sobre $X$ y $\pi:X \twoheadrightarrow  X / \sim  $ la proyección sobre el cociente. El espacio cociente ($Q, \mathcal{T}_Q$) tiene la topología
+\[
+\mathcal{T}_{Q}:= \{V\subset Q:\pi^{-1}(V)\in \mathcal{T}\}
+\] 
+\end{definition}
+
+En un espacio cociente se cumple
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item La proyección $\pi$ es continua
+  \item $\mathcal{T}_{Q}$ es la mas fina tal que $\pi$ es continua
+  \item La aplicación es continua $\iff$ $f\circ \pi$ es continua
+\end{enumerate}
+
+\begin{definition}
+Una \textbf{Identificación} (o aplicación cociente) es una $f:X \twoheadrightarrow Y$ continua y exhaustiva tal que el $Y$ tiene la topología cociente correspondiente
+\[
+V\in \mathcal{T}_Y \iff f^{-1}(V) \in \mathcal{T}_X
+\] 
+\end{definition}
+
+\begin{theorem}
+\textbf{Teorema de isomorfismo}. Sea $\sim $ tal que $x\sim y \iff f(x)=f(y)$
+
+Si $f:X \twoheadrightarrow Y$ es una identificación $\implies$ $f_\sim :X / \sim \to  f(X)$ es homeomorfismo
+\end{theorem}
+
+Podemos deducir que si $f$ continua y exhaustiva, entoces
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item $f$ abierta $\implies f$ identificación
+  \item $f$ cerrada $\implies f$ identificación
+  \item $f$ identificación  $\not\Rightarrow$ $f$ abierta ni cerrada
+\end{enumerate}
+
+\section{Compacidad}
+\begin{definition}
+Un \textbf{Recubrimiento} de $S\subset X$ es una familia $(A_i)_{i\in I}$ con $A_i \subset X$ abiertos tal que $S\subset \bigcup_{i\in I} A_i$ 
+
+Un \textbf{Subrecubrimiento} es una subfamilia $(A_j)_{j\in J}, J\subset I$ tal que $S\subset \bigcup_{j\in J} A_j$ 
+\end{definition}
+
+\begin{definition}
+El espacio $(X, \mathcal{T})$ es \textbf{Compacto} si todo recubrimiento por abiertos tiene un subrecubrimiento finito (srf a partir de ahora)
+\end{definition}
+
+\begin{minipage}{0.5\textwidth}
+Ejemplos de compactos
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Cualquier espacio con $\mathcal{T}_{gr}$
+  \item Cualquier espacio con $\mathcal{T}_{cf}$ 
+  \item El subespacio $\{0\}\cup \{\frac{1}{n}:n\ge 1\}\subset R$
+  \item Un intervalo abierto $[a, b]$
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+Ejemplos de no compactos
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item Espacio discreto finito
+  \item $\mathbb{R}, \mathbb{R}^n$
+  \item un intervalo abierto $(a, b)$
+  \item Una bola abierta  $B_{r}(x)\subseteq \mathbb{R}^n$
+\end{itemize}
+\end{minipage}
+
+\begin{theorem}
+Sea $f:X\to Y$ continua. Si $X$ es compacto  $\implies$ $f(X)$ es compacto
+\end{theorem}
+Tenemos como resultado que todo espacio cociente de un compacto es compacto.
+
+\begin{theorem}
+$K$ compacto, $A\subseteq K$ cerrado $\implies A$ compacto
+\end{theorem}
+
+\begin{theorem}
+$K\subseteq X$ compacto de un Hausdorff $\begin{cases}
+  \Rightarrow \\
+  \not\Leftarrow
+\end{cases}$ 
+$K$ cerrado
+\end{theorem}
+
+\subsection{Producto de espacios}
+Veremos que el producto se comporta bien respecto a la compacidad
+
+\begin{proposition}
+\textbf{Lema del tubo}. $X\times Y$ con $Y$ compacto. Todo abierto de $X\times Y$ que contenga la fibra $\{x\}\times Y = \pi_X^{-1}(x)$ sobre $x\in X$ contiene algún tubo $U_x\times Y$
+\end{proposition}
+
+\begin{theorem}
+\textbf{Subbase de Alexander}. Sea $\mathcal{S}$ una subbase de $(X, \mathcal{T})$. \\
+$X$ es compacto $\iff$ todo recubrimiento por abiertos de $\mathcal{S}$ tiene srf
+\end{theorem}
+
+\begin{theorem} \textbf{Tychonoff}. 
+Sea $X=\Pi X_i$ un producto de espacios topológicos arbitrarios. Entonces
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Si $X_i \neq \emptyset \ \forall i, X$ compacto $\implies X_i$ compactos
+  \item Si $X_i$ compacto $\ \forall i$ $\implies X$ compacto
+\end{enumerate}
+\end{theorem}
+
+
+\subsection{Espacios métricos}
+\begin{theorem}
+\textbf{Heine-Borel}. $A\subseteq \mathbb{R}^n$ compacto $\iff$ cerrado y acotado
+\end{theorem}
+Observamos que en un espacio métrico se cumple compacto $\begin{cases}
+  \Rightarrow \\ \not\Leftarrow 
+\end{cases}$ cerrado y acotado
+
+\begin{theorem}
+\textbf{Weierstrass}. $f:X \to \mathbb{R}$ continua con $X$ compacto tiene máximo y mínimo
+\end{theorem}
+
+\begin{theorem}
+  En un espacio métrico son equivalentes:
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item \textit{Compacidad por recubrimientos}: todo recubrimiento tiene un srf 
+	\item \textit{Bolzano-Weierstrass}: todo subconjunto infinito tiene algún punto de acumulación
+	\item \textit{Compacidad secuencial}: toda sucesión tiene alguna parcial convergente
+  \end{enumerate}
+\end{theorem}
+
+
+
+\section{Conexión}
+\subsection{Espacios conexos}
+\begin{definition}[Espacio conexo] El espacio $(X, \mathcal{T})$ es conexo si $X = U \sqcup V$ con  $U, V$ abiertos distintos de  $\emptyset, X$
+
+  El subespacio $S\subseteq X$ es no conexo si existe una separación, es decir
+  \[
+	\ \exists 
+  \begin{cases}
+   U\subseteq X \\
+   V \subseteq X
+  \end{cases}
+  :
+  \begin{cases}
+    U \cap V \cap S = \emptyset \\
+	U \cap S \neq \emptyset \\
+	V \cap S \neq \emptyset
+  \end{cases}
+  \implies S\subseteq U \cup V
+  \] 
+  Si no existe tal separación decimos que $S$ es conexo
+\end{definition}
+
+Propidedes de los conexos
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Si $A$ conexo,  $A\subseteq B\subseteq \overline{A} \implies B$ conexo
+	\item $A_i$ conexos,  $A_i\cap A_j \neq \emptyset \implies A = \bigcup A_i$ conexo  
+	\item $f$ continua, $A$ conexo  $\implies f(A)$ conexo
+  \end{enumerate}
+
+\begin{theorem}[Valor intermedio] Sea $f:X \to \mathbb{R}$ continua con $X$ conexo.
+  \[
+  \ \forall x, y \in X : f(x)\le \alpha \le f(y) \implies \ \exists z \in X : f(z) = \alpha 
+  \] 
+\end{theorem}
+
+\begin{theorem}[Conexión de producto] Sea $X = \Pi X_i$ producto de espacios topológicos:
+   \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Si $X_i\neq \emptyset \ \forall i$ y $X$ es conexo  $\implies X_i$ es conexo
+	\item Si $X_i$ es conexo  $\ \forall i \implies X$ es conexo
+  \end{enumerate}
+\end{theorem}
+
+\subsection{Espacios arco-conexos}
+\begin{definition}[Camino] Un camino es una aplicación $\sigma :\mathbb{I} \to X$ continua
+\end{definition}
+
+\begin{definition}[Espacio arco-conexo] El espacio $(X, \mathcal{T})$ es arco-conexo si para cada par de puntos $a, b \in X$ existe un camino $\sigma : \sigma (0)=a, \sigma (1)=b$
+\end{definition}
+
+En general tenemos arco-conexo $\implies$ conexo, pero conexo $\not\implies$ arco-conexo (la pinta y la puça)
+
+\begin{proposition}
+Sea $f$ es una aplicación continua. $X$ arco-conexo  $\implies f(X)$ arco-conexo
+\end{proposition}
+
+
+
+\section{Homotopía}
+
+\subsection{Homotopía}
+\begin{definition}[Homotopía de aplicaciones]
+  Sean $f, g: X \to Y$ continuas. Una homotopía es una aplicación continua 
+  \[
+  F:X\times [0, 1] \to  Y : \begin{cases}
+    F(x, 0) = f(x) \\
+	F(x, 1) = g(x)
+  \end{cases} \ \forall x \in X
+  \] 
+\end{definition}
+
+Esta homotopía crea una clase de equivalencia homotópica ($\simeq$). El conjunto de las clases homotópicas de las aplicaciones continuas de  $X$ en  $Y$ se denomina  $\mathcal{C}[X, Y]$.
+
+\begin{definition}[Espacios homotópicos]
+  Dos espacios $X, Y$ son homotópicos ($X\simeq Y$) si:
+   \[
+  \ \exists \begin{cases}
+    f: X \to Y\\
+    g: Y \to  X
+  \end{cases}
+  :
+  \begin{cases}
+    g\circ f \simeq Id_X \\
+	f\circ g \simeq Id_Y
+  \end{cases}
+  \] 
+\end{definition}
+
+De la misma forma esta relación homotópica define una relación de equivalencia.
+
+\begin{definition}
+Un espacio es \textbf{contráctil} si tiene el mismo tipo de homotopía que un punto 
+\end{definition}
+
+\begin{definition}[Retracción]
+  Una retracción es una aplicación $r:X \to S \subseteq X$ tal que $r|_S = Id_S$
+
+  Un \textbf{retracto} se da si existe una retracción $r\simeq Id_X$
+\end{definition}
+
+\subsection{Revestimientos}
+\begin{definition}[Abierto elemental] Sea $f:X \to  Y$, un abierto elemental de $Y$ es un abierto $V$ de  $Y$ tal que
+  \begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $f^{-1}(V) = \sqcup U_i$, $U_i$ abierto de  $X$
+	\item  $f|_{U_i}: U_i \to V$ es homeomorfismo ($U_i \simeq V$)
+  \end{enumerate}
+\end{definition}
+
+
+
+\begin{definition}[Revestimiento] Aplicación $p:\tilde{X} \twoheadrightarrow X$ exhaustiva tal que $X$ tiene un recubrimiento formado por abiertos elementales
+\end{definition}
+
+\subsection{Levantamientos}
+
+  \begin{minipage}{0.8\textwidth}
+\begin{definition}[Levantamiento] Sea $p: \tilde{X} \twoheadrightarrow  X$ revestimiento, $f: Y \to X$, entonces un levantamiento (aixecament) de $f$ en el espacio  $\tilde{X}$ es
+  \[
+  \tilde{f}: Y \to \tilde{X} \quad \text{tal que } \quad p\circ \tilde{f} = f
+  \] 
+\end{definition}
+  \end{minipage}
+  \begin{minipage}{0.2\textwidth}
+ \begin{tikzcd}
+	Y & {\tilde{X}} \\
+	& X
+	\arrow["{\tilde{f}}", from=1-1, to=1-2]
+	\arrow["p", two heads, from=1-2, to=2-2]
+	\arrow["f"', from=1-1, to=2-2]
+\end{tikzcd} 
+  \end{minipage}
+
+Si ademas $Y$ es conexo, cualquier levantamiento de una aplicación continua $f: Y \to X$ queda determinado por la imagen de un solo punto
+
+\begin{minipage}{0.8\textwidth}
+\begin{definition}[Levantamiento de caminos] Sea $p:\tilde{X} \twoheadrightarrow X$ revestimiento con $p(\tilde{x})=x$ y el camino $\sigma : \mathbb{I} \to X$ tal que $\sigma (0) = x$. Entonces $\sigma $ tiene un único levantamiento $\tilde{\sigma }: \mathbb{I} \to  X$ tal que  $\tilde{\sigma}(0) = \tilde{x}$
+\end{definition}
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\begin{tikzcd}
+	{\mathbb{I}} & {\tilde{X}} \\
+	& X
+	\arrow["{\tilde{\sigma}}", from=1-1, to=1-2]
+	\arrow["p", two heads, from=1-2, to=2-2]
+	\arrow["\sigma"', from=1-1, to=2-2]
+\end{tikzcd}
+\end{minipage}
+
+\begin{definition}[Levantamiento de homotopías] Sea $p:\tilde{X} \twoheadrightarrow X$ revesimiento con $p(\tilde{x})=x$. Toda aplicación continua $F:\mathbb{I}^2 \to X$ con $F(0, 0) = x$ tiene un único levantamiento  $\tilde{F}: \mathbb{I}^2 \to  X$ con $\tilde{F}(0, 0) = \tilde{x}$
+\end{definition}
+
+\subsection{Grado de homotopías $\mathbb{S}^1 \to \mathbb{S}^1$}
+En toda la seccioón la función $\exp(x) = e^{2\pi i x}$. Nótese $\exp^{-1}(\exp(\alpha )) = \alpha + \mathbb{Z}$.
+
+\begin{proposition}
+Sea $\sigma : \mathbb{I} \to \mathbb{S}^1$ un camino. Dos levantamientos $\tilde{\sigma }_1, \tilde{\sigma }_2: \mathbb{I} \to  \mathbb{R}$ de $\sigma $ difieren en un entero. Es decir $\tilde{\sigma }_1(s) = \tilde{\sigma }_2(s) + k$.
+\end{proposition}
+
+\begin{minipage}{0.8\textwidth}
+\begin{definition}[Grado de la aplicación] Sea $f:\mathbb{S}^1 \to  \mathbb{S}^1$ definimos
+  \[
+  \deg f:= \tilde{\sigma }_f(1) - \tilde{\sigma }_f(0) \in \mathbb{Z}
+  \] 
+  con $\tilde{\sigma }_f:\mathbb{I} \to  \mathbb{R}$ un levantamiento del camino $\sigma _f = f \circ \pi : \mathbb{I} \to  \mathbb{S}^1$
+\end{definition}
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\begin{tikzcd}
+	{\mathbb{I}} & {\mathbb{R}} \\
+	{\mathbb{S}^1} & {\mathbb{S}^1}
+	\arrow["{\tilde{\sigma_f}}", from=1-1, to=1-2]
+	\arrow["{p = exp}", two heads, from=1-2, to=2-2]
+	\arrow["\sigma_f"', from=1-1, to=2-2]
+	\arrow["exp"', from=1-1, to=2-1]
+	\arrow["f"', from=2-1, to=2-2]
+\end{tikzcd}
+\end{minipage}
+
+\begin{proposition}
+La aplicación $f:  \mathbb{S}^1 \to  \mathbb{S}^1 $ tiene grado $0$ si y solo si tiene un levantamiento de la forma $\tilde{f}: \mathbb{S}^1 \to  \mathbb{R}$ con $f=\exp \circ \tilde{f}$
+\end{proposition}
+
+Vemos además que la aplicación $[f] \mapsto \deg f$ es un isomorfismo de grupos $[\mathbb{S}^1, \mathbb{S}^1] \cong \mathbb{Z}$ con la multiplicación en las funciones y suma en los enteros.
+
+\subsection{Topología del plano}
+\begin{theorem}[Fundamental del Álgebra] Todo polinomio con coeficientes complejos no constante tiene alguna raíz
+\end{theorem}
+
+\begin{proposition}
+No existe una retracción $r:\mathbb{D}^2 \to \mathbb{S}^1$
+\end{proposition}
+
+\begin{theorem}[Punto fijo de Brouwer]
+Toda aplicación continua $\mathbb{D}^2 \to \mathbb{D}^2$ tiene algún punto fijo.
+\end{theorem}
+
+\begin{theorem}[Borsuk-Ulam]
+$f: \mathbb{S}^2 \to \mathbb{R}^2 $. Entonces existe $x \in \mathbb{S}^2$ tal que $f(x) = f(-x)$
+\end{theorem}
+
+\begin{theorem}[Invariancia de dimensión]
+Un abierto $U\subseteq \mathbb{R}^2$ no puede ser homeomorfo a uno de $\mathbb{R}^n$ con $n\neq 3$
+\end{theorem}
+
+
+
+\section{Grupo Fundamental}
+\begin{definition}[Homotopía de caminos]
+  Sean $\sigma , \tau : \mathbb{I} \to X$ caminos. Una homotopía de caminos es una aplicación continua 
+  \[
+  F:\mathbb{I}\times [0, 1] \to  X : \begin{cases}
+    F(s, 0) = \sigma (s) \\
+	F(s, 1) = \tau (s) \\
+    F(0, t) = \sigma(0) = \tau (0)
+    F(1, t) = \sigma(1) = \tau (1)
+  \end{cases} \ \forall s \in \mathbb{I}, t \in [0,1]
+  \] 
+\end{definition}
+
+\begin{definition}[Composición de caminos] Sean $\sigma , \tau : \mathbb{I} \to X $ tal que $\sigma (1) = \tau (0)$. Se define su composición como $\mu = \sigma \star \tau $:
+  \[
+  \mu: \mathbb{I} \to X, \qquad \mu(s) = \begin{cases}
+	\sigma (2s) & 0\le s\le \frac{1}{2} \\
+	\tau (2s-1) & \frac{1}{2} \le s\le 1
+  \end{cases}
+  \] 
+
+\end{definition}
+
+\begin{definition}[Grupo Fundamental]
+  El grupo Fundamental de $X$ en el punto $x$ es el conjunto de clases de homotopía
+  \[
+  \pi_1(X, x) = \{[\sigma ] : \sigma \text{ lazo en } X \text{ con extremos } \sigma (0) = \sigma (1)=x\}
+  \] 
+  con la operación $[\sigma ]\cdot [\tau ] := [\sigma \star \tau ]$
+\end{definition}
+
+
+
+
+\section{Clasificación de aplicaciones continuas}
+Sea $f:X\to Y$ una aplicación continua
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Nombre}  & \textbf{$f$ cumple} & \textbf{Propiedades} \\
+\hline
+Abierta & imagen de todo abierto es abierto & \\
+\hline
+Cerrada & imagen de todo cerrado es cerrado & \\
+\hline
+Homeomorfismo & $f$ biyectiva,  $f^{-1}$ continua & \\
+\hline
+Inmersión & $f$ inyectiva, $X\cong f(X)$  &   \\
+\hline
+Identificación & $f$ exhaustiva, $ f^{-1}(V)$ abierto $\implies V$ abierto & $f_\sim : X / \sim \to  f(X)$ homeo \\
+\hline
+
+\end{tabular}
+\end{center}
+\subsection{Implicaciones útiles}
+Sea $f:X\to Y$ una aplicación continua
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+  \item $f$ biyectiva + abierta/cerrada $\begin{cases}
+    \Rightarrow \\ \not\Leftarrow
+  \end{cases}$ $f$ homeomorfismo
+  \item $f$ exhaustiva + abierta/cerrada  $\begin{cases} \Rightarrow \\ \not\Leftarrow \end{cases}$ $f$ identificación
+  \item 
+\end{itemize}
+
+\subsection{Diagramas conmutativos}
+\begin{minipage}{0.7\textwidth}
+\textbf{Propiedad universal proyecciones}
+\[
+\begin{cases}
+  \pi^y_i\circ f & \text{ continua} \\
+  \pi^y_i & \text{ continua}
+\end{cases}
+\implies f \text{ continua}
+\] 
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\[\begin{tikzcd}
+	{\Pi X_i} & {\Pi Y_i} \\
+	& Y
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{\pi^y_i}", from=1-2, to=2-2]
+	\arrow["{\pi^y_i\circ f}"', from=1-1, to=2-2]
+\end{tikzcd}\]
+\end{minipage}
+
+\begin{minipage}{0.7\textwidth}
+\textbf{Propiedad universal cociente}
+\[
+\tilde{f} \text{ continua}  \iff f \text{ continua}
+\] 
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+  \begin{tikzcd}
+	X & {X/\sim} \\
+	& Y
+	\arrow["f"', from=1-1, to=2-2]
+	\arrow["\pi", two heads, from=1-1, to=1-2]
+	\arrow["{\tilde{f}}", from=1-2, to=2-2]
+\end{tikzcd}
+\end{minipage}
+
+\section{Ejemplos}
+\subsection{Aixecament de camins}
+\begin{minipage}{0.8\textwidth}
+Encontraremos el grado de la función $f: \mathbb{S}^1 \to \mathbb{S}^1 , f(z)= z^n$. Para ello primero creamos el camino $\sigma_f = f\circ \exp$. Vemos en el diagrama conmutativo que
+ \[
+f\circ \exp (s) = p \circ \tilde{\sigma _f}(s)  \implies e^{2\pi i s n} = e^{2\pi i \tilde{\sigma _f}(s)} \implies \tilde{\sigma }_f(s) = ns + k 
+\] 
+\[
+\deg(f) = \tilde{\sigma}_f(1)-\tilde{\sigma }_f(0) = n+k-k = n
+\] 
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\begin{tikzcd}
+	{\mathbb{I}} & {\mathbb{R}} \\
+	{\mathbb{S}^1} & {\mathbb{S}^1}
+	\arrow["{\tilde{\sigma_f}}", from=1-1, to=1-2]
+	\arrow["{p = exp}", two heads, from=1-2, to=2-2]
+	\arrow["\sigma_f"', from=1-1, to=2-2]
+	\arrow["exp"', from=1-1, to=2-1]
+	\arrow["f"', from=2-1, to=2-2]
+\end{tikzcd}
+\end{minipage}
+
+
+
+
+
+
+
+
+\end{document}

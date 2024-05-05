@@ -1,0 +1,125 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Quantum Mechanics}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Hilbert Spaces}
+\begin{theorem}[Gram-Schmidt]
+Given a basis $| a_i \rangle $ we can always make and orthonormal basis (bon)
+\[
+| e_{m+1}' \rangle = | a_{m+1} \rangle - \sum | e_i \rangle \langle e_i | a_{n+1} \rangle  , \quad | e_{m+1} \rangle = \frac{| e_{m+1}' \rangle }{\langle e_{m+1}' | e_{m+1}' \rangle } 
+\] 
+\end{theorem}
+
+\begin{definition}[Hermitic Operator] $A$ is hermitic  $\iff A^\dagger = A	$
+\end{definition}
+\begin{definition}[Unitary Operator] $U$ is unitary  $\iff U^\dagger U = I$
+\end{definition}
+\begin{definition}[Expected value] The expected value of the operator $A$ in the state $| \psi \rangle $ is $\langle A \rangle = \langle \psi  | A | \psi  \rangle     $
+\end{definition}
+\begin{definition}[Uncertainty] Define $\overline{A}=A-\langle A  \rangle I $. Then we define uncertainty as $\Delta A = \sqrt{\langle \overline{A}^2 \rangle } $
+\end{definition}
+\begin{theorem}[Cauchy-Schwarz] $\langle \psi  | \psi  \rangle \langle \varphi   | \varphi  \rangle \ge |\langle \psi  | \varphi  \rangle |^2 \quad \Rightarrow \quad \Delta A \Delta B \ge \frac{1}{2} |\langle [A,B] \rangle |$ 
+\end{theorem}
+\begin{theorem}[Glauber's formula]
+\[
+\begin{cases}
+  [A,[A,B]]=0\\
+  [B,[A,B]]=0
+\end{cases} \Rightarrow e^{A}e^{B} = e^{A+B}e^{\frac{1}{2}[A,B]}
+\] 
+\end{theorem}
+
+\begin{theorem}[Propiedades del operador unitario] Sea $U$ un unitary operator
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+  \item Their VEPs form a bon
+  \item Every VAP is of norm one
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Unitary transform] $A' = UAU^\dagger \Rightarrow \psi ' = U\psi , \quad Uf(A)U^\dagger=f(UAU^\dagger)$
+\end{definition}
+\begin{proposition}
+Change of basis. $A_{new} = U A_{old} U^\dagger \Rightarrow A_{ik}=\langle u_i | A | u_k \rangle $ 
+\end{proposition}
+\begin{proposition}
+  Spectral decomposition. $A = \sum_{n=1}^\infty a_n\sum_{i=1}^{g_n}| \psi _n^i \rangle \langle \psi _n^i | $ 
+\end{proposition}
+
+\section{Postulates of Quantum mechanics}
+\underline{\textit{First postulate:}} The state of an isolated physical system is defined by specifying a ket $| \psi (t_0) \rangle $ in the Hilbert space
+
+\underline{\textit{Second postulate:}} Every measurable physical quantity $\mathcal{A}$ is described by an operator $A$ acting in the Hilbert space. This operator is an observable.
+ 
+\underline{\textit{Third postulate:}} The only possible result of the measurement of a physical quantity $\mathcal{A}$ is one of the VAPs of $A$
+
+\underline{\textit{Fourth postulate:}} (discrete spectrum) When $\mathcal{A}$ is measured on $\psi $ (normalized), the probability of obtaining $\mathcal{A}=a_n$ is $P(a_n) = \sum_{i=1}^{g_n}|\langle u_n | \psi  \rangle |^2$ (continuous non-degenerate spectrum) $dP(\alpha ) = P(\alpha \le x\le \alpha +d\alpha ) = |\langle v_\alpha  | \psi  \rangle |^2d\alpha $
+
+\underline{\textit{Fifth postulate:}} If the measurement of the quantity $\mathcal{A}$ on the state $| \psi  \rangle $ gives as a result $a_n$, the state of the system immediately after the measurement is the normalized projection $\displaystyle \frac{P_n| \psi  \rangle }{\sqrt{\langle \psi  | P_n | \psi  \rangle } }$ 
+
+\underline{\textit{Sixth postulate:}} The time evolution of the state vector $| \psi (t) \rangle $ follows the Schrödinger equation:
+\[
+ i\hbar \frac{d }{d t} | \psi (t) \rangle = H(t)| \psi (t) \rangle  
+\] 
+
+
+\end{document}
