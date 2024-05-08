@@ -53,7 +53,7 @@
 \DeclareMathOperator{\coim}{Coim}
 \DeclareMathOperator{\id}{id}
 
-\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\com}[1]{\textcolor{red}{\uppercase{#1}}}
 \newcommand{\incfig}[1]{%
 \center
 \def\svgwidth{0.9\columnwidth}
@@ -116,6 +116,68 @@ We provide some examples of sheaves and presheaves.
     This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally altough it is locally (in every $U_i$).
 \end{proof}
 
+\begin{definition}[Stalk] Let $\mathcal{F} $ a presheaf and $P \in X$. The stalk of $\mathcal{F} $ at $P$ is defined as the direct limit of the groups
+    \[
+    \mathcal{F}_P = \varinjlim_{P \in U} \mathcal{F} (U)
+    \]
+\end{definition}
+
+The elements of the stalk can be understood in less abstract way by thinking about the equivalence classes of the pairs $<s, U> = (s,U)/ \sim$ with $s \in F(U), U \subseteq X$ that meet
+\[
+<s, U> = <t, V>  ( \iff  (s, U) \sim (t,V)) \iff  \ \exists W \subseteq U \cap V : s|_U = t|_V
+\]
+
+\begin{proposition} Let $\varphi : \mathcal{F} \to \mathcal{G}  $ a morphism of sheaves. Then there exist an induced morphism in the stalks $\varphi _P: \mathcal{F}_P \to \mathcal{G}_P  $ for every point $P \in X$.
+\end{proposition}
+
+\begin{proof}
+The most natural induced morphism is the one that sends $ <s, U> \mapsto <\varphi (s),U> $. Obviously $<s, U> \in \mathcal{F}(U), <\varphi (s), U> \in \mathcal{F}(U)  $, so the only thing to prove is that this map is well defined. Let $<s, U> = <t, V> \in  \mathcal{F}_P $. Then there exist, by the construction of stalk, $W \subseteq U \cap V$ such that $s|_W = t|_W$, and thus $\varphi (s)|_W = \varphi (t)|_W$, getting
+\[
+<\varphi (s), U> = <\varphi (s)|_W, W> = <\varphi (t)|_W, W> = <\varphi (t), V>
+\]
+which proves that $\varphi _P(<s, U>) = \varphi _P(<t, V>)$ 
+\end{proof}
+
+We provide some interesting examples of stalks of different sheaves on $X = \mathbb{R}$. 
+
+\begin{example}
+Let $X = \mathbb{R}$. We consider three different sheaves:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $\mathcal{F}(U) = \{f : f \in \mathbb{R}[x]\}$. Then $\mathcal{F}_P \cong k[x]$ 
+    \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\omega \}$. Then $\mathcal{F}_P \cong k[[x]] $
+    \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\infty \}$. \com{?} 
+    \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^0 \}$. \com{?}
+\end{enumerate}
+\end{example}
+
+\com{explain}
+
+Stalks are extremely useful in the study of sheaves. They can be able to generate global data from local one. The most extreme case is, for example, when $\mathcal{F}(U) $ is the ring of polynomials or the ring of analytic functions in the example avobe. I such cases one can recover the whole information of the sheaf $s \in \mathcal{F}(U) $ given the stalk $s_P \in \mathcal{F}_P $ on any point.
+
+In general, this is not the case, but, fortunately, the knowledge of all the stalks can be glued to obtain the behaviour of the section of the sheave. The following proposition encloses this idea. 
+
+\begin{proposition}
+Let $\varphi : \mathcal{F} \to \mathcal{G}$. Then
+\[
+\varphi \text{ is an isomorphism } \iff \varphi _P \text{ is an isomorphism } \ \forall  P \in X
+\]
+\end{proposition}
+
+\begin{proof}
+First we prove $\boxed{ \implies } $. For the surjectivity of $\varphi _P$ suppose $<t, U> \in \mathcal{G}_P $. Then there exists $s \coloneq \varphi ^{-1}(t)$ and $\varphi _P( <s, U>) = \mathcal{G}_P $. For the injectivity we suppose $<\varphi (s), U> = <\varphi (t), V> = <\varphi (s|_W), W>$ with $W \subseteq U \cap V$. Then, by injectivity of $\varphi $ we have $\varphi (s|_W)=\varphi (t|_W) \implies  s|_W = t|_W \implies <s, U> = <t,V>$. 
+
+The other direction $\boxed{ \impliedby } $  is a little bit more subtle. First we prove injectivity. Let $s \in \mathcal{F} (U) : \varphi (s)=0$. Then
+\[
+\varphi _P(<s, U>) = <\varphi (s), U> = <0, U> \ \forall  P \implies <s, U> = <0, U> \ \forall  P
+\]
+Now we know that we can restrict for all $P$ our domain $U$ in a smaller one $W_P \subseteq U$ in which $s|_{W_P} = 0$. Taking the covering $\{W_P\}_P$ of $U$ we get, by gluing property, $s = 0$. This proves the injectivity. 
+
+For the surjectivity let $t \in \mathcal{G}(U) $. Then, for $<t, U> \in \mathcal{G}_P \ \exists <s^P, V> \in \mathcal{F}_P $ (we can choose a section that a priori depends on the point $P$) such that $\varphi _P(<s^P, V>) = <\varphi (s^P), V> = <t, U>$. By the definition of stalk we can find a neighborhood of $P$ such that $W_P \subseteq U \cap V$ such that $\varphi (s^P)|_{W_P} = t|_{W_P}$. We now have to see that the sections that induce the stalks can be glued in a global section, but this is consequence of the injectivity of $\varphi$, since $\varphi (s^P)|_{W_P \cap W_Q} = \varphi (s^Q)_{W_P \cap W_{Q}}$ implies $s^P|_{W_P \cap W_Q} = s^Q|_{W_P \cap W_Q}$. Thus, applying the gluing axiom we reconstruct a global section $s \in \mathcal{F}(U)$. This proves surjectivity.
+\end{proof}
+
+Note that the given proof also shows that $\varphi $ injective (resp. surjective) $ \implies $ $\varphi _P$ injective (resp. surjective). The injectivity in the other direction also holds, but the surjectivity fails, since for the proof the injectivity of $\varphi $ is required. \com{is this correct?}
+
+
 Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
 
 \begin{definition}[Sheafification]
@@ -132,6 +194,12 @@ commute
 \end{definition}
 
 
+
+
+
+%#############################################################
+% Problems
+%#############################################################
 
 
 
@@ -186,7 +254,7 @@ t_i \in \mathcal{F} (U_i)
 \]
 First we prove $\boxed{ \implies } $. Since $\varphi _P$ is surjective, then $\ \forall t \in \mathcal{G}(V)$ we have a $s \in \mathcal{F}(U) $ such that $<t, V > = <\varphi (s), U> \in \mathcal{G}_P$. In particular, we can restrict more both open sets to an open set $W \subseteq  U \cap V$defined to be the one such that $s|_W = \varphi (t|_W)$. Thus, we get an open cover $(W_P)_{P \in X}$ of $X$ and sections $t_{W_P} \in \mathcal{F}(W_P) $ satisfying the condition. 
 
-We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections $t_i \in \mathcal{F}(U_i)$ such that $\varphi (t_i) = s|U_i$. Then, given an element of the stalk $<s, U> \in \mathcal{G}_P $, for all point $P$ we have a set $U_i$, and $\varphi _P(<t,U_i>) = <s,U>$, concluding that $\varphi _P$ is sujjective.
+We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections $t_i \in \mathcal{F}(U_i)$ such that $\varphi (t_i) = s|U_i$. Then, given an element of the stalk $<s, U> \in \mathcal{G}_P $, for all point $P$ we have a set $U_i$, and $\varphi _P(<t,U_i>) = <s,U>$, concluding that $\varphi _P$ is surjective.
 
 (2) \com{falta ejemplo}
 
@@ -194,7 +262,48 @@ We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections 
 \textbf{Problem 5} 
 \end{problem}
 
-Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G}  $ is injective (resp. surjective) if and only if the induce morphisms on stalks $\varphi _P$ are injective (resp. surjective) for all $P$ . We also recall, by proposition 1.1 of \cite{Har}, that $\varphi$ is an isomorphism if and only if $\varphi _P$ is an isomorphism for all $P$
+Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G}  $ is injective (resp. surjective) if and only if the induce morphisms on stalks $\varphi _P$ are injective (resp. surjective) for all $P$ . We also recall, by proposition 1.1 of \cite{Har}, that $\varphi$ is an isomorphism if and only if $\varphi _P$ is an isomorphism for all $P$. Thus, we have
+\[
+\varphi \text{ inj, sur } \iff \varphi _P \text{ inj, surj } \ \forall  P \iff  \varphi _P \text{ iso } \iff \varphi \text{ iso }
+\]
+
+
+\begin{problem}
+\textbf{6}.  
+\end{problem}
+
+
+\begin{problem}
+\textbf{7}.
+\end{problem}
+
+\begin{proof}
+(1) We have the isomorphisms on the stalks
+\[
+\im (\varphi )_P = \im (\varphi _P) \cong \frac{\mathcal{F}_P}{\ker (\varphi _P)} = \frac{\mathcal{F}_P }{\ker (\varphi )_P} = \left( \frac{\mathcal{F} }{\ker (\varphi )} \right)_P \ \forall  P \implies \im(\varphi ) = \frac{\mathcal{F}}{\ker (\varphi )}
+\]
+
+(2) We have the isomorphisms on the stalks
+\[
+   \coker (\varphi )_P = \coker (\varphi _P)  \cong \frac{\mathcal{G} _P}{ \im (\varphi _P)} = \frac{\mathcal{G}_P }{ \im (\varphi )_P} = \left( \frac{\mathcal{G} }{ \im (\varphi )}  \right)_P \ \forall  P \implies  \coker (\varphi ) \cong \frac{\mathcal{G} }{ \im(\varphi )}
+\]
+\end{proof}
+
+\begin{problem}
+\textbf{8}. For any open subset $U \subseteq X$, show that the functor $\Gamma (U, \cdot )$ from sheaves on $X$ to abelian groups is a left exact functor. 
+\end{problem}
+
+\begin{proof}
+\com{insertar diagrama}
+
+The first thing we notice is that there exist a functor $\Gamma_P$ that sends the sections to the stalks and the morphisms of sections to the morphisms of staks. This functor is exact \com{Is this true, guess so, and right is true}
+
+To prove the injectivity of $\varphi |_U$ is immediate. It remains to prove that $ \ker (\psi |_U) = \im (\varphi |_U )$. The inclusion $\boxed{ \supseteq }$ cames from the functoriality, meaning $\psi |_U \circ \varphi |_U = \Gamma (\psi   ) \circ   \Gamma (\varphi  ) = \Gamma (\psi  \circ  \varphi ) = 0$. 
+
+For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the functor $\Gamma _P$ we have $\ \exists <s^P, V_P> \in \mathcal{F}'_P \ \forall  P \in U$. Then $\varphi _P (<s^P, V_P>) = <\varphi (s^P), V_P> = <t^P, U_P>$. For each $P$ we can find a $W_P \in U_P \cap V_P$ such that $\varphi (s^P)|_{W_P} = t^P|_{W_P}$, and following injectivity of $\varphi $ (required for the gluing axiom in order to have the same section in the intersections of $W_P \cap W_Q$ for different points ) we have global section $s|_U$ 
+\end{proof}
+
+
 
 
 
