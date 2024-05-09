@@ -93,13 +93,116 @@ que esta bien definida gracias a que es un complejo y la imagen queda dentro del
 
 Para los ejemplos empezaremos por calcular $H_0$. Observamos que $d_1(x)=0\ \forall x$, por lo que dado el conjunto del poset con cardinal $n$ tenemos que todo el grupo abeliano $\sum a_n x_n$ esta en el nucleo de  $d_1$, por lo que  $Z_0 \cong  \mathbb{Z}^n$. De la misma forma si consideramos la imagen $B_1$, esta esta formada por todas las cadenas de la forma $x-y$ si  $x\le y$, es decir, si están en la misma componente conexa del grafo de Hasse (no importa la dirección, pues si está al reves haremos $y-x$). Por tanto al pasar por el cociente estamos identificando todas las componentes conexas y $H_0 \cong \mathbb{Z}^{\# \{\text{comp. con.}\}}$.
 
-c) \com{falta}
+c) \com{falta citar bien el articulo por el que $< = \le$ }
+
+\textbf{Primer poset} 
+
+Por el argumento anterior hemos visto que $H_0 = \mathbb{Z}$. Calculamos ahora $H_1$. El nucleo de una cadena arbitraria de $C_1$ será
+\[
+d_1(ax_0x_1 + bx_1x_3 + cx_0x_2 + dx_2x_3) = x_1 (a-b) + x_2(c-d) + x_0(-a-c-e) + x_3(b+d+e) = 0
+\]
+lo que quiere decir
+\[
+a=b, \quad c=d, a+c+e=0, \quad \implies \ker d_1 = \mathbb{Z}^2
+\]
+
+Por otra parte si calculamos la imagen de $C_2$ tenemos
+\[
+d_2(ax_0x_1x_3 + bx_0x_2x_3) = a(x_1x_3 - x_0x_3 + x_0x_1) + b(x_2x_3-x_0x_3+x_0x_2) \implies \im(d_2) = \mathbb{Z}^2
+\]
+por tanto $H_1 = 0$. 
+
+Calcular $H_2$ es más sencillo, pues el núcleo ya da cero, ya que si agrupamos los términos de la imagen de un elemento arbitrario como el anterior tenemos 
+\[
+ax_1x_3 + ax_0x_1 + bx_2x_3 + bx_0x_2 + (-a-b)x_0x_3 = 0 \implies a=b=0 \implies \ker (d_2) = 0
+\]
+por lo que $H_2 = 0$. 
+
+En definitiva $H_0 = \mathbb{Z}, H_i = 0 \ \forall  i \ge  1$.
+
+
+\textbf{Segundo poset} 
+
+Como el grafo de Hasse es conexo, entonces $H_0 = \mathbb{Z}$. Calculamos ahora el nucleo de la aplicación $d_1$
+\[
+d_1(ax_1x_3 + bx_1x_2+cx_0x_2) = ax_3 -cx_0 +(-a-b)x_1 + (b+c)x_2 =0 \implies a=b=c = 0 \implies \ker (d_1)=0
+\]
+lo que significa que $H_1 = 0$. 
+
+En definitiva $H_0 = \mathbb{Z}, H_i = 0 \ \forall  i \ge  1$.
+
+\textbf{Tercer poset} 
+
+Como el grafo de Hasse es conexo, entonces $H_0 = \mathbb{Z}$. Calculamos ahora el nucleo de la aplicación $d_1$
+\begin{align*}
+d_1(ax_0x_3 + bx_0x_4 + cx_1x_3+dx_1x_4 + ex_2x_3 + fx_2x_4) = &(-a-b) x_0 + (-c-d)x_1+(-e-f)x_2 +\\
+&+ (a+c+e) x_3 + (-b-d-f)x_4 = 0
+\end{align*}
+Nos salen las ecuaciones
+\[
+b = -a, \quad d = -c, \quad f = -e, a+c+e = 0 \implies (a,c,e): a+c+e = 0
+\]
+lo que es claramente isomorfo a $\mathbb{Z}^2$. por otro lado la imagen de $d_2$ es $0$, ya que las cadenas de longitud 3 $C_2 = 0$. Deducimos, por tanto, que $H_1 = \mathbb{Z}^2$.
+
+En definitiva $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^2, H_i = 0 \ \forall  i \ge  2$ .
+
+
 
 \section{Complejos simpliciales abstractos}
 
-a) Para probar que $\Delta (K)$ es complejo de cadenas debemos ver que $\partial_{p}\circ \partial _{p-1} = 0$. Esto se realiza de manera totalmente equivalente al ejercicio 1. \com{justificar functor}
+a) Para probar que $\Delta (K)$ es complejo de cadenas debemos ver que $\partial_{p}\circ \partial _{p-1} = 0$. Esto se realiza de manera totalmente equivalente al ejercicio 1. Vamos a ver que es un functor
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJLIl0sWzEsMCwiTCJdLFsyLDAsIlMiXSxbMCwxLCJcXERlbHRhIEsiXSxbMSwxLCJcXERlbHRhIEwiXSxbMiwxLCJcXERlbHRhIFMiXSxbMCwzLCJGIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbNCw1LCJmXyoiLDJdLFszLDQsImZfKiIsMl0sWzEsNCwiRiJdLFsyLDUsIkYiXV0=
+\[\begin{tikzcd}
+	K & L & S \\
+	{\Delta K} & {\Delta L} & {\Delta S}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["F", from=1-1, to=2-1]
+	\arrow["g", from=1-2, to=1-3]
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["{f_*}"', from=2-1, to=2-2]
+	\arrow["{f_*}"', from=2-2, to=2-3]
+\end{tikzcd}\]
+Si la función $f$ envía vértices a vertices, podemos definir la $f_*:S(K) \to S(L)$ que envie elemento a elemento dentro del conjunto. De esta forma el diagrama conmuta. Ver que $F(g \circ f) = g_* \circ  f_*$ se puede hacer partiendo desde un elemento de $\Delta (K)$ y ver que, en efecto, la composición por abajo (la que envía elementos a elementos dentro del conjunto) es exactamente la misma que la composición por arriba aplicando el functor.  
 
-b) 
+b) Tenemos los siguientes diagramas
+
+\begin{minipage}{0.5\textwidth}
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXERlbHRhIEsiXSxbMSwwLCJcXERlbHRhIEwiXSxbMiwwLCJcXERlbHRhIFMiXSxbMCwxLCJIX1xcYnVsbGV0KFxcRGVsdGEoSykpIl0sWzEsMSwiSF9cXGJ1bGxldChcXERlbHRhKEwpKSJdLFsyLDEsIkhfXFxidWxsZXQoXFxEZWx0YShTKSkiXSxbMCwzLCJGIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbNCw1LCJnXyoiLDJdLFszLDQsImZfKiIsMl0sWzEsNCwiRiJdLFsyLDUsIkYiXV0=
+\[\begin{tikzcd}
+	{\Delta (K)} & {\Delta (L)} & {\Delta (S)} \\
+	{H_\bullet(\Delta(K))} & {H_\bullet(\Delta(L))} & {H_\bullet(\Delta(S))}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["F", from=1-1, to=2-1]
+	\arrow["g", from=1-2, to=1-3]
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["{f_*}"', from=2-1, to=2-2]
+	\arrow["{g_*}"', from=2-2, to=2-3]
+\end{tikzcd}\]
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXERlbHRhIEsiXSxbMSwwLCJcXERlbHRhIEwiXSxbMiwwLCJcXERlbHRhIFMiXSxbMCwxLCJIX1xcYnVsbGV0KFxcRGVsdGEoSykpIl0sWzEsMSwiSF9cXGJ1bGxldChcXERlbHRhKEwpKSJdLFsyLDEsIkhfXFxidWxsZXQoXFxEZWx0YShTKSkiXSxbMCwzLCJGIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbNCw1LCJnXyoiLDJdLFszLDQsImZfKiIsMl0sWzEsNCwiRiJdLFsyLDUsIkYiXV0=
+\[\begin{tikzcd}
+	{\Delta' (K)} & {\Delta' (L)} & {\Delta' (S)} \\
+	{H_\bullet(\Delta'(K))} & {H_\bullet(\Delta'(L))} & {H_\bullet(\Delta'(S))}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["F", from=1-1, to=2-1]
+	\arrow["g", from=1-2, to=1-3]
+	\arrow["F", from=1-2, to=2-2]
+	\arrow["F", from=1-3, to=2-3]
+	\arrow["{f_*}"', from=2-1, to=2-2]
+	\arrow["{g_*}"', from=2-2, to=2-3]
+\end{tikzcd}\]
+\end{minipage}
+ donde el functor de homología se define como el grupo abeliano resultante $H_n(\Delta (K)) = \ker \partial_n / \im (\partial _{n+1})$. Podemos ver que es functorial, ya que si tenemos una aplicación $f: \Delta(K) \to \Delta(L)$, entonces tenemos la aplicación induida en sus nucleos. Tomando la clase de equivalencia con las imagenes tenemos una aplicación inducida $f_*$ que hace conmutar el diagrama.
+
+ Para probar la functorialidad de $\Delta '(K)$ tenemos que hacer un paso extra, que consiste en ver que la aplicación $\partial '_p$ está bien definida, y no importa la permutación que elijamos. Podemos ver esto de manera que si tomamos dos permutaciones arbitrarias del conjunto $(v_0, \dots, v_p)$, entonces la imagen por $\partial _p$ será la misma, pero posiblemente con el signo cambiado, lo que indica que las imágenes son las mismas tras hacer la identificación propuesta.
+
+ c, d) Las homologías ordenadas serán exactamente igual que las homologías de posets del problema 1. 
+
+ \com{calcular la homología orientada}
+
 
 
 

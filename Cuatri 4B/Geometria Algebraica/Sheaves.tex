@@ -269,12 +269,27 @@ Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G} 
 
 
 \begin{problem}
-\textbf{6}.  
+\textbf{6}.
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Let $\mathcal{F} $ a subsheaf of $\mathcal{F} $. Show that the natural map of $\mathcal{F} $ to the quotient sheaf $\mathcal{F} / \mathcal{F'}  $ is surjective and has kernel $\mathcal{F}' $. Thus there is an exact sequence
+    \[
+    0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} / \mathcal{F}' \to 0 
+    \]
+    \item Conversely, if $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} / \mathcal{F} ' \to 0 $ is an exact sequence, show that $\mathcal{F}' $ is isomorphic to a subsheaf of $\mathcal{F} $, and that $\mathcal{F} ''$ is isomorphic to the quotient of $\mathcal{F} $ by this subsheaf.
+\end{enumerate}
 \end{problem}
+
+\begin{proof}
+\com{falta}
+\end{proof}
 
 
 \begin{problem}
-\textbf{7}.
+\textbf{7}. Let $\varphi :\mathcal{F} \to \mathcal{G} $ a morphism of sheaves.
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Show that $ \im(\varphi ) \cong \mathcal{F} / \ker (\varphi ) $ 
+    \item Show that $ \coker (\varphi ) \cong \mathcal{G} / \im(\varphi )$
+\end{enumerate}
 \end{problem}
 
 \begin{proof}
@@ -322,10 +337,72 @@ Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G} 
 
 The first thing we notice is that there exist a functor $\Gamma_P$ that sends the sections to the stalks of a fixed point $P$ and the morphisms of sections to the morphisms of stalks. This functor is exact \com{Is this true, guess so, and right is true}
 
-The proof of the injectivity of $\varphi |_U$ is immediate. It remains to prove that $ \ker (\psi |_U) = \im (\varphi |_U )$. The inclusion $\boxed{ \supseteq }$ cames from the functoriality, namely $\psi |_U \circ \varphi |_U = \Gamma (\psi   ) \circ   \Gamma (\varphi  ) = \Gamma (\psi  \circ  \varphi ) = 0$. 
+The proof of the injectivity of $\varphi |_U$ is immediate. It remains to prove that $ \ker (\psi |_U) = \im (\varphi |_U )$. The inclusion $\supseteq $ cames from the functoriality, namely $\psi |_U \circ \varphi |_U = \Gamma (\psi   ) \circ   \Gamma (\varphi  ) = \Gamma (\psi  \circ  \varphi ) = 0$. 
 
 For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the functor $\Gamma _P$ we have $\ \exists <s^P, V_P> \in \mathcal{F}'_P \ \forall  P \in U$. Then $\varphi _P (<s^P, V_P>) = <\varphi (s^P), V_P> = <t^P, U_P>$. For each $P$ we can find a $W_P \in U_P \cap V_P$ such that $\varphi (s^P)|_{W_P} = t^P|_{W_P}$, and following injectivity of $\varphi $ (required for the gluing axiom in order to have the same section in the intersections of $W_P \cap W_Q$ for different points ) we have global section $s \in \mathcal{F}(U) $ 
 \end{proof}
+
+\begin{problem}
+\textbf{15}. Let $\mathcal{F}, \mathcal{G} $ sheaves of abelian gropus on $X$. For any open set $U \subseteq X$, show that:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item The set $\Hom(\mathcal{F}|_U, \mathcal{G}| _U )$ of morphisms of the restricted sheaves has a natural structure of abelian group. 
+    \item The presheaf $U \mapsto \Hom (\mathcal{F}|_U, \mathcal{G}|_U)$ is a sheaf.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\com{falta}
+\end{proof}
+
+\begin{problem}
+\textbf{16}. A sheaf $\mathcal{F} $ on a topological space $X$ is flasque if for every inclusion $V \subseteq U$ of open sets, the restriction map $\mathcal{F}(U) \to \mathcal{U}(V) $ is surjective. 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Show that a constrant sheaf on an irreducible topological space is flasque.
+    \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and if $\mathcal{F}' $ is flasque, then for any open set $U$, hte sequence $0 \to \mathcal{F}'(U)$ 
+    \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and $\mathcal{F}', \mathcal{F} $ are flasque, then $\mathcal{F}'' $ is flasque.
+    \item If $f: X \to Y$ is a continous map, and $\mathcal{F} $ is a flasque sheaf on $X$, then $f_*\mathcal{F} $ is a flasque sheaf on $Y$. 
+    \item Let $\mathcal{F} $ be any sheaf on $X$. We define a new sheaf $\mathcal{G} $, called the sheaf of discontinous sections of $\mathcal{F} $ as follows. For each open set $U \subseteq X, \mathcal{G}(U) $ is the set of maps $s:U \to \bigcup _{P \in U} \mathcal{F}_P $ such that for each $P \in U, s(P) \in \mathcal{F}_P $. Show that $\mathcal{G} $ is a flasque sheaf, and that there is a natural injective morphism of $\mathcal{F} $ to $\mathcal{G}$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\com{falta}
+\end{proof}
+
+\begin{problem}
+\textbf{17}.  \com{falta}
+\end{problem}
+
+\begin{proof}
+\com{falta}
+\end{proof}
+
+\begin{problem}
+\textbf{21}.  
+Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X $ the sheaf of regular functions on $X$ 
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item Let $Y$ be a closed subset of $X$. For each open set $U \subseteq X$ let $\mathcal{J}_Y(U) $ be the ideal in the ring $\mathcal{O}_X(U) $ consisting of those regular functions which vanish at all points of $Y \cap U$. Show that the presheaf $U \mapsto \mathcal{J}_Y(U) $ is a sheaf.
+    \item If $Y$ is a subvariety, then the quotient sheaf $\mathcal{O}_X / \mathcal{J}_Y  $ is isomorphic to $i_* (\mathcal{O}_Y)$ 
+    \item Let $X = \mathbb{P}^1 $, and let $Y$ be the union of two distincts points $P, Q \in X$. Then there is an exact sequence of sheaves on $X$, where $\mathcal{F} = i_*\mathcal{O}_P \oplus i_*\mathcal{O}_Q  $,
+    \[
+       0 \to \mathcal{J} _Y \to \mathcal{O}  _X \to \mathcal{F} \to 0
+    \]
+    Show however that the induced map on global sections $\Gamma (X, \mathcal{O}_X ) \to  \Gamma (X, \mathcal{F} )$ is not surjective, showing that the global section functor $\Gamma (X, \cdot )$ is not exact. 
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\com{falta}
+\end{proof}
+
+
+
+%###################################################
+% Schemes
+%###################################################
+
+\section{Schemes}
+
 
 
 
