@@ -156,10 +156,16 @@ Stalks are extremely useful in the study of sheaves. They can be able to generat
 
 In general, this is not the case, but, fortunately, the knowledge of all the stalks can be glued to obtain the behaviour of the section of the sheave. The following proposition encloses this idea. 
 
+\begin{proposition} Let $\varphi :\mathcal{F} \to \mathcal{G}  $. Then
+    \[
+    \varphi \text{ is injective } \iff \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is injective } \ \forall  U \subseteq X
+    \]
+\end{proposition}
+
 \begin{proposition}
 Let $\varphi : \mathcal{F} \to \mathcal{G}$. Then
 \[
-\varphi \text{ is an isomorphism } \iff \varphi _P \text{ is an isomorphism } \ \forall  P \in X
+\varphi \text{ (injective, surjective, iso) } \iff \varphi _P \text{ (injective, surjective, iso) } \ \forall  P \in X
 \]
 \end{proposition}
 
@@ -175,7 +181,6 @@ Now we know that we can restrict for all $P$ our domain $U$ in a smaller one $W_
 For the surjectivity let $t \in \mathcal{G}(U) $. Then, for $<t, U> \in \mathcal{G}_P \ \exists <s^P, V> \in \mathcal{F}_P $ (we can choose a section that a priori depends on the point $P$) such that $\varphi _P(<s^P, V>) = <\varphi (s^P), V> = <t, U>$. By the definition of stalk we can find a neighborhood of $P$ such that $W_P \subseteq U \cap V$ such that $\varphi (s^P)|_{W_P} = t|_{W_P}$. We now have to see that the sections that induce the stalks can be glued in a global section, but this is consequence of the injectivity of $\varphi$, since $\varphi (s^P)|_{W_P \cap W_Q} = \varphi (s^Q)_{W_P \cap W_{Q}}$ implies $s^P|_{W_P \cap W_Q} = s^Q|_{W_P \cap W_Q}$. Thus, applying the gluing axiom we reconstruct a global section $s \in \mathcal{F}(U)$. This proves surjectivity.
 \end{proof}
 
-Note that the given proof also shows that $\varphi $ injective (resp. surjective) $ \implies $ $\varphi _P$ injective (resp. surjective). The injectivity in the other direction also holds, but the surjectivity fails, since for the proof the injectivity of $\varphi $ is required. \com{is this correct?}
 
 
 Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
@@ -275,12 +280,20 @@ Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G} 
     \[
     0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} / \mathcal{F}' \to 0 
     \]
-    \item Conversely, if $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} / \mathcal{F} ' \to 0 $ is an exact sequence, show that $\mathcal{F}' $ is isomorphic to a subsheaf of $\mathcal{F} $, and that $\mathcal{F} ''$ is isomorphic to the quotient of $\mathcal{F} $ by this subsheaf.
+    \item Conversely, if $0 \to \mathcal{F}' \xrightarrow{\varphi }   \mathcal{F} \xrightarrow{\psi }   \mathcal{F}' \to 0 $ is an exact sequence, show that $\mathcal{F}' $ is isomorphic to a subsheaf of $\mathcal{F} $, and that $\mathcal{F} ''$ is isomorphic to the quotient of $\mathcal{F} $ by this subsheaf.
 \end{enumerate}
 \end{problem}
 
 \begin{proof}
-\com{falta}
+(1) Since $\mathcal{F}_p \twoheadrightarrow \mathcal{F}_p / \mathcal{F}'_p = (\mathcal{F} / \mathcal{F}')_p$ is clearly surjective, with kernel $\mathcal{F}'_p $ , then $\mathcal{F} \to \mathcal{F} / \mathcal{F}' $ is surjective with kernel $ \bigcup \mathcal{F}'_p = \mathcal{F}'  $.
+
+(2) We have
+\[
+\begin{cases}
+ \ker (\psi ) = \im(\varphi ) \cong \mathcal{F}'  \\
+ \mathcal{F}''  \cong \im(\psi ) \cong \mathcal{F}/ \ker (\psi )  
+\end{cases} \implies \mathcal{F}'' \cong \mathcal{F} / \mathcal{F'}
+\]
 \end{proof}
 
 
@@ -351,14 +364,16 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 \end{problem}
 
 \begin{proof}
-\com{falta}
+(1) Let $\varphi , \psi \in \Hom (\mathcal{F}|_U , \mathcal{G}|_U)$ and define the sum of two elements $\varphi , \psi $ as $(\varphi +\psi )(s) \coloneq \varphi (s) + \psi (s)$. Then $\Hom (\mathcal{F}|_U, \mathcal{G}\_U  )$ is clearly abelian. 
+
+(2) The locality axiom is easily checked. For the gluing axiom let $\{U_i\}$ an open cover of $U$ and $\varphi _i \in \Hom(\mathcal{F}|_{U_i}, \mathcal{G}|_{U_i})$ such that they agree on the pairwise intersections. Then, because of the agreement of the sheaves $\varphi_i (s) \ \forall s\in \mathcal{F}|_{U_i}$ in the pairwise intersections, then there exist a global sheaf $\varphi \in \Hom(\mathcal{F}|_U, \mathcal{G}|_U  )$.
 \end{proof}
 
 \begin{problem}
-\textbf{16}. A sheaf $\mathcal{F} $ on a topological space $X$ is flasque if for every inclusion $V \subseteq U$ of open sets, the restriction map $\mathcal{F}(U) \to \mathcal{U}(V) $ is surjective. 
+\textbf{16}. A sheaf $\mathcal{F} $ on a topological space $X$ is flasque if for every inclusion $V \subseteq U$ of open sets, the restriction map $\mathcal{F}(U) \to \mathcal{G}(V) $ is surjective. 
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item Show that a constrant sheaf on an irreducible topological space is flasque.
-    \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and if $\mathcal{F}' $ is flasque, then for any open set $U$, hte sequence $0 \to \mathcal{F}'(U)$ 
+    \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and if $\mathcal{F}' $ is flasque, then for any open set $U$, the sequence $0 \to \mathcal{F}'(U) \to \mathcal{F}(U) \to \mathcal{F}''(U)  $ is exact.
     \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and $\mathcal{F}', \mathcal{F} $ are flasque, then $\mathcal{F}'' $ is flasque.
     \item If $f: X \to Y$ is a continous map, and $\mathcal{F} $ is a flasque sheaf on $X$, then $f_*\mathcal{F} $ is a flasque sheaf on $Y$. 
     \item Let $\mathcal{F} $ be any sheaf on $X$. We define a new sheaf $\mathcal{G} $, called the sheaf of discontinous sections of $\mathcal{F} $ as follows. For each open set $U \subseteq X, \mathcal{G}(U) $ is the set of maps $s:U \to \bigcup _{P \in U} \mathcal{F}_P $ such that for each $P \in U, s(P) \in \mathcal{F}_P $. Show that $\mathcal{G} $ is a flasque sheaf, and that there is a natural injective morphism of $\mathcal{F} $ to $\mathcal{G}$.
@@ -367,6 +382,36 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 
 \begin{proof}
 \com{falta}
+(1) If $X$ is an irreducible topological space, then the restriction maps $\rho _{UV} : \mathcal{F}(U) \to \mathcal{F} (V)  $ are the identity maps whenever $v\subseteq U$, which are surjective.
+
+(2) We had that if $\mathcal{F} \to \mathcal{G}$ is injective, then $\mathcal{F}(U) \to \mathcal{G}(U)$ is also injective, but this fails in general for surjectivity. Flasque sheaves are those in which surjectivity does not fail in this way. This, of course, comes from the surjectivity of the restriction maps, that does not hold in general.
+
+(3) We have to prove that for every $V \supseteq U$ given that the restrictions $\mathcal{F}'(U) \mathcal{F}'(V) $ and $\mathcal{F}(U) \mathcal{F}(V)$ are surjective, then the restrictoin $\mathcal{F}''(U) \to \mathcal{F}''(V)  $ is also surjective. But this is a direct consequence of a well known lemma
+% https://q.uiver.app/#q=WzAsMTAsWzEsMCwiXFxtYXRoY2Fse0Z9JyhVKSJdLFsyLDAsIlxcbWF0aGNhbHtGfShVKSJdLFszLDAsIlxcbWF0aGNhbHtGfScnKFUpIl0sWzMsMSwiXFxtYXRoY2Fse0Z9JycoVikiXSxbMiwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwxLCJcXG1hdGhjYWx7Rn0nKFYpIl0sWzAsMCwiMCJdLFs0LDAsIjAiXSxbNCwxLCIwIl0sWzAsMSwiMCJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzQsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzUsNCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCw1LCJcXHJobyciLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSw0LCJcXHJobyIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsIlxccmhvJyciLDJdLFs5LDVdLFs2LDBdLFsyLDddLFszLDhdXQ==
+\[\begin{tikzcd}
+	0 & {\mathcal{F}'(U)} & {\mathcal{F}(U)} & {\mathcal{F}''(U)} & 0 \\
+	0 & {\mathcal{F}'(V)} & {\mathcal{F}(V)} & {\mathcal{F}''(V)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["{\rho'}"', two heads, from=1-2, to=2-2]
+	\arrow[two heads, from=1-3, to=1-4]
+	\arrow["\rho"', two heads, from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{\rho''}"', from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[hook, from=2-2, to=2-3]
+	\arrow[two heads, from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+\com{prove lemma}
+
+(4) \com{falta}
+
+(5) \com{falta}
+
+
+
+
 \end{proof}
 
 \begin{problem}
