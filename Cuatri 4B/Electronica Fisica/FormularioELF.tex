@@ -141,7 +141,7 @@ Corrientes
 &\rho = \frac{1}{\sigma }; \quad R = \rho \frac{L}{A} = \frac{1}{G};\\
 &J_{drift} = J_{n,drift} + J_{p, drift} = q(n\mu _n+p\mu _p )E_{el} = \sigma E_{el}\\
 & J_{diff} = J_{n,diff} + J_{p, diff} = qD_n \frac{dn}{dx} -qD_p \frac{dp}{dx}\\
-&D_n = \mu _nV_T; \quad D_p = \mu _pV_T; \quad V_T = \frac{kT}{q}\\
+&D_n = \mu _nV_T; \quad D_p = \mu _pV_T; \quad V_T = \frac{kT}{q}= 8.6\times 10^{-5}T (V)\\
 \end{align*}
 
 En equilibrio
@@ -213,6 +213,32 @@ Consideraciones
 &\int_0^\infty \frac{x^2}{e^x-1}dx = 2\zeta(3), \quad \int_0^\infty \frac{x^2}{e^x+1}dx = \frac{3}{2}\zeta(3)\\
 &\int_0^\infty \frac{x^3}{e^x-1}dx = \frac{\pi^4}{15}, \quad \int_0^\infty \frac{x^3}{e^x+1}dx = \frac{7\pi^4}{120} 
 \end{align*}
+
+
+Diodo\\
+Reg. masivas: $E_{el} \approx 0$, dopado uniforme, inj. bajo nivel\\
+\boxed{P}: $ \Delta p \ll p_0, \Delta n \gg n_0$\\
+\boxed{N}: $ \Delta n \ll n_0, \Delta p \gg p_0$ \\
+zce: $R = G_L = 0$ \\
+$J_D, I_D = $cte, $J_p, J_n$ cte en zce
+\begin{align*}
+& \boxed{P} \quad  0 = D_n \frac{d^2\Delta n_P}{dx^2} - \frac{\Delta n_P}{\tau_n} \implies J_n = qD_n \frac{d\Delta n_P}{dx}|_{x= -x_p}\\
+& \boxed{N} \quad  0 = D_p \frac{d^2\Delta p_N}{dx^2} - \frac{\Delta p_N}{\tau_p} \implies J_p = qD_p \frac{d\Delta p_N}{dx}|_{x= x_n}\\
+&\Delta n_P(x=-x_p) = n_{0P} (e ^{\frac{V}{V_T}} -1) = \frac{n_{0i}^2}{N_A}(e ^{\frac{V}{V_T}}-1)\\
+&\Delta p_N(x=x_n) = p_{0N} (e ^{\frac{V}{V_T}} -1) = \frac{n_{0i}^2}{N_D}(e ^{\frac{V}{V_T}}-1)\\
+&J_D = J_s (e ^{\frac{V}{V_T}} -1) \implies I_D = AJ_D\\
+&J_s = q n^2_{0i} \left[ \frac{D_n}{N_A L_n \tanh \left( \frac{W_P}{L_n} \right)} + \frac{D_p}{N_DL_p \tanh \left( \frac{W_N}{L_p} \right)} \right]\\
+&\gamma _{p} = \frac{J_p}{J_D}, \quad \gamma _{n} = \frac{J_n}{J_D}, \quad \begin{cases}
+&p^+n \implies \gamma _p \approx 1\\
+&pn^+ \implies \gamma _n \approx 1
+\end{cases}
+\end{align*}
+
+HACER DIBUJO
+
+
+
+
 
 \end{multicols}
 \end{document}

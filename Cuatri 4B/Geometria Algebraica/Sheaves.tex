@@ -52,6 +52,7 @@
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\coim}{Coim}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Spec}{Spec}
 
 \newcommand{\com}[1]{\textcolor{red}{\uppercase{#1}}}
 \newcommand{\incfig}[1]{%
@@ -420,6 +421,9 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 
 \begin{proof}
 \com{falta}
+We denote $\overline{P} \coloneq \{P\}^-$. If $Q \in \overline{P}$, that means that for every open set $V \ni Q$ we have $P \in V$, and by definition of the sheaf $i_P(A)(V) = A$. The stalk is the limit of a constant group $A$, thus $i:P(A)_Q = A$. Converselly if $Q \in \overline{P}$ then there exist an open set $V \not\ni P$, so the direct limit is $i_P(A)_Q = 0$.
+
+We have that $i_*(A)(U) = A()$ 
 \end{proof}
 
 \begin{problem}
@@ -437,7 +441,12 @@ Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X
 \end{problem}
 
 \begin{proof}
-\com{falta}
+(1) First we prove the gluing axiom. Let $s_i \in \mathcal{I}_Y(U_i)$ that satisfy $f_i|_{U_i \cap U_j} = f_j|_{U_i \cap U_j}$, then we can find $s \in \mathcal{O}_X$ such that $s|_{U_i} = s_i$. Now if \com{falta}
+
+(2) \com{falta}
+
+
+(3) \com{falta}
 \end{proof}
 
 
@@ -448,7 +457,17 @@ Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X
 
 \section{Schemes}
 
+\begin{definition}[Affine scheme] Le $R$ be a ring. An affine scheme is a pair $(X, \mathcal{O}_X)$ where $X = \Spec(R)$ satisfying
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item $X$ is a topological space with the Zarisky topology, with a basis of open sets
+    \[
+    D_f \coloneq \{\mathfrak{p} \in \Spec (R) : f \not\in \mathfrak{p}  \} \text{ with } f \in R
+    \]
+    \item $\mathcal{O}_X$ is a sheaf of rings called the structure sheaf such that $\mathcal{O}_X(D(f)) = R_f$.
+\end{enumerate}
+\end{definition}
 
+It is easy to see that the sets $D_f$ indeed form a base for the topological space $X = \Spec R$. The second need is more difficult. First we have to prove that there is a restriction map $\rho_{D_f, D_g}: \mathcal{O}_X(D_f) \to \mathcal{O}_X(D_g)$, naturally given by the map $R_f \to R_g$ that sends $ \frac{a}{b} \to \frac{a}{b}$ with $b \not\in (b)$. This map is well-defined since if $D_g \subseteq D_f$, then $b\in (f) \implies b \in (g)$.
 
 
 

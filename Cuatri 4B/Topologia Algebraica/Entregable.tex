@@ -91,9 +91,9 @@ H_n(P) = \ker(d_n) / \im (d_{n+1}) := Z_n / B_{n+1}
 \]
 que esta bien definida gracias a que es un complejo y la imagen queda dentro del núcleo.
 
-Para los ejemplos empezaremos por calcular $H_0$. Observamos que $d_1(x)=0\ \forall x$, por lo que dado el conjunto del poset con cardinal $n$ tenemos que todo el grupo abeliano $\sum a_n x_n$ esta en el nucleo de  $d_1$, por lo que  $Z_0 \cong  \mathbb{Z}^n$. De la misma forma si consideramos la imagen $B_1$, esta esta formada por todas las cadenas de la forma $x-y$ si  $x\le y$, es decir, si están en la misma componente conexa del grafo de Hasse (no importa la dirección, pues si está al reves haremos $y-x$). Por tanto al pasar por el cociente estamos identificando todas las componentes conexas y $H_0 \cong \mathbb{Z}^{\# \{\text{comp. con.}\}}$.
+c) Se puede comprobar que la homología con $ \le $ y la realizada con $<$ da lugar a grupos de homología equivalentes. Para los ejemplos utilizaremos las cadenas de $<$, ya que son más fáciles de computar.  
 
-c) \com{falta citar bien el articulo por el que $< = \le$ }
+Para los ejemplos empezaremos por calcular $H_0$. Observamos que $d_1(x)=0\ \forall x$, por lo que dado el conjunto del poset con cardinal $n$ tenemos que todo el grupo abeliano $\sum a_n x_n$ esta en el nucleo de  $d_1$, por lo que  $Z_0 \cong  \mathbb{Z}^n$. De la misma forma si consideramos la imagen $B_1$, esta esta formada por todas las cadenas de la forma $x-y$ si  $x\le y$, es decir, si están en la misma componente conexa del grafo de Hasse (no importa la dirección, pues si está al reves haremos $y-x$). Por tanto al pasar por el cociente estamos identificando todas las componentes conexas y $H_0 \cong \mathbb{Z}^{\# \{\text{comp. con.}\}}$.
 
 \textbf{Primer poset} 
 
@@ -195,13 +195,59 @@ b) Tenemos los siguientes diagramas
 	\arrow["{g_*}"', from=2-2, to=2-3]
 \end{tikzcd}\]
 \end{minipage}
- donde el functor de homología se define como el grupo abeliano resultante $H_n(\Delta (K)) = \ker \partial_n / \im (\partial _{n+1})$. Podemos ver que es functorial, ya que si tenemos una aplicación $f: \Delta(K) \to \Delta(L)$, entonces tenemos la aplicación induida en sus nucleos. Tomando la clase de equivalencia con las imagenes tenemos una aplicación inducida $f_*$ que hace conmutar el diagrama.
+donde el functor de homología se define como el grupo abeliano resultante $H_n(\Delta (K)) = \ker \partial_n / \im (\partial _{n+1})$. Podemos ver que es functorial, ya que si tenemos una aplicación $f: \Delta(K) \to \Delta(L)$, entonces tenemos la aplicación induida en sus nucleos. Tomando la clase de equivalencia con las imagenes tenemos una aplicación inducida $f_*$ que hace conmutar el diagrama.
 
- Para probar la functorialidad de $\Delta '(K)$ tenemos que hacer un paso extra, que consiste en ver que la aplicación $\partial '_p$ está bien definida, y no importa la permutación que elijamos. Podemos ver esto de manera que si tomamos dos permutaciones arbitrarias del conjunto $(v_0, \dots, v_p)$, entonces la imagen por $\partial _p$ será la misma, pero posiblemente con el signo cambiado, lo que indica que las imágenes son las mismas tras hacer la identificación propuesta.
+Para probar la functorialidad de $\Delta '(K)$ tenemos que hacer un paso extra, que consiste en ver que la aplicación $\partial '_p$ está bien definida, y no importa la permutación que elijamos. Podemos ver esto de manera que si tomamos dos permutaciones arbitrarias del conjunto $(v_0, \dots, v_p)$, entonces la imagen por $\partial _p$ será la misma, pero posiblemente con el signo cambiado, lo que indica que las imágenes son las mismas tras hacer la identificación propuesta.
 
- c, d) Las homologías ordenadas serán exactamente igual que las homologías de posets del problema 1. 
+c, d) Las homologías orientadas serán exactamente igual que las homologías de posets del problema 1. Podemos verlo haciendo la identificación 
+ \[[(v_0 , v_1 , \dots , v_n )] \leftrightarrow v_0 < v_1 < \dots < v_n\]
+ Esta idenitficación manda la clase de un conjunto de vértices al conjunto ordenado de vértices que es elemento del poset.
 
- \com{calcular la homología orientada}
+
+Calculamos ahora las homologías orientadas. Por conexión todos los grupos de homología de orden 0 serán $H_0 = \mathbb{Z}$.
+
+\textbf{Primer poset}
+Si hacemos la imagen de un elemento genérico de $C_2$ que es $ x = a_1(1, 2, 4) + a_2(1, 4, 2) + a_3(2, 4, 1) + a_4(2, 1, 4) + a_5(4, 1, 2) + a_6(4, 2, 1) + b_1(1, 3, 4) + b_2(1, 4, 3) + b_3(3, 4, 1) + b_4(3, 1, 4) + b_5(4, 1, 3) + b_6(4, 3, 1) $ tenemos 
+\begin{align*}
+d(x) = &(2,4)(a_1+a_3-a_4) + (4, 2)(a_2+a_6-a_5) + (1,2) (a_1-a_2+a_5) + (2,1) (-a_3+a_4+a_6) +\\
+&+(3,4)(b_1+b_3-b_4) + (4, 3)(b_2+b_6-b_5) + (1,3) (b_1-b_2+b_5) + (3,1) (-b_3+b_4+b_6) \\
+& + (1,4) (-a_1+a_2+a_4-b_1+b_2+b_4) +(4,1)(a_3+a_5-a_6+b_3+b_5-b_6)
+\end{align*}
+La imagen de este morfismo es el rango de la matriz $10\times 12$ que define las ecuaciones. Calculando el rango con ayuda del siguiente script de python tenemos que $ \im(d_2) \cong \mathbb{Z}^7$. Por teorema de isomorphismo $\mathbb{Z}^{12}/ \ker (d_2) \cong \im (d_2) \implies \ker (d_2) \cong \mathbb{Z}^5$, por lo que $H_2 = \mathbb{Z}^5$.
+
+\begin{verbatim}
+	import numpy as np
+
+	A = np.array([[1,0,1,-1,0,0,   0,0,0,0,0,0],
+				  [0,1,0,0,-1,1,   0,0,0,0,0,0],
+				  [1,-1,0,0,1,0,   0,0,0,0,0,0],
+				  [0,0,-1,1,0,1,   0,0,0,0,0,0],
+				  [0,0,0,0,0,0,    1,0,1,-1,0,0],
+				  [0,0,0,0,0,0,    0,1,0,0,-1,1],
+				  [0,0,0,0,0,0,    1,-1,0,0,1,0],
+				  [0,0,0,0,0,0,    0,0,-1,1,0,1],
+				  [-1,1,0,1,0,0,   -1,1,0,1,0,0],
+				  [0,0,1,0,1,-1,   0,0,1,0,1,-1]])
+	
+	r = np.linalg.matrix_rank(A)
+	print(r)
+\end{verbatim}
+
+De manera análoga tenemos el siguiente elemento genérico de $C_1$ que es $x = a_1(1,2) + a_2(2,1) + b_1(1,3)+b_2(3,1) + c_1(1,4) + c_2(4,1) + d_1(2,4)+d_2(4,2)+ e_1(3,4) + e_2(4,3)$. Si hacemos la diferencial vemos que nos sale exactamente lo mismo que en el caso del ejercicio (1), pero con las variables $a=a_1-a_2, b=b_1-b_2$, etc. Por tanto el kernel será el mismo pero con 5 variables libres más. $ \ker (d_1) = \mathbb{Z}^2\times \mathbb{Z}^5 = \mathbb{Z}^7$. Deducimos, entonces que $H_1 = 0$.
+
+En resumen: $H_0 = \mathbb{Z}, H_1 = 0, H_2 = \mathbb{Z}^5, H_{i} = 0 \ \forall  i \ge 3$ 
+
+\textbf{Segundo poset}
+Por lo visto en el primer poset podemos utilizar que $ker(d_1) = \mathbb{Z}^0 \times \mathbb{Z}^3 = \mathbb{Z}^3$, donde $\mathbb{Z}^0$ es el cálculo del problema (1) y $\mathbb{Z}^3$ corresponde a las variables libres. Por tanto $H_1 = \mathbb{Z}^3$.
+
+En resumen: $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^3, H_i = 0 \ \forall  i \le 2$.
+
+\textbf{Tercer poset}
+Por lo visto en el primer poset podemos utilizar que $ker(d_1) = \mathbb{Z}^2 \times \mathbb{Z}^6 = \mathbb{Z}^8$, donde $\mathbb{Z}^2$ es el cálculo del problema (1) y $\mathbb{Z}^6$ corresponde a las variables libres. Por tanto $H_1 = \mathbb{Z}^8$.
+
+En resumen: $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^8, H_i = 0 \ \forall  i \le 2$.
+
+
 
 
 
