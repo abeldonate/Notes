@@ -78,9 +78,11 @@
 
 \section{Introduction}
 
-\section{Sheaves}
+This report is presented as the final project of the degree subject of Algebraic Geometry in Polytechnic University of Catalonia. The text aims to be a comprehensible introduction to sheaves, a compendium of solved exercices from \cite{Har}, and a very brief introduction to schemes.
 
 The introduction of the concept of sheaf is essential for the study of schemes. Sheaves are a general tool to study topological spaces through the study of a collection of associated objects in a fixed category. The way those objects are "glued" (we will define properly what this concept means) determines, in some fashion, how the topological space behaves.
+
+\section{Sheaves}
 
 Informally, a sheaf encodes the information of the topological space by associating a object of the category (set, group, ring, module, etc) to each open set of the topology. However, this mapping is not arbitrary, it must accomplish some "restriction" property, that is, the mapping of a subset must behave well with the mapping of the set.
 
@@ -117,6 +119,18 @@ We provide some examples of sheaves and presheaves.
     This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally altough it is locally (in every $U_i$).
 \end{proof}
 
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWx7Rn0oVSkiXSxbMCwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwwLCJcXG1hdGhjYWx7R30oVSkiXSxbMSwxLCJcXG1hdGhjYWx7R30oVikiXSxbMCwyLCJcXHZhcnBoaShVKSJdLFsyLDMsIlxccmhvXlxcbWF0aGNhbHtHfSBfe1VWfSJdLFswLDEsIlxccmhvXlxcbWF0aGNhbHtGfSBfe1VWfSIsMl0sWzEsMywiXFx2YXJwaGkoVikiLDJdXQ==
+\[\begin{tikzcd}
+	{\mathcal{F}(U)} & {\mathcal{G}(U)} \\
+	{\mathcal{F}(V)} & {\mathcal{G}(V)}
+	\arrow["{\varphi(U)}", from=1-1, to=1-2]
+	\arrow["{\rho^\mathcal{F} _{UV}}"', from=1-1, to=2-1]
+	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
+	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+
+We now focus on a more localized study of our topological space. Fixing a point, we can consider neighborhoods smaller and smaller, that induce abelian groups through the defined sheaf. This notion can be formally described in the following definition.
+
 \begin{definition}[Stalk] Let $\mathcal{F} $ a presheaf and $P \in X$. The stalk of $\mathcal{F} $ at $P$ is defined as the direct limit of the groups
     \[
     \mathcal{F}_P = \varinjlim_{P \in U} \mathcal{F} (U)
@@ -127,6 +141,32 @@ The elements of the stalk can be understood in less abstract way by thinking abo
 \[
 <s, U> = <t, V>  ( \iff  (s, U) \sim (t,V)) \iff  \ \exists W \subseteq U \cap V : s|_U = t|_V
 \]
+
+Every time we deal with a new construction, a natural thing is to define morphisms on this constructions. In this case we define the morphisms of sheaves.
+
+\begin{definition}[Morphism of sheaves] We say $\varphi : \mathcal{F} \to \mathcal{G}$ is a morphism of sheaves if there exist $\varphi (U):\mathcal{F}(U) \to \mathcal{G}(U)$ morphisms of abelian groups for each open set $U \subseteq X$ such that
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWx7Rn0oVSkiXSxbMCwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwwLCJcXG1hdGhjYWx7R30oVSkiXSxbMSwxLCJcXG1hdGhjYWx7R30oVikiXSxbMCwyLCJcXHZhcnBoaShVKSJdLFsyLDMsIlxccmhvXlxcbWF0aGNhbHtHfSBfe1VWfSJdLFswLDEsIlxccmhvXlxcbWF0aGNhbHtGfSBfe1VWfSIsMl0sWzEsMywiXFx2YXJwaGkoVikiLDJdXQ==
+\[\begin{tikzcd}
+	{\mathcal{F}(U)} & {\mathcal{G}(U)} \\
+	{\mathcal{F}(V)} & {\mathcal{G}(V)}
+	\arrow["{\varphi(U)}", from=1-1, to=1-2]
+	\arrow["{\rho^\mathcal{F} _{UV}}"', from=1-1, to=2-1]
+	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
+	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+commutes for eac $V \subseteq U$.
+\end{definition}
+
+Now that we have morphisms between sheaves, classical objects such as kernel, image or cokernel can be defined in this category. 
+
+\begin{definition}[Kernel and image]
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves. We define:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item The kernel of $\varphi$ as the sheaf $\ker(\varphi )(U) = \ker (\varphi|_U)$. 
+    \item The image of $\varphi $ as the sheaffification of the presheaf $ \im(\varphi )(U) = \im(\varphi |_U)$.
+\end{enumerate}
+
+\end{definition}
 
 \begin{proposition} Let $\varphi : \mathcal{F} \to \mathcal{G}  $ a morphism of sheaves. Then there exist an induced morphism in the stalks $\varphi _P: \mathcal{F}_P \to \mathcal{G}_P  $ for every point $P \in X$.
 \end{proposition}
@@ -157,11 +197,6 @@ Stalks are extremely useful in the study of sheaves. They can be able to generat
 
 In general, this is not the case, but, fortunately, the knowledge of all the stalks can be glued to obtain the behaviour of the section of the sheave. The following proposition encloses this idea. 
 
-\begin{proposition} Let $\varphi :\mathcal{F} \to \mathcal{G}  $. Then
-    \[
-    \varphi \text{ is injective } \iff \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is injective } \ \forall  U \subseteq X
-    \]
-\end{proposition}
 
 \begin{proposition}
 Let $\varphi : \mathcal{F} \to \mathcal{G}$. Then
@@ -182,22 +217,18 @@ Now we know that we can restrict for all $P$ our domain $U$ in a smaller one $W_
 For the surjectivity let $t \in \mathcal{G}(U) $. Then, for $<t, U> \in \mathcal{G}_P \ \exists <s^P, V> \in \mathcal{F}_P $ (we can choose a section that a priori depends on the point $P$) such that $\varphi _P(<s^P, V>) = <\varphi (s^P), V> = <t, U>$. By the definition of stalk we can find a neighborhood of $P$ such that $W_P \subseteq U \cap V$ such that $\varphi (s^P)|_{W_P} = t|_{W_P}$. We now have to see that the sections that induce the stalks can be glued in a global section, but this is consequence of the injectivity of $\varphi$, since $\varphi (s^P)|_{W_P \cap W_Q} = \varphi (s^Q)_{W_P \cap W_{Q}}$ implies $s^P|_{W_P \cap W_Q} = s^Q|_{W_P \cap W_Q}$. Thus, applying the gluing axiom we reconstruct a global section $s \in \mathcal{F}(U)$. This proves surjectivity.
 \end{proof}
 
+One important comment we should note here is that in general we can assure injectivity by checking injectivity in all subsetsa and viceversa, but this does not hold for surjectivity.
+
+\begin{proposition} Let $\varphi :\mathcal{F} \to \mathcal{G}  $. Then
+    \[
+    \varphi \text{ is injective } \iff \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is injective } \ \forall  U \subseteq X
+    \]
+    \[
+    \varphi \text{ is surjective } \not\implies \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is surjective } \ \forall  U \subseteq X
+    \]
+\end{proposition}
 
 
-Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
-
-\begin{definition}[Sheafification]
-Given presheaf $\mathcal{F} $, there is a unique (up to isomorphism) sheaf $\mathcal{F}' $ and a morphism $\theta: \mathcal{F} \to \mathcal{F}'  $ such that for any sheaf $\mathcal{G} $ and any morphism $\phi: \mathcal{F} \to \mathcal{G}  $ there is a unique morphism $\psi: \mathcal{F}' \to \mathcal{G}  $ that makes the diagram  
-% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1hdGhjYWx7Rn0iXSxbMSwwLCJcXG1hdGhjYWx7Rn0nIl0sWzEsMSwiXFxtYXRoY2Fse0d9Il0sWzAsMSwiXFx0aGV0YSJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwyLCJcXGV4aXN0ICFcXHBzaSJdXQ==
-\[\begin{tikzcd}
-	{\mathcal{F}} & {\mathcal{F}'} \\
-	& {\mathcal{G}}
-	\arrow["\theta", from=1-1, to=1-2]
-	\arrow["\varphi"', from=1-1, to=2-2]
-	\arrow["\exists \psi", from=1-2, to=2-2]
-\end{tikzcd}\]
-commute
-\end{definition}
 
 
 
@@ -349,7 +380,7 @@ Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G} 
 	\arrow["{\psi_P}"', from=3-3, to=3-4]
 \end{tikzcd}\]
 
-The first thing we notice is that there exist a functor $\Gamma_P$ that sends the sections to the stalks of a fixed point $P$ and the morphisms of sections to the morphisms of stalks. This functor is exact \com{Is this true, guess so, and right is true}
+The first thing we notice is that there exist a functor $\Gamma_P$ that sends the sections to the stalks of a fixed point $P$ and the morphisms of sections to the morphisms of stalks. This functor is exact \com{Is this true}
 
 The proof of the injectivity of $\varphi |_U$ is immediate. It remains to prove that $ \ker (\psi |_U) = \im (\varphi |_U )$. The inclusion $\supseteq $ cames from the functoriality, namely $\psi |_U \circ \varphi |_U = \Gamma (\psi   ) \circ   \Gamma (\varphi  ) = \Gamma (\psi  \circ  \varphi ) = 0$. 
 
