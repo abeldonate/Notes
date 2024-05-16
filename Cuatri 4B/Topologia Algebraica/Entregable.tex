@@ -73,8 +73,9 @@
 
 Para ver que $C_{\bullet}(P)$ es, en efecto, un complejo, debemos probar que la aplicación $d$ es la aplicación borde, es decir  $d^2 = 0$.
  \begin{align*}
- &d\circ d (x_0\le \cdots \le x_n) = \sum_{i=0}^n (-1)^{i} d(x_0\le  \cdots \le  \hat{x_i} \le \cdots\le x_n) = \\
- &=\sum_{i=0}^n \left( \sum_{j=0}^{i-1} (-1)^{i+j}(x_0\le \cdots\le \hat{x_j}\le \cdots \le \hat{x_i}\le \cdots \le x_n)  - \sum_{j=i+1}^{n} (-1)^{i+j} (x_0\le \cdots\le \hat{x_i}\le \cdots \le \hat{x_j}\le \cdots \le x_n) \right) 
+ d\circ d (x_0\le \cdots \le x_n) &= \sum_{i=0}^n (-1)^{i} d(x_0\le  \cdots \le  \hat{x_i} \le \cdots\le x_n) = \\
+ & =\sum_{i=0}^n ( \sum_{j=0}^{i-1} (-1)^{i+j}(x_0\le \cdots\le \hat{x_j}\le \cdots \le \hat{x_i}\le \cdots \le x_n)  - \\
+ & - \sum_{j=i+1}^{n} (-1)^{i+j} (x_0\le \cdots\le \hat{x_i}\le \cdots \le \hat{x_j}\le \cdots \le x_n) )
 \end{align*}
 Pero esta expresión es cero, ya que si fijamos dos indices diferentes $k, l$, vemos que pasa una vez por  $(i, j)=(k, l)$ y otra por  $(j, i) = (k, l)$ con signo cambiado anulándose. Ya que toda cadena es combinación lineal de cadenas con coeficientes en $\mathbb{Z}$, al extender la cadena por linealidad del morfismo $d$ tenemos que  $d^2$ sigue dando  $0$ para toda cadena. Esto prueba que 
 % https://q.uiver.app/#q=WzAsNSxbMSwwLCJDX3tuKzF9Il0sWzIsMCwiQ19uIl0sWzMsMCwiQ197bi0xfSJdLFswLDAsIlxcY2RvdHMiXSxbNCwwLCJcXGNkb3RzIl0sWzAsMSwiZCJdLFsxLDIsImQiXSxbMywwLCJkIl0sWzIsNCwiZCJdXQ==
@@ -85,7 +86,14 @@ Pero esta expresión es cero, ya que si fijamos dos indices diferentes $k, l$, v
 	\arrow["d_{n+2}", from=1-1, to=1-2]
 	\arrow["d_{n-1}", from=1-4, to=1-5]
 \end{tikzcd}\]
-es en efecto un complejo. Al ser un complejo en una categoría abeliana, podemos definir la homología como
+es en efecto un complejo.
+
+Podemos ver que $C _{\bullet}$ es un functor dado cada poset lo enviamos a un complejo de grupos abelianos (objetos van a objetos) y además los morfismos de posets van a morfismos de cadenas, ya que las aplicaciones de posets son monótonas. 
+\[
+x_0 \le \cdots \le x_n \mapsto f(x_0) \le \cdots \le f(x_n)
+\]
+
+Al ser un complejo en una categoría abeliana, podemos definir la homología como
 \[
 H_n(P) = \ker(d_n) / \im (d_{n+1}) := Z_n / B_{n+1}
 \]
@@ -96,6 +104,17 @@ c) Se puede comprobar que la homología con $ \le $ y la realizada con $<$ da lu
 Para los ejemplos empezaremos por calcular $H_0$. Observamos que $d_1(x)=0\ \forall x$, por lo que dado el conjunto del poset con cardinal $n$ tenemos que todo el grupo abeliano $\sum a_n x_n$ esta en el nucleo de  $d_1$, por lo que  $Z_0 \cong  \mathbb{Z}^n$. De la misma forma si consideramos la imagen $B_1$, esta esta formada por todas las cadenas de la forma $x-y$ si  $x\le y$, es decir, si están en la misma componente conexa del grafo de Hasse (no importa la dirección, pues si está al reves haremos $y-x$). Por tanto al pasar por el cociente estamos identificando todas las componentes conexas y $H_0 \cong \mathbb{Z}^{\# \{\text{comp. con.}\}}$.
 
 \textbf{Primer poset} 
+
+% https://q.uiver.app/#q=WzAsNCxbMSwyLCIwIl0sWzAsMSwiMSJdLFsyLDEsIjIiXSxbMSwwLCIzIl0sWzAsMV0sWzEsM10sWzIsM10sWzAsMl1d
+\[\begin{tikzcd}
+	& 3 \\
+	1 && 2 \\
+	& 0
+	\arrow[from=2-1, to=1-2]
+	\arrow[from=2-3, to=1-2]
+	\arrow[from=3-2, to=2-1]
+	\arrow[from=3-2, to=2-3]
+\end{tikzcd}\]
 
 Por el argumento anterior hemos visto que $H_0 = \mathbb{Z}$. Calculamos ahora $H_1$. El nucleo de una cadena arbitraria de $C_1$ será
 \[
@@ -123,6 +142,15 @@ En definitiva $H_0 = \mathbb{Z}, H_i = 0 \ \forall  i \ge  1$.
 
 \textbf{Segundo poset} 
 
+% https://q.uiver.app/#q=WzAsNCxbMCwxLCIxIl0sWzEsMSwiMCJdLFsxLDAsIjIiXSxbMCwwLCIzIl0sWzAsM10sWzAsMl0sWzEsMl1d
+\[\begin{tikzcd}
+	3 & 2 \\
+	1 & 0
+	\arrow[from=2-1, to=1-1]
+	\arrow[from=2-1, to=1-2]
+	\arrow[from=2-2, to=1-2]
+\end{tikzcd}\]
+
 Como el grafo de Hasse es conexo, entonces $H_0 = \mathbb{Z}$. Calculamos ahora el nucleo de la aplicación $d_1$
 \[
 d_1(ax_1x_3 + bx_1x_2+cx_0x_2) = ax_3 -cx_0 +(-a-b)x_1 + (b+c)x_2 =0 \implies a=b=c = 0 \implies \ker (d_1)=0
@@ -132,6 +160,18 @@ lo que significa que $H_1 = 0$.
 En definitiva $H_0 = \mathbb{Z}, H_i = 0 \ \forall  i \ge  1$.
 
 \textbf{Tercer poset} 
+
+% https://q.uiver.app/#q=WzAsNSxbMCwxLCIwIl0sWzIsMSwiMSJdLFs0LDEsIjIiXSxbMSwwLCIzIl0sWzMsMCwiNCJdLFswLDNdLFswLDRdLFsxLDNdLFsxLDRdLFsyLDRdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	& 3 && 4 \\
+	0 && 1 && 2
+	\arrow[from=2-1, to=1-2]
+	\arrow[from=2-1, to=1-4]
+	\arrow[from=2-3, to=1-2]
+	\arrow[from=2-3, to=1-4]
+	\arrow[from=2-5, to=1-2]
+	\arrow[from=2-5, to=1-4]
+\end{tikzcd}\]
 
 Como el grafo de Hasse es conexo, entonces $H_0 = \mathbb{Z}$. Calculamos ahora el nucleo de la aplicación $d_1$
 \begin{align*}
@@ -150,7 +190,24 @@ En definitiva $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^2, H_i = 0 \ \forall  i \ge  2
 
 \section{Complejos simpliciales abstractos}
 
-a) Para probar que $\Delta (K)$ es complejo de cadenas debemos ver que $\partial_{p}\circ \partial _{p-1} = 0$. Esto se realiza de manera totalmente equivalente al ejercicio 1. Vamos a ver que es un functor
+
+a) Para probar que $\Delta (K)$ es complejo de cadenas debemos ver que $\partial_{p}\circ \partial _{p-1} = 0$. Realizando este cálculo
+ \begin{align*}
+ \partial \circ \partial   (x_, \cdots , x_n) &= \sum_{i=0}^n (-1)^{i} \partial (x_0,  \cdots ,  \hat{x_i} , \cdots,x_n) = \\
+ & =\sum_{i=0}^n ( \sum_{j=0}^{i-1} (-1)^{i+j}(x_0, \cdots, \hat{x_j}, \cdots , \hat{x_i}, \cdots , x_n)  - \\
+ & - \sum_{j=i+1}^{n} (-1)^{i+j} (x_0, \cdots, \hat{x_i}, \cdots , \hat{x_j}, \cdots , x_n) )
+\end{align*}
+Pero esta expresión es cero, ya que si fijamos dos indices diferentes $k, l$, vemos que pasa una vez por  $(i, j)=(k, l)$ y otra por  $(j, i) = (k, l)$ con signo cambiado anulándose. Ya que toda cadena es combinación lineal de cadenas con coeficientes en $\mathbb{Z}$, al extender la cadena por linealidad del morfismo $d$ tenemos que  $d^2$ sigue dando  $0$ para toda cadena. Esto prueba que 
+% https://q.uiver.app/#q=WzAsNSxbMSwwLCJDX3tuKzF9Il0sWzIsMCwiQ19uIl0sWzMsMCwiQ197bi0xfSJdLFswLDAsIlxcY2RvdHMiXSxbNCwwLCJcXGNkb3RzIl0sWzAsMSwiZCJdLFsxLDIsImQiXSxbMywwLCJkIl0sWzIsNCwiZCJdXQ==
+\[\begin{tikzcd}
+	\cdots & {C_{n+1}(P)} & {C_n(P)} & {C_{n-1}(P)} & \cdots
+	\arrow["\partial _{n+1}", from=1-2, to=1-3]
+	\arrow["\partial _{n}", from=1-3, to=1-4]
+	\arrow["\partial _{n+2}", from=1-1, to=1-2]
+	\arrow["\partial _{n-1}", from=1-4, to=1-5]
+\end{tikzcd}\]
+es en efecto un complejo.
+
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJLIl0sWzEsMCwiTCJdLFsyLDAsIlMiXSxbMCwxLCJcXERlbHRhIEsiXSxbMSwxLCJcXERlbHRhIEwiXSxbMiwxLCJcXERlbHRhIFMiXSxbMCwzLCJGIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbNCw1LCJmXyoiLDJdLFszLDQsImZfKiIsMl0sWzEsNCwiRiJdLFsyLDUsIkYiXV0=
 \[\begin{tikzcd}
 	K & L & S \\
@@ -207,6 +264,7 @@ c, d) Las homologías orientadas serán exactamente igual que las homologías de
 Calculamos ahora las homologías orientadas. Por conexión todos los grupos de homología de orden 0 serán $H_0 = \mathbb{Z}$.
 
 \textbf{Primer poset}
+
 Si hacemos la imagen de un elemento genérico de $C_2$ que es $ x = a_1(1, 2, 4) + a_2(1, 4, 2) + a_3(2, 4, 1) + a_4(2, 1, 4) + a_5(4, 1, 2) + a_6(4, 2, 1) + b_1(1, 3, 4) + b_2(1, 4, 3) + b_3(3, 4, 1) + b_4(3, 1, 4) + b_5(4, 1, 3) + b_6(4, 3, 1) $ tenemos 
 \begin{align*}
 d(x) = &(2,4)(a_1+a_3-a_4) + (4, 2)(a_2+a_6-a_5) + (1,2) (a_1-a_2+a_5) + (2,1) (-a_3+a_4+a_6) +\\
@@ -238,11 +296,13 @@ De manera análoga tenemos el siguiente elemento genérico de $C_1$ que es $x = 
 En resumen: $H_0 = \mathbb{Z}, H_1 = 0, H_2 = \mathbb{Z}^5, H_{i} = 0 \ \forall  i \ge 3$ 
 
 \textbf{Segundo poset}
+
 Por lo visto en el primer poset podemos utilizar que $ker(d_1) = \mathbb{Z}^0 \times \mathbb{Z}^3 = \mathbb{Z}^3$, donde $\mathbb{Z}^0$ es el cálculo del problema (1) y $\mathbb{Z}^3$ corresponde a las variables libres. Por tanto $H_1 = \mathbb{Z}^3$.
 
 En resumen: $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^3, H_i = 0 \ \forall  i \le 2$.
 
 \textbf{Tercer poset}
+
 Por lo visto en el primer poset podemos utilizar que $ker(d_1) = \mathbb{Z}^2 \times \mathbb{Z}^6 = \mathbb{Z}^8$, donde $\mathbb{Z}^2$ es el cálculo del problema (1) y $\mathbb{Z}^6$ corresponde a las variables libres. Por tanto $H_1 = \mathbb{Z}^8$.
 
 En resumen: $H_0 = \mathbb{Z}, H_1 = \mathbb{Z}^8, H_i = 0 \ \forall  i \le 2$.
