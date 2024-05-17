@@ -10,6 +10,16 @@
 
 
 
+
+\usepackage{import}
+\usepackage{pdfpages}
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+
+
+
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 
@@ -42,20 +52,74 @@
 \section[Intro]{Introduction}
 
 \begin{frame}[fragile]{Definición de prehaz}
-Sea $X$ un espacio topológico. Un haz es una apicación . 
+Sea $X$ un espacio topológico. Un prehaz de grupos abelianos consiste en:
+\begin{enumerate}
+  \item Una aplicación $U \mapsto \mathcal{F}(U)$
+  \item Un mapa de restricción $\rho_{UV}: \mathcal{F}(U) \to \mathcal{F}(V)$ para $ V \subseteq U$ que preserve identidad y composición.
+\end{enumerate} 
 
-%\incfig{sheaf}
+\incfig{presheaf}
+
+Llamaremos \textit{secciones} a los elementos del grupo abeliano $s \in \mathcal{F}(U) $ 
 
 \end{frame}
 
 
 \begin{frame}[fragile]{Definición de haz}
-Sea $X$ un espacio topológico. Un haz es una apicación . 
+Decimos, además, que el el prehaz es un haz si cumple las dos siguientes condiciones sobre un recubrimiento $\{U_i\}$ de $U$:
+\begin{itemize}
+  \item (Pegado) Si tfenemos secciones sobre $U_i$ que coinciden en las intersecciones, existe una sección global en $U$.
+  \item (Localidad) Si tenemos dos secciones que coinciden en $U_i$, entonces son iguales.
+\end{itemize}
+
+\incfig{sheaf}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Ejemplo haz de funciones continuas}
+Sea $X = \mathbb{R}$, consideramos el haz que envía cada abierto a las funciones continuas en el abierto $\mathcal{F}(U) = \mathcal{C}^0(U)$.
+\incfig{sheafcont}
+\end{frame}
+
+
+\begin{frame}[fragile]{Ejemplo prehaz que no es un haz}
+Sea $X = \mathbb{R}$, consideramos el haz que envía cada abierto a las funciones continuas acotadas en el abierto $\mathcal{F}(U) = \mathcal{C}_b^0(U)$.
+\incfig{sheafcontbounded}
 \end{frame}
 
 
 \begin{frame}[fragile]{Morfismos de haces}
-A
+Decimos que $\varphi : \mathcal{F} \to \mathcal{G}$ es un morfismo de haces si existe $\varphi (U): \mathcal{F}(U) \to \mathcal{G}(U)$  morfismos de grupos abelianos tal que
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWx7Rn0oVSkiXSxbMCwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwwLCJcXG1hdGhjYWx7R30oVSkiXSxbMSwxLCJcXG1hdGhjYWx7R30oVikiXSxbMCwyLCJcXHZhcnBoaShVKSJdLFsyLDMsIlxccmhvXlxcbWF0aGNhbHtHfSBfe1VWfSJdLFswLDEsIlxccmhvXlxcbWF0aGNhbHtGfSBfe1VWfSIsMl0sWzEsMywiXFx2YXJwaGkoVikiLDJdXQ==
+\[\begin{tikzcd}
+	{\mathcal{F}(U)} & {\mathcal{G}(U)} \\
+	{\mathcal{F}(V)} & {\mathcal{G}(V)}
+	\arrow["{\varphi(U)}", from=1-1, to=1-2]
+	\arrow["{\rho^\mathcal{F} _{UV}}"', from=1-1, to=2-1]
+	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
+	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+commute para cada $V \subseteq U$.
+\end{frame}
+
+\begin{frame}[fragile]{Haz asociado}
+Dado un prehaz $\mathcal{F}$, existe un único haz $\mathcal{F}'$ y un morfismo $\theta: \mathcal{F} \to \mathcal{F}'$  tal que para cada haz $\mathcal{G} $ y morphismo $\varphi $ hay un único $\psi $ tal que
+\[\begin{tikzcd}
+	{\mathcal{F}} & {\mathcal{F}'} \\
+	& {\mathcal{G}}
+	\arrow["\theta", from=1-1, to=1-2]
+	\arrow["\varphi"', from=1-1, to=2-2]
+	\arrow["\exists \psi", from=1-2, to=2-2]
+\end{tikzcd}\]
+conmuta.
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo haz asociado}
+Sea el prehaz $\mathcal{F}(U) = A$ con $A$ un grupo abeliano fijo. El haz asociado es $\mathcal{F}'(U) = A^{c c(U)} $ 
+
+\incfig{sheafification}
+
 \end{frame}
 
 
@@ -65,12 +129,26 @@ A
 
 
 \begin{frame}[fragile]{Stalk}
-A
+El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite directo de los entornos que contienen el punto:
+\[
+\mathcal{F}_P = \varinjlim_{U \ni P} \mathcal{F}(U) 
+\]
+
+\incfig{stalk}
+
 \end{frame}
 
 
 \begin{frame}[fragile]{Ejemplos de haces y stalks}
-A
+
+  Sea $X = \mathbb{R}$. Tenemos dos ejemplos de haces:
+\begin{enumerate}
+  \item $\mathcal{F}(U) = \{f: f\in \mathbb{R}[x]\}$. Entonces $\mathcal{F}_P \cong \mathbb{R}[x]$ 
+  \item $\mathcal{F}(U) = \{f: f\in \mathcal{C}^{\omega}(U) \}$. Entonces $\mathcal{F}_P \cong \mathbb{R}[[x]]$ 
+\end{enumerate}
+
+\incfig{stalk}
+
 \end{frame}
 
 

@@ -94,9 +94,9 @@ Now we have gained intuition about what is a sheaf, we define it properly
     \item for each inclusion of open sets $V\hookrightarrow U$ a restriction map $\rho_{UV} : \mathcal{F}(U)\to \mathcal{F}(V)$ such that $\rho_{UU}= \id_{\mathcal{F}(U)}$ and $\rho _{VW}\circ \rho _{UV} = \rho _{UW}$ for the inclusion maps $W\hookrightarrow V \hookrightarrow U$
 \end{enumerate}
 
-In addition, a presheaf $\mathcal{F}$ is a sheaf if satisfies the following conditions
+In addition, a presheaf $\mathcal{F}$ is a sheaf if satisfies the following conditions on every covering $\{V_i\}$ of an open set $U$.
 \begin{enumerate}
-    \item (Gluing) If $\{V_i\}$ is an open covering of the open set $U$, and $s_i\in \mathcal{F}(V_i)$ satisfy $\rho_{V_i, V_i\cap V_j} s_i = \rho_{V_j, V_i\cap V_j} s_j$, then there exists a lifting $s\in \mathcal{F}(U)$ such that $\rho_{U, V_i} s = s_i\ \forall i$
+    \item (Gluing) If $s_i\in \mathcal{F}(V_i)$ satisfy $\rho_{V_i, V_i\cap V_j} s_i = \rho_{V_j, V_i\cap V_j} s_j$, then there exists a lifting $s\in \mathcal{F}(U)$ such that $\rho_{U, V_i} s = s_i\ \forall i$
     \item (Locality) If $s, t \in \mathcal{F}(U)$ and $\rho _{U, V_i}s = \rho_{U, V_i}t\ \forall i$, then $s = t$ 
 \end{enumerate}
 \end{definition}
@@ -118,16 +118,6 @@ We provide some examples of sheaves and presheaves.
 \begin{proof}
     This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally altough it is locally (in every $U_i$).
 \end{proof}
-
-% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWx7Rn0oVSkiXSxbMCwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwwLCJcXG1hdGhjYWx7R30oVSkiXSxbMSwxLCJcXG1hdGhjYWx7R30oVikiXSxbMCwyLCJcXHZhcnBoaShVKSJdLFsyLDMsIlxccmhvXlxcbWF0aGNhbHtHfSBfe1VWfSJdLFswLDEsIlxccmhvXlxcbWF0aGNhbHtGfSBfe1VWfSIsMl0sWzEsMywiXFx2YXJwaGkoVikiLDJdXQ==
-\[\begin{tikzcd}
-	{\mathcal{F}(U)} & {\mathcal{G}(U)} \\
-	{\mathcal{F}(V)} & {\mathcal{G}(V)}
-	\arrow["{\varphi(U)}", from=1-1, to=1-2]
-	\arrow["{\rho^\mathcal{F} _{UV}}"', from=1-1, to=2-1]
-	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
-	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
-\end{tikzcd}\]
 
 We now focus on a more localized study of our topological space. Fixing a point, we can consider neighborhoods smaller and smaller, that induce abelian groups through the defined sheaf. This notion can be formally described in the following definition.
 
@@ -154,7 +144,7 @@ Every time we deal with a new construction, a natural thing is to define morphis
 	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
 	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
 \end{tikzcd}\]
-commutes for eac $V \subseteq U$.
+commutes for each $V \subseteq U$.
 \end{definition}
 
 Now that we have morphisms between sheaves, classical objects such as kernel, image or cokernel can be defined in this category. 
@@ -165,6 +155,21 @@ Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves. We define:
     \item The kernel of $\varphi$ as the sheaf $\ker(\varphi )(U) = \ker (\varphi|_U)$. 
     \item The image of $\varphi $ as the sheaffification of the presheaf $ \im(\varphi )(U) = \im(\varphi |_U)$.
 \end{enumerate}
+\end{definition}
+
+
+Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
+\begin{definition}[Sheafification]
+Given presheaf $\mathcal{F} $, there is a unique (up to isomorphism) sheaf $\mathcal{F}' $ and a morphism $\theta: \mathcal{F} \to \mathcal{F}'  $ such that for any sheaf $\mathcal{G} $ and any morphism $\phi: \mathcal{F} \to \mathcal{G}  $ there is a unique morphism $\psi: \mathcal{F}' \to \mathcal{G}  $ that makes the diagram  
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1hdGhjYWx7Rn0iXSxbMSwwLCJcXG1hdGhjYWx7Rn0nIl0sWzEsMSwiXFxtYXRoY2Fse0d9Il0sWzAsMSwiXFx0aGV0YSJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwyLCJcXGV4aXN0ICFcXHBzaSJdXQ==
+\[\begin{tikzcd}
+	{\mathcal{F}} & {\mathcal{F}'} \\
+	& {\mathcal{G}}
+	\arrow["\theta", from=1-1, to=1-2]
+	\arrow["\varphi"', from=1-1, to=2-2]
+	\arrow["\exists \psi", from=1-2, to=2-2]
+\end{tikzcd}\]
+commute
 
 \end{definition}
 
@@ -499,6 +504,8 @@ Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X
 \end{definition}
 
 It is easy to see that the sets $D_f$ indeed form a base for the topological space $X = \Spec R$. The second need is more difficult. First we have to prove that there is a restriction map $\rho_{D_f, D_g}: \mathcal{O}_X(D_f) \to \mathcal{O}_X(D_g)$, naturally given by the map $R_f \to R_g$ that sends $ \frac{a}{b} \to \frac{a}{b}$ with $b \not\in (b)$. This map is well-defined since if $D_g \subseteq D_f$, then $b\in (f) \implies b \in (g)$.
+
+
 
 
 

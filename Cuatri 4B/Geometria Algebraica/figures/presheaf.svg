@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   sodipodi:docname="sheaf.svg"
+   sodipodi:docname="presheaf.svg"
    id="svg5"
    version="1.1"
    viewBox="0 0 210 297"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="6.7277216"
-     inkscape:cx="385.49455"
-     inkscape:cy="334.95738"
+     inkscape:zoom="2.3786088"
+     inkscape:cx="377.3214"
+     inkscape:cy="329.39422"
      inkscape:window-width="1920"
      inkscape:window-height="1043"
      inkscape:window-x="0"
@@ -147,35 +147,14 @@
          d="m 193,9 h 11 v 6.542969 h -11 z m 0,0"
          id="path6666-6" />
     </clipPath>
-    <clipPath
-       id="clipPath6328-5-3">
-      <path
-         clip-rule="nonzero"
-         d="m 193,9 h 11 v 6.542969 h -11 z m 0,0"
-         id="path6666-6-6" />
-    </clipPath>
-    <clipPath
-       id="clipPath6721-7">
-      <path
-         clip-rule="nonzero"
-         d="m 10,0 h 4 v 11.953125 h -4 z m 0,0"
-         id="path3580-5" />
-    </clipPath>
-    <clipPath
-       id="clipPath3245-3">
-      <path
-         clip-rule="nonzero"
-         d="m 24,0 h 4 v 11.953125 h -4 z m 0,0"
-         id="path8814-5" />
-    </clipPath>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.259867;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
-       d="M 70.510459,87.441605 H 136.36922"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.245108;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
+       d="M 70.496119,87.427265 H 129.0864"
        id="path1103" />
     <g
        inkscape:label=""
@@ -262,7 +241,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(104.8196,76.686961)"
+       transform="translate(109.40123,76.523496)"
        id="g1853">
       <g
          fill="#000000"
@@ -327,7 +306,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(138.11545,85.853114)"
+       transform="translate(131.44416,86.111328)"
        id="g2002">
       <g
          clip-path="url(#clipPath4878)"
@@ -349,7 +328,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(104.296,89.979677)"
+       transform="translate(112.08573,89.973349)"
        id="g2157">
       <g
          clip-path="url(#clipPath5481)"
@@ -393,7 +372,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(97.39208,85.332235)"
+       transform="translate(106.93034,85.332235)"
        id="g3995">
       <g
          clip-path="url(#clipPath9054)"
@@ -437,7 +416,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(111.39752,85.340349)"
+       transform="translate(119.18725,85.334021)"
        id="g4363">
       <g
          clip-path="url(#clipPath2871)"
@@ -459,7 +438,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="translate(101.03145,85.332235)"
+       transform="translate(99.311699,85.330449)"
        id="g4568">
       <g
          clip-path="url(#clipPath8281)"
@@ -510,7 +489,7 @@
     </g>
     <g
        inkscape:label=""
-       transform="rotate(-90,96.339627,-10.830734)"
+       transform="rotate(-90,99.019888,-13.440665)"
        id="g6848-2">
       <g
          clip-path="url(#clipPath6328-5)"
@@ -537,9 +516,5 @@
         </g>
       </g>
     </g>
-    <g
-       inkscape:label=""
-       transform="translate(95.041317,76.190083)"
-       id="g1853-6" />
   </g>
 </svg>

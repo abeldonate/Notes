@@ -235,8 +235,17 @@ HACER DIBUJO
 \begin{align*}
 &i_E = i_B + I_C; \quad v_{BE} = v_{BC} + v_{CE}\\
 & V_{j0, CB} = V_T \ln \left( \frac{N_BN_C}{n_i^2} \right); \quad  V_{j, CB} = V_{j0, CB} - V_{CB}\\
-&\gamma _E = \frac{I_En}{I_E}; \quad \alpha_T = \frac{I_{Cn}}{I_{E_n}}; \quad \alpha_F = \alpha_T \gamma _E; \quad \beta_F = \frac{\alpha_F}{1- \alpha_F}
+&\gamma _E = \frac{I_En}{I_E}; \quad \alpha_T = \frac{I_{Cn}}{I_{E_n}}; \quad \alpha_F = \alpha_T \gamma _E; \quad \beta_F = \frac{\alpha_F}{1- \alpha_F} \\
+&\Delta n_B(x) = \Delta n_B(0) \frac{\sinh \left( \frac{W_B-x}{L_B} \right)}{\sinh \left( \frac{W_B}{L_B} \right)}\\
+& I_{Ep} = Aq n_i^2 \frac{D_E}{N_EL_E} \left( e ^{\frac{V_{BE}}{V_T}}-1 \right)\\
+&I_{Bn} = -Aqn_i^2 \frac{D_B \cosh \left( \frac{W_B-x}{L_B} \right)}{N_BL_B \sinh \left( \frac{W_B}{L_B} \right)} \left( e ^{\frac{V_{BE}}{V_T}} -1 \right)\\
+&I_{En} = -I_{Bn} (x = 0); \quad I_{Cn} = -I_{Bn}(x = W_B)\\
+& I_{B,rec} = I_{En} - I_{Cn} = \frac{Q_B}{\tau _B}
 \end{align*}
+
+Efecto Early $I_C$ vs $V_{CE}$. 
+
+
 
 
 
