@@ -74,7 +74,7 @@
 
 \section{Teoria de grupos abelianos}
 
-\section{Homology}
+\section{Chain complexes}
 \begin{definition}[Exact sequence] Given the complex $C_{\bullet}$ formed by abelian groups $(C_n)$  and morphisms $f_n$ such that $f_{n}\circ f_{n+1} = 0$ 
     % https://q.uiver.app/#q=WzAsNSxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiQ197bisxfSJdLFsyLDAsIkNfbiJdLFszLDAsIkNfe24tMX0iXSxbNCwwLCJcXGNkb3RzIl0sWzAsMSwiZl97bisyfSJdLFsxLDIsImZfe24rMX0iXSxbMiwzLCJmX3tufSJdLFszLDQsImZfe24tMX0iXV0=
 \[\begin{tikzcd}
@@ -86,7 +86,7 @@
 \end{tikzcd}\]
 the complex is an exact sequence if $\ker(f_{n}) = \im(f_n) \ \forall  n$.
 
-If we have only three object such that $0 \to A \hookrightarrow B \twoheadrightarrow B \to 0$, and the image of the first morhphism is the kernel of the second, then we call it an short exact sequence.
+If we have only three object such that $0 \to A \hookrightarrow B \twoheadrightarrow C \to 0$, and the image of the first morhphism is the kernel of the second, then we call it an short exact sequence.
 \end{definition}
 
 \begin{definition}[Homology] There exists a covariant functor from the category of chain complex to the category of chain complexes defined as
@@ -137,12 +137,15 @@ g_{\bullet}: B_{\bullet} \to C_{\bullet}
 \begin{cases}
 f_{\bullet} \circ g_{\bullet} \simeq id_{B_{\bullet}}\\
 g_{\bullet} \circ f_{\bullet} \simeq id_{C_{\bullet}}
-\end{cases} \implies C_{\bullet} \simeq B_{\bullet}
+\end{cases} \implies C_{\bullet} \simeq B_{\bullet} \implies  H_n(C_{\bullet}) = H_n(B_{\bullet})
 \]
 
 \end{definition}
 
-\begin{theorem}[Connecting morphism] Given the short exact sequence $0 \to C _{\bullet} \xhookrightarrow{f}  D _{\bullet} \xtwoheadrightarrow{g_{\bullet}}  \to 0$ 
+\begin{theorem}[Connecting morphism] Given the short exact sequence $0 \to C _{\bullet} \xhookrightarrow{f_{\bullet}}  D _{\bullet} \xtwoheadrightarrow{g_{\bullet}} A_{\bullet} \to 0$, exist a morphism $\partial _n :H_n(A_{\bullet}) \to H_{n-1}(C_{\bullet})$ and the following long exact sequence
+\[
+\cdots \xrightarrow{f_{*n}} H_n(D_{\bullet}) \xrightarrow{g_{*n}}  H_n(A_{\bullet}) \xrightarrow{\partial _n} H_{n-1}(C_{\bullet}) \xrightarrow{f_{*n-1}}  H_{n-1} (D_{\bullet}) \xrightarrow{g_{*n-1}}  \cdots 
+\]
 
 \end{theorem}
 
@@ -150,6 +153,20 @@ g_{\bullet} \circ f_{\bullet} \simeq id_{C_{\bullet}}
 % ######################################################################
 
 \section{Homology}
+
+\begin{definition}[Singular simplex] A singular $n-$simplex is a continous map $\sigma: \Delta ^n \to X$, where $\Delta ^n$ is the standard simplex.
+\end{definition}
+
+\begin{definition} $C_n(X)$ is the free abelian group of singular $n-$simplexes. The elements are of the form $\sum a_i\sigma_i$.
+\end{definition}
+
+\begin{definition}[Boundary map] We define $d_n: C_n(X) \to C_{n-1}(X)$ as
+	\[
+	d_n(\sigma) \coloneq \sum (-1)^i\sigma \varepsilon ^n_{i}, \quad  \text{ where } \quad  \varepsilon ^n_i (t_0, \dots, t_{n-1}) = (t_0, \dots, t_{i-1}, 0, t_{i}, \dots, t_{n-1})
+	\] 
+\end{definition}
+
+The face application also satisfies $\varepsilon _j ^{n+1} \varepsilon _k^{n} = \varepsilon _k^{n+1} \varepsilon ^n_{j-1}$ .
 
 \begin{theorem}[Homotopical invariance] if $X \simeq Y$, then $H _{\bullet}(X) \cong H_{\bullet}(Y)$.
 \end{theorem}
@@ -173,6 +190,19 @@ We have the short exact sequence
 	\]
 \end{theorem}
 
+\begin{definition}[Retraction] $r$ is a (deformation) retraction if
+	\[
+	\begin{cases}
+	&r : X \twoheadrightarrow  A\\
+	&\iota : A \hookrightarrow X
+	\end{cases} \quad : 
+	\begin{cases}
+	&r \circ  i = Id_{A}\\
+	&(i \circ  r \simeq Id_X)
+	\end{cases}
+	\]
+\end{definition}
+
 \begin{definition}[Good pairs] Let $A\subseteq X$ closed. $(X,A)$ is a good pair if $A$ is a deformation retract of an open neighborhood of itself. 
 \end{definition}
 
@@ -192,13 +222,63 @@ and we have the long exact sequence
 \]
 \end{theorem}
 
+\begin{theorem}[Spheres homology] For $n \ge 1$ we have $H_n(S^n)=H_0(S^n)\mathbb{Z}, H_i (S^n) = 0$ for $i \neq 0, n$.
+
+\end{theorem}
+
 
 
 % ######################################################################
 
 
 \section{Fundamental group}
-\com{falta}
+\begin{minipage}{0.6\textwidth}
+\begin{definition}[Homotopy path] $\omega \simeq \omega'$ if exist a continous map
+	\[
+	\Omega: I_t \times I_s \to X : \begin{cases}
+	&\Omega(t,0) = \omega\\
+	& \Omega(t,1) = \omega'\\
+	& \Omega(0,s) = \omega(0) = \omega'(0)\\
+	& \Omega(1,s) = \omega(1) = \omega'(1)
+	\end{cases}
+	\]
+\end{definition}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\incfig{homotopypath}
+\end{minipage}
+
+\begin{definition}[Path product] We define the product of paths as
+	\[
+	\omega \cdot \tau (t) = \begin{cases}
+	\omega(2t) & \quad t \in [0,1/2]\\
+	\tau (2t -1) & \quad t \in [1/2,1]\\
+	\end{cases}
+	\]
+\end{definition}
+
+\begin{proposition} If $\omega \simeq \omega'$ via $\Omega(s, t)$, and $f: X \to Y$, then $f\circ  \omega \simeq f\circ  \omega'$ via $f \circ \Omega (s, t)$ 
+\end{proposition}
+
+\begin{theorem}[Fundamental group] The equivalence classes of closed paths with a base point $x\in X$ form a group $\pi(X, x)$.
+\end{theorem}
+
+\begin{proposition} The fundamental group is a functor from pointed topological spaces to groups. $f: X \to Y$ induces a morphism
+	\begin{align*}
+	f_* : \pi (X, x) & \to \pi (Y, f(x))\\
+	[\omega] &\mapsto [f \circ  \omega]
+	\end{align*}
+\end{proposition}
+
+\begin{proposition} $r: X \twoheadrightarrow A$ retraction, then $i: A \hookrightarrow X$ induces
+	\[
+	i_*: \pi (A, a) \hookrightarrow \pi (X, a)
+	\]
+monomorphism.
+\end{proposition}
+
+\begin{theorem}[Punto fijo de Brouwer] Every continous map $f: D^2 \to D^2$ has a fixed point.
+\end{theorem}
 
 
 % ######################################################################
@@ -319,6 +399,8 @@ $p: \tilde{X} \to X$ universal covering if and only if every point $x \in X$ adm
 
 
 
+\section{Non abelian groups}
+\com{falta}
 
 
 

@@ -25,6 +25,12 @@
 
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Spec}{Spec}
 
 \newcommand{\incfig}[1]{%
 \center
@@ -148,6 +154,19 @@ El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite dir
 \end{enumerate}
 
 \incfig{stalk}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Esquema afín}
+
+\begin{gather*}
+V(S) = \{[\mathfrak{p} ] \in \Spec(R) : S \subseteq \mathfrak{p}  \}\\
+\Updownarrow\\
+V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\dots,k \}
+\end{gather*}
+
+\incfig{schemeC}
 
 \end{frame}
 

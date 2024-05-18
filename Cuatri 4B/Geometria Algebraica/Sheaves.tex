@@ -250,7 +250,9 @@ Problemas 1,2,3,5,6,7,8,15,16,17,21(a,b,c)
 
 \begin{problem} \textbf{Problem 1} Let $A$ be an abelian group, and define the \textit{constant presheaf} associated to $A$ on the topological space $X$ to be the presheaf $U \to A$ for all $U \neq  \emptyset $, with restriction maps the identity. Show that the constant sheaf $\mathcal{A} $ defined in the text is the sheaf associated to this presheaf.   
 \end{problem}
-Consider 
+\begin{proof}
+\com{falta}
+\end{proof}
 
 \begin{problem}
 \textbf{Problem 2} 
@@ -452,14 +454,19 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 \end{proof}
 
 \begin{problem}
-\textbf{17}.  \com{falta}
+\textbf{17}. Let $X$ be a topological space, let $P$ be a point, ante let $A$  be an abelian group. Define a sheaf $i_p(A)$ on $X$ as follows: $i_P(A)(U) = A$ if $P \in U, 0 $ otherwise. Verify that the stalk of $i_P(A)$ is $A$ at every point $Q \in \overline{P}$. Show that this sheaf could also be described as $i_* (A)$, where $A$ denotes the constant sheaf $A$ on the closed subspace $\overline{P}$, and $i: \overline{P} \to X$  is the inclusion.
 \end{problem}
 
 \begin{proof}
-\com{falta}
 We denote $\overline{P} \coloneq \{P\}^-$. If $Q \in \overline{P}$, that means that for every open set $V \ni Q$ we have $P \in V$, and by definition of the sheaf $i_P(A)(V) = A$. The stalk is the limit of a constant group $A$, thus $i:P(A)_Q = A$. Converselly if $Q \in \overline{P}$ then there exist an open set $V \not\ni P$, so the direct limit is $i_P(A)_Q = 0$.
 
-We have that $i_*(A)(U) = A()$ 
+We have that $i_*(A)(U) = A(i^{-1}(U))$. If $P \in U$, then $i^{-1}(U) = \overline{P}$, and if $P \not\in U$, then $i^{-1}(U) = \emptyset$. Hence
+\[
+\begin{cases}
+A (\overline{P}) = A &\text{ if } P \in U\\
+A(\emptyset ) = 0 &\text{ if } P \not \in U
+\end{cases}
+\]
 \end{proof}
 
 \begin{problem}
@@ -477,14 +484,20 @@ Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X
 \end{problem}
 
 \begin{proof}
-(1) First we prove the gluing axiom. Let $s_i \in \mathcal{I}_Y(U_i)$ that satisfy $f_i|_{U_i \cap U_j} = f_j|_{U_i \cap U_j}$, then we can find $s \in \mathcal{O}_X$ such that $s|_{U_i} = s_i$. Now if \com{falta}
+(1) We can describe the ideal as the quotient of polynomials in $k[x]$ such that
+\[
+\mathcal{I}_Y(U) = \{ \frac{g}{h}: h \neq 0 \text{ in }U, g=0 \text{ in }Y\}
+\]
+It is easy to check that gluing axiom and locality axiom are satisfied as it is in the case of just regular functions sheaf $\mathcal{O}_X $.
 
 (2) \com{falta}
 
 
-(3) \com{falta}
-\end{proof}
 
+(3) \com{falta}
+We can compute $\Gamma (X, \mathcal{F}) \cong k \oplus k$, whereas $\Gamma (X, )$ 
+
+\end{proof}
 
 
 %###################################################
@@ -493,18 +506,51 @@ Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X
 
 \section{Schemes}
 
+A scheme is construction that generalizes in some sense the notion of algebraic variety. Usually, when introducing schemes, the fist step is the study of \textit{affine schemes}. Schemes in general are topological spaces that are locally affine schemes. As an analogy we can think of a manifold as an scheme, and its charts locally homeomorphic to $\mathbb{R}^n$ as the local affine schemes of the scheme. Thus, if the global study of a manifold is the study of how are the charts glued, working with schemes will be the study of how are affine schemes glued.
+
+We will work, thus, for the rest of the chapter with a ring $R$ and the topological space $\Spec(R)$ with the Zariski topology defined as follows
+
+\begin{definition}[Zariski topology] Given $S \subseteq R$, we define the associated closed set in the Zariski topology of $\Spec(R)$ as
+    \[
+    V(S) = \{[\mathfrak{p} ] \in \Spec(R) : S \subseteq \mathfrak{p}  \}
+    \] 
+\end{definition}
+
+Note the similarity with the algebraic variety. In some sense we require for the closed set of the topological space to be the ideal that contains certain elements of $R$. We can tink now, for instance, in $R = \mathbb{C} [x,y]$. The spectrum $\Spec{R}$ will contain elements of three different forms: $(0), (x-a,y-b)$ and $(f(x,y))$ with $f$ irreducible. In an algebraic variety we had
+
+\[
+V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\dots,k \}
+\]
+
+With the definition of closed set associated to a $S \subseteq R$ we have the same idea, now the polynomial functions $f_i$ extend to elements of an abstract ring $R$, but they keep acting somewhat like functions, and the points of the affine space extend to the elements of the spectrum $\Spec(R)$. 
+
+In can be seen that we can construct a basis of the Zariski topology on $\Spec(R)$ with the open sets
+\[
+X_f \coloneq  \Spec(R) - V(f)
+\]
+
+This is suggesting that the ressulting space is almost never Hausdorff, sice the open sets are too large and cannot be separated.
+
+\begin{proposition} There is an identification between $X_f$ and the localization of the spectrum of $R$ at one element of the ring
+    \begin{align*}
+    X _f &\leftrightarrow \Spec (R_f)\\
+    \mathfrak{p} &\mapsto \mathfrak{p} R_f
+    \end{align*}
+\end{proposition}
+
+We now have gathered all the necessary information to define properlly what is an affine scheme.
+
 \begin{definition}[Affine scheme] Le $R$ be a ring. An affine scheme is a pair $(X, \mathcal{O}_X)$ where $X = \Spec(R)$ satisfying
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item $X$ is a topological space with the Zarisky topology, with a basis of open sets
     \[
-    D_f \coloneq \{\mathfrak{p} \in \Spec (R) : f \not\in \mathfrak{p}  \} \text{ with } f \in R
+    X_f \coloneq \{\mathfrak{p} \in \Spec (R) : f \not\in \mathfrak{p}  \} \text{ with } f \in R
     \]
-    \item $\mathcal{O}_X$ is a sheaf of rings called the structure sheaf such that $\mathcal{O}_X(D(f)) = R_f$.
+    \item $\mathcal{O}_X$ is a sheaf of rings called the structure sheaf such that $\mathcal{O}_X(X_f) = R_f$.
 \end{enumerate}
 \end{definition}
 
-It is easy to see that the sets $D_f$ indeed form a base for the topological space $X = \Spec R$. The second need is more difficult. First we have to prove that there is a restriction map $\rho_{D_f, D_g}: \mathcal{O}_X(D_f) \to \mathcal{O}_X(D_g)$, naturally given by the map $R_f \to R_g$ that sends $ \frac{a}{b} \to \frac{a}{b}$ with $b \not\in (b)$. This map is well-defined since if $D_g \subseteq D_f$, then $b\in (f) \implies b \in (g)$.
-
+One should check that the sheaf $\mathcal{O}_X $ is, indded, well defined. Given $X_g \subseteq X_f$, the restriction map $\rho_{X_f, X_g}$  will have the form $R_f \to R_g$, but this is in fact an inclusion, since $R_g = R_{fg}$, as some power of $g$ is a multiple of $f$. It can also be shown that gluing and locality axiom hold.
 
 
 

@@ -1,10 +1,8 @@
-\frametitle{Ejemplos de haces y stalks}
+\frametitle{Esquema afín}
 
-  Sea $X = \mathbb{R}$. Tenemos dos ejemplos de haces:
-\begin{enumerate}
-  \item $\mathcal{F}(U) = \{f: f\in \mathbb{R}[x]\}$. Entonces $\mathcal{F}_P \cong \mathbb{R}[x]$
-  \item $\mathcal{F}(U) = \{f: f\in \mathcal{C}^{\omega}(U) \}$. Entonces $\mathcal{F}_P \cong \mathbb{R}[[x]]$
-\end{enumerate}
-
-\incfig{stalk}
+\begin{gather*}
+V(S) = \{[\mathfrak{p} ] \in \Spec(R) : S \subseteq \mathfrak{p}  \}\\
+\Updownarrow\\
+V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\dots,k \}
+\end{gather*}
 
