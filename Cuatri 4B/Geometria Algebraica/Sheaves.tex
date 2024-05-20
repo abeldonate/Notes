@@ -187,16 +187,16 @@ which proves that $\varphi _P(<s, U>) = \varphi _P(<t, V>)$
 We provide some interesting examples of stalks of different sheaves on $X = \mathbb{R}$. 
 
 \begin{example}
-Let $X = \mathbb{R}$. We consider three different sheaves:
+Let $X = \mathbb{R}$. We consider the following sheaves and compute the stalk in a point $P$:
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
-    \item $\mathcal{F}(U) = \{f : f \in \mathbb{R}[x]\}$. Then $\mathcal{F}_P \cong k[x]$ 
+    \item $\mathcal{F}(U) = \{f : f \in \mathbb{R}[x]\}$. Then $\mathcal{F}_P \cong \mathbb{R}[x]$ 
     \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\omega \}$. Then $\mathcal{F}_P \cong k[[x]] $
     \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\infty \}$. \com{?} 
     \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^0 \}$. \com{?}
 \end{enumerate}
 \end{example}
 
-\com{explain}
+In the first example we observe that the sheaf is the constant sheaf, since it is not important the choice of the open set $U$. Thus, the stalk, thought of a direct limit of a constant ring, is simply the ring. In the second example we see that if $U \subseteq V$, then there are certain functions in $U$ that cannot be defined in $V$ (for example, the functions that explode in the boundary of $U$). The direct limit is the ring of formal series, since it suffices to know the function in a neighborhood to know how it behaves in an open set $U$ small enough.
 
 Stalks are extremely useful in the study of sheaves. They can be able to generate global data from local one. The most extreme case is, for example, when $\mathcal{F}(U) $ is the ring of polynomials or the ring of analytic functions in the example avobe. I such cases one can recover the whole information of the sheaf $s \in \mathcal{F}(U) $ given the stalk $s_P \in \mathcal{F}_P $ on any point.
 
@@ -246,12 +246,11 @@ One important comment we should note here is that in general we can assure injec
 
 
 \subsection{Problems}
-Problemas 1,2,3,5,6,7,8,15,16,17,21(a,b,c)
 
 \begin{problem} \textbf{Problem 1} Let $A$ be an abelian group, and define the \textit{constant presheaf} associated to $A$ on the topological space $X$ to be the presheaf $U \to A$ for all $U \neq  \emptyset $, with restriction maps the identity. Show that the constant sheaf $\mathcal{A} $ defined in the text is the sheaf associated to this presheaf.   
 \end{problem}
 \begin{proof}
-\com{falta}
+Let $\mathcal{F} $ the presheaf of the problem, $\mathcal{G}$ any sheaf and $\mathcal{A}$ the constant sheaf. Then suppose $ \varphi \mathcal{F} \to \mathcal{G}$ is any morphism. Choose $f\in \mathcal{A}(U)$ and divide $U$ into its connected components $U = \sqcup V_i $ so that $f(V_i) = a_i \in \mathcal{A}$. By the commutativity of the diagram of the deffinition of sheafification, then $b_i = \varphi _{V_i}(a_i)$, giving $b \in \mathcal{G}(U)$. The map $\psi : \mathcal{A} \to \mathcal{G}$ such that $\varphi _U(f) = b$ is well defined and accomplish the universal property.
 \end{proof}
 
 \begin{problem}
@@ -269,7 +268,6 @@ We prove $\ker (\varphi )_{P} \subseteq (\ker \varphi )_P$. Let $<s, U> \in \ker
 
 We now prove the other inclusion $(\ker \varphi )_P \subseteq \ker (\varphi _P)$. Let $s_P \in \ker (\varphi _P)$, then there exists an open set $U$ and a section $s \in \mathcal{F}(U)$ such that $s_P = <s,U>$. Thus, $\varphi (s)|_P = 0$ and there exists $V \subseteq U$ such that $\varphi (s)|V = 0$. Hence, $s|_V \in \ker (\varphi )$ and finally $<s,U>=<s,V> \in \ker (\varphi_P )$.
 
-\com{queda im}
 
 (2) We must prove that $\ker (\varphi )=0 \iff \ker (\varphi _P) = 0 \ \forall  P$ for the injective case. This is a direct consequence of the part (1). In the case of the surjective case, this follows from the fact that $\im \varphi = \mathcal{G} \iff \im (\varphi _P) = \mathcal{G}_P$, which is also seen in the part (1). 
 
@@ -282,7 +280,8 @@ the last condition meaning that the stalk sequence is, indeed, a exact sequence.
 \begin{problem}
 \textbf{Problem 3}. 
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
-    \item Let $\varphi : \mathcal{F} \to \mathcal{G}  $ 
+    \item Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves on $X$. Show that$\varphi $ is surjective if and only if the following condition holds: for every open set $U\subseteq X$, and for every $s\in \mathcal{G}(U)$, there is a covering $\{U_i\}$ of $U$, and there are elements $t_i \in \mathcal{F} (U_i) $, such that $\varphi (t_i) = s|_{U_i}$ for all $i$.
+    \item Give an example of a surjective morphism of sheaves $\varphi : \mathcal{F} \to \mathcal{G} $, and an open set $U$ such that $\varphi (U): \mathcal{F}(U) \to \mathcal{G}(U)$ is not surjective. 
 \end{enumerate}
 \end{problem}
 
@@ -300,10 +299,14 @@ First we prove $\boxed{ \implies } $. Since $\varphi _P$ is surjective, then $\ 
 
 We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections $t_i \in \mathcal{F}(U_i)$ such that $\varphi (t_i) = s|U_i$. Then, given an element of the stalk $<s, U> \in \mathcal{G}_P $, for all point $P$ we have a set $U_i$, and $\varphi _P(<t,U_i>) = <s,U>$, concluding that $\varphi _P$ is surjective.
 
-(2) \com{falta ejemplo}
+(2) Consider the following classical example. Let $X = \mathbb{C}^* = \mathbb{C}-\{0\}  $ $\varphi : \mathcal{O} \to \mathcal{O}$, with $\mathcal{O}(U) $ the additive group of holomorphic functions on $U$, $\mathcal{O}^*(U)$ the multiplicative group of holomorphic functions on $U$, and $\varphi (f) = e^{2\pi if}$ the exponential mapping (that is a morphism of sheaves). 
+
+It is clear that $z \in \mathcal{O}(\mathbb{C}^*)$ is not the image of any function of $\mathcal{O}(\mathbb{C} )$, since the logarithm is not holomorphim in $ \mathbb{C}^*$. But te morphisms induced at the stalks are clearly surjective, so the sheaves morphism is surjective.
+
+
 
 \begin{problem}
-\textbf{Problem 5} 
+\textbf{Problem 5}. Show that a morphism of sheaves is an isomophism if and only if it is both injective and surjective.
 \end{problem}
 
 Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G}  $ is injective (resp. surjective) if and only if the induce morphisms on stalks $\varphi _P$ are injective (resp. surjective) for all $P$ . We also recall, by proposition 1.1 of \cite{Har}, that $\varphi$ is an isomorphism if and only if $\varphi _P$ is an isomorphism for all $P$. Thus, we have
@@ -414,8 +417,8 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
     \item Show that a constrant sheaf on an irreducible topological space is flasque.
     \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and if $\mathcal{F}' $ is flasque, then for any open set $U$, the sequence $0 \to \mathcal{F}'(U) \to \mathcal{F}(U) \to \mathcal{F}''(U)  $ is exact.
     \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and $\mathcal{F}', \mathcal{F} $ are flasque, then $\mathcal{F}'' $ is flasque.
-    \item If $f: X \to Y$ is a continous map, and $\mathcal{F} $ is a flasque sheaf on $X$, then $f_*\mathcal{F} $ is a flasque sheaf on $Y$. 
-    \item Let $\mathcal{F} $ be any sheaf on $X$. We define a new sheaf $\mathcal{G} $, called the sheaf of discontinous sections of $\mathcal{F} $ as follows. For each open set $U \subseteq X, \mathcal{G}(U) $ is the set of maps $s:U \to \bigcup _{P \in U} \mathcal{F}_P $ such that for each $P \in U, s(P) \in \mathcal{F}_P $. Show that $\mathcal{G} $ is a flasque sheaf, and that there is a natural injective morphism of $\mathcal{F} $ to $\mathcal{G}$.
+    \item If $f: X \to Y$ is a continous map, and $\mathcal{F} $ is a flasque sheaf on $X$, then $f_*\mathcal{F} $ is a flasque sheaf on $Y$. \com{borrar}
+    \item Let $\mathcal{F} $ be any sheaf on $X$. We define a new sheaf $\mathcal{G} $, called the sheaf of discontinous sections of $\mathcal{F} $ as follows. For each open set $U \subseteq X, \mathcal{G}(U) $ is the set of maps $s:U \to \bigcup _{P \in U} \mathcal{F}_P $ such that for each $P \in U, s(P) \in \mathcal{F}_P $. Show that $\mathcal{G} $ is a flasque sheaf, and that there is a natural injective morphism of $\mathcal{F} $ to $\mathcal{G}$. \com{borrar}
 \end{enumerate}
 \end{problem}
 
@@ -444,9 +447,6 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 \end{tikzcd}\]
 \com{prove lemma}
 
-(4) \com{falta}
-
-(5) \com{falta}
 
 
 
@@ -551,6 +551,30 @@ We now have gathered all the necessary information to define properlly what is a
 \end{definition}
 
 One should check that the sheaf $\mathcal{O}_X $ is, indded, well defined. Given $X_g \subseteq X_f$, the restriction map $\rho_{X_f, X_g}$  will have the form $R_f \to R_g$, but this is in fact an inclusion, since $R_g = R_{fg}$, as some power of $g$ is a multiple of $f$. It can also be shown that gluing and locality axiom hold.
+
+Following the example in which $R = \mathbb{C}[x,y]$, suppose that we have the element $f = y-x^2 \in \mathbb{C}[x,y]$. Then the associated closed set is clearly $V(f) = (y-x^2) \in \Spec(R)$, since $y-x^2$ is irreducible. This case is totally analogus to the classical algebraic variety, in which the closed subset will be $V(f) = \{(x, y) \in \mathbb{C}^2: y-x^2 = 0 \}$.
+
+\begin{minipage}{0.5\textwidth}
+\incfig{schemeC}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\incfig{schemesZ}
+\end{minipage}
+
+
+Another classical example is the study of the ring $R = \mathbb{Z}$. Now the spectrum will be formed by the ideal $(0)$ and the ideals $(p)$ with $p$ prime number. Thus, we can perform an explicit description of the shape of the open sets in the basis. If $a \in \mathbb{R}$ is decomposable in the primes $p_1, \ldots, p_k$ (with certain multiplicity), then 
+\[
+V(a) = \{[\mathfrak{p} ]\in \Spec(\mathbb{Z}) : a \subseteq \mathfrak{p} \} = \{(p_1), \ldots , (p_k)\}
+\]
+and the open set $X_a$ will be the complement.
+
+Attending to the picture, we can see that, if we consider the intersection of two arbitrary open sets (say, $X_6$ and $X_{10}$), the sheaf of the union is perfecly well defined as it should be
+\[
+    \begin{cases}
+&\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
+&\mathcal{F}(X_{10})  = \{ \frac{a}{2^n5^n} : n \ge 0, a \in \mathbb{Z}\} 
+    \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
+\]
 
 
 

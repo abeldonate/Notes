@@ -1,8 +1,12 @@
-\frametitle{Esquema afín}
+\frametitle{Esquema de $R = \mathbb {Z}$}
+\[
+X = \Spec(\mathbb{Z}) = \{(0),(2), (3), (5), \ldots\}
+\]
 
-\begin{gather*}
-V(S) = \{[\mathfrak{p} ] \in \Spec(R) : S \subseteq \mathfrak{p}  \}\\
-\Updownarrow\\
-V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\dots,k \}
-\end{gather*}
-
+\[
+    \begin{cases}
+&\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
+&\mathcal{F}(X_{10})  = \{ \frac{a}{2^n5^n} : n \ge 0, a \in \mathbb{Z}\}
+    \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
+\]
+\incfig{schemesZ}

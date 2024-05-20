@@ -1,5 +1,10 @@
 \begin{thebibliography}{Har13}
 
+\bibitem[EH06]{eisenbud2006geometry}
+David Eisenbud and Joe Harris.
+\newblock {\em The geometry of schemes}, volume 197.
+\newblock Springer Science \& Business Media, 2006.
+
 \bibitem[Har13]{Har}
 Robin Hartshorne.
 \newblock {\em Algebraic geometry}, volume~52.

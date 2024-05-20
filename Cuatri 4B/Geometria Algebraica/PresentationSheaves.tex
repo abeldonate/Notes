@@ -129,11 +129,6 @@ Sea el prehaz $\mathcal{F}(U) = A$ con $A$ un grupo abeliano fijo. El haz asocia
 \end{frame}
 
 
-\begin{frame}[fragile]{Núcleo e imagen de morfismos de haces}
-A
-\end{frame}
-
-
 \begin{frame}[fragile]{Stalk}
 El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite directo de los entornos que contienen el punto:
 \[
@@ -171,6 +166,21 @@ V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\do
 \end{frame}
 
 
+\begin{frame}[fragile]{Esquema de $R = \mathbb{Z}$}
+\[
+X = \Spec(\mathbb{Z}) = \{(0),(2), (3), (5), \ldots\}
+\]
+
+\[
+    \begin{cases}
+&\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
+&\mathcal{F}(X_{10})  = \{ \frac{a}{2^n5^n} : n \ge 0, a \in \mathbb{Z}\} 
+    \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
+\]
+\incfig{schemesZ}
+\end{frame}
+
+
 
 
 
@@ -179,6 +189,9 @@ V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\do
 
 \begin{frame}[allowframebreaks]{References}
 
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
 
 \end{frame}
 
