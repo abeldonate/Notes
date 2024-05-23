@@ -5,8 +5,9 @@ X = \Spec(\mathbb{Z}) = \{(0),(2), (3), (5), \ldots\}
 
 \[
     \begin{cases}
-&\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
-&\mathcal{F}(X_{10})  = \{ \frac{a}{2^n5^n} : n \ge 0, a \in \mathbb{Z}\}
-    \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
+&\mathcal{F}(X_6)  = \left\{ \frac{a}{2^n3^n} : n \ge 0 \right\}\\
+&\mathcal{F}(X_{10})  = \left\{ \frac{a}{2^n5^n} : n \ge 0 \right\}
+    \end{cases}   \implies
+    \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \left\{ \frac{a}{2^n} : n \ge 0\right\}
 \]
 \incfig{schemesZ}

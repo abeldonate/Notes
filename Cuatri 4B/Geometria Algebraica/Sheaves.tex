@@ -39,6 +39,7 @@
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
+\theoremstyle{definition}
 \newtheorem*{theorem}{Theorem}
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{proposition}{Proposition}
@@ -66,9 +67,9 @@
 }
 \pdfsuppresswarningpagegroup=1
 
-\title{Sheaves GEOALG}
+\title{Introduction to Sheaves and Schemes}
 \author{Abel Doñate Muñoz}
-\date{}
+\date{May 2024}
 
 \begin{document}
 \maketitle
@@ -78,15 +79,15 @@
 
 \section{Introduction}
 
-This report is presented as the final project of the degree subject of Algebraic Geometry in Polytechnic University of Catalonia. The text aims to be a comprehensible introduction to sheaves, a compendium of solved exercices from \cite{Har}, and a very brief introduction to schemes.
+This report is presented as the final project of the degree subject of Algebraic Geometry at Polytechnic University of Catalonia. The text aims to be a comprehensible introduction to sheaves, a compendium of solved exercises from \cite{Har}, and a very brief introduction to schemes, following \cite{eis}.
 
 The introduction of the concept of sheaf is essential for the study of schemes. Sheaves are a general tool to study topological spaces through the study of a collection of associated objects in a fixed category. The way those objects are "glued" (we will define properly what this concept means) determines, in some fashion, how the topological space behaves.
 
 \section{Sheaves}
 
-Informally, a sheaf encodes the information of the topological space by associating a object of the category (set, group, ring, module, etc) to each open set of the topology. However, this mapping is not arbitrary, it must accomplish some "restriction" property, that is, the mapping of a subset must behave well with the mapping of the set.
+Informally, a sheaf encodes the information of the topological space by associating an object of a fixed category (set, group, ring, module, etc) to each open set of the topology. However, this mapping is not arbitrary, it must accomplish some \textit{restriction} property, that is, the mapping of a subset must behave well with the mapping of the set.
 
-Now we have gained intuition about what is a sheaf, we define it properly
+Now we have gained intuition about what is a sheaf, we define it properly.
 
 \begin{definition}[Presheaf and sheaf] A presheaf $\mathcal{F}$ of abelian groups associated to a topological space $X$ consists of the data
 \begin{enumerate}
@@ -101,25 +102,25 @@ In addition, a presheaf $\mathcal{F}$ is a sheaf if satisfies the following cond
 \end{enumerate}
 \end{definition}
 
-The definition of sheaf for other categories is analogous by changing abelian groups with rings, sets, modules, etc. The elements of a sheaf $s\in \mathcal{F}(U)$ are called sections.  
+The definition of sheaf for other categories is analogous and can be constructed by changing abelian groups with rings, sets, modules, etc. The elements of the abelian groups $s\in \mathcal{F}(U)$ are called sections.
 
 
 
-The two requirements for a sheaf are extremely important. The gluing axiom tells us that if the sheaves behaves well in the intersections via the restriction maps, then they lead to a larger sheaf. The locality axiom states that sections are uniquely determined by their restrictions.  
+The two requirements for a sheaf are extremely important. The glueing axiom tells us that if the sheaves behave well in the intersections via the restriction maps, then they lead to a larger sheaf. The locality axiom states that sections are uniquely determined by their restrictions.  
 
 We provide some examples of sheaves and presheaves.
 
-\begin{example} Let $M$ be a $\mathcal{C}^k-$manifold. Then, $\mathcal{F} := \mathcal{C}^k(-)$, such that $\mathcal{C}^k(-)$ is the map associating each open set $U$ to the ring of $k-$differentiable functions. The restriction maps are obviously defined by restricting the domain of the functions. This is valid also for smooth manifolds. 
+\begin{example} Let $M$ be a $\mathcal{C}^k-$ manifold. Then, $\mathcal{F} := \mathcal{C}^k(-)$, such that $\mathcal{C}^k(-)$ is the map associating each open set $U$ to the ring of $k-$differentiable functions. The restriction maps are obviously defined by restricting the domain of the functions. This is valid also for smooth manifolds. 
 \end{example}
 
-\begin{example} Let $\mathcal{C}_b(U)$ be the continuous bounded functions on an open set $U \in \mathcal{R}$. Then the mapping $\mathcal{F}:= \mathcal{C}_b(-)$ is a presheaf, but not a sheaf over the real line.
+\begin{example} Let $\mathcal{C}_b(U)$ be the abelian group of  continuous bounded functions on an open set $U \in \mathcal{R}$. Then the mapping $\mathcal{F}:= \mathcal{C}_b(-)$ is a presheaf, but not a sheaf over the real line.
 \end{example}
 
 \begin{proof}
-    This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally altough it is locally (in every $U_i$).
+    This can be seen by considering the open covering of the real line whose open sets are $U_n = (n-1, n+1) \ \forall n\in \mathbb{Z}$. If we consider the presheaf $\mathcal{C}_b(-)$, then it clearly satisfies the locality axiom, but not the gluing axiom, since the section $s\in \mathcal{F}$ defined by $s: \mathbb{R}\to \mathbb{R} , x \to x$, is not a bounded function globally although it is locally (in every $U_i$).
 \end{proof}
 
-We now focus on a more localized study of our topological space. Fixing a point, we can consider neighborhoods smaller and smaller, that induce abelian groups through the defined sheaf. This notion can be formally described in the following definition.
+We now focus on a more localized study of our topological space. Fixing a point in the topological space $P \in X$, we can consider neighbourhoods smaller and smaller which induce abelian groups through the defined sheaf. This notion can be formally described in the following definition.
 
 \begin{definition}[Stalk] Let $\mathcal{F} $ a presheaf and $P \in X$. The stalk of $\mathcal{F} $ at $P$ is defined as the direct limit of the groups
     \[
@@ -127,12 +128,12 @@ We now focus on a more localized study of our topological space. Fixing a point,
     \]
 \end{definition}
 
-The elements of the stalk can be understood in less abstract way by thinking about the equivalence classes of the pairs $<s, U> = (s,U)/ \sim$ with $s \in F(U), U \subseteq X$ that meet
+The elements of the stalk can be understood in a less abstract way by thinking about the equivalence classes of the pairs $<s, U> = (s,U)/ \sim$ with $s \in F(U), U \subseteq X$ that meet
 \[
-<s, U> = <t, V>  ( \iff  (s, U) \sim (t,V)) \iff  \ \exists W \subseteq U \cap V : s|_U = t|_V
+<s, U> = <t, V>  ( \iff  (s, U) \sim (t,V)) \iff  \ \exists W \subseteq U \cap V : s|_W = t|_W
 \]
 
-Every time we deal with a new construction, a natural thing is to define morphisms on this constructions. In this case we define the morphisms of sheaves.
+Every time we deal with a new construction, a natural thing to do is to define morphisms on the objects. In this case we define the morphisms of sheaves.
 
 \begin{definition}[Morphism of sheaves] We say $\varphi : \mathcal{F} \to \mathcal{G}$ is a morphism of sheaves if there exist $\varphi (U):\mathcal{F}(U) \to \mathcal{G}(U)$ morphisms of abelian groups for each open set $U \subseteq X$ such that
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWx7Rn0oVSkiXSxbMCwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwwLCJcXG1hdGhjYWx7R30oVSkiXSxbMSwxLCJcXG1hdGhjYWx7R30oVikiXSxbMCwyLCJcXHZhcnBoaShVKSJdLFsyLDMsIlxccmhvXlxcbWF0aGNhbHtHfSBfe1VWfSJdLFswLDEsIlxccmhvXlxcbWF0aGNhbHtGfSBfe1VWfSIsMl0sWzEsMywiXFx2YXJwaGkoVikiLDJdXQ==
@@ -147,18 +148,8 @@ Every time we deal with a new construction, a natural thing is to define morphis
 commutes for each $V \subseteq U$.
 \end{definition}
 
-Now that we have morphisms between sheaves, classical objects such as kernel, image or cokernel can be defined in this category. 
+At this point, one may ask a natural question: could we construct uniquely a sheaf given a presheaf?. For this to happen we have to find a sheaf (a presheaf plus gluing and locality axioms) that accomplishes certain \textit{universal property}. This tool of turning a presheaf into a sheaf is called sheafification, and plays an important role when certain derived objects fail to be a sheaf. 
 
-\begin{definition}[Kernel and image]
-Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves. We define:
-\begin{enumerate}[topsep=-6pt, itemsep=0pt]
-    \item The kernel of $\varphi$ as the sheaf $\ker(\varphi )(U) = \ker (\varphi|_U)$. 
-    \item The image of $\varphi $ as the sheaffification of the presheaf $ \im(\varphi )(U) = \im(\varphi |_U)$.
-\end{enumerate}
-\end{definition}
-
-
-Another important tool is called sheafification, or finding the sheaf associated to a given presheaf.
 \begin{definition}[Sheafification]
 Given presheaf $\mathcal{F} $, there is a unique (up to isomorphism) sheaf $\mathcal{F}' $ and a morphism $\theta: \mathcal{F} \to \mathcal{F}'  $ such that for any sheaf $\mathcal{G} $ and any morphism $\phi: \mathcal{F} \to \mathcal{G}  $ there is a unique morphism $\psi: \mathcal{F}' \to \mathcal{G}  $ that makes the diagram  
 % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1hdGhjYWx7Rn0iXSxbMSwwLCJcXG1hdGhjYWx7Rn0nIl0sWzEsMSwiXFxtYXRoY2Fse0d9Il0sWzAsMSwiXFx0aGV0YSJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwyLCJcXGV4aXN0ICFcXHBzaSJdXQ==
@@ -169,15 +160,27 @@ Given presheaf $\mathcal{F} $, there is a unique (up to isomorphism) sheaf $\mat
 	\arrow["\varphi"', from=1-1, to=2-2]
 	\arrow["\exists \psi", from=1-2, to=2-2]
 \end{tikzcd}\]
-commute
+commutes
 
 \end{definition}
 
-\begin{proposition} Let $\varphi : \mathcal{F} \to \mathcal{G}  $ a morphism of sheaves. Then there exist an induced morphism in the stalks $\varphi _P: \mathcal{F}_P \to \mathcal{G}_P  $ for every point $P \in X$.
+Now that we have morphisms between sheaves, classical objects such as kernel, image or cokernel can be defined in this category. 
+
+\begin{definition}[Kernel and image]
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves. We define:
+\begin{enumerate}[topsep=-6pt, itemsep=0pt]
+    \item The kernel of $\varphi$ as the sheaf $\ker(\varphi )(U) = \ker (\varphi|_U)$. 
+    \item The image of $\varphi $ as the sheafification of the presheaf $ \im(\varphi )(U) = \im(\varphi |_U)$.
+\end{enumerate}
+\end{definition}
+
+
+
+\begin{proposition} Let $\varphi : \mathcal{F} \to \mathcal{G}  $ a morphism of sheaves. Then there exists an induced morphism in the stalks $\varphi _P: \mathcal{F}_P \to \mathcal{G}_P  $ for every point $P \in X$.
 \end{proposition}
 
 \begin{proof}
-The most natural induced morphism is the one that sends $ <s, U> \mapsto <\varphi (s),U> $. Obviously $<s, U> \in \mathcal{F}(U), <\varphi (s), U> \in \mathcal{F}(U)  $, so the only thing to prove is that this map is well defined. Let $<s, U> = <t, V> \in  \mathcal{F}_P $. Then there exist, by the construction of stalk, $W \subseteq U \cap V$ such that $s|_W = t|_W$, and thus $\varphi (s)|_W = \varphi (t)|_W$, getting
+The most natural induced morphism is the one that sends $ <s, U> \mapsto <\varphi (s),U> $. Obviously $<s, U> \in \mathcal{F}(U), <\varphi (s), U> \in \mathcal{G}(U)  $, so the only thing to prove is that this map is well defined. Let $<s, U> = <t, V> \in  \mathcal{F}_P $. Then there exist, by the construction of stalk, $W \subseteq U \cap V$ such that $s|_W = t|_W$, and thus $\varphi (s)|_W = \varphi (t)|_W$, getting
 \[
 <\varphi (s), U> = <\varphi (s)|_W, W> = <\varphi (t)|_W, W> = <\varphi (t), V>
 \]
@@ -191,14 +194,12 @@ Let $X = \mathbb{R}$. We consider the following sheaves and compute the stalk in
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item $\mathcal{F}(U) = \{f : f \in \mathbb{R}[x]\}$. Then $\mathcal{F}_P \cong \mathbb{R}[x]$ 
     \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\omega \}$. Then $\mathcal{F}_P \cong k[[x]] $
-    \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^\infty \}$. \com{?} 
-    \item $\mathcal{F}(U) = \{f : f \in \mathcal{C}^0 \}$. \com{?}
 \end{enumerate}
 \end{example}
 
-In the first example we observe that the sheaf is the constant sheaf, since it is not important the choice of the open set $U$. Thus, the stalk, thought of a direct limit of a constant ring, is simply the ring. In the second example we see that if $U \subseteq V$, then there are certain functions in $U$ that cannot be defined in $V$ (for example, the functions that explode in the boundary of $U$). The direct limit is the ring of formal series, since it suffices to know the function in a neighborhood to know how it behaves in an open set $U$ small enough.
+In the first example we observe that the sheaf is the constant sheaf, since it is not important the choice of the open set $U$. Thus, the stalk, thought as a direct limit of a constant ring, is simply the ring. In the second example we see that if $U \subseteq V$, then there are certain functions in $U$ that cannot be defined in $V$ (for example, the functions that explode in the boundary of $U$). The direct limit is the ring of formal series, since it suffices to know the function in a neighborhood to know how it behaves in an open set $U$ small enough.
 
-Stalks are extremely useful in the study of sheaves. They can be able to generate global data from local one. The most extreme case is, for example, when $\mathcal{F}(U) $ is the ring of polynomials or the ring of analytic functions in the example avobe. I such cases one can recover the whole information of the sheaf $s \in \mathcal{F}(U) $ given the stalk $s_P \in \mathcal{F}_P $ on any point.
+Stalks are extremely useful in the study of sheaves. They can be able to generate global data from local one. The most extreme case is, for example, when $\mathcal{F}(U) $ is the ring of polynomials or the ring of analytic functions in the example above. In such cases one can recover the whole information of the sheaf $s \in \mathcal{F}(U) $ given the stalk $s_P \in \mathcal{F}_P $ on a single point.
 
 In general, this is not the case, but, fortunately, the knowledge of all the stalks can be glued to obtain the behaviour of the section of the sheave. The following proposition encloses this idea. 
 
@@ -219,17 +220,17 @@ The other direction $\boxed{ \impliedby } $  is a little bit more subtle. First 
 \]
 Now we know that we can restrict for all $P$ our domain $U$ in a smaller one $W_P \subseteq U$ in which $s|_{W_P} = 0$. Taking the covering $\{W_P\}_P$ of $U$ we get, by gluing property, $s = 0$. This proves the injectivity. 
 
-For the surjectivity let $t \in \mathcal{G}(U) $. Then, for $<t, U> \in \mathcal{G}_P \ \exists <s^P, V> \in \mathcal{F}_P $ (we can choose a section that a priori depends on the point $P$) such that $\varphi _P(<s^P, V>) = <\varphi (s^P), V> = <t, U>$. By the definition of stalk we can find a neighborhood of $P$ such that $W_P \subseteq U \cap V$ such that $\varphi (s^P)|_{W_P} = t|_{W_P}$. We now have to see that the sections that induce the stalks can be glued in a global section, but this is consequence of the injectivity of $\varphi$, since $\varphi (s^P)|_{W_P \cap W_Q} = \varphi (s^Q)_{W_P \cap W_{Q}}$ implies $s^P|_{W_P \cap W_Q} = s^Q|_{W_P \cap W_Q}$. Thus, applying the gluing axiom we reconstruct a global section $s \in \mathcal{F}(U)$. This proves surjectivity.
+For the surjectivity let $t \in \mathcal{G}(U) $. Then, for $<t, U> \in \mathcal{G}_P \ \exists <s^P, V> \in \mathcal{F}_P $ (we can choose a section that a priori depends on the point $P$) such that $\varphi _P(<s^P, V>) = <\varphi (s^P), V> = <t, U>$. By the definition of stalk we can find a neighbourhood of $P$ such that $W_P \subseteq U \cap V$ such that $\varphi (s^P)|_{W_P} = t|_{W_P}$. We now have to see that the sections that induce the stalks can be glued in a global section, but this is consequence of the injectivity of $\varphi$, since $\varphi (s^P)|_{W_P \cap W_Q} = \varphi (s^Q)_{W_P \cap W_{Q}}$ implies $s^P|_{W_P \cap W_Q} = s^Q|_{W_P \cap W_Q}$. Thus, applying the gluing axiom we reconstruct a global section $s \in \mathcal{F}(U)$. This proves surjectivity.
 \end{proof}
 
-One important comment we should note here is that in general we can assure injectivity by checking injectivity in all subsetsa and viceversa, but this does not hold for surjectivity.
+We see that injectivity and surjectivity behave well when considering all the points in the stalk. This is not the case when checking surjectivity on the morphisms of abelian groups on open sets. In this case surjectivity fails. 
 
 \begin{proposition} Let $\varphi :\mathcal{F} \to \mathcal{G}  $. Then
     \[
     \varphi \text{ is injective } \iff \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is injective } \ \forall  U \subseteq X
     \]
     \[
-    \varphi \text{ is surjective } \not\implies \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is surjective } \ \forall  U \subseteq X
+    \varphi \text{ is surjective } \rlap{\(\quad\not\)}\implies \varphi _U : \mathcal{F} (U) \to \mathcal{G} \text{ is surjective } \ \forall  U \subseteq X
     \]
 \end{proposition}
 
@@ -247,14 +248,15 @@ One important comment we should note here is that in general we can assure injec
 
 \subsection{Problems}
 
-\begin{problem} \textbf{Problem 1} Let $A$ be an abelian group, and define the \textit{constant presheaf} associated to $A$ on the topological space $X$ to be the presheaf $U \to A$ for all $U \neq  \emptyset $, with restriction maps the identity. Show that the constant sheaf $\mathcal{A} $ defined in the text is the sheaf associated to this presheaf.   
+\begin{problem}
+\textbf{1}. Let $A$ be an abelian group, and define the \textit{constant presheaf} associated to $A$ on the topological space $X$ to be the presheaf $U \to A$ for all $U \neq  \emptyset $, with restriction maps the identity. Show that the constant sheaf $\mathcal{A} $ defined in the text is the sheaf associated to this presheaf.   
 \end{problem}
 \begin{proof}
-Let $\mathcal{F} $ the presheaf of the problem, $\mathcal{G}$ any sheaf and $\mathcal{A}$ the constant sheaf. Then suppose $ \varphi \mathcal{F} \to \mathcal{G}$ is any morphism. Choose $f\in \mathcal{A}(U)$ and divide $U$ into its connected components $U = \sqcup V_i $ so that $f(V_i) = a_i \in \mathcal{A}$. By the commutativity of the diagram of the deffinition of sheafification, then $b_i = \varphi _{V_i}(a_i)$, giving $b \in \mathcal{G}(U)$. The map $\psi : \mathcal{A} \to \mathcal{G}$ such that $\varphi _U(f) = b$ is well defined and accomplish the universal property.
+Let $\mathcal{F} $ the presheaf of the problem, $\mathcal{G}$ any sheaf and $\mathcal{A}$ the constant sheaf. Then suppose $ \varphi \mathcal{F} \to \mathcal{G}$ is any morphism. Choose $f\in \mathcal{A}(U)$ and divide $U$ into its connected components $U = \sqcup V_i $ so that $f(V_i) = a_i \in \mathcal{A}$. By the commutativity of the diagram of the definition of sheafification, then $b_i = \varphi _{V_i}(a_i)$, giving $b \in \mathcal{G}(U)$. The map $\psi : \mathcal{A} \to \mathcal{G}$ such that $\varphi _U(f) = b$ is well defined and accomplishes the universal property.
 \end{proof}
 
 \begin{problem}
-\textbf{Problem 2} 
+\textbf{2}.
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item For any morphism of sheaves $\varphi : \mathcal{F} \to \mathcal{G} $, show that for each point $P$, $(\ker \varphi )_P = \ker (\varphi )_P$  and $(\im \varphi )_P = \im(\varphi )_P$ .
     \item Show that $\varphi $ is injective (resp. surjective) if and only if the induced map on the stalks $\varphi _P$ is injective (resp. surjective) for all $P$.
@@ -262,6 +264,7 @@ Let $\mathcal{F} $ the presheaf of the problem, $\mathcal{G}$ any sheaf and $\ma
 \end{enumerate}
 \end{problem}
 
+\begin{proof}
 (1) First notice that the morphism $\varphi : \mathcal{F} \to \mathcal{G}  $ induces a morphism in stalk $\varphi _P : \mathcal{F}_P \to \mathcal{G}_P  $  
 
 We prove $\ker (\varphi )_{P} \subseteq (\ker \varphi )_P$. Let $<s, U> \in \ker (\varphi )_P$, then clearly $s|_U \in  \ker (\varphi )$ and we have by the induce morphism $\varphi (s|_U)= 0 \implies \varphi _P(<s,U>)=0 \implies <s,U> \in \ker (\varphi _P)$.
@@ -275,17 +278,18 @@ We now prove the other inclusion $(\ker \varphi )_P \subseteq \ker (\varphi _P)$
 \[
 \ker (\varphi ^i) = \im (\varphi ^{i-1}) \iff \ker (\varphi ^i)_P = \im(\varphi ^{i-1}) \ \forall  P \iff \ker (\varphi ^i_P) = \im (\varphi ^{i-1}_P) \ \forall  P
 \]
-the last condition meaning that the stalk sequence is, indeed, a exact sequence.
+the last condition meaning that the stalk sequence is, indeed, an exact sequence.
+\end{proof}
 
 \begin{problem}
-\textbf{Problem 3}. 
+\textbf{3}. 
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of sheaves on $X$. Show that$\varphi $ is surjective if and only if the following condition holds: for every open set $U\subseteq X$, and for every $s\in \mathcal{G}(U)$, there is a covering $\{U_i\}$ of $U$, and there are elements $t_i \in \mathcal{F} (U_i) $, such that $\varphi (t_i) = s|_{U_i}$ for all $i$.
     \item Give an example of a surjective morphism of sheaves $\varphi : \mathcal{F} \to \mathcal{G} $, and an open set $U$ such that $\varphi (U): \mathcal{F}(U) \to \mathcal{G}(U)$ is not surjective. 
 \end{enumerate}
 \end{problem}
 
-Following the exercice (2) we have to prove that
+Following the exercise (2) we have to prove that
 \[
 \varphi _P \text{ surjective} \ \forall   P \iff \ \forall \begin{cases}
 U \subseteq X\\
@@ -295,18 +299,17 @@ s \in \mathcal{G} (U)
 t_i \in \mathcal{F} (U_i)
 \end{cases} : \varphi (t_i) = s |_{U_i}
 \]
-First we prove $\boxed{ \implies } $. Since $\varphi _P$ is surjective, then $\ \forall t \in \mathcal{G}(V)$ we have a $s \in \mathcal{F}(U) $ such that $<t, V > = <\varphi (s), U> \in \mathcal{G}_P$. In particular, we can restrict more both open sets to an open set $W \subseteq  U \cap V$defined to be the one such that $s|_W = \varphi (t|_W)$. Thus, we get an open cover $(W_P)_{P \in X}$ of $X$ and sections $t_{W_P} \in \mathcal{F}(W_P) $ satisfying the condition. 
+First we prove $\boxed{ \implies } $. Since $\varphi _P$ is surjective, then $\ \forall t \in \mathcal{G}(V)$ we have a $s \in \mathcal{F}(U) $ such that $<t, V > = <\varphi (s), U> \in \mathcal{G}_P$. In particular, we can restrict more both open sets to an open set $W \subseteq  U \cap V$ defined to be the one such that $s|_W = \varphi (t|_W)$. Thus, we get an open cover $(W_P)_{P \in X}$ of $X$ and sections $t_{W_P} \in \mathcal{F}(W_P) $ satisfying the condition. 
 
 We now prove $\boxed{ \impliedby } $. Given a covering $(U_i)$ and the sections $t_i \in \mathcal{F}(U_i)$ such that $\varphi (t_i) = s|U_i$. Then, given an element of the stalk $<s, U> \in \mathcal{G}_P $, for all point $P$ we have a set $U_i$, and $\varphi _P(<t,U_i>) = <s,U>$, concluding that $\varphi _P$ is surjective.
 
 (2) Consider the following classical example. Let $X = \mathbb{C}^* = \mathbb{C}-\{0\}  $ $\varphi : \mathcal{O} \to \mathcal{O}$, with $\mathcal{O}(U) $ the additive group of holomorphic functions on $U$, $\mathcal{O}^*(U)$ the multiplicative group of holomorphic functions on $U$, and $\varphi (f) = e^{2\pi if}$ the exponential mapping (that is a morphism of sheaves). 
 
-It is clear that $z \in \mathcal{O}(\mathbb{C}^*)$ is not the image of any function of $\mathcal{O}(\mathbb{C} )$, since the logarithm is not holomorphim in $ \mathbb{C}^*$. But te morphisms induced at the stalks are clearly surjective, so the sheaves morphism is surjective.
-
+It is clear that $z \in \mathcal{O}(\mathbb{C}^*)$ is not the image of any function of $\mathcal{O}(\mathbb{C} )$, since the logarithm is not holomorphic in $ \mathbb{C}^*$. But the morphisms induced at the stalks are clearly surjective, so the sheaves morphism is surjective.
 
 
 \begin{problem}
-\textbf{Problem 5}. Show that a morphism of sheaves is an isomophism if and only if it is both injective and surjective.
+\textbf{5}. Show that a morphism of sheaves is an isomorphism if and only if it is both injective and surjective.
 \end{problem}
 
 Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G}  $ is injective (resp. surjective) if and only if the induce morphisms on stalks $\varphi _P$ are injective (resp. surjective) for all $P$ . We also recall, by proposition 1.1 of \cite{Har}, that $\varphi$ is an isomorphism if and only if $\varphi _P$ is an isomorphism for all $P$. Thus, we have
@@ -390,11 +393,11 @@ Again, we take advantage of the fact that $\varphi :\mathcal{F} \to \mathcal{G} 
 	\arrow["{\psi_P}"', from=3-3, to=3-4]
 \end{tikzcd}\]
 
-The first thing we notice is that there exist a functor $\Gamma_P$ that sends the sections to the stalks of a fixed point $P$ and the morphisms of sections to the morphisms of stalks. This functor is exact \com{Is this true}
+The first thing we notice is that there exists a functor $\Gamma_P$ that sends the sheaves to the stalks on a fixed point $P$ and the morphisms of sheaves to the morphisms of stalks. This functor is exact.
 
 The proof of the injectivity of $\varphi |_U$ is immediate. It remains to prove that $ \ker (\psi |_U) = \im (\varphi |_U )$. The inclusion $\supseteq $ cames from the functoriality, namely $\psi |_U \circ \varphi |_U = \Gamma (\psi   ) \circ   \Gamma (\varphi  ) = \Gamma (\psi  \circ  \varphi ) = 0$. 
 
-For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the functor $\Gamma _P$ we have $\ \exists <s^P, V_P> \in \mathcal{F}'_P \ \forall  P \in U$. Then $\varphi _P (<s^P, V_P>) = <\varphi (s^P), V_P> = <t^P, U_P>$. For each $P$ we can find a $W_P \in U_P \cap V_P$ such that $\varphi (s^P)|_{W_P} = t^P|_{W_P}$, and following injectivity of $\varphi $ (required for the gluing axiom in order to have the same section in the intersections of $W_P \cap W_Q$ for different points ) we have global section $s \in \mathcal{F}(U) $ 
+For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the functor $\Gamma _P$ we have $\ \exists <s^P, V_P> \in \mathcal{F}'_P \ \forall  P \in U$. Then $\varphi _P (<s^P, V_P>) = <\varphi (s^P), V_P> = <t^P, U_P>$. For each $P$ we can find a $W_P \in U_P \cap V_P$ such that $\varphi (s^P)|_{W_P} = t^P|_{W_P}$, and following injectivity of $\varphi $ (required for the glueing axiom in order to have the same section in the intersections of $W_P \cap W_Q$ for different points ) we have global section $s \in \mathcal{F}(U) $ 
 \end{proof}
 
 \begin{problem}
@@ -408,27 +411,24 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 \begin{proof}
 (1) Let $\varphi , \psi \in \Hom (\mathcal{F}|_U , \mathcal{G}|_U)$ and define the sum of two elements $\varphi , \psi $ as $(\varphi +\psi )(s) \coloneq \varphi (s) + \psi (s)$. Then $\Hom (\mathcal{F}|_U, \mathcal{G}\_U  )$ is clearly abelian. 
 
-(2) The locality axiom is easily checked. For the gluing axiom let $\{U_i\}$ an open cover of $U$ and $\varphi _i \in \Hom(\mathcal{F}|_{U_i}, \mathcal{G}|_{U_i})$ such that they agree on the pairwise intersections. Then, because of the agreement of the sheaves $\varphi_i (s) \ \forall s\in \mathcal{F}|_{U_i}$ in the pairwise intersections, then there exist a global sheaf $\varphi \in \Hom(\mathcal{F}|_U, \mathcal{G}|_U  )$.
+(2) The locality axiom is easily checked. For the gluing axiom let $\{U_i\}$ an open cover of $U$ and $\varphi _i \in \Hom(\mathcal{F}|_{U_i}, \mathcal{G}|_{U_i})$ such that they agree on the pairwise intersections. Then, because of the agreement of the sheaves $\varphi_i (s) \ \forall s\in \mathcal{F}|_{U_i}$ in the pairwise intersections, then there exists a global sheaf $\varphi \in \Hom(\mathcal{F}|_U, \mathcal{G}|_U  )$.
 \end{proof}
 
 \begin{problem}
 \textbf{16}. A sheaf $\mathcal{F} $ on a topological space $X$ is flasque if for every inclusion $V \subseteq U$ of open sets, the restriction map $\mathcal{F}(U) \to \mathcal{G}(V) $ is surjective. 
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
-    \item Show that a constrant sheaf on an irreducible topological space is flasque.
+    \item Show that a constant sheaf on an irreducible topological space is flasque.
     \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and if $\mathcal{F}' $ is flasque, then for any open set $U$, the sequence $0 \to \mathcal{F}'(U) \to \mathcal{F}(U) \to \mathcal{F}''(U)  $ is exact.
     \item If $0 \to \mathcal{F}' \to \mathcal{F} \to \mathcal{F} '' \to 0 $ is an exact sequence and $\mathcal{F}', \mathcal{F} $ are flasque, then $\mathcal{F}'' $ is flasque.
-    \item If $f: X \to Y$ is a continous map, and $\mathcal{F} $ is a flasque sheaf on $X$, then $f_*\mathcal{F} $ is a flasque sheaf on $Y$. \com{borrar}
-    \item Let $\mathcal{F} $ be any sheaf on $X$. We define a new sheaf $\mathcal{G} $, called the sheaf of discontinous sections of $\mathcal{F} $ as follows. For each open set $U \subseteq X, \mathcal{G}(U) $ is the set of maps $s:U \to \bigcup _{P \in U} \mathcal{F}_P $ such that for each $P \in U, s(P) \in \mathcal{F}_P $. Show that $\mathcal{G} $ is a flasque sheaf, and that there is a natural injective morphism of $\mathcal{F} $ to $\mathcal{G}$. \com{borrar}
 \end{enumerate}
 \end{problem}
 
 \begin{proof}
-\com{falta}
 (1) If $X$ is an irreducible topological space, then the restriction maps $\rho _{UV} : \mathcal{F}(U) \to \mathcal{F} (V)  $ are the identity maps whenever $v\subseteq U$, which are surjective.
 
-(2) We had that if $\mathcal{F} \to \mathcal{G}$ is injective, then $\mathcal{F}(U) \to \mathcal{G}(U)$ is also injective, but this fails in general for surjectivity. Flasque sheaves are those in which surjectivity does not fail in this way. This, of course, comes from the surjectivity of the restriction maps, that does not hold in general.
+(2) We had that if $\mathcal{F} \to \mathcal{G}$ is injective, then $\mathcal{F}(U) \to \mathcal{G}(U)$ is also injective, but this fails in general for surjectivity. Flasque sheaves are those in which surjectivity does not fail in this way. This, of course, comes from the surjectivity of the restriction maps, which does not hold in general.
 
-(3) We have to prove that for every $V \supseteq U$ given that the restrictions $\mathcal{F}'(U) \mathcal{F}'(V) $ and $\mathcal{F}(U) \mathcal{F}(V)$ are surjective, then the restrictoin $\mathcal{F}''(U) \to \mathcal{F}''(V)  $ is also surjective. But this is a direct consequence of a well known lemma
+(3) We have to prove that for every $V \supseteq U$ given that the restrictions $\mathcal{F}'(U) \mathcal{F}'(V) $ and $\mathcal{F}(U) \mathcal{F}(V)$ are surjective, then the restrictoin $\mathcal{F}''(U) \to \mathcal{F}''(V)  $ is also surjective. But this is a direct consequence of a well-known lemma.
 % https://q.uiver.app/#q=WzAsMTAsWzEsMCwiXFxtYXRoY2Fse0Z9JyhVKSJdLFsyLDAsIlxcbWF0aGNhbHtGfShVKSJdLFszLDAsIlxcbWF0aGNhbHtGfScnKFUpIl0sWzMsMSwiXFxtYXRoY2Fse0Z9JycoVikiXSxbMiwxLCJcXG1hdGhjYWx7Rn0oVikiXSxbMSwxLCJcXG1hdGhjYWx7Rn0nKFYpIl0sWzAsMCwiMCJdLFs0LDAsIjAiXSxbNCwxLCIwIl0sWzAsMSwiMCJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzQsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzUsNCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCw1LCJcXHJobyciLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSw0LCJcXHJobyIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsIlxccmhvJyciLDJdLFs5LDVdLFs2LDBdLFsyLDddLFszLDhdXQ==
 \[\begin{tikzcd}
 	0 & {\mathcal{F}'(U)} & {\mathcal{F}(U)} & {\mathcal{F}''(U)} & 0 \\
@@ -445,20 +445,16 @@ For the other inclusion let $t \in \ker (\psi |_U) $. Then, by exactness of the 
 	\arrow[two heads, from=2-3, to=2-4]
 	\arrow[from=2-4, to=2-5]
 \end{tikzcd}\]
-\com{prove lemma}
-
-
-
 
 
 \end{proof}
 
 \begin{problem}
-\textbf{17}. Let $X$ be a topological space, let $P$ be a point, ante let $A$  be an abelian group. Define a sheaf $i_p(A)$ on $X$ as follows: $i_P(A)(U) = A$ if $P \in U, 0 $ otherwise. Verify that the stalk of $i_P(A)$ is $A$ at every point $Q \in \overline{P}$. Show that this sheaf could also be described as $i_* (A)$, where $A$ denotes the constant sheaf $A$ on the closed subspace $\overline{P}$, and $i: \overline{P} \to X$  is the inclusion.
+\textbf{17}. Let $X$ be a topological space, let $P$ be a point, and let $A$  be an abelian group. Define a sheaf $i_p(A)$ on $X$ as follows: $i_P(A)(U) = A$ if $P \in U, 0 $ otherwise. Verify that the stalk of $i_P(A)$ is $A$ at every point $Q \in \overline{P}$. Show that this sheaf could also be described as $i_* (A)$, where $A$ denotes the constant sheaf $A$ on the closed subspace $\overline{P}$, and $i: \overline{P} \to X$  is the inclusion.
 \end{problem}
 
 \begin{proof}
-We denote $\overline{P} \coloneq \{P\}^-$. If $Q \in \overline{P}$, that means that for every open set $V \ni Q$ we have $P \in V$, and by definition of the sheaf $i_P(A)(V) = A$. The stalk is the limit of a constant group $A$, thus $i:P(A)_Q = A$. Converselly if $Q \in \overline{P}$ then there exist an open set $V \not\ni P$, so the direct limit is $i_P(A)_Q = 0$.
+We denote $\overline{P} \coloneq \{P\}^-$. If $Q \in \overline{P}$, that means that for every open set $V \ni Q$ we have $P \in V$, and by definition of the sheaf $i_P(A)(V) = A$. The stalk is the limit of a constant group $A$, thus $i:P(A)_Q = A$. Conversely if $Q \in \overline{P}$ then there exists an open set $V \not\ni P$, so the direct limit is $i_P(A)_Q = 0$.
 
 We have that $i_*(A)(U) = A(i^{-1}(U))$. If $P \in U$, then $i^{-1}(U) = \overline{P}$, and if $P \not\in U$, then $i^{-1}(U) = \emptyset$. Hence
 \[
@@ -469,35 +465,6 @@ A(\emptyset ) = 0 &\text{ if } P \not \in U
 \]
 \end{proof}
 
-\begin{problem}
-\textbf{21}.  
-Let $X$ be a variety over an algebraiclally closed field $k$. Let $\mathcal{O}_X $ the sheaf of regular functions on $X$ 
-\begin{enumerate}[topsep=-6pt, itemsep=0pt]
-    \item Let $Y$ be a closed subset of $X$. For each open set $U \subseteq X$ let $\mathcal{J}_Y(U) $ be the ideal in the ring $\mathcal{O}_X(U) $ consisting of those regular functions which vanish at all points of $Y \cap U$. Show that the presheaf $U \mapsto \mathcal{J}_Y(U) $ is a sheaf.
-    \item If $Y$ is a subvariety, then the quotient sheaf $\mathcal{O}_X / \mathcal{J}_Y  $ is isomorphic to $i_* (\mathcal{O}_Y)$ 
-    \item Let $X = \mathbb{P}^1 $, and let $Y$ be the union of two distincts points $P, Q \in X$. Then there is an exact sequence of sheaves on $X$, where $\mathcal{F} = i_*\mathcal{O}_P \oplus i_*\mathcal{O}_Q  $,
-    \[
-       0 \to \mathcal{J} _Y \to \mathcal{O}  _X \to \mathcal{F} \to 0
-    \]
-    Show however that the induced map on global sections $\Gamma (X, \mathcal{O}_X ) \to  \Gamma (X, \mathcal{F} )$ is not surjective, showing that the global section functor $\Gamma (X, \cdot )$ is not exact. 
-\end{enumerate}
-\end{problem}
-
-\begin{proof}
-(1) We can describe the ideal as the quotient of polynomials in $k[x]$ such that
-\[
-\mathcal{I}_Y(U) = \{ \frac{g}{h}: h \neq 0 \text{ in }U, g=0 \text{ in }Y\}
-\]
-It is easy to check that gluing axiom and locality axiom are satisfied as it is in the case of just regular functions sheaf $\mathcal{O}_X $.
-
-(2) \com{falta}
-
-
-
-(3) \com{falta}
-We can compute $\Gamma (X, \mathcal{F}) \cong k \oplus k$, whereas $\Gamma (X, )$ 
-
-\end{proof}
 
 
 %###################################################
@@ -506,7 +473,7 @@ We can compute $\Gamma (X, \mathcal{F}) \cong k \oplus k$, whereas $\Gamma (X, )
 
 \section{Schemes}
 
-A scheme is construction that generalizes in some sense the notion of algebraic variety. Usually, when introducing schemes, the fist step is the study of \textit{affine schemes}. Schemes in general are topological spaces that are locally affine schemes. As an analogy we can think of a manifold as an scheme, and its charts locally homeomorphic to $\mathbb{R}^n$ as the local affine schemes of the scheme. Thus, if the global study of a manifold is the study of how are the charts glued, working with schemes will be the study of how are affine schemes glued.
+A scheme is a construction that generalizes in some sense the notion of algebraic variety. Usually, when introducing schemes, the first step is the study of \textit{affine schemes}. Schemes in general are topological spaces that are locally affine schemes. As an analogy we can think of a manifold as a scheme, and its charts locally homeomorphic to $\mathbb{R}^n$ as the local affine schemes of the scheme. Thus, if the global study of a manifold is the study of how are the charts glued, working with schemes will be the study of how are affine schemes glued.
 
 We will work, thus, for the rest of the chapter with a ring $R$ and the topological space $\Spec(R)$ with the Zariski topology defined as follows
 
@@ -516,20 +483,19 @@ We will work, thus, for the rest of the chapter with a ring $R$ and the topologi
     \] 
 \end{definition}
 
-Note the similarity with the algebraic variety. In some sense we require for the closed set of the topological space to be the ideal that contains certain elements of $R$. We can tink now, for instance, in $R = \mathbb{C} [x,y]$. The spectrum $\Spec{R}$ will contain elements of three different forms: $(0), (x-a,y-b)$ and $(f(x,y))$ with $f$ irreducible. In an algebraic variety we had
-
+Note the similarity with the algebraic variety. In some sense we require for the closed set of the topological space to be the ideal that contains certain elements of $R$. We can think now, for instance, in $R = \mathbb{C} [x,y]$. The spectrum $\Spec{R}$ will contain elements of three different forms: $(0), (x-a,y-b)$ and $(f(x,y))$ with $f$ irreducible. In an algebraic variety we had
 \[
 V(f_1, \dots, f_k) = \{(x,y) \in \mathbb{C}^2: f_i(x,y) = 0 \ \forall  i = 1,\dots,k \}
 \]
 
 With the definition of closed set associated to a $S \subseteq R$ we have the same idea, now the polynomial functions $f_i$ extend to elements of an abstract ring $R$, but they keep acting somewhat like functions, and the points of the affine space extend to the elements of the spectrum $\Spec(R)$. 
 
-In can be seen that we can construct a basis of the Zariski topology on $\Spec(R)$ with the open sets
+It can be seen that we can construct a basis of the Zariski topology on $\Spec(R)$ with the open sets
 \[
 X_f \coloneq  \Spec(R) - V(f)
 \]
 
-This is suggesting that the ressulting space is almost never Hausdorff, sice the open sets are too large and cannot be separated.
+This suggests that the resulting space is almost never Hausdorff, since the open sets are too large and cannot be separated.
 
 \begin{proposition} There is an identification between $X_f$ and the localization of the spectrum of $R$ at one element of the ring
     \begin{align*}
@@ -538,9 +504,9 @@ This is suggesting that the ressulting space is almost never Hausdorff, sice the
     \end{align*}
 \end{proposition}
 
-We now have gathered all the necessary information to define properlly what is an affine scheme.
+We now have gathered all the necessary information to define properly what is an affine scheme.
 
-\begin{definition}[Affine scheme] Le $R$ be a ring. An affine scheme is a pair $(X, \mathcal{O}_X)$ where $X = \Spec(R)$ satisfying
+\begin{definition}[Affine scheme] Let $R$ be a ring. An affine scheme is a pair $(X, \mathcal{O}_X)$ where $X = \Spec(R)$ satisfying
 \begin{enumerate}[topsep=-6pt, itemsep=0pt]
     \item $X$ is a topological space with the Zarisky topology, with a basis of open sets
     \[
@@ -550,9 +516,9 @@ We now have gathered all the necessary information to define properlly what is a
 \end{enumerate}
 \end{definition}
 
-One should check that the sheaf $\mathcal{O}_X $ is, indded, well defined. Given $X_g \subseteq X_f$, the restriction map $\rho_{X_f, X_g}$  will have the form $R_f \to R_g$, but this is in fact an inclusion, since $R_g = R_{fg}$, as some power of $g$ is a multiple of $f$. It can also be shown that gluing and locality axiom hold.
+One should check that the sheaf $\mathcal{O}_X $ is, indeed, well defined. Given $X_g \subseteq X_f$, the restriction map $\rho_{X_f, X_g}$  will have the form $R_f \to R_g$, but this is in fact an inclusion, since $R_g = R_{fg}$, as some power of $g$ is a multiple of $f$. It can also be shown that glueing and locality axiom hold.
 
-Following the example in which $R = \mathbb{C}[x,y]$, suppose that we have the element $f = y-x^2 \in \mathbb{C}[x,y]$. Then the associated closed set is clearly $V(f) = (y-x^2) \in \Spec(R)$, since $y-x^2$ is irreducible. This case is totally analogus to the classical algebraic variety, in which the closed subset will be $V(f) = \{(x, y) \in \mathbb{C}^2: y-x^2 = 0 \}$.
+Following the example in which $R = \mathbb{C}[x,y]$, suppose that we have the element $f = y-x^2 \in \mathbb{C}[x,y]$. Then the associated closed set is clearly $V(f) = (y-x^2) \in \Spec(R)$, since $y-x^2$ is irreducible. This case is totally analogous to the classical algebraic variety, in which the closed subset will be $V(f) = \{(x, y) \in \mathbb{C}^2: y-x^2 = 0 \}$.
 
 \begin{minipage}{0.5\textwidth}
 \incfig{schemeC}
@@ -568,7 +534,7 @@ V(a) = \{[\mathfrak{p} ]\in \Spec(\mathbb{Z}) : a \subseteq \mathfrak{p} \} = \{
 \]
 and the open set $X_a$ will be the complement.
 
-Attending to the picture, we can see that, if we consider the intersection of two arbitrary open sets (say, $X_6$ and $X_{10}$), the sheaf of the union is perfecly well defined as it should be
+Attending to the picture, we can see that, if we consider the intersection of two arbitrary open sets (say, $X_6$ and $X_{10}$), the sheaf of the union is perfectly well defined as it should be
 \[
     \begin{cases}
 &\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
@@ -576,6 +542,7 @@ Attending to the picture, we can see that, if we consider the intersection of tw
     \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
 \]
 
+As a final comment, notice that the stalk of the structure sheaf at a point $[\mathfrak{p} ]\in \Spec(R)$ is, precisely, the ring localized at the prime ideal $\mathfrak{p}$. This is a local ring, hence the name of \textit{localization}.
 
 
 

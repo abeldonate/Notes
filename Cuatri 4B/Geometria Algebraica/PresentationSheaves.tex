@@ -38,12 +38,12 @@
 \import{./figures/}{#1.pdf_tex}
 }
 
-\title{Introduction to sheaves and schemes}
-\subtitle{Final presentation for the subject of algebraic geomety}
-% \date{\today}
-\date{}
+\title{Introducción a los Haces y los Esquemas}
+\subtitle{Presentación final de la asignatura de Geometría Algebraica}
+\date{\today}
 \author{Abel Doñate Muñoz}
 \institute{Universitat Politècnica de Catalunya}
+\date{Mayo 2024}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \begin{document}
@@ -55,7 +55,7 @@
   \tableofcontents%[hideallsubsections]
 \end{frame}
 
-\section[Intro]{Introduction}
+\section{Definición de prehaz y haz}
 
 \begin{frame}[fragile]{Definición de prehaz}
 Sea $X$ un espacio topológico. Un prehaz de grupos abelianos consiste en:
@@ -74,13 +74,15 @@ Llamaremos \textit{secciones} a los elementos del grupo abeliano $s \in \mathcal
 \begin{frame}[fragile]{Definición de haz}
 Decimos, además, que el el prehaz es un haz si cumple las dos siguientes condiciones sobre un recubrimiento $\{U_i\}$ de $U$:
 \begin{itemize}
-  \item (Pegado) Si tfenemos secciones sobre $U_i$ que coinciden en las intersecciones, existe una sección global en $U$.
+  \item (Pegado) Si tenemos secciones sobre $U_i$ que coinciden en las intersecciones, existe una sección global en $U$.
   \item (Localidad) Si tenemos dos secciones que coinciden en $U_i$, entonces son iguales.
 \end{itemize}
 
 \incfig{sheaf}
 
 \end{frame}
+
+\section{Algunos ejemplos de haces}
 
 
 \begin{frame}[fragile]{Ejemplo haz de funciones continuas}
@@ -106,11 +108,11 @@ Decimos que $\varphi : \mathcal{F} \to \mathcal{G}$ es un morfismo de haces si e
 	\arrow["{\rho^\mathcal{G} _{UV}}", from=1-2, to=2-2]
 	\arrow["{\varphi(V)}"', from=2-1, to=2-2]
 \end{tikzcd}\]
-commute para cada $V \subseteq U$.
+conmute para cada $V \subseteq U$.
 \end{frame}
 
 \begin{frame}[fragile]{Haz asociado}
-Dado un prehaz $\mathcal{F}$, existe un único haz $\mathcal{F}'$ y un morfismo $\theta: \mathcal{F} \to \mathcal{F}'$  tal que para cada haz $\mathcal{G} $ y morphismo $\varphi $ hay un único $\psi $ tal que
+Dado un prehaz $\mathcal{F}$, existe un único haz $\mathcal{F}'$ y un morfismo $\theta: \mathcal{F} \to \mathcal{F}'$  tal que para cada haz $\mathcal{G} $ y morfismo $\varphi $ hay un único $\psi $ tal que
 \[\begin{tikzcd}
 	{\mathcal{F}} & {\mathcal{F}'} \\
 	& {\mathcal{G}}
@@ -118,7 +120,7 @@ Dado un prehaz $\mathcal{F}$, existe un único haz $\mathcal{F}'$ y un morfismo 
 	\arrow["\varphi"', from=1-1, to=2-2]
 	\arrow["\exists \psi", from=1-2, to=2-2]
 \end{tikzcd}\]
-conmuta.
+conmute.
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo haz asociado}
@@ -128,6 +130,7 @@ Sea el prehaz $\mathcal{F}(U) = A$ con $A$ un grupo abeliano fijo. El haz asocia
 
 \end{frame}
 
+\section{Stalk de un haz}
 
 \begin{frame}[fragile]{Stalk}
 El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite directo de los entornos que contienen el punto:
@@ -136,6 +139,13 @@ El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite dir
 \]
 
 \incfig{stalk}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Stalk}
+
+\incfig{stalk2}
 
 \end{frame}
 
@@ -152,6 +162,20 @@ El stalk de un haz (o prehaz) en un punto $P\in X$ se define como el límite dir
 
 \end{frame}
 
+\section{Esquema afín}
+
+\begin{frame}[fragile]{Esquema afín}
+  
+Un esquema afín es un par $(X, \mathcal{O}_X)$ que satisface
+\begin{enumerate}
+    \item $X$ es el espacio topológico con topología Zariski y base de abiertos 
+    \[
+    X_f = \{\mathfrak{p} \in \Spec (R) : f \not\in \mathfrak{p}  \} \text{ con } f \in R
+    \]
+    \item $\mathcal{O}_X$ es un haz de anillos llamado el \textit{haz de estructura} tal que $\mathcal{O}_X(X_f) = R_f$.
+\end{enumerate}
+
+\end{frame}
 
 \begin{frame}[fragile]{Esquema afín}
 
@@ -173,9 +197,10 @@ X = \Spec(\mathbb{Z}) = \{(0),(2), (3), (5), \ldots\}
 
 \[
     \begin{cases}
-&\mathcal{F}(X_6)  = \{ \frac{a}{2^n3^n} : n \ge 0, a \in \mathbb{Z}\}\\
-&\mathcal{F}(X_{10})  = \{ \frac{a}{2^n5^n} : n \ge 0, a \in \mathbb{Z}\} 
-    \end{cases} \quad  \implies \quad  \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \{ \frac{a}{2^n} : n \ge 0, a \in \mathbb{Z}\}
+&\mathcal{F}(X_6)  = \left\{ \frac{a}{2^n3^n} : n \ge 0 \right\}\\
+&\mathcal{F}(X_{10})  = \left\{ \frac{a}{2^n5^n} : n \ge 0 \right\} 
+    \end{cases}   \implies 
+    \mathcal{F}(X_6 \cup X_{10}) = \mathcal{F}(X_2)  = \left\{ \frac{a}{2^n} : n \ge 0\right\}
 \]
 \incfig{schemesZ}
 \end{frame}
