@@ -1,0 +1,70 @@
+We state $(U_i)$ open cover, $(A_i)$ open affine cover and $U$ open subset, $Z$ closed subset.
+
+Also, $x \in X$, $y \in Y$ arbitrary point, $\eta \in X$ the generic point, $f : X \to Y$.
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item (Disconected) $X = U_1 \cup  U_2$, $U_1 \cap U_2 = \emptyset$. e.g. $\Spec(k\times k)$.
+    \item (Reducible) $X = Z_1 \cup Z_2$, $Z_1, Z_2$. e.g. $\Spec(k[x, y]/(xy))$.
+    \item (Quasi-compact) $X = \bigcup U_i$, finite subcover. e.g. not $\Spec(k[x_1, x_2, ...])$.
+    \item (Quasi-separated) $U_i, I_j$ quasi-compact $ \Rightarrow $ $U_i \cap U_j$ quasi-compact.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Open embedding]
+$(U, \mathcal{O}_X|_U ) \to (X, \mathcal{O}_X)$
+\end{definition}
+
+\begin{definition}[Closed embedding]
+$\iota : Z \hookrightarrow X$, $ \begin{cases}
+\iota \text{ homeo. onto closed subset} \\
+\iota ^\# : \mathcal{O}_Y \twoheadrightarrow \iota_* \mathcal{O}_X
+\end{cases}  $
+\end{definition}
+
+\begin{definition}[Affine morphism] $f ^{-1}(A_i)$ affine.
+\end{definition}
+
+\begin{proposition}
+$Z \subseteq \Spec(A) \Leftrightarrow Z = \Spec (A/I)$.
+\end{proposition}
+
+\begin{definition}
+$X $ reduced $ \Leftrightarrow \mathcal{O}_X(U)$ reduced  $ \Leftrightarrow \mathcal{O}_X(A_i)  $ reduced $ \Leftrightarrow \mathcal{O}_{X,x}  $ reduced
+\end{definition}
+
+\begin{definition}
+$X $ integral $ \Leftrightarrow \mathcal{O}_X(U)$ integral $ \Leftrightarrow X$ reduced and irreducible.
+\end{definition}
+
+\begin{definition}[Residue / Function field]
+$k(x) = O_{X, x}/\mathfrak{m}_x$, $k(X) = O_{X, \eta}$
+\end{definition}
+
+\begin{proposition} $\mathcal{O}_X (U) = \bigcap_{x \in U} \mathcal{O}_{X,x}$
+\end{proposition}
+
+\begin{definition}[Ideal sheaf]
+$\mathcal{I} : U \mapsto \mathcal{I}(U) \subseteq \mathcal{O}_X(U)$ ideal.
+\end{definition}
+
+\begin{definition}[Fiber] 
+$X_y \coloneqq f^{-1}(y) = X \times_Y \Spec k(y)$
+\end{definition}
+
+\begin{definition}[Geometric fiber] 
+$X_{\overline{y}} \coloneqq X \times_Y \Spec k(\overline{y})$
+\end{definition}
+
+\begin{proposition} $\Spec (A)$ irred. $ \Leftrightarrow A/\sqrt{(0)}$ integral.
+\end{proposition}
+
+\begin{definition}[Extension] $X$ Noetherian, $\mathcal{F} $ coherent on $U$, then $ \ \exists \mathcal{G} $ coherent on $X$ st $\mathcal{G}|_U \cong \mathcal{F}$.
+\end{definition}
+
+\begin{proposition}
+$\boxed{M \otimes _R \frac{R}{I} \cong \frac{M}{IM}}$ 
+$\boxed{B \otimes _R \frac{R[x]}{I} \cong \frac{B[x]}{IB[x]}} $ 
+$\boxed{M \otimes _R S^{-1}R \cong S^{-1}M }$
+$\boxed{S ^{-1} \left( \frac{M}{N} \right) \cong \frac{S^{-1}M}{S^{-1}N} } $
+\end{proposition}

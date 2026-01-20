@@ -1,0 +1,100 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage{lmodern}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{extpfeil}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd,quiver}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Poset}{Poset}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\PSh}{PSh}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Coh}{Coh}
+\DeclareMathOperator{\QCoh}{QCoh}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\heigth}{ht}
+\DeclareMathOperator{\Cl}{Cl}
+%\renewcommand{\ht}{\operatorname{ht}}
+\renewcommand{\div}{\operatorname{div}}
+
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Defprop AGI}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Sheaves}
+\input{src/sheaves.tex}
+
+\section{Schemes and properties}
+\input{src/properties_schemes.tex}
+
+
+\section{Invertible, Picard and Divisors}
+\input{src/invertible_picard_divisors.tex}
+
+
+
+\end{document}

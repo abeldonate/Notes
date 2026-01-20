@@ -1,0 +1,37 @@
+All the section $f : X \to Y$, $\mathcal{F} \in \Sh (X), \mathcal{G} \in \Sh (Y)  $
+\begin{definition}[Direct image]
+$f_* \mathcal{F}(V) \coloneqq \mathcal{F}(f ^{-1}(V))$
+\end{definition}
+
+\begin{definition}[Inverse image]
+$f^{-1} G(U) \coloneqq \lim_{ \to f(U) \subseteq V} \mathcal{G}(V) $ (presheaf)
+\end{definition}
+
+\begin{proposition} $0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$ ses $ \Leftrightarrow $
+$0 \to \mathcal{F}_x \to \mathcal{G}_x \to \mathcal{H}_x \to 0 $ ses $ \forall  x \in X$
+\end{proposition}
+
+\begin{proposition}
+$(f^{-1}\mathcal{G})_x \cong \mathcal{G}_{f(x)}$
+\end{proposition}
+
+\begin{proposition}
+$(f_* \mathcal{F} )_y \cong \lim_{\to y \in V} \mathcal{F}(f^{-1}(V))$
+\end{proposition}
+
+\begin{proposition} $f^{-1}$ exact, $f_*$ left exact.
+\end{proposition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item (Ringed space) $(X, \mathcal{O}_X )$. $X$ top. space, $\mathcal{O}_X$ sheaf of rings on $X$.
+    \item (+ locally) $\mathcal{O}_{X,x}$ local ring $\forall x \in X$.
+    \item (Affine scheme) $X \cong \Spec(A)$.
+    \item (Scheme) $X = \bigcup U_i$, $U_i \cong \Spec(A_i)$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Morphism loc. ringed spaces]
+$(f, f^\#)$, $f : X \to Y$, $f^\#: \mathcal{O}_Y \to f_* \mathcal{O}_X$, local hom.
+\end{definition}
+

@@ -1,0 +1,11 @@
+\frametitle{Definición de prehaz}
+Sea $X$ un espacio topológico. Un prehaz de grupos abelianos consiste en:
+\begin{enumerate}
+  \item Una aplicación $U \mapsto \mathcal{F}(U)$
+  \item Un mapa de restricción $\rho_{UV}: \mathcal{F}(U) \to \mathcal{F}(V)$ para $ V \subseteq U$ que preserve identidad y composición.
+\end{enumerate}
+
+\incfig{presheaf}
+
+Llamaremos \textit{secciones} a los elementos del grupo abeliano $s \in \mathcal{F}(U) $
+
