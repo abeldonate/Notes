@@ -1,4 +1,4 @@
-\documentclass[leqno]{article}
+\documentclass[9pt,leqno,landscape,twocolumn]{extarticle}
 \usepackage{verbatim}
 \usepackage{array}
 \usepackage{listings}
@@ -33,7 +33,7 @@
 
 % geometry
 \usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\geometry{a4paper, landscape, margin=0.5in}
 
 % paragraph length
 \setlength{\parindent}{0em}
@@ -41,24 +41,29 @@
 
 \newtheorem*{theorem}{Theorem}
 \newtheorem*{lemma}{Lemma}
-\newtheorem*{proposition}{Proposition}
-\newtheorem*{definition}{Definition}
+\newtheorem*{proposition}{Prop}
+\newtheorem*{definition}{Def}
 \newtheorem*{observation}{Observation}
 
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mod}{Mod}
 \DeclareMathOperator{\Poset}{Poset}
 \DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\coim}{Coim}
 \DeclareMathOperator{\Sh}{Sh}
 \DeclareMathOperator{\PSh}{PSh}
+\DeclareMathOperator{\AffSch}{AffSch}
+\DeclareMathOperator{\Ring}{Ring}
 \DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Proj}{Proj}
 \DeclareMathOperator{\Coh}{Coh}
 \DeclareMathOperator{\QCoh}{QCoh}
 \DeclareMathOperator{\Pic}{Pic}
 \DeclareMathOperator{\Div}{Div}
 \DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\heigth}{ht}
+\DeclareMathOperator{\height}{ht}
 \DeclareMathOperator{\Cl}{Cl}
 %\renewcommand{\ht}{\operatorname{ht}}
 \renewcommand{\div}{\operatorname{div}}
@@ -81,18 +86,33 @@
 \date{}
 
 \begin{document}
-\maketitle
-\tableofcontents
-\newpage
+%\maketitle
+%\tableofcontents
+%\newpage
 
-\section{Sheaves}
+%\section{Sheaves}
+\textbf{\underline{Sheaves}}
+
 \input{src/sheaves.tex}
 
-\section{Schemes and properties}
+%\section{Schemes and properties}
+\textbf{\underline{Schemes and properties}}
+
 \input{src/properties_schemes.tex}
 
+%\section{Proj}
+\textbf{\underline{Proj}}
 
-\section{Invertible, Picard and Divisors}
+\input{src/proj.tex}
+
+
+\textbf{\underline{Quasi-coherent sheaves}}
+
+\input{src/quasi-coherent.tex}
+
+%\section{Invertible, Picard and Divisors}
+\textbf{\underline{Invertible, Picard and Divisors}}
+
 \input{src/invertible_picard_divisors.tex}
 
 

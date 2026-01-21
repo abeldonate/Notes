@@ -28,21 +28,21 @@ $ \Leftrightarrow $ $\exists n > 0, \mathcal{L}^{ \otimes n } $ ample
     \begin{itemize}[topsep=-6pt, itemsep=0pt]
         \item $\dim (X) \coloneqq \sup \{ n : Z_0 \subsetneq Z_1 \subsetneq \cdots  \subsetneq Z_n \subseteq X \} $ $Z_i$ irred. closed.
         \item $\codim (Z, X) \coloneqq \sup \{ n : Z = Z_0 \subsetneq \cdots  \subsetneq Z_n \subseteq X \} $ $Z_i$ irred. closed.
-        \item $\heigth (\mathfrak{p}) \coloneqq \sup \{ n : \mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \cdots  \subsetneq \mathfrak{p}_n = \mathfrak{p}\}$
+        \item $\height (\mathfrak{p}) \coloneqq \sup \{ n : \mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \cdots  \subsetneq \mathfrak{p}_n = \mathfrak{p}\}$
     \end{itemize}
 \end{definition}
 
 \begin{proposition}
-$\heigth (\mathfrak{p}) = \codim(V(\mathfrak{p}), \Spec A)$, $\dim (\Spec A) = \dim (A)$
+$\height (\mathfrak{p}) = \codim(V(\mathfrak{p}), \Spec A)$, $\dim (\Spec A) = \dim (A)$
 \end{proposition}
 
-\begin{proposition} $A$ integral f.t. over $k$. Then $\dim A = \text{tr.deg}_k (\text{Frac}(A)) = \dim (A/\mathfrak{p}) + \heigth (\mathfrak{p})$
+\begin{proposition} $A$ integral f.t. over $k$. Then $\dim A = \text{tr.deg}_k (\text{Frac}(A)) = \dim (A/\mathfrak{p}) + \height (\mathfrak{p})$
 \end{proposition}
 
-\begin{proposition} [Krull's Hauptidealsatz] $A$ Noetherian, $a$ nonzerodivisor. Then $\mathfrak{p} \in V(a)$ with $\mathfrak{p}$ minimal $ \Rightarrow $ $\heigth (\mathfrak{p}) = 1$.
+\begin{proposition} [Krull's Hauptidealsatz] $A$ Noetherian, $a$ nonzerodivisor. Then $\mathfrak{p} \in V(a)$ with $\mathfrak{p}$ minimal $ \Rightarrow $ $\height (\mathfrak{p}) = 1$.
 \end{proposition}
 
-\begin{proposition} $A$ Noetherian, integral. Then $A = \bigcap_{\heigth (\mathfrak{p}) = 1} A_{\mathfrak{p}}$.
+\begin{proposition} $A$ Noetherian, integral. Then $A = \bigcap_{\height (\mathfrak{p}) = 1} A_{\mathfrak{p}}$.
 \end{proposition}
 
 \begin{definition}[Regular] Noetherian + local + $\dim_{k} \mathfrak{m}/\mathfrak{m}^2 = \dim A$.
@@ -87,10 +87,22 @@ $\mathcal{O}_X (\div (\mathcal{L}, s)) \cong \mathcal{L}$, $1 \mapsto s$. $D$ lo
 
 \begin{proposition} 
    \begin{itemize}[topsep=-6pt, itemsep=0pt]
-    \item $A$ Noetherian + integral + ($\heigth (\mathfrak{p}) = 1 \Rightarrow \mathfrak{p}$ princ.) $ \Rightarrow A $ factorial.
+    \item $A$ Noetherian + integral + ($\height (\mathfrak{p}) = 1 \Rightarrow \mathfrak{p}$ princ.) $ \Rightarrow A $ factorial.
     \item $A$ factorial $ \Rightarrow A$ normal.
     \item $A$ regular + Noetherian + local $ \Rightarrow A $ factorial.
    \end{itemize}    
+\end{proposition}
+
+\begin{definition} $A$ local integral, $k = \text{frac}(A)$.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $B \subseteq k$ local integral dominates $A \Leftrightarrow \mathfrak{m}_B \cap A = \mathfrak{m}_A$
+    \item (vr) maximal with respect to domination.
+    \item (dvr) vr + Noetherian + not field
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+$A$ dvr $ \Leftrightarrow A$ local integral + $\mathfrak{m}$ principal
 \end{proposition}
 
 \begin{definition}

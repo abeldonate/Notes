@@ -1,0 +1,63 @@
+$\mathcal{F}, \mathcal{G} \in \Mod(X, \mathcal{O}_X )$.
+
+\begin{proposition}
+$\mathcal{F} \otimes _{\mathcal{O} _X} \mathcal{G} $ presheaf
+\end{proposition}
+
+\begin{definition}[Pushforward] $f_* \mathcal{F} (V) = \mathcal{F} (f^{-1}(V))$
+\end{definition}
+
+\begin{definition}[Pullback] $f^* \mathcal{G} = f^{-1} \mathcal{G} \otimes _{f^{-1} \mathcal{O}_Y} \mathcal{O}_X $
+\end{definition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item (free) $\mathcal{F} \cong \mathcal{O}_X^{\oplus I}$
+    \item (loc. free) $\mathcal{F}|_{U_i}$ free
+    \item (rank $r$) $\mathcal{F}|_{U_i} \cong \mathcal{O}_{U_i}^{\oplus r}$
+    \item (invertible) rank 1 loc. free
+    \item (g.g.) $\exists$ $\mathcal{O}_X^{\oplus n} \twoheadrightarrow  \mathcal{F}$
+\end{itemize}
+\end{definition}
+
+\begin{definition}$\tilde{M}$ such that $\tilde{M}(D(f)) = M_f$
+\end{definition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item (quasi-coherent) $\forall U_i \cong \Spec A_i, \mathcal{F}|_{U_i} \cong \widetilde{M_i}, M_i$ $A_i$-module.
+    \item (coherent) $\varphi : \mathcal{O}_{U_i}^n \twoheadrightarrow \mathcal{F_{U_i}}$, $\ker \varphi $ finite type.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $\mathcal{F} $ quasi-coherent $ \Leftrightarrow $ $ \mathcal{O}\mid _{U_i} ^{ \oplus I_i} \to \mathcal{O}_{U_i} ^{ \oplus J_i} \twoheadrightarrow  \mathcal{F}|_{U_i} \to 0 $
+\end{proposition}
+
+\begin{proposition}
+$\Hom_A(N, M) \cong \Hom_{\mathcal{O}_X}(\widetilde{N}, \widetilde{M})$
+\end{proposition}
+
+\begin{proposition}
+$0 \to M_1 \to M_2 \to M_3 \to 0$ ses $ \Leftrightarrow $ $0 \to \tilde{M_1} \to \tilde{M_2} \to \tilde{M_3} \to 0$ ses
+\end{proposition}
+
+\begin{proposition} 
+$\widetilde{\ker (\varphi )} = \ker (\tilde{\varphi })$, 
+$\widetilde{\im (\varphi )} = \im (\tilde{\varphi })$, 
+$\widetilde{\coker (\varphi )} = \coker (\tilde{\varphi })$
+\end{proposition}
+
+\begin{proposition} 
+    \begin{itemize}[topsep=-6pt, itemsep=0pt]
+        \item $A-\Mod$ $ \leftrightarrow \QCoh(\Spec A, \mathcal{O}_{\Spec A})$
+        \item graded $A-\Mod$ $ \leftrightarrow \QCoh(\Proj A, \mathcal{O}_{\Proj A})$
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}[n-th twist]
+$\mathcal{F}(n) = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_X(n)$
+\end{definition}
+
+\begin{proposition}
+$O_X(n)$ invertible, $O_X(n+m) \cong O_X(n) \otimes O_X(m)$
+\end{proposition}
