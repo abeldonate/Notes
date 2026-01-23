@@ -22,8 +22,6 @@ $\iota : Z \hookrightarrow X$, $ \begin{cases}
 \end{cases}  $
 \end{definition}
 
-\begin{definition}[Affine morphism] $f ^{-1}(A_i)$ affine.
-\end{definition}
 
 \begin{proposition}
 $Z \subseteq \Spec(A) \Leftrightarrow Z = \Spec (A/I)$.
@@ -69,6 +67,121 @@ $\Delta_{X / Y} \coloneqq X \to X \times_Y X$, $p_1 \circ \Delta = p_2 \circ \De
 \begin{definition}[Graph]
 $\Gamma_f \coloneqq (\id, f) : X \to X \times_Y Y$
 \end{definition}
+
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJYXFx0aW1lc19ZIFknIl0sWzEsMCwiWSciXSxbMSwxLCJZIl0sWzAsMSwiWCJdLFszLDAsIlgiXSxbMywxLCJZIl0sWzQsMCwiWCBcXHRpbWVzX1MgWCJdLFs0LDEsIlkgXFx0aW1lc19TIFkiXSxbMCwzLCJwXzEiLDJdLFszLDIsImYiXSxbMSwyLCJnIl0sWzAsMSwiZl97WSd9IiwyXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNiw3LCJmX1kiXSxbNSw3LCJcXERlbHRhIF97WS9TfSJdLFs0LDYsIlxcR2FtbWFfZiIsMl0sWzQsNSwiZiIsMl0sWzQsNywiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+\[\begin{tikzcd}
+	{X\times_Y Y'} & {Y'} && X & {X \times_S X} \\
+	X & Y && Y & {Y \times_S Y}
+	\arrow["{f_{Y'}}"', from=1-1, to=1-2]
+	\arrow["{p_1}"', from=1-1, to=2-1]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+	\arrow["g", from=1-2, to=2-2]
+	\arrow["{\Gamma_f}"', from=1-4, to=1-5]
+	\arrow["f"', from=1-4, to=2-4]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-4, to=2-5]
+	\arrow["{f_Y}", from=1-5, to=2-5]
+	\arrow["f", from=2-1, to=2-2]
+	\arrow["{\Delta _{Y/S}}", from=2-4, to=2-5]
+\end{tikzcd}\]
+
+\begin{definition} $\mathcal{P}$ satisfies
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item (COMP) $f, g \in \mathcal{P} \Rightarrow g \circ f \in \mathcal{P}$
+	\item (CANC) $g \circ f \in \mathcal{P}  \Rightarrow f \in \mathcal{P} $ 
+	\item (BC) $f \in \mathcal{P} \Rightarrow f_{Y'} \in \mathcal{P}$
+	\item (LOCT) $f \in \mathcal{P} \Leftrightarrow f_{V_i} \in \mathcal{P} \ \forall i \ ( \bigcup V_i = Y)$
+	\item (LOCS) $f \in \mathcal{P} \Leftrightarrow f_\mid {U_i} \in \mathcal{P} \ \forall i \ ( \bigcup U_i = X)$
+\end{itemize}
+\end{definition}
+
+\begin{definition} $f \in \Delta_{\mathcal{P} } \Leftrightarrow  \Delta_{X/Y} \in \mathcal{P} $
+\end{definition}
+
+\begin{proposition} 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item $\mathcal{P} $ (BC) $ \Rightarrow $ $\Delta_{\mathcal{P}} $ (BC)
+	\item $ \mathcal{P} $ (BC, COMP) $ \Rightarrow $ $\Delta_{\mathcal{P}} $ (COMP)
+	\item $ \mathcal{P} $ (LOCT) $ \Rightarrow $ $\Delta_{\mathcal{P}} $ (LOCT)
+	\item $ \mathcal{P} $ (BC, COMP), $f, g \in \mathcal{P} \Rightarrow  f \in \mathcal{P}$ 
+	\item $ \mathcal{P} $ (BC, COMP), $ g \circ f, \Delta _{Y/Z} \in \mathcal{P}   \Rightarrow f \in \mathcal{P} $
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item (quasi-compact) $V$ q-c $ \Rightarrow $ $f^{-1}(V)$ q-c ($ \Leftrightarrow V $ open affine)
+	\item (quasi-separated) $\Delta_{X/Y}$ quasi-compact
+	\item (finite fibers) $ f^{-1}(y)$ finite set
+\end{itemize}
+\end{definition}
+
+\begin{proposition} all (COMP, LOCT) +
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item injective (CANC)
+	\item surjective (BC)
+	\item open (LOCS)
+	\item closed 
+	\item quasi-compact (BC)
+	\item quasi-separated (BC, CANC)
+	\item finite fibers (CANC)
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item (immersion) $f = g \circ h$, $g, h$ open and closed imm. resp.
+	\item (loc. fin. type) $V = \Spec B \Rightarrow f ^{-1}(V) = \bigcup \Spec A_i, A_i$ f.g. $B$-alg.
+	\item (fin. type) loc. fin. type + quasi-compact
+	\item (affine) $V$ affine $ \Rightarrow f^{-1}(V)$ affine
+	\item (quasi-finite) fin. type + finite fibers
+	\item (finite) $V = \Spec B$ $ \Rightarrow f ^{-1}(V) = \Spec A$, $A$ f.g. $B$-mod.
+	\item (separated) $\Delta_{X/Y} : X \to X \times_Y X$ closed imm.
+	\item (poper) separated + fin. type + univ. closed
+\end{itemize}
+\end{definition}
+
+\begin{proposition} all (COMP, BC, LOCT) +
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item immersion (closed/open):
+	\item loc. fin. type: (CANC, LOCS) affine-local
+	\item fin. type:
+	\item affine: affine-local
+	\item quasi-finite:
+	\item finite: affine-local
+	\item separated: (CANC)
+	\item proper:
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Finite $ \Rightarrow $ quasi-finite + proper
+\end{proposition}
+
+
+% https://q.uiver.app/#q=WzAsMTMsWzAsMSwiXFx0ZXh0e2Nsb3NlZCBpbW0ufSJdLFswLDIsIlxcdGV4dHtpbW1lcnNpb259Il0sWzAsMywiXFx0ZXh0e29wZW4gaW1tLn0iXSxbMSwxLCJcXHRleHR7ZmluaXRlfSJdLFsxLDIsIlxcdGV4dHtwcm9wZXJ9Il0sWzEsMywiXFx0ZXh0e3NlcGFyYXRlZH0iXSxbMiwyLCJcXHRleHR7ZmluLiB0eXBlfSJdLFsyLDEsIlxcdGV4dHthZmZpbmV9Il0sWzIsMCwiXFx0ZXh0e3F1YXNpLWZpbi59Il0sWzMsMCwiXFx0ZXh0e2Zpbi4gZmliZXJzfSJdLFszLDEsIlxcdGV4dHtxdWFzaS1jb21wLn0iXSxbMywyLCJcXHRleHR7bG9jLiBmaW4uIHR5cGV9Il0sWzEsNCwiXFx0ZXh0e3F1YXNpLXNlcC59Il0sWzAsM10sWzMsN10sWzcsMTBdLFs0LDZdLFs2LDExXSxbMyw4XSxbOCw5XSxbNSwxMl0sWzIsMV0sWzAsMV0sWzEsMTEsIiIsMix7ImN1cnZlIjo0fV0sWzYsMTBdLFs0LDVdLFszLDRdLFs4LDYsIiIsMSx7ImN1cnZlIjozfV1d
+\[\begin{tikzcd}
+	&& {\text{quasi-fin.}} & {\text{fin. fibers}} \\
+	{\text{closed imm.}} & {\text{finite}} & {\text{affine}} & {\text{quasi-comp.}} \\
+	{\text{immersion}} & {\text{proper}} & {\text{fin. type}} & {\text{loc. fin. type}} \\
+	{\text{open imm.}} & {\text{separated}} \\
+	& {\text{quasi-sep.}}
+	\arrow[from=1-3, to=1-4]
+	\arrow[curve={height=18pt}, from=1-3, to=3-3]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-1, to=3-1]
+	\arrow[from=2-2, to=1-3]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-2, to=3-2]
+	\arrow[from=2-3, to=2-4]
+	\arrow[curve={height=24pt}, from=3-1, to=3-4]
+	\arrow[from=3-2, to=3-3]
+	\arrow[from=3-2, to=4-2]
+	\arrow[from=3-3, to=2-4]
+	\arrow[from=3-3, to=3-4]
+	\arrow[from=4-1, to=3-1]
+	\arrow[from=4-2, to=5-2]
+	\arrow[from=3-1, to=4-2]
+\end{tikzcd}\]
 
 $\boxed{M \otimes _R \frac{R}{I} \cong \frac{M}{IM}}$ 
 $\boxed{B \otimes _R \frac{R[x]}{I} \cong \frac{B[x]}{IB[x]}} $ 
