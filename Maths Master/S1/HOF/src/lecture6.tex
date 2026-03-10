@@ -1,0 +1,74 @@
+\begin{definition}[Real Lie algebra] $\mathfrak{g}$ f.d. vector space such that
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Antisymmetry $[x,y] = -[y, x]$
+    \item Jacobi $[x, [y, z]] + [y, [z, x]] + [z, [x, y]] = 0$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Lower central series] $\mathfrak{g}$ be a Lie algebra. Then
+\[
+\mathfrak{g}^1 = \mathfrak{g}, \quad \mathfrak{g}^{k+1} = [\mathfrak{g}, \mathfrak{g}^k].
+\]
+$\mathfrak{g}$ nilpotent of step $s$ if $\mathfrak{g}^{s+1} = 0$.
+\end{definition}
+
+\begin{example}
+\begin{itemize}[topsep=-6pt, itemsep=0pt] We have
+    \item Abelian $1$-step nilpotent
+    \item Heisenberg $2$-step nilpotent $\mathfrak{g}_1 = \langle x, y, z \rangle, \quad  \mathfrak{g}_2 = \langle z \rangle, \quad  \mathfrak{g}_3 = 0$
+    \[
+    x = \begin{pmatrix}0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad y = \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}, \quad z = \begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}
+    \]
+    \item $\text{nil}_n \subseteq M_n(\mathbb{R})$ strictly upper triangular matrices, nilpotent of step $n-1$
+\end{itemize}
+\end{example}
+
+\begin{theorem}[Ado-Engel] Every finite-dimensional nilpotent Lie algebra is isomorphic to a subalgebra of $\text{nil}_n$ for some $n$.
+\end{theorem}
+
+\begin{definition} $\exp (X) = \sum \frac{X^k}{k!}$. Unipotent $= I + $ nilpotent. $\log (1 + X) = \sum (-1)^{k+1} \frac{X^k}{k}$. $\exp : \text{nil}_n \to \text{Uni}_n$ is a polynomial diffeomorphism.
+\end{definition}
+
+\begin{definition}[Associated Lie group]
+$G \coloneqq \exp(\mathfrak{g})$
+\end{definition}
+
+\begin{definition}
+$F: \mathbb{R}^n \to \mathbb{R}^m$ poly if $F (x_1, \ldots, x_n ) = (P_1(x_1, \ldots, x_n), \ldots, P_m(x_1, \ldots, x_n))$ where each $P_i$ is a polynomial.
+\end{definition}
+
+\begin{definition}[Group law] $\mathfrak{g}$ nilpotent, then $(\mathfrak{g}, \ast)$ group with $x \ast y \coloneqq \log (\exp (x) \exp (y))$. $\ast$ polynomial
+\end{definition}
+
+\begin{theorem}[Baker-Campbell-Hausdorff] $x \ast y = x + y + \frac{1}{2}[x, y] + \cdots $
+\end{theorem}
+
+\begin{definition}[Lattice] $\Gamma \leq G$ discrete subgroup such that $G/\Gamma$ compact.
+\end{definition}
+
+\begin{example} $\mathbb{R}^n / \mathbb{Z}^n$ is a lattice in $\mathbb{R}^n$.
+\end{example}
+
+\begin{definition}[Rational structure] $\mathfrak{g}_{\mathbb{Q}} \subseteq \mathfrak{g}$ is a $\mathbb{Q}$-subalgebra such that $\mathfrak{g} \cong \mathfrak{g}_{\mathbb{Q}} \otimes_{\mathbb{Q}} \mathbb{R}$. Basis $x_1, \ldots, x_n$ with
+\[
+[x_i, x_j] = \sum c_{ij}^k x_k, \quad  c_{ij}^k \in \mathbb{Q}
+\]
+Compatible with the lower central series if $\mathfrak{g}_{i, \mathbb{Q}} \coloneqq \mathfrak{g}_{\mathbb{Q}} \cap \mathfrak{g}_i$ satisfies $\mathfrak{g}_{i, \mathbb{Q}} \otimes_{\mathbb{Q}} \mathbb{R} = \mathfrak{g}_i$.
+\end{definition}
+
+\begin{definition}[Mal'cev basis]
+$\mathfrak{g}$ $s$-step nilpotent, rational structure $\mathfrak{g}_{\mathbb{Q}}$. $x_1, \ldots, x_n$ is Mal'cev if
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathfrak{g}_\mathbb{Q} = \langle x_1, \ldots, x_n \rangle_\mathbb{Q}$
+    \item $\mathfrak{g}_j = \langle x_{m_{j}}, \ldots, x_n \rangle_\mathbb{R}, \quad \mathfrak{g}_{j, \mathbb{Q}} = \langle x_{m_{j}}, \ldots, x_n \rangle_\mathbb{Q}$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Nilmanifold] $G/\Gamma$ where $G$ conneceted, simply connected nilpotent Lie group and $\Gamma$ lattice.
+\end{definition}
+
+\begin{definition}[Nilsequence] $p : \mathbb{Z} \to  G/\Gamma $ polynomial map ($G_\bullet$ $s$-step filtration). If $F : G/\Gamma \to \mathbb{C}$ continuous, then $F(p(n))$ is a nilsequence.
+\end{definition}
+
+\begin{example} $G = \mathbb{R}, \Gamma = \mathbb{Z}, F (t) =e^{2\pi it}$
+\end{example}

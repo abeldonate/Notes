@@ -1,0 +1,49 @@
+$A$ ring, $B \in A$-algebra, $M \in B$-mod, $f : X \to Y$
+
+\begin{definition}Derivation $d:B \to M$, $A$-linear
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $d(b+b') = d(b) + d(b')$
+    \item $d(bb') = b d(b') + b' d(b)$
+    \item $d(a) = 0$ $\forall a \in A$
+\end{itemize}
+\end{definition}
+
+\begin{definition} Module of relative diff. forms $\Omega_{B/A}$, $d : B \to \Omega_{B/A}$ st
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJCIl0sWzEsMCwiTSJdLFswLDEsIlxcT21lZ2Ffe0IvQX0iXSxbMCwxLCJkJyJdLFswLDIsImQiLDJdLFsyLDEsIlxcZXhpc3RzICEiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	B & M \\
+	{\Omega_{B/A}}
+	\arrow["{d'}", from=1-1, to=1-2]
+	\arrow["d"', from=1-1, to=2-1]
+	\arrow["{\exists !}"', dashed, from=2-1, to=1-2]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{proposition} $B = A[x_1, \ldots, x_n] \Rightarrow \Omega_{B/A} \cong \bigoplus_ A dx_i$
+\end{proposition}
+
+\begin{proposition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\Omega _{B \otimes  _A C / A} \cong (\Omega_{B/A} \otimes _A C) \oplus (\Omega_{C/A} \otimes _A B)$
+    \item $\Omega_{S^{-1}B/A} \cong S^{-1}\Omega_{B/A}$
+\end{itemize}
+\end{proposition}
+
+\begin{definition}Cotangent sheaf $\Omega _{X/Y}$
+\end{definition}
+
+\begin{proposition} $g: Z \to Y$
+    \begin{itemize}[topsep=-6pt, itemsep=0pt]
+        \item $\Omega_{X \times _Y Z / Y} \cong p^* \Omega _{X/Y} p^* \Omega_{Z/Y}$
+        \item $\Omega _{U/Y} \cong \Omega _{X/Y}|_U$
+        \item $\Omega _{X/V} \cong \Omega_{X/Y}$
+    \end{itemize}
+\end{proposition}
+
+\begin{proposition} ses, $g : Y \to Z$, $Z \subseteq X$ closed ideal sheaf $I$
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item (cotangent) $f^* \Omega_{Y/Z} \to \Omega_{X/Z} \to \Omega_{X/Y} \to 0$
+    \item (conormal) $I/I^2 \to \Omega_{X/Y} \otimes_{\mathcal{O}_X} \mathcal{O}_Z \to \Omega_{Z/Y} \to 0$
+\end{itemize}
+\end{proposition}
+

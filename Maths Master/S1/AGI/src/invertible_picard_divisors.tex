@@ -13,12 +13,24 @@ $f : X \to Y$, $\mathcal{L} $ invertible.
 very ample $ \Rightarrow $ ample
 \end{proposition}
 
+\begin{proposition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathcal{L}, \mathcal{M}  $ ample $ \Rightarrow \mathcal{L} \otimes \mathcal{M} $ ample
+    \item $\mathcal{L} $ ample, $\mathcal{M} $ g.g. $ \Rightarrow \mathcal{L} \otimes \mathcal{M}$ ample
+    \item $\mathcal{L}$ ample $\mathcal{L}^{ \otimes n} \otimes \mathcal{M} \ \forall  n \geq  n_0$
+    \item $\mathcal{L} $ very ample, $\mathcal{M} $ g.g. $ \Rightarrow $ $\mathcal{L} \otimes \mathcal{M}$ very ample
+\end{itemize}
+\end{proposition}
+
 \begin{proposition} (X Noetherian) $\mathcal{L} $ ample
 $ \Leftrightarrow  \mathcal{L}^{ \otimes n } $ ample $\ \forall  n > 0 $
 $ \Leftrightarrow $ $\exists n > 0, \mathcal{L}^{ \otimes n } $ ample
 \end{proposition}
 
 \begin{proposition} $f : X \to \Spec A $ finite type, $A$ Noetherian. Then $\mathcal{L} $ ample $ \Leftrightarrow \exists n >0, \mathcal{L}^{ \otimes n} $ very ample.
+\end{proposition}
+
+\begin{proposition} $f : X \to \Spec A $ proper, $A$ Noetherian. Then $\mathcal{L} $ very ample $ \Rightarrow \mathcal{L} $ ample.
 \end{proposition}
 
 \begin{definition}$\Pic(X)$ group of iso. classes of inv.sheaves under $ \otimes $.
@@ -57,6 +69,7 @@ Then, $A$ regular $ \Leftrightarrow $ $A$ normal $ \Leftrightarrow $ $A$ dvr
     \item $\div : \{(\mathcal{L}, s )\} / \sim \to \Div(X), (\mathcal{L}, s) \mapsto \sum \nu _Z(s) Z$
     \item (effective) $n_Z \geq 0 \ \forall  Z$
     \item (principal) $D = \div (f)$ for some $f \in K(X)^*$
+    \item (cartier) $D$ closed subscheme whose ideal sheaf is invertible
 \end{itemize}
 \end{definition}
 
@@ -104,6 +117,28 @@ $\mathcal{O}_X (\div (\mathcal{L}, s)) \cong \mathcal{L}$, $1 \mapsto s$. $D$ lo
 \begin{proposition}
 $A$ dvr $ \Leftrightarrow A$ local integral + $\mathfrak{m}$ principal
 \end{proposition}
+
+\begin{minipage}{0.45\columnwidth}
+\begin{proposition} Valuative criterion.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $f$ q-c $ \Rightarrow $ ($f$ univ closed $ \Leftrightarrow $ existence)
+    \item $f$ q-s $ \Rightarrow $ ($f$ separated $ \Leftrightarrow $ uniqueness)
+\end{itemize}
+\end{proposition}
+\end{minipage}
+\begin{minipage}{0.45\columnwidth}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHRleHR7U3BlY30oSykiXSxbMCwxLCJcXHRleHR7U3BlY30oUikiXSxbMSwwLCJYIl0sWzEsMSwiWSJdLFswLDJdLFsxLDNdLFsyLDMsImYiXSxbMCwxXSxbMSwyLCIiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifX19XV0=
+\[\begin{tikzcd}
+	{\text{Spec}(K)} & X \\
+	{\text{Spec}(R)} & Y
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["f", from=1-2, to=2-2]
+	\arrow[dotted, from=2-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{minipage}
+
 
 \begin{definition}
 $X$ factorial $ \Leftrightarrow \mathcal{O}_{X,x} $ factorial.

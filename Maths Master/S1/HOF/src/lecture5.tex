@@ -1,0 +1,57 @@
+\begin{definition}[Filtered groups and lattices]
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Prefiltration $G_0 \geq G_1 \geq \cdots , \quad  [G_i, G_j] \subseteq G_{i+j}$
+    \item Filtration if $G_0 = G_1$
+    \item $ \Gamma \leq G$ filtered lattice if discrete and $\Gamma _i \coloneqq \Gamma \cap G_i$ cocompact in $G_i$
+\end{itemize}
+\end{definition}
+
+\begin{example} (Lower central series filtration) Let $G$ nilpotent, $\gamma _1(G) = G, \gamma _{i+1}(G) \coloneqq [G, \gamma _i(G)]$
+\end{example}
+
+\begin{example} (Abelian filtrations) Degree $s$ abelian filtration $A_0 = \ldots = A_s = A, \quad A_i = 0$
+\end{example}
+
+(miss things here HK)
+
+\begin{theorem} Filtered groups and polynomial maps form a category
+\end{theorem}
+
+\begin{definition}[Discrete derivative] $H$ additive, $\varphi : H \to G$ (not homo). $\Delta _h \varphi (x) \coloneqq \varphi (x + h) \varphi (x)^{-1}$
+\end{definition}
+
+\begin{theorem}
+$H$ additive, $\varphi : H \to G$ (not homo) polynomial $ \Leftrightarrow \ \forall x \in H, h_1, \ldots, h_m \in H$ we have
+\[
+\Delta _{h_1} \Delta _{h_2} \cdots \Delta _{h_m} \varphi (x) \in G_m
+\]
+\end{theorem}
+
+(proof for later)
+
+From now on $h,g : \mathbb{Z} \to A$ polynomials sequences on $A$ an $s$-step filtered abelian group.
+
+\begin{proposition}
+$\Delta^m \binom{n}{i} = \binom{n}{i-m}$
+\end{proposition}
+
+\begin{proposition}
+If $\Delta ^{s+1} h= 0, \Delta^s h(0)=\Delta ^1 h(0) = \cdots = h(0) = 0$, then $h = 0$.
+\end{proposition}
+
+\begin{proposition}
+$\ \exists ! a_i \in A_i$ such that $g(n) = \sum \binom{n}{i}a_i$, where $a _i = \Delta ^ig(0)$
+\end{proposition}
+
+\begin{theorem}[Taylor expansion]
+$g : \mathbb{Z} \to G$ non abelian poly sequence. $\ \exists !g_i \in G_i$ such that $\prod _{i=0}^{s}g_i^{\binom{n}{i}}$
+\end{theorem}
+
+
+\begin{theorem}
+$\varphi : \mathbb{F}_p^{n} \to \mathbb{T} = \mathbb{R}/\mathbb{Z}$ is poly of degree $ \leq d \Leftrightarrow $
+\[
+\varphi (x_1, \ldots, x_n) = \sum_{\alpha \in \mathbb{N}^{n}} \sum_{k \geq 1} \frac{c_{\alpha ,k}}{p^k} \lvert x_1 \rvert ^{\alpha _1 } \cdots \lvert x_n \rvert ^{\alpha _n} \ (\mod 1)
+\]
+with $c_{\alpha ,k} \in \mathbb{F}_p$, finite support on the sum and $\alpha _1 + \cdots + \alpha _n + (p-1)(k-1) \leq d$
+\end{theorem}

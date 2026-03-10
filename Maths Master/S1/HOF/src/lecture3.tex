@@ -1,0 +1,66 @@
+\begin{theorem}(Inverse 4APs) If
+$\lvert \sum_{x, y \in G} f_0(x) f_1(x+y)f_2(x+2y) \rvert \geq \varepsilon p^{2n} \quad  \Rightarrow \quad \ \exists a_i \in \mathbb{F}_p^{n} \text{ st }$, then
+\[
+\ \exists M_i, b_i \text{ st } \quad \lvert \sum_{x \in G}f_i(x)e_p(x^T M_i x + b_i^T x) \rvert \geq  c_p e^{-C \varepsilon ^{-C}} p^n
+\]
+\end{theorem}
+
+\begin{theorem}(Inverse Gowers $U^3$) If $\lVert f \rVert_{U^{3}} \geq \varepsilon p^{n/2}$, then
+\[
+\ \exists M, b \text{ st } \quad \lvert \sum_{x \in \mathbb{F}_p^n} f(x)e_p(x^TMx + b^Tx) \rvert \geq c_p e^{-C\varepsilon ^{-C}}p^n
+\]
+\end{theorem}
+
+$c_p, C$ absolute depending only on $p$.
+
+Now we see the props for the Inverse 4APs
+
+\begin{proposition} If
+$\lvert \sum_{x, y \in G} f_0(x) f_1(x+y)f_2(x+2y) \rvert \geq \varepsilon p^{2n} \quad  \Rightarrow \quad \ \exists a_i \in \mathbb{F}_p^{n} \text{ st }$, then
+\[
+\ \exists \varphi : \mathbb{F}_p^n \to \mathbb{F}_p^n \text{ st } \quad \sum_{h} \lvert \hat{\Delta_hf_3 }(\varphi (h)) \rvert \geq \varepsilon ^2 p^{2n}
+\]
+\end{proposition}
+
+\begin{proposition}
+$\mathcal{H} \subseteq \mathbb{F}_p^{n}, \lvert \mathcal{H}  \rvert \geq \delta p^{n}$. Suppose that $\ \forall h \in \mathcal{H} \ \exists \varphi (h) $ such that
+$\lvert \hat{\Delta _h f}(\varphi (h))\rvert \geq \delta p^{n}$. Then
+\[
+\lvert \{ (h_1, h_2, h_3, h_4) \in \mathcal{H}^4 : h_1 + h_2 = h_3 + h_4 \quad \land \quad \varphi (h_1) + \varphi (h_2) = \varphi (h_3) + \varphi (h_4) \} \rvert \geq \delta ^{8} p^{3n}
+\]
+\end{proposition}
+
+\begin{definition}[Additive energy]
+$E(A) = \lvert \{(x_1, \ldots, x_4) \in A^4 : x_1 + x_2 = x_3 + x_4\} \rvert $ 
+\end{definition}
+
+$E(A) \leq \lvert A \rvert^{3} $. Large additive energy if $E(A) \geq \frac{\lvert A \rvert ^3}{K}$
+
+\begin{theorem}[Balog-Szemeredi-Gowers]
+$G$ discrete abelian group, $A \subseteq G$ finite, $E(A) \geq \frac{\lvert A \rvert ^{3} }{K}$. Then $\ \exists A' \subseteq A$ st
+\[
+\lvert A' \rvert \gg K^{-O(1)} \lvert A \rvert , \quad  \text{ and } \quad \lvert A' + A' \rvert \ll K^{O(1)} \lvert A' \rvert 
+\]
+\end{theorem}
+
+\begin{theorem}[Freiman-Ruzsa] If $\lvert A + A \rvert \leq K \lvert A \rvert \quad  \Rightarrow \lvert \langle A \rangle \rvert \geq e^{O_p(K^{O(1)})} \lvert A \rvert $
+\end{theorem}
+
+\begin{proposition} If $H \leq \mathbb{F}_p^n \times \mathbb{F}_p^n$ is a graph, then
+\[
+\ \exists M, H' \geq \mathbb{F}_p^n, \text{ st } \quad H = \{(x, Mx) : x \in H'\}
+\]
+\end{proposition}
+
+\begin{proposition} $\lvert \mathcal{H}  \rvert $ and $\ \forall  h \in \mathcal{H} \ \exists \varphi (h)$ with $\lvert \sum_{x} \Delta _h f(x) e_p (\varphi (h) \cdot x) \rvert \geq \delta p^n$. Then $\ \exists \mathcal{H}'' \subseteq \mathcal{H} $ with 
+$ \lvert \mathcal{H}''  \rvert \gg e ^{-O(\delta ^{-O(1)})}p^{n} $ and $\ \exists M, b$ such that $\varphi (h) = Mh + b \ \forall  h \in \mathcal{H}'' $ 
+\end{proposition}
+
+\begin{proposition} If $\ \exists M$ symmetric, $b$ st $ \sum_h \lvert \sum_x \Delta _h f(x)e_p ((Mh+b)\cdot x) \rvert \geq \delta p^{2n}$. Then
+\[
+\ \exists a \in \mathbb{F}_p ^{n} \text{ st } \quad  \lvert \sum_x f(x)e_p(\frac{1}{2}x^TMx + a^Tx) \rvert \gg \delta ^{O(1)}p^n
+\]
+\end{proposition}
+
+\begin{proposition} If $\ \exists M, b$ st $ \sum_h \hat{\Delta _hf}(Mh+b) \geq \delta p^{2n} \quad \Rightarrow \quad  \lvert \ker (M-M^T) \rvert \gg \delta ^{O(1)}p^n$
+\end{proposition}

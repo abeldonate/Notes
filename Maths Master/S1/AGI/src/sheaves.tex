@@ -1,4 +1,12 @@
 All the section $f : X \to Y$, $\mathcal{F} \in \Sh (X), \mathcal{G} \in \Sh (Y)  $
+
+\begin{definition} Sheaf
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item locality: $s|_{U_i} = t|_{U_i} \Rightarrow s=t$
+    \item gluing: $s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j} \Rightarrow \exists s \in \mathcal{F}(U), s|_{U_i} = s_i$
+\end{itemize}
+\end{definition}
+
 \begin{definition}[Direct image]
 $f_* \mathcal{F}(V) \coloneqq \mathcal{F}(f ^{-1}(V))$
 \end{definition}
@@ -64,5 +72,11 @@ $(f, f^\#)$, $f : X \to Y$, $f^\#: \mathcal{O}_Y \to f_* \mathcal{O}_X$, local h
 
 \begin{proposition} Adjuntcion $f^{-1} \dashv f_*$. 
 $\Hom _{\Sh(X)} (f^{-1} \mathcal{G}, \mathcal{F}) \cong \Hom _{\Sh(Y)} (\mathcal{G}, f_* \mathcal{F})$
+\end{proposition}
+
+\begin{definition} $\supp (\mathcal{F} ) \coloneqq  \{ x \in X : \mathcal{F}_x \neq 0  \}, \quad  \supp (s) \coloneqq \{ x \in U : s_x \neq 0 \}$
+\end{definition}
+
+\begin{proposition} $\Spec(A \times B) \cong \Spec(A) \sqcup \Spec(B)$
 \end{proposition}
 

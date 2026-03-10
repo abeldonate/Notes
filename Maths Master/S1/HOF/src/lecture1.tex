@@ -1,0 +1,49 @@
+\begin{theorem}[Szemeredi, 1975] 
+$A$ upper density $ \limsup_{N \to \infty} \frac{A \cap \{ -N, \ldots, -N \}}{2N+1}$, then $ \infty$ $k$-AP
+\end{theorem}
+
+\begin{theorem}[Furstenberg, 1977]
+$(X, \mu , T)$ measure-preserving system, $\mu (E) > 0$. Then
+\[
+\liminf_{N \to \infty} 1\frac{1}{2N+1} \sum_{n = -N} ^{N} \mu (E \cap T^n \cap \cdots  \cap T^{n(k-1)}) >0
+\]
+\end{theorem}
+
+\underline{\textbf{3-AP}}   
+
+For al the section $A \subseteq \mathbb{F}_p, \delta = \frac{\lvert A \rvert }{p}$.
+
+\begin{theorem}[Square differences obey prob. heur.] $f, g: \mathbb{F}_p \to \mathbb{C}$ 1-bounded
+\[
+\sum_{x \in \mathbb{F}_p} \mathds{1} _A(x) \mathds{1}_A(x + y^2) = \delta ^2 p^2 + O(p^{3 / 2}), \quad 
+\sum_{x \in \mathbb{F}_p} f(x) g(x + y ^2) = \mathbb{E}(f)\mathbb{E}(g)p^2 + O(p^{3 / 2})
+\]
+\end{theorem}
+
+\begin{definition}
+$e_p(t) \coloneqq  e ^{\frac{2\pi i t}{p}}, \quad  \hat{f}(a) \coloneqq \sum_{x \in \mathbb{F}_p} f(x) e_p(ax), \quad f(x) = \frac{1}{p} \sum_{a \in \mathbb{F}_p} \hat{f}(a) e_p(-ax)$
+\end{definition}
+
+\begin{proposition} Orthogonality
+\[
+\sum_{x \in \mathbb{F}_p} e_p(ax) = 
+\begin{cases}
+p \text{ if } a = 0 \\
+0 \text{ if } a \neq 0
+\end{cases}
+\]
+\end{proposition}
+
+\begin{proposition} Parseval's
+\[
+\sum_{x \in \mathbb{F}_p} \lvert f(x) \rvert^2 = \frac{1}{p} \sum_{x \in \mathbb{F}_p} \lvert \hat{f}(a) \rvert^2
+\]
+\end{proposition}
+
+\begin{definition}[Convolution]
+$f * g (x) \coloneqq \sum_{y \in \mathbb{F}_p} f(y)g(x-y), \quad  \hat{(f*g)}(a) = \hat{f}(a) \hat{g}(a)$
+\end{definition}
+
+\begin{proposition} (Weyl's inequality). $p$ odd prime, $a \in \mathbb{F}_p-\{0\}, b \in \mathbb{F}_p$. Then
+$\lvert \sum_{x \in \mathbb{F}_p} e_p(a x^2 + bx) \rvert \leq p^{1/2}$
+\end{proposition}

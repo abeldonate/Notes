@@ -1,8 +1,5 @@
 $A = \bigoplus_{d \geq 0} A_d$ graded ring, $A_0$ subring, $A_+ = \bigoplus_{d >0} A_d$ irrelevant ideal.
 
-\begin{proposition} $X$ has a generic point $ \Leftrightarrow $ $X$ irreducible.
-\end{proposition}
-
 \begin{definition}[Homo. ideal] 
 $f \in I \Rightarrow f_{d_1}, \ldots, f_{d_r} \in I \Leftrightarrow  I = \bigoplus_{d \geq 0} (I \cap A_d) \Leftrightarrow I = (f_1, \ldots, f_r), f_i$ homo.
 \end{definition}
@@ -15,17 +12,51 @@ $I ^{h} = \bigoplus_{d \geq 0} (I \cap A_d)$
 $I$ homo $ \Rightarrow \sqrt{I}$ homo.
 \end{proposition}
 
+\begin{definition}
+$M_{(a)} \coloneqq (M_a)_0, \quad  M_{(\mathfrak{p})} \coloneqq (M_{\mathfrak{p}})_0$. e.g. $A = k[x_0, \ldots, x_n], A_{(x_i)} = k[\frac{x_0}{x_i}, \ldots, \frac{x_n}{x_i}]$
+\end{definition}
+
 \begin{proposition}
 $D_+(f), f \in A_+$ homo, basis of topology.
 \end{proposition}
 
 $\boxed{\Proj A \coloneqq \{ \mathfrak{p} \text{ homo}, A_+ \not\subseteq \mathfrak{p} \}} $
-$ \boxed{V_+(I) \coloneqq \{ \mathfrak{p} \in \Proj A : I \subseteq \mathfrak{p} \}} $
-$\boxed{ D_+(f) \coloneqq \{ \mathfrak{p} \in \Proj A : f \notin \mathfrak{p} \}} $
+$\boxed{V_+(I) \coloneqq \{ \mathfrak{p} \in \Proj A : I \subseteq \mathfrak{p} \}} $
+$\boxed{\overline{f(V(I))} = V(\varphi ^{-1}(I))} $
 
+$\boxed{ D_+(f) \coloneqq \{ \mathfrak{p} \in \Proj A : f \notin \mathfrak{p} \} \cong \Spec (A_{(f)}) }$
 $\boxed{ V_+(I \cap J) = V_+(I) \cup V_+(J)}$
+
 $\boxed{V_+(\sum I_i) = \bigcap V_+(I_i)}$
-$ \boxed{V_+(A_+) = V_+(A) = \emptyset} $
+$\boxed{V_+(A_+) = V_+(A) = \emptyset} $
 $\boxed{V_+((0)) = \Proj A}$
 
+\begin{proposition} $\boxed{\mathcal{O}_X(m)} \quad U_i = \Spec A_i, \quad  A_i = k[\frac{x_0}{x_i}, \ldots, \quad  \frac{x_n}{x_i}], \quad  M_i = A_ix_i^m $ \\
+$(M_i) _{(\frac{x_j}{x_i})} \cong (M_j)_{(\frac{x_i}{x_j})}, \quad \Gamma (\mathbb{P}^n, \mathcal{O}_X(m)) =$ free mod. hom. poly. deg. $m$
+\end{proposition}
 
+\begin{definition}
+$\mathbb{P}^n_X \coloneqq X \times_{\Spec \mathbb{Z}} \mathbb{P}^n_{\mathbb{Z}}, \quad \mathbb{P}^{n}_{A_0} = \bigcup_{i=0}^n \left( V(\sum_{j=0}^{i-1} (x_j)) \backslash V(\sum_{j=0}^{i} (x_j)) \right)$
+\end{definition}
+
+\begin{definition}
+$\Spec A$ affine cone over $\Proj A$, $\Spec A \backslash V(A_+) \to \Proj A$
+\end{definition}
+
+\begin{definition} Segre embedding $ \sigma : \mathbb{P}^n \times \mathbb{P}^m \to \mathbb{P}^{(n+1)(m+1) -1}, \quad ([x_i], [y_j]) \mapsto [x_ix_j]$
+
+\end{definition}
+
+\begin{proposition}
+$A$ f.g. in deg. 1 $ \Rightarrow \Proj A \to \mathbb{P}^n_{A_0}$ closed immersion. i.e. $A_0[x_0,\ldots, x_n] \twoheadrightarrow A \Rightarrow \Proj A \to \mathbb{P}^n_{A_0}$
+\end{proposition}
+
+\begin{proposition}
+$A$ f.g. in deg. 1 $ \Rightarrow \pi_A \Proj A \to \Spec A_0$ proper.
+\end{proposition}
+
+\begin{definition} Veronese embedding $v_d : \mathbb{P}^n \to \mathbb{P}^N, \quad [x_i] \mapsto [x_I^I]$ monomials deg. $d$. $N=\binom{n+d}{n} - 1$
+\end{definition}
+
+\begin{proposition} $\Proj (S \times _A T) \cong \Proj (S)\times _A \Proj (T)$ and $\mathcal{O}(1) \cong p_1^*(\mathcal{O}_X(1) \otimes p_2^*(\mathcal{O}_Y(1) )) $
+\end{proposition}

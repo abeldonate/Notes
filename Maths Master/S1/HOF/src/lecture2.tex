@@ -1,0 +1,72 @@
+For all the section $G = \mathbb{F}_3^{n}$, and $f, f_i$ are $1$-bounded functions
+\begin{proposition} 3APs don't work the heuristic approach
+\[
+\# = \sum_{x, y \in G} \mathds{1}_A(x) \mathds{1}_A(x+y)\mathds{1}_A(x+2y) = \delta ^3 3^{2n} + o(3^{2n})
+\]
+but
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Coset $A = x + H \Rightarrow \# = \delta ^2 3 ^{2n}$
+    \item $H \leq G$ density $\delta ^{1/2} \Rightarrow \# = \delta ^{5/2}3^{2n}$
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Discrepancy]
+$\dis _H(A) \coloneqq  \sup_{x \in G} \lvert \frac{\lvert A \cap (H+x) \rvert }{\lvert H+x \rvert } - \frac{\lvert A \rvert }{\lvert G \rvert } \rvert $
+\end{definition}
+
+Random $ \Rightarrow $ small discrepancy
+
+\begin{proposition} $A = \mathbb{F}_p^{n}$. If $\lVert \hat{(\mathds{1}_A - \delta)} \rVert _{\infty} \geq \varepsilon p^n$, then
+\[
+\ \exists H \geq \mathbb{F}_p^n, \quad \codim H = 1, \quad  \dis _H(A) \geq \varepsilon 
+\]
+\end{proposition}
+
+\begin{proposition} If $A$ disobeys the naive heuristics
+\[
+\lvert \sum_{x, y \in G} \mathds{1}_A(x) \mathds{1}_A(x+y)\mathds{1}_A(x+2y) - \delta ^3p^{2n} \rvert \geq \varepsilon p^{2n} \Rightarrow 
+\lVert \hat{(1_{A}-\delta )} \rVert_{\infty} \geq \varepsilon p^n
+\]
+\end{proposition}
+
+\begin{proposition}
+$\ \exists H + t$ affine of codim $2/\varepsilon $ on which $A$ has density $\nu \geq \delta $ and $A$ obeys the naive heuristic
+\[
+\lvert \sum_{x, y \in H+t} \mathds{1}_A(x)\mathds{1}_A(y)\mathds{1}_A(\frac{x+y}{2}) - \nu ^3 \lvert H+t \rvert^2  \rvert \leq \varepsilon \lvert H + t \rvert ^2
+\]
+\end{proposition}
+
+\begin{theorem}[Roth] If $A \subseteq \mathbb{F}_3^n$ lacks proper 4APs, then $\delta \lesssim n^{-1/3}$
+\end{theorem}
+
+\begin{theorem}(Inverse 3AP) $f_i : \mathbb{F}_p^{n} \to \mathbb{C}$ be $1$-bounded functions such that
+\[
+\lvert \sum_{x, y \in G} f_0(x) f_1(x+y)f_2(x+2y) \rvert \geq \varepsilon p^{2n} \quad  \Rightarrow \quad \ \exists a_i \in \mathbb{F}_p^{n} \text{ st }
+\lvert \sum_{x \in G}f_i(x)e_p(a_i \cdot x) \rvert \geq  \varepsilon p^n
+\]
+\end{theorem}
+
+
+\begin{proposition}
+We don't have the same for 4APs. Counterexample $n=1, f_0 = e_p(x^2), f_1 = e_p(-3x^2), f_2 = e_p(3x^2), f_3 = e_p(-x^2)$.
+\[
+\sum_{x, y} f_0f_1f_2f_3 = p^2, \quad \text{ but } \lvert \sum_x f_i(x)e_p(a_i \cdot x) \rvert \leq p^{1/2}
+\]
+\end{proposition}
+
+\begin{definition}[$k$-th Gower's norm] $\Delta _h f(x) = f(x+h) \overline{f(x)}$
+\[
+\lVert f \rVert_{U^k(G)} \coloneqq \left( \sum_{x, h_1, \ldots, h_k} \Delta_{h_1} \ldots \Delta _{h_k}f(x) \right) ^{1/2}
+\]    
+\end{definition}
+
+\begin{proposition} Gower's norm for $k \geq 2$, seminorm for $k = 1$.
+\end{proposition}
+
+\begin{proposition}(Von Neumann inequality)
+$\lvert \sum_{x, y} f_0(x) \cdots f_{k-1}(x + (k-1)y) \rvert \lesssim  \inf _{i} \lvert f_i \rvert _{U^{k-1}}  $
+\end{proposition}
+
+\begin{theorem}(Inverse Gowers $U^2$) If $\lVert f \rVert_{U^{2}} \geq \delta p^n  \quad  \Rightarrow  \quad  \lVert \hat{f} \rVert _{\infty} \geq \delta ^2 p^n$
+\end{theorem}
+

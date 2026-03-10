@@ -1,4 +1,4 @@
-We state $(U_i)$ open cover, $(A_i)$ open affine cover and $U$ open subset, $Z$ closed subset.
+We state $(U_i)$ open cover, $(W_i)$ open affine cover and $U$ open subset, $Z$ closed subset.
 
 Also, $x \in X$, $y \in Y$ arbitrary point, $\eta \in X$ the generic point, $f : X \to Y$.
 
@@ -6,34 +6,71 @@ Also, $x \in X$, $y \in Y$ arbitrary point, $\eta \in X$ the generic point, $f :
 \begin{itemize}[topsep=-6pt, itemsep=0pt]
     \item (Disconected) $X = U_1 \cup  U_2$, $U_1 \cap U_2 = \emptyset$. e.g. $\Spec(k\times k)$.
     \item (Reducible) $X = Z_1 \cup Z_2$, $Z_1, Z_2$. e.g. $\Spec(k[x, y]/(xy))$.
-    \item (Quasi-compact) $X = \bigcup U_i$, finite subcover. e.g. not $\Spec(k[x_1, x_2, ...])$.
-    \item (Quasi-separated) $U_i, I_j$ quasi-compact $ \Rightarrow $ $U_i \cap U_j$ quasi-compact.
+    \item (Quasi-compact) $X = \bigcup U_i$, finite subcover. e.g. not $\Spec(k[x_1, x_2, ...]) - \{0\}$.
+    \item (Quasi-separated) $U_i, U_j$ quasi-compact $ \Rightarrow $ $U_i \cap U_j$ quasi-compact. e.g. $U_i = \mathbb{A}_k^{ \infty}$ glued along $\mathbb{A}_k^{\infty} - \{0\} \Rightarrow U_1 \cap U_2 = \mathbb{A} - \{0\}$.
 \end{itemize}
 \end{definition}
 
-\begin{definition}[Open embedding]
-$(U, \mathcal{O}_X|_U ) \to (X, \mathcal{O}_X)$
+\begin{proposition}
+irreducible $ \Rightarrow $ connected 
+\end{proposition}
+
+\begin{proposition} $X$ has a generic point $ \Leftrightarrow $ $X$ irreducible.
+\end{proposition}
+
+\begin{proposition}
+Affine $ \Rightarrow $ quasi-compact + quasi-separated
+\end{proposition}
+
+\begin{definition}[Open immersion]
+$f: (U, \mathcal{O}_X|_U ) \to (X, \mathcal{O}_X), f^\#$ iso
 \end{definition}
 
-\begin{definition}[Closed embedding]
+\begin{definition}[Closed immersion]
 $\iota : Z \hookrightarrow X$, $ \begin{cases}
 \iota \text{ homeo. onto closed subset} \\
 \iota ^\# : \mathcal{O}_Y \twoheadrightarrow \iota_* \mathcal{O}_X
 \end{cases}  $
 \end{definition}
 
+\begin{proposition}
+Closed subschemes of aff. are aff.
+\end{proposition}
+
+\begin{proposition}
+$D(f) \to X$ open immersion, $V(I) \to X$ closed immersion.
+\end{proposition}
+
+\begin{proposition}
+$\Spec B \to \Spec A$ closed imm. $ \Leftrightarrow $ $ \varphi : A \to B$ surjective.
+\end{proposition}
 
 \begin{proposition}
 $Z \subseteq \Spec(A) \Leftrightarrow Z = \Spec (A/I)$.
 \end{proposition}
 
 \begin{definition}
-$X $ reduced $ \Leftrightarrow \mathcal{O}_X(U)$ reduced  $ \Leftrightarrow \mathcal{O}_X(A_i)  $ reduced $ \Leftrightarrow \mathcal{O}_{X,x}  $ reduced
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item (affine-local) $(a_1, \ldots, a_n) = A$, $A \in \mathcal{P} \Leftrightarrow A_{a_i} \in \mathcal{P}$
+	\item (stalk-local) $A \in \mathcal{P} \Leftrightarrow A_{\mathfrak{p}} \in \mathcal{P}$
+\end{itemize}
 \end{definition}
 
+\begin{proposition}
+Stalk -local $ \Rightarrow $ affine-local ($A_{\mathfrak{p}} \cong (A_a)_{\mathfrak{p}A_a}$)
+\end{proposition}
+
 \begin{definition}
-$X $ integral $ \Leftrightarrow \mathcal{O}_X(U)$ integral $ \Leftrightarrow X$ reduced and irreducible.
+	\begin{itemize}[topsep=-6pt, itemsep=0pt]
+		\item $X$ Noetherian $ \Leftrightarrow $ quasi-compact + $A_i$ Noeth. (affine-local) (e.g. not stalk-local $A=\Pi_{\infty}\mathbb{F}_2$)
+		\item $X$ integral $ \Leftrightarrow \mathcal{O}_X(U)$ integral $ \Leftrightarrow X $ connected + $\mathcal{O}_{X,x}$ integral $ \Leftrightarrow X$ reduced + irred.
+		\item $X$ reduced $ \Leftrightarrow \mathcal{O}_X(U)$ reduced (stalk-local)
+		\item $X$ normal $ \Leftrightarrow A_{\mathfrak{p}}$ integral and integrally closed (stalk-local)
+	\end{itemize}
 \end{definition}
+
+\begin{proposition} $\Spec (A)$ irred. $ \Leftrightarrow A/\sqrt{(0)}$ integral.
+\end{proposition}
 
 \begin{definition}[Residue / Function field]
 $k(x) = O_{X, x}/\mathfrak{m}_x$, $k(X) = O_{X, \eta}$
@@ -46,43 +83,40 @@ $k(x) = O_{X, x}/\mathfrak{m}_x$, $k(X) = O_{X, \eta}$
 $\mathcal{I} : U \mapsto \mathcal{I}(U) \subseteq \mathcal{O}_X(U)$ ideal.
 \end{definition}
 
-\begin{definition}[Fiber] 
-$X_y \coloneqq f^{-1}(y) = X \times_Y \Spec k(y)$
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+	\item (fiber) $X_y \coloneqq f^{-1}(y) = X \times_Y \Spec k(y)$
+	\item (geometric fiber) $X_{\overline{y}} \coloneqq X \times_Y \Spec \overline{k(y)}$
+	\item (diagonal morphism) $\Delta_{X / Y} \coloneqq X \to X \times_Y X$, $p_1 \circ \Delta = p_2 \circ \Delta = \id_X$
+	\item (graph) $\Gamma_f \coloneqq (\id, f) : X \to X \times_Y Y$
+\end{itemize}
 \end{definition}
 
-\begin{definition}[Geometric fiber] 
-$X_{\overline{y}} \coloneqq X \times_Y \Spec k(\overline{y})$
-\end{definition}
+% https://q.uiver.app/#q=WzAsMTIsWzMsMCwiWFxcdGltZXNfWSBZJyJdLFs0LDAsIlknIl0sWzQsMSwiWSJdLFszLDEsIlgiXSxbNiwwLCJYIl0sWzYsMSwiWSJdLFs3LDAsIlggXFx0aW1lc19TIFgiXSxbNywxLCJZIFxcdGltZXNfUyBZIl0sWzAsMCwiWFxcdGltZXMgX1MgWSJdLFswLDEsIlMiXSxbMSwwLCJYXFx0aW1lcyBfVCBZIl0sWzEsMSwiU1xcdGltZXMgX1QgUyJdLFswLDMsInBfMSIsMl0sWzMsMiwiZiJdLFsxLDIsImciXSxbMCwxLCJmX3tZJ30iLDJdLFswLDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs2LDcsImZfWSJdLFs1LDcsIlxcRGVsdGEgX3tZL1N9Il0sWzQsNiwiXFxHYW1tYV9mIiwyXSxbNCw1LCJmIiwyXSxbNCw3LCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbOSwxMV0sWzEwLDExXSxbOCw5XSxbOCwxMF0sWzgsMTEsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+\[\begin{tikzcd}
+	{X\times _S Y} & {X\times _T Y} && {X\times_Y Y'} & {Y'} && X & {X \times_S Y} \\
+	S & {S\times _T S} && X & Y && Y & {Y \times_S Y}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow["{f_{Y'}}"', from=1-4, to=1-5]
+	\arrow["{p_1}"', from=1-4, to=2-4]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-4, to=2-5]
+	\arrow["g", from=1-5, to=2-5]
+	\arrow["{\Gamma_f}"', from=1-7, to=1-8]
+	\arrow["f"', from=1-7, to=2-7]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-7, to=2-8]
+	\arrow["{f_Y}", from=1-8, to=2-8]
+	\arrow[from=2-1, to=2-2]
+	\arrow["f", from=2-4, to=2-5]
+	\arrow["{\Delta _{Y/S}}", from=2-7, to=2-8]
+\end{tikzcd}\]
 
-\begin{proposition} $\Spec (A)$ irred. $ \Leftrightarrow A/\sqrt{(0)}$ integral.
+\begin{proposition}
+$X, Y, S$ affine $ \Rightarrow X \times_S Y$ affine
 \end{proposition}
 
-\begin{definition}[Extension] $X$ Noetherian, $\mathcal{F} $ coherent on $U$, then $ \ \exists \mathcal{G} $ coherent on $X$ st $\mathcal{G}|_U \cong \mathcal{F}$.
-\end{definition}
-
-\begin{definition}[Diagonal morphism]
-$\Delta_{X / Y} \coloneqq X \to X \times_Y X$, $p_1 \circ \Delta = p_2 \circ \Delta = \id_X$
-\end{definition}
-
-\begin{definition}[Graph]
-$\Gamma_f \coloneqq (\id, f) : X \to X \times_Y Y$
-\end{definition}
-
-% https://q.uiver.app/#q=WzAsOCxbMCwwLCJYXFx0aW1lc19ZIFknIl0sWzEsMCwiWSciXSxbMSwxLCJZIl0sWzAsMSwiWCJdLFszLDAsIlgiXSxbMywxLCJZIl0sWzQsMCwiWCBcXHRpbWVzX1MgWCJdLFs0LDEsIlkgXFx0aW1lc19TIFkiXSxbMCwzLCJwXzEiLDJdLFszLDIsImYiXSxbMSwyLCJnIl0sWzAsMSwiZl97WSd9IiwyXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNiw3LCJmX1kiXSxbNSw3LCJcXERlbHRhIF97WS9TfSJdLFs0LDYsIlxcR2FtbWFfZiIsMl0sWzQsNSwiZiIsMl0sWzQsNywiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
-\[\begin{tikzcd}
-	{X\times_Y Y'} & {Y'} && X & {X \times_S X} \\
-	X & Y && Y & {Y \times_S Y}
-	\arrow["{f_{Y'}}"', from=1-1, to=1-2]
-	\arrow["{p_1}"', from=1-1, to=2-1]
-	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
-	\arrow["g", from=1-2, to=2-2]
-	\arrow["{\Gamma_f}"', from=1-4, to=1-5]
-	\arrow["f"', from=1-4, to=2-4]
-	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-4, to=2-5]
-	\arrow["{f_Y}", from=1-5, to=2-5]
-	\arrow["f", from=2-1, to=2-2]
-	\arrow["{\Delta _{Y/S}}", from=2-4, to=2-5]
-\end{tikzcd}\]
 
 \begin{definition} $\mathcal{P}$ satisfies
 \begin{itemize}[topsep=-6pt, itemsep=0pt]
@@ -136,18 +170,18 @@ $\Gamma_f \coloneqq (\id, f) : X \to X \times_Y Y$
 	\item (quasi-finite) fin. type + finite fibers
 	\item (finite) $V = \Spec B$ $ \Rightarrow f ^{-1}(V) = \Spec A$, $A$ f.g. $B$-mod.
 	\item (separated) $\Delta_{X/Y} : X \to X \times_Y X$ closed imm.
-	\item (poper) separated + fin. type + univ. closed
+	\item (proper) separated + fin. type + univ. closed
 \end{itemize}
 \end{definition}
 
 \begin{proposition} all (COMP, BC, LOCT) +
 \begin{itemize}[topsep=-6pt, itemsep=0pt]
 	\item immersion (closed/open):
-	\item loc. fin. type: (CANC, LOCS) affine-local
+	\item loc. fin. type: (CANC, LOCS) (affine-local)
 	\item fin. type:
-	\item affine: affine-local
+	\item affine: (affine-local)
 	\item quasi-finite:
-	\item finite: affine-local
+	\item finite: (affine-local)
 	\item separated: (CANC)
 	\item proper:
 \end{itemize}
@@ -181,6 +215,7 @@ Finite $ \Rightarrow $ quasi-finite + proper
 	\arrow[from=4-1, to=3-1]
 	\arrow[from=4-2, to=5-2]
 	\arrow[from=3-1, to=4-2]
+	\arrow[from=2-3, to=4-2]
 \end{tikzcd}\]
 
 $\boxed{M \otimes _R \frac{R}{I} \cong \frac{M}{IM}}$ 
