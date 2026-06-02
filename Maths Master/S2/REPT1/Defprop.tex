@@ -1,0 +1,309 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage{lmodern}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{extpfeil}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Poset}{Poset}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\End}{End}
+
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\gl}{\mathfrak{gl}}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+\title{Defprop REPT1}
+\author{Abel Doñate Muñoz}
+\date{}
+
+\begin{document}
+
+\section{Manifolds}
+
+\section{Lie groups}
+
+\begin{definition}[Lie group]
+$(G, e, m , i)$ st $G$ smooth, $m$ smooth.
+\end{definition}
+
+\begin{proposition} The differentials of the maps
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $dm (e,e) : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}, \quad  (X, Y) \mapsto X + Y$ 
+    \item $di (e) : \mathfrak{g} \to  \mathfrak{g}, \quad X \mapsto -X$ 
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Adjoints]
+\begin{align*}
+\mathrm{\textbf{Ad}}(g) &: G \to G & \mathrm{Ad}(g) &: \mathfrak{g} \to \mathfrak{g} & \mathrm{ad} &: \mathfrak{g} \to \mathrm{End}(\mathfrak{g}) \\
+h &\mapsto ghg^{-1} & X &\mapsto gXg^{-1} & X &\mapsto [X,\cdot]
+\end{align*}
+\end{definition}
+
+\begin{proposition}
+$\varphi : G \to H$. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $ d \varphi (e) \circ Ad(g) = Ad(\varphi (g)) \circ d \varphi (e) $ 
+    \item $d\varphi (e) ([X,Y]_G) = [d\varphi (e) X, d\varphi (e)Y]_H$ 
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Lie algebra] Finite dimensional real (or complex) vector space $L$ and bilinear map st
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $[X, Y] = -[Y, X]$ 
+    \item $[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$
+\end{itemize}
+Homomorphisms $\varphi : L \to M$  satisfy $\varphi ([X, Y]_L) = [\varphi (X), \varphi (Y)]_M $ 
+\end{definition}
+
+\begin{proposition} $G$ top. group, $H \subseteq G$ open subgroup $ \implies H$ closed.
+\end{proposition}
+
+\begin{proposition} $G$ connected top. group, $U \subseteq G$ nbh of $e$ Then $G = \bigcup_{n \geq 1} U^n$.
+\end{proposition}
+
+\begin{proposition} Let $G$ top. group, $G^0$ conn. comp. of $1$. 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $G^0$ closed sbg characteristic (stable under all automorphisms)
+    \item $G$ locally conn. $ \implies G^0$ open and contained in every open subgroup
+    \item Conn. comp. of $G$ are cosets $G / G^0$.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Vector field] Assigns $v(p) \in T_p(M)$. Smooth if system of local coord. are smooth functions.
+\end{definition}
+
+\begin{definition}[Integral curve] $(I, \gamma)$ st $\gamma : I \to M$, $\gamma '(t) = c(\gamma (t))$
+\end{definition}
+
+\begin{definition} $L_g : G \to  G, \quad h \mapsto gh$. Taking differentials $l_g \coloneqq dL_g(1) : \mathfrak{g} \to T_gG$ 
+\end{definition}
+
+\begin{definition}[Left invariant] $v(g) = l_g(v(1))$ 
+\end{definition}
+
+\begin{proposition} $v$ left inv. Then, maximal integral curve $\gamma$ of $v$ with $\gamma (0) = e$ is defined on $\mathbb{R}$ and $\gamma (t + s) = \gamma (t) \gamma (s)$.
+\end{proposition}
+
+\begin{definition} $\exp _G (X) = \gamma _X(1)$, with $\gamma '_X(0) = X$. If $V$ finite dimensional, then
+\[
+\exp _G (X) = \sum_{n=0}^\infty \frac{X^n}{n!}
+\]
+\end{definition}
+
+\begin{proposition} Porperties of $\exp$:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathrm{\textbf{Ad}}(x) \circ \exp_G = \exp_G \circ \mathrm{ad}(x)$
+    \item $\mathrm{\textbf{Ad}} \circ \exp_G = \exp_{GL(\mathfrak{g})} \circ \mathrm{ad}$ 
+    \item $d \exp _G(0) = id_\mathfrak{g}$ 
+    \item $\varphi \circ \exp_G = \exp_H \circ d\varphi (1)$
+    \item $\gamma _X (t) = \exp_G(tX)$
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} We have
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\exp_G: \mathfrak{g} \to G$ is a local diffeomorphism at $0$.
+    \item Image of $\exp_G$ lies in $G^0$ 
+    \item $U \subseteq \mathfrak{g}$ nbh of $0$, then $ \exp (U)$ generates $G^0$.
+    \item If $G$ is connected, $\exp_G$ is surjective.
+    \item $f : G \to H$, then $df_1(X) = \frac{d}{dt}\mid_{t=0} f(\exp_G(tX))$ 
+\end{itemize}
+\end{proposition}
+
+\section{Compact topological groups}
+
+\begin{definition}[Separation axioms] These are
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $T_0$: $\forall x \neq y$, $\exists U$ st $x \in U$, $y \notin U$ or $y \in U$, $x \notin U$
+    \item $T_1$: $\forall x \neq y$, $\exists U$ st $x \in U$, $y \notin U$ and $\exists V$ st $y \in V$, $x \notin V$
+    \item $T_2$: $\forall x \neq y$, $\exists U, V$ st $x \in U$, $y \in V$, $U \cap V = \emptyset$ 
+    \item $T_3$: $\forall x \in X$, $\forall F \subseteq X$ closed, $x \notin F$, $\exists U$ open st $x \in U$, $F \cap U = \emptyset$
+    \item $T_{3\frac{1}{2}}$: $\forall x \in X$, $\forall F \subseteq X$ closed, $x \notin F$, $\exists f : X \to [0, 1]$ st $f(x) = 0$, $f(F) = \{1\}$ 
+    \item $T_4$: $\forall F, F' \subseteq X$ closed, $F \cap F' = \emptyset$, $\exists U, V$ st $F \subseteq U$, $F' \subseteq V$, $U \cap V = \emptyset$   
+\end{itemize}
+\end{definition}
+
+\begin{proposition} For top. groups, $T_0 \implies T_{3 \frac{1}{2}}$.
+\end{proposition}
+
+\begin{proposition}[Urysohn's lemma] $T_4$ is equivalent to $\ \forall  F, F'$ closed $\ \exists f : X \to [0, 1]$ continuous, $f(F) = \{0\}$, $f(F') = \{1\}$.
+\end{proposition}
+
+\begin{proposition} $T_2$ and compact $\implies T_4$.
+\end{proposition}
+
+Let $S$ a set, $\Lambda$ a comm. ring
+\begin{definition}[Algebraic $S$-Mod] 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $M$ $S$-module over $\Lambda$ if $M$ is $\Lambda$-module and $a = a_M : S \to \End_{\Lambda}(M)$ 
+    \item $N \subseteq M$ $S$-submodule if $N$ is $\Lambda$-submodule and $a(S)(N) \subseteq N$
+    \item $f :M \to N$ $S$-morphism if $f$ is $\Lambda$-linear and $f(a_M(s)m) = a_N(s) f(m)$ for all $s \in S$
+\end{itemize}
+\end{definition}
+
+\begin{definition} Algebraic definitions:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Irreducible} $M$ has no non-zero proper $S$-submodules.
+    \item \textbf{Indecomposable} $M$ is not a direct sum of two non-zero $S$-modules.
+    \item \textbf{Semisimple} $M$ is a direct sum of irreducible $S$-modules.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Length] Supremum of $M_1 \subsetneq M_2 \subsetneq \dots \subsetneq M_n = M$ of $S$-submodules of $M$.
+\end{definition}
+
+\begin{proposition} $M$ semisimple $\iff$ $M$ is a sum of irreducible $S$-modules
+
+If that happens, then there exists a (non unique) complement for each submodule. If $M$ is finite length, all are equivalent.
+\end{proposition}
+
+\begin{proposition}
+Let $f : M \to N$. If $M$ irreducible, then $f = 0$ or $f$ is injective. If $N$ irreducible, then $f = 0$ or $f$ is surjective.
+\end{proposition}
+
+\begin{proposition} [Schur's lemma] $V, W$ irreducible fin. dim. $\mathbb{C}$-vector spaces. Then
+\[
+\dim \Hom_S(V, W) = \begin{cases} 1 & V \cong W \\ 0 & \text{otherwise} \end{cases}    
+\]
+\end{proposition}
+
+\begin{definition} $\hat{S}$ set of isomorphism classes of irreducible $S$-modules.
+\end{definition}
+
+\begin{proposition}
+\[
+\bigoplus_{W \in \hat{S}} \Hom_S(W, V) \otimes W \to V, \quad f \otimes w \mapsto f(w)
+\]
+is an $S$-morphism. If iso, then $V$ semi-simple. If $V$ semi-simple and all irreducible submod of $V$ are finite, then iso.
+\end{proposition}
+
+\begin{definition} Topological definitions:
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Irreducible} $M$ has no non-zero proper closed $S$-submodules.
+    \item \textbf{Indecomposable} $M$ is not a direct sum of two non-zero closed $S$-modules.
+    \item \textbf{Semisimple} $M$ is the closure of a direct sum of irreducible $S$-modules.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $V$ finite-dimensional $\mathbb{R}, \mathbb{C}$-vector space. Let $S$ topological space and $a : S \to \End(V)$. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $a$ continuous $ \iff $ $S \times V \to V$ continuous
+    \item algebraic and topological definitions agree
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item Repr. of top. group $G$ is a topological $G$-module $( \pi , V_{\pi })$ with $V_\pi $ a $(\mathbb{R}, \mathbb{C})$-vs, st $\pi : G \to \GL(V_\pi)$ is a group hom.
+    \item Repr. of Lie algebra $L$ over a field $k$ is a $L$-module $(\rho, V_\rho)$ with $V_\rho$ a $l$-vs for some extension $l / k$, st $\rho : L \to \gl (V)$ is a Lie algebra hom.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Hilbert-Schmidt inner product]. $A, B \in \End_{\mathbb{C}}(V)$
+\[
+\langle A, B \rangle_{\text{HS}} = \tr(A^* B), \qquad \|A\|_{\text{HS}} = \sqrt{\langle A, A \rangle_{\text{HS}}}
+\]
+\end{definition}
+
+\begin{proposition}
+The isomorphism 
+\[
+V \otimes V^* \to \End(V), \quad v \otimes f \mapsto T_{v, f} \coloneqq (w \mapsto f(w) v)
+\]
+is an isometry.
+\end{proposition}
+
+We assume $F = \mathbb{R}, \mathbb{C}$ 
+\begin{definition}[Top. vs] $V$ vs with topology st $+$ and $\cdot$ continuous.
+\end{definition}
+
+\begin{definition} $V$ is called
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Banach} if $V$ complete and comes from a norm $\|-\|: V \to F$.
+    \item \textbf{Hilbert} if Banach and comes from an inner product $\langle - , - \rangle$.
+    \item \textbf{Fréchet} if $V$ complete and comes from a countable family of seminorms $\{p_n\}_{n \geq 1}$.
+    \item \textbf{Locally Convex} if every nbh of $0$ contains a convex nbh of $0$. ($ \iff $ family of seminorms)
+    \item \textbf{Quasi-Complete} if every closed bounded subset is complete.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Hahn-Banach] $V$ Hausdorff locally convex top. vs. If $ W \subseteq V$ subspace and $\lambda : W \to F$, there exist an extension on $V$.
+\end{theorem}
+
+\begin{theorem}[Closed Graph] $V, W$ Frechet. $f : V \to W$ linear is continuous $\iff$ graph of $f$ is closed in $V \times W$.
+\end{theorem}
+
+\begin{theorem}[Open mapping theorem] $V, W$ Frechet. $f : V \to W$ continuous linear surjective $\implies f$ is open.
+
+\end{theorem}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
