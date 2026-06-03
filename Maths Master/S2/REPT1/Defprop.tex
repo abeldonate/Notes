@@ -291,8 +291,82 @@ We assume $F = \mathbb{R}, \mathbb{C}$
 \end{theorem}
 
 \begin{theorem}[Open mapping theorem] $V, W$ Frechet. $f : V \to W$ continuous linear surjective $\implies f$ is open.
-
 \end{theorem}
+
+\begin{proposition} Hilbert $ \implies $ Banach $ \implies $ Fréchet $ \implies $ Locally convex
+\end{proposition}
+
+\begin{definition} $A : V \to W$ linear btw Banach. $A$ is bounded ($ \iff $ continuous) if
+\[
+\|A\| = \sup_{\|v\| \leq 1} \|Av\| < \infty
+\]
+$\Hom_{cts}(V, W)$ is Banach with this norm.
+\end{definition}
+
+\begin{theorem} $X$ compact top. space with measure $ \mu$, $V$ quasi-complete top. vs. Then $f : X \to V$ continuous $\implies \ \exists! v \in V$ st for all $ \lambda \in \Hom_{cts}(V,F)$
+\[
+\lambda (v) = \int_X \lambda (f(x)) d\mu(x)
+\]
+\end{theorem}
+
+\begin{definition} [Resolvent set] $V$ Banach, $A \in \End(V)$. Resolvent set $\rho (A) = \{\lambda \in F : A - \lambda id_V \text{ bijective}\}$, spectrum $\sigma (A) = F \setminus \rho (A)$.
+\end{definition}
+
+\begin{proposition} $ \sigma (A)$ is compact.
+\end{proposition}
+
+\begin{definition} $A$ called compact if the closure of $A(B)$ is compact where $B$ is the unit ball of $V$.
+\end{definition}
+
+\begin{definition} For $A \in \End(V)$, there exists $A^*$ st $\langle Av, w \rangle = \langle v, A^* w \rangle$. $A$ self-adjoint if $A = A^*$ and normal if $AA^* = A^* A$.
+\end{definition}
+
+\begin{theorem}[Spectral theorem] $A$  normal compact operator on Hilbert space $V$. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\sigma (A)$ is discrete, $0$ is the only possible accumulation point.
+    \item $ \lambda \in \sigma (A) \setminus \{0\} \implies \lambda$ is an eigenvalue and $V_{\lambda }$ fin. dim.
+    \item For $\lambda \neq \mu$, then $V_{\mu} \perp V_\mu$ 
+    \item $V = \hat{\bigoplus}_{\lambda \in \mathbb{C}} V_\lambda$ 
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}[Stone-Weierstrass] $X$ compact Hausdorff, $A \subseteq C(X, \mathbb{C})$ subalgebra st
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $1 \in A$ 
+    \item $A$ separates points of $X$ ($\forall x \neq y$, $\exists f \in A$ st $f(x) \neq f(y)$)
+    \item $A$ is closed under complex conjugation
+\end{itemize}
+Then $A$ is dense in $C(X, \mathbb{C})$ with respect to the sup. norm.
+\end{theorem}
+
+\begin{theorem}[Arzela-Ascoli] $X$ compact Hausdorff, $F \subseteq C(X, \mathbb{C})$. Then the closure of $F$ is compact $ \iff $ 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $F$ is equicontinuous
+    \item $F$ is pointwise bounded
+\end{itemize}
+\end{theorem}
+
+\begin{theorem} $G$ top. comp. group. There exist a functional
+\[
+\mathcal{C} (G, \mathbb{C}) \to \mathbb{C}, \quad f \mapsto \int_G f(x) dx
+\]
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item If $f(x) \in \mathbb{R}_{>0}$, then $\int_G f(x) dx > 0$
+    \item $\int _Gf(x) dx = \int _Gf(gx) dx = \int _Gf(xg) dx$ for all $g \in G$
+    \item $\int _G 1 dx = 1$
+\end{itemize}
+\end{theorem}
+
+\begin{definition} $V$ representation of $G$. Then $\pi $ is called
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Banach representation} if $V_\pi $ is Banach and $\pi $ preserves the norm.
+    \item \textbf{Hilbert representation} if $V_\pi $ is Hilbert and $\pi $ preserves the inner product.
+    \item \textbf{lcc representation} if $V_\pi $ is Hausdorff, loc. conv. and complete.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $G$ compact, then $\mathcal{G} \subset L^2(G) \subset L^1(G)$ 
+\end{proposition}
 
 \end{document}
 
