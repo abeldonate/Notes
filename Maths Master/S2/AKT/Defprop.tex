@@ -1,0 +1,172 @@
+\documentclass[leqno]{article}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+\usepackage{lmodern}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{multicol} \usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{extpfeil}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% paragraph length
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+\newtheorem*{example}{Example}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Poset}{Poset}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\coim}{Coim}
+
+\newcommand{\com}[1]{\textcolor{red}{#1}}
+\newcommand{\incfig}[1]{%
+\center
+\def\svgwidth{0.9\columnwidth}
+\import{./figures/}{#1.pdf_tex}
+}
+\newcommand{\incimg}[1]{%
+\center
+\includegraphics[width=0.9\columnwidth]{images/#1}
+}
+\pdfsuppresswarningpagegroup=1
+
+
+\begin{document}
+
+% Lecture 2
+
+% Lecture 3
+
+\begin{definition}[Diagramatic invariant] $I : \text{knot} \to S$ with $S$ set such that $I(K_1) = I(K_2)$ if $K_1$ and $K_2$ are isotopic.
+\end{definition}
+
+\begin{example} The crossing at a cross $ \varepsilon (c) \in \{+1, -1\} $. The linking number of a link $L = K_1 \cup K_2$ is an invariant defined as 
+\[
+\text{lk}(K_1, K_2) = \frac{1}{2} \sum_{c \in K_1 \cap K_2} \varepsilon(c).
+\]
+\end{example}
+
+\begin{definition}[Fox $p$-coloring] Let $D$ a knot diagram with arcs $x_1, \ldots, x_m$. A Fox $p$-coloring of $D$ is an assignment of colors
+\[
+x_i \mapsto a_i \in \mathbb{Z}_p
+\]
+such that at each crossing, we have $a, c$ underarcs and $b$ overarc, then $2b \equiv a + c \pmod{p}$.
+
+We have a homogeneous system of equations $C_D x = 0$ 
+
+\end{definition}
+
+\begin{proposition} The dimension of 
+    \[
+    \text{Col}_p(D) = \ker  (C_D)
+    \]
+(hence, the number of Fox $p$-colorings) is a knot invariant.
+\end{proposition}
+
+\begin{definition}[Knot group] Let $K$ be a knot. The knot group of $K$ is $\pi_1(S^3 \setminus K)$.
+\end{definition}
+
+\begin{definition} $N(K)$ tubular nbh of $K$.
+\end{definition}
+
+\begin{definition}[Meridian and longitude] They generate $\pi _1(\partial N(K)) \cong \mathbb{Z}^2$.
+\end{definition}
+
+\begin{theorem}[Wirtinger presentation] $g_i$ generator for each arc $x_i$. Then the knot group has presentation
+\[
+G_K = \langle g_1, \ldots, g_m \mid r_1, \ldots, r_n \rangle
+\]
+where $r_j : g_k = g_i g_j g_i^{-1}$ are wirtinger relations at each crossing.
+\end{theorem}
+
+
+% TODO: dihedral group
+
+\begin{definition} $C_D^{i,j}$ deleting the $i$-th row and $j$-th column of $C_D$. Then
+\[
+\det (K) = \left| \det (C_D^{i,j}) \right|  = \left| \Delta_K(-1) \right| = \left| H_1(\Sigma_2(K)) \right|
+\]
+\end{definition}
+
+\begin{example} Trifoil
+\[
+C_D = \begin{bmatrix}2 & -1 & -1 \\
+-1 & 2 & -1 \\
+-1 & -1 & 2 \end{bmatrix}
+\]
+\end{example}
+
+\begin{theorem} $K$ admits a non-trivial Fox $p$-coloring if and only if $p \mid \det (K)$.
+\end{theorem}
+
+\begin{definition}[Writhe] Not a knot invariant (fails Redemeister I)
+\[
+w(D) = \sum_{c} \varepsilon(c)
+\]
+\end{definition}
+
+\begin{definition}[Framed knot] A knot $K$ equiped with $v(x)$ a normal vector field. Self-linking number
+\[
+\text{sl}(K) = \text{lk}(K, K_v = \{x + \varepsilon v(x) : x \in K\})
+\]
+\end{definition}
+
+% Lecture 4
+\section{Seifert and Alexander}
+
+\begin{definition}[Seifert surface] For a knot $K$, a Seifert surface is a compact connected orientable surface $F$ such that $\partial F = K$.
+\end{definition}
+
+\begin{proposition} Seifert's algorithm:
+TODO
+\end{proposition}
+
+\begin{definition}[Euler characteristic]
+\[
+\chi(F) = s(D) - c(D) = 1 - 2g(F)
+\]
+where $s(D)$ is the number of Seifert circles and $c(D)$ is the number of crossings.
+\end{definition}
+
+\begin{proposition} $K_1\# K_2$ induces $F_1\natural F_2$ and 
+\[
+g(F_1 \natural F_2) = g(F_1) + g(F_2), \quad g(K_1 \# K_2) = g(K_1) + g(K_2).
+\]
+\end{proposition}
+
+
+\end{document}

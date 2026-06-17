@@ -1,0 +1,158 @@
+\begin{proposition} Are abelian categories Ab, $\Mod_A$, $\Sh(X)$ (gorups), $\QCoh(X)$ and $\Coh(X)$.
+\end{proposition}
+
+\begin{definition}[Delta functor] $F: \mathcal{C} \to \mathcal{D}$ left-exact. Exist $F^i$ and $\delta ^i : F^i(C) \to F^{i+1}(A)$ for all sas $0 \to A \to B \to C \to 0$ such that
+\[
+\cdots \to F^i(A) \to F^i(B) \to F^i(C) \xrightarrow{\delta^i} F^{i+1}(A) \to \cdots
+\]
+is exact. It is universal if it is initial in the category of delta functors with $F^0 = F$.
+\end{definition}
+
+\begin{definition}[Erasable] $\delta $ is erasable if for all $A$ there exists a morphism $u$ such that $F^i(u) = 0$. Every universal delta functor is erasable.
+\end{definition}
+
+\begin{definition} $\mathcal{C}$ Abelian.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Injective} $I \in \mathcal{C}$ if $\Hom(-, I)$ is exact.
+    \item \textbf{Projective} $P \in \mathcal{C}$ if $\Hom(P, -)$ is exact.
+    \item \textbf{Enough injectives} if for all $A$ there exists an injection $A \to I$ with $I$ injective.
+    \item \textbf{Enough projectives} if for all $A$ there exists a surjection $P \to A$ with $P$ projective.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} The categories Ab, $\Mod_A$, $\Sh(X)$ have enough injectives. $\QCoh(X)$ and $\Coh(X)$ do not.
+\end{proposition}
+
+\begin{proposition} $I$ injective, then $ 0 \to I \to  A \to B \to 0$ splits.
+\end{proposition}
+
+\begin{proposition}
+We only need to check $F(I)=0$ for injectives to check erasability.
+\end{proposition}
+
+(Commutative lemmas)
+
+\begin{definition} Right derived functor $R^iF(A) \coloneqq H^i(F(I^\bullet))$ where $A \to I^0 \to I^1 \to \cdots $. These are erasable.
+\end{definition}
+
+\begin{definition}[Sheaf cohomology] $H^i(X, -) \coloneqq R^i\Gamma(X, -)$.
+\end{definition}
+
+\begin{definition} $F$ left-exact, $\mathcal{C} $ enough injectives. $A \in \mathcal{C} $ acyclic if $R^iF(A) = 0 $ for $i \leq 1$. 
+\end{definition}
+
+\begin{definition}[Flasque] Restriction morphisms are surjective. Flasque sheaves are acyclic.
+\end{definition}
+
+\begin{proposition} 
+$\mathcal{F}$ injective $ \Rightarrow \mathcal{F} $ flasque.
+\end{proposition}
+
+\begin{definition}[Cech] $\mathcal{F} $ presheaf, $\mathcal{U} = \{ U_i \}$ open cover of $X$. $C^p(\mathcal{U}, \mathcal{F}) = \prod_{i_0 < \cdots < i_p} \mathcal{F}(U_{i_0} \cap \cdots \cap U_{i_p})$.
+\[
+0 \to C^0(\mathcal{U}, \mathcal{F}) \to C^1(\mathcal{U}, \mathcal{F}) \to \cdots, \quad  (ds)_{j_0, \ldots, j_{p+1}} = \sum_{k=0}^{p+1} (-1)^k s_{j_0, \ldots, \hat{j_k}, \ldots, j_{p+1}}|_{U_{j_0, \ldots, j_{n+1}}}
+\]
+Define $\check{H}^i(\mathcal{U}, \mathcal{F}) = H^i(C^\bullet(\mathcal{U}, \mathcal{F}))$.
+\end{definition}
+
+\begin{theorem} $\mathcal{F} $ sheaf and $\mathcal{U} $ affine cover of $X$, then $\check{H}^i(\mathcal{U}, \mathcal{F}) = H^i(X, \mathcal{F})$.
+\end{theorem}
+
+\begin{theorem}[Serre's criterion] $X$ qc, then TFAE:
+    \begin{itemize}[topsep=-6pt, itemsep=0pt]
+        \item $X$ affine
+        \item $H^i(X, \mathcal{F}) = 0$ for all $i > 0$ and $\mathcal{F} \in \QCoh(X)$
+        \item $H^1(X, \mathcal{F}) = 0$ for all $\mathcal{F} \in \QCoh(X)$
+    \end{itemize}
+\end{theorem}
+
+\begin{proposition} $X$ projective of dimension $n$ over $k$, then $H^i(X, \mathcal{F}) = 0$ for all $i > n$ and $\mathcal{F} \in \QCoh(X)$.
+\end{proposition}
+
+\begin{theorem} [Cohomology of projective]
+\[
+H^q (\mathbb{P}_A^{n}, \mathcal{O}(d)) = \begin{cases} 
+    A[x_0, \ldots, x_n]_d & q = 0 \\
+    0 & q \neq 0, n \\
+    (\frac{1}{x_0 \cdots x_n} A[x_0^{-1}, \ldots, x_n^{-1}])_{d} & q = n
+\end{cases}
+\]
+\end{theorem}
+
+
+\begin{theorem} $A$ Noetherian, $\mathcal{F} $ coherent on $X = \mathbb{P}_A^n$ (or projective over $A$). Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $H^i(X, \mathcal{F})$ is f.g. $A$-module for $i \geq 0$.
+    \item $H^i(X, \mathcal{F}(d)) = 0$ for $d \gg 0$ and $i > 0$. 
+\end{itemize}
+\end{theorem}
+
+\begin{proposition} Let $f: X \to Y$ and $\mathcal{F} \in \Sh(X) $. Then, $R^if_*(\mathcal{F})$ is the sheaf associated to the presheaf $V \mapsto H^i(f^{-1}(V), \mathcal{F})$. Also
+\[
+(R^if_*\mathcal{F})|_V \cong R^i(f_V)_*(\mathcal{F}|_{f^{-1}(V)})
+\]
+\end{proposition}
+
+\begin{proposition} Flasque sheaves are $f_*$-acyclic.
+\end{proposition}
+
+\begin{proposition} $f: X \to Y$ affine, $\mathcal{F} \in \QCoh(X)$. Then, $H^i(X, \mathcal{F}) \cong H^i(Y, f_*\mathcal{F})$.
+\end{proposition}
+
+\begin{proposition} $f : X \to  Y$ qcqs, $\mathcal{F} \in \QCoh(X)$. Then, 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $R^if_*\mathcal{F} \in \QCoh(Y)$ for all $i \geq 0$.
+    \item If $Y$ affine, $R^if_*\mathcal{F} \cong H^i(X, \mathcal{F})^{\sim}$ 
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} $f: X \to Y$ projective between Noetherians. $\mathcal{F} \in \Coh(X)$, then $R^if_*\mathcal{F} \in \Coh(Y)$.
+\end{proposition}
+
+\begin{definition}[Homs] $\mathcal{F} \in \Mod(X)$. 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\Ext_{\mathcal{O}_X }^i (\mathcal{F}, -)$ right derived functor of $\Hom_{\mathcal{O}_X}(\mathcal{F}, -) : \Mod(X) \to \Ab$.
+    \item $\mathcal{E}xt_{\mathcal{O}_X }^i (\mathcal{F}, -)$ right derived functor of $\CHom_{\mathcal{O}_X}(\mathcal{F}, -) : \Mod(X) \to \Mod(X)$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $\mathcal{G} \in \Mod(X)$
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\Ext^i(\mathcal{O}_X, \mathcal{G}) \cong H^i(X, \mathcal{G})$
+    \item $\CExt ^i(\mathcal{O}_X, \mathcal{G}) \cong 0$ for $i > 0$ and $\cong \mathcal{G}$ for $i = 0$.
+\end{itemize} 
+\end{proposition}
+
+\begin{proposition} Given ses $ 0 \to \mathcal{F'} \to \mathcal{F} \to \mathcal{F''} \to 0$ in $\Mod(X)$, there is long exact sequence
+\[
+0 \to \Hom(\mathcal{F''}, \mathcal{G}) \to \Hom(\mathcal{F}, \mathcal{G}) \to \Hom(\mathcal{F'}, \mathcal{G}) \to \Ext^1(\mathcal{F''}, \mathcal{G}) \to \cdots
+\]
+\end{proposition}
+
+\begin{proposition} $\mathcal{F} \in \Mod(X)$ and $ \cdots \to \mathcal{L}_1 \to \mathcal{L}_0 \to \mathcal{F} \to 0$ loc. free of finite rank. Then
+\[
+\CExt^i(\mathcal{F}, \mathcal{G}) \cong H^i(\CHom(\mathcal{L}_{\bullet}, \mathcal{G}))
+\]
+\end{proposition}
+
+\begin{proposition} $\mathcal{L}, \mathcal{F}, \mathcal{G} \in \Mod(X) $ and $\mathcal{L}$ loc. free of finite rank. Then,
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\CExt ^i(\mathcal{F} \otimes \mathcal{L}, \mathcal{G}) \cong \CExt^i(\mathcal{F}, \mathcal{G}) \otimes \mathcal{L}^{\vee} \cong \CExt ^i (\mathcal{L}, \mathcal{G} \otimes \mathcal{L}^{\vee})$
+    \item $\Ext^i (\mathcal{F} \otimes \mathcal{L}, \mathcal{G}) \cong \Ext^i(\mathcal{F}, \mathcal{G}) \otimes \mathcal{L}^{\vee}$
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} $x \in X$ a point in a nbh $U$ with a presentation $\mathcal{O}_U ^{ \oplus m} \to \mathcal{O}_U^{ \oplus n} \to  \mathcal{F}|_U \to 0$. Then
+\[
+\CHom (\mathcal{F}, \mathcal{G}  )_x \cong \Hom _{\Mod(\mathcal{O}_{X, x})}(\mathcal{F}_x, \mathcal{G}_x)
+\]
+\end{proposition}
+
+\begin{proposition} $x \in X$ a point in a nbh $U$ with a resolution $\cdots \to \mathcal{L}_1 \to \mathcal{L}_0 \to  \mathcal{F}|_U \to 0$ with $\mathcal{L}_i$ loc. free of finite rank. Then
+\[
+\CExt^i(\mathcal{F}, \mathcal{G})_x \cong \Ext^i_{\Mod(\mathcal{O}_{X, x})}(\mathcal{F}_x, \mathcal{G}_x)
+\]
+\end{proposition}
+
+
+
