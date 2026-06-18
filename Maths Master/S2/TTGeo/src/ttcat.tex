@@ -1,0 +1,56 @@
+\begin{definition} $\mathcal{K} $ essentially small tt-cat.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathcal{I} \subseteq \mathcal{K}  $ full is \textbf{thick} if it is closed under suspension, cones and direct summands. 
+    \item $\mathcal{I} \subseteq \mathcal{K}  $ thick is \textbf{ideal} if $i \otimes k \in \mathcal{I}$ for all $i \in \mathcal{I}$ and $k \in \mathcal{K}$.
+    \item $\mathcal{I} \subseteq \mathcal{K}  $ ideal is \textbf{radical} if $k ^{ \otimes n} \in \mathcal{I}$ for some $n > 0$ implies $k \in \mathcal{I}$.
+    \item $\Zar(\mathcal{K})$ set of radical ideals of $\mathcal{K}$.
+    \item $\mathfrak{p} \subseteq \mathcal{K}  $ prime ideal if proper and $k \otimes k' \in \mathfrak{p}$ implies $k \in \mathfrak{p}$ or $k' \in \mathfrak{p}$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $\mathcal{p}$ prime $ \Rightarrow \mathcal{p} $ radical.
+\end{proposition}
+
+\begin{definition} Let $a \in \mathcal{K}$. Notation for generation of subcategories / ideals
+\[
+\thick \langle a \rangle, \quad \thick_{ \otimes } \langle a \rangle, \quad \sqrt{a}
+\]
+\end{definition}
+
+\begin{theorem} $\Zar(K)$ is a coherent frame. 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\mathcal{I} \meet \mathcal{J}  = \mathcal{I} \cap \mathcal{J} = \sqrt{\mathcal{I} \otimes \mathcal{J}}$ 
+    \item $\mathcal{I} \join \mathcal{J}  = \sqrt{\mathcal{I} \cup \mathcal{J}} = \sqrt{\mathcal{I} \oplus  \mathcal{J}}$ 
+\end{itemize}
+\end{theorem}
+
+\begin{definition}[Balmer Spectrum] $\Spc(\mathcal{K}) \coloneqq \pt(\Zar(\mathcal{K})) ^{\partial } = \pt (\Zar(\mathcal{K})^{\partial })$
+\end{definition}
+
+\begin{proposition} There is a lattice isomorphism $\Th(\Spc(\mathcal{K})) \cong \Zar(\mathcal{K})$ st
+\[
+\{\text{Thomason subsets of }\Spc(\mathcal{K})\} \leftrightarrow \{\text{radical ideals of }\mathcal{K}\}
+\]
+\end{proposition}
+
+\begin{proposition} $ \{\text{points in the frame }\Zar(\mathcal{K})\} \cong \{\text{prime ideals of }\mathcal{K}\} $
+\end{proposition}
+
+\begin{definition}[Support] For $a \in \mathcal{K} $, define $\supp (a) \coloneqq \{\mathfrak{p} \in \Spc(\mathcal{K}) : a \notin \mathfrak{p} \}$ 
+Complement $U(a)$ 
+\end{definition}
+
+\begin{proposition} $U(a)$ is a basis of quasi-compact opens of $\Spc(\mathcal{K})$ and $\supp(a)$ is a basis of closed subset (Thomason subsets). 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\supp (0) = \emptyset$, $\supp (1) = \mathcal{K} $ 
+    \item $\supp (a \oplus b) = \supp (a) \cup \supp (b)$, $\supp (a \otimes b) = \supp (a) \cap \supp (b)$
+    \item $\supp (\Sigma a) = \supp (a)$
+    \item $\supp (b) \subseteq \supp(a) \cup \supp(c)$ for any triangle $a \to b \to c$ in $\mathcal{K} $
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Support datum] Pair $(X, \sigma)$ with $X$ a topological space and $\sigma : \mathcal{K}  \to \text{closed subsets of }X$ acomplishing the same properties as avobe.
+\end{definition}
+
+\begin{theorem}[Universal property] $(\Spc(\mathcal{K}), \supp)$ is the final support datum. For any other $(X, \sigma)$, there exist a unique continuous map $f: X \to \Spc(\mathcal{K})$ such that $\sigma(a) = f^{-1}(\supp(a))$ for all $a \in \mathcal{K}$.
+\end{theorem}

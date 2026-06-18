@@ -1,0 +1,57 @@
+\begin{definition}[Join and Meet]
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Join} $a = \join S$ if $a$ upper bound and if $b$ upper bound of $S$, then $a \leq b$. Colimit
+    \item \textbf{Meet} $a = \meet S$ if $a$ lower bound and if $b$ lower bound of $S$, then $b \leq a$. Limit
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Lattice] Poset $L$ in which every finite subset has a join and meet.
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Distributive} if $a \meet (b \join c) = (a \meet b) \join (a \meet c)$. Morphisms preserve finite joins and meets. Category $\Dlat$.
+    \item \textbf{Complete} if arbitrary subsets have a join and meet.
+    \item \textbf{Frame} Complete and $f \meet (\join S) = \join (f \meet s : s \in S)$. Morphisms preserve arbitrary joins and finite meets. Category $\Frm$ 
+    \item \textbf{Finite} $c \in F$ if $c \leq \join S$ implies $c \leq \join K$ for some finite $K \subseteq S$. $F^{ \omega}$ set of finite elements.
+    \item \textbf{Coherent Frame} Every element is a join of finite elements and $F^{\omega }$ is distributive lattice. Morphism take $F^{\omega } \to G^{\omega }$. Category $\CFrm$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition} Adjunction $f: X \to Y$, $\mathcal{O}(f) :\mathcal{O}(Y) \to \mathcal{O}(X)$ such that $U \mapsto f^{-1}(U)$ (explain better the pt part)
+\[
+\begin{tikzcd}
+\Frm^{\text{op}} \arrow[r, shift left, "\text{pt}"] & \Top \arrow[l, shift left, "\mathcal{O}"]
+\end{tikzcd}
+\]
+\end{proposition}
+
+\begin{proposition} Equivalence of categories
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXHRleHR7Q0ZybX0iXSxbMCwwLCJcXHRleHR7RGxhdH0iXSxbMSwwLCJcXHNpbSJdLFsxLDAsIlxcdGV4dHtJZGx9IiwwLHsib2Zmc2V0IjotM31dLFswLDEsIigtKV57XFxvbWVnYX0iLDAseyJvZmZzZXQiOi0zfV1d
+\[\begin{tikzcd}
+	{\Dlat} & \sim & {\CFrm}
+	\arrow["{\Idl}", shift left=3, from=1-1, to=1-3]
+	\arrow["{(-)^{\omega}}", shift left=3, from=1-3, to=1-1]
+\end{tikzcd}\]
+\end{proposition}
+
+\begin{definition}[Sober space] $T_0$ and every irreducible closed subset is the closure of a unique point.
+\end{definition}
+
+\begin{definition}[Spectral space] qc sober space $X$ qc opens are closed under finite intersections and form a basis of the topology. Morphisms are continuous maps such that the preimage of a qc open is qc open. Category $\TopSpec$.
+\end{definition}
+
+\begin{theorem}[Stone duality] Equivalence of categories
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXFRvcFNwZWMiXSxbMCwwLCJcXENGcm1ee1xcdGV4dHtvcH19Il0sWzEsMCwiXFxzaW0iXSxbMSwwLCJcXHRleHR7cHR9IiwwLHsib2Zmc2V0IjotM31dLFswLDEsIlxcbWF0aGNhbHtPfSIsMCx7Im9mZnNldCI6LTN9XV0=
+\[\begin{tikzcd}
+	{\CFrm^{\text{op}}} & \sim & \TopSpec
+	\arrow["{\text{pt}}", shift left=3, from=1-1, to=1-3]
+	\arrow["{\mathcal{O}}", shift left=3, from=1-3, to=1-1]
+\end{tikzcd}\]
+\end{theorem}
+
+\begin{definition}[Hochster duality] $ \partial $ changes the orientation of the order. 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $X^{\partial}$ same set, but basis of closed sets is the basis of qc opens of $X$. Open sets of $X^{\partial}$ are Thomason, $V = \cup V_\lambda $ with $V_{\lambda}$ closed and qc complement.
+    \item $\Th(X) = \mathcal{O}(X^{\partial}), \quad  \Th(X^{\partial }) = \mathcal{O}(X) $ 
+\end{itemize}
+\end{definition}
+
+
