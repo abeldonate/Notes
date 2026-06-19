@@ -1,0 +1,81 @@
+\begin{proposition} $G$ Lie, $\pi : G \to \text{GL}(V)$ a f.d. rep of $G$. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $d \pi(1) : \mathfrak{g} \to \text{gl}(V)$ is a Lie algebra rep of $\mathfrak{g}$.
+    \item $\pi \to d\pi (1)$ faithful additive exact functor 
+    \item $G$ connected, fully faithful functor, + simply connected, equivalence of categories.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} f.d. representation $\pi $. TFAE
+\[
+W \text{ is } G \text{-stable} \iff W \text{ is } \mathfrak{g} \text{-stable} \iff W_{\mathbb{C}} \text{ is } G \text{-stable} \iff W_{\mathbb{C}} \text{ is } \mathfrak{g} \text{-stable} \iff W_{\mathbb{C}} \text{ is } \mathfrak{g}_{\mathbb{C}} \text{-stable}
+\]
+\end{proposition}
+
+\begin{definition}[Adjoint representation] $\ad :L \to \mathfrak{gl} (L), \quad x \mapsto [x, \cdot]$. Center $Z(L) = \ker \ad$ 
+\end{definition}
+
+\begin{definition}[Ideal] $I \subseteq L$ such that $[I, L] \subseteq I$ 
+\end{definition}
+
+\begin{example} 
+    $\mathfrak{b},\mathfrak{u}, \mathfrak{t} \subseteq \gl_n(k)$
+     upper, strictly upper and diagonal. All subalgebras, no ideals. $\mathfrak{u}$ ideal of $\mathfrak{b}$.
+\end{example}
+
+\begin{proposition} $Z(L), [L, L], \ker \rho$ ideals
+\end{proposition}
+
+\begin{definition} $L$ is called
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item \textbf{Simple} if not abelian and no non-trivial ideals.
+    \item \textbf{Semisimple} if direct sum of simple ideals. Also $L = [L,L] = \oplus L_i$ with $L_i$ simple ideals.
+    \item \textbf{Reductive} if direct sum of semisimple and abelian ideals. $L = Z(L) \oplus [L,L]$ with $[L,L]$ semisimple.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Invariant form] $b: V \times V \to k$ if $b(\pi(x)y, z) = -b(y, \pi(x)z)$. Equivalently,
+\[
+b ([x,y], z) = b(x, [y,z])
+\]
+\end{definition}
+
+\begin{definition}[Killing form] invariant bilinear symmetric $\kappa : L \times L \to k, \quad \kappa(x,y) = \tr (\ad x \circ \ad y)$
+\end{definition}
+
+\begin{proposition} Killing form of $L$ is definite, then $L$ is semisimple.
+\end{proposition}
+
+\begin{definition}[Compact lie algebra] killing form of $L / Z(L)$ is negative definite. Also
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $L / Z(L)$ semisimple
+    \item $Z(L) = \rad (k)$
+\end{itemize}
+\end{definition}
+
+\begin{proposition} $L$ compact and semi-simple. Then
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $\ad : L \to \Der(L)$ is isomorphism 
+    \item $\Ad (L) = \Aut(L)^{\circ}$ 
+    \item $\Ad (L)$ has no center.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} TFAE
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $L$ is compact
+    \item $\Ad(L)$ is compact
+    \item The image of $t \mapsto \exp (t \cdot \ad (x))$ is bounded for any $x \in L$. 
+    \item $\ad(x)$ is diagonalizable with purely imaginary eigenvalues for all $x \in L$. 
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} $G$ Lie group with Lie algebra $\mathfrak{g}$. 
+\begin{itemize}[topsep=-6pt, itemsep=0pt]
+    \item $G$ compact $\implies \mathfrak{g}$ compact
+    \item $\mathfrak{g}$ compact and semi-simple, then $G$ compact.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition} $L$ compact $\implies L$ reductive.
+\end{proposition}

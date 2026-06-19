@@ -168,5 +168,34 @@ g(F_1 \natural F_2) = g(F_1) + g(F_2), \quad g(K_1 \# K_2) = g(K_1) + g(K_2).
 \]
 \end{proposition}
 
+\begin{proposition} $F$ Seifert surface of $K$ implies $H_1(F, \mathbb{Z}) \cong \mathbb{Z}^{2g(F)}$
+\end{proposition}
+
+\begin{definition}[Seifert matrix] Basis $\alpha _1, \ldots, \alpha_{2g}$ of $H_1(F, \mathbb{Z})$, the Seifert matrix $V$ is defined by
+\[
+V_{ij} = \text{lk}(\alpha_i, \alpha_j^+)
+\]
+where $\alpha_j^+$ is a push-off of $\alpha_j$ in the positive normal direction of $F$.
+\end{definition}
+
+\begin{definition}[Algebraic intersection number] $F$ oriented, $a, b$ oriented simple closed curves on $F$. Then
+\[
+a \cdot b = \sum_{p \in a \cap b} \varepsilon_p(a, b), \quad \varepsilon_p(a, b) = \begin{cases} +1 & \text{if } (a, b) \text{ is + oriented at } p \\ -1 & \text{if } (a, b) \text{ is - oriented at } p \end{cases}
+\]
+we also see that $\alpha_i \cdot \alpha_j = V_{ij} - V_{ji}$
+\end{definition}
+
+\begin{definition}[Alexander polynomial] $V$ Seifert matrix for $K$. 
+    \[
+\Delta _K(t) \coloneqq  \det (V - t V^T) \in \mathbb{Z}[t, t^{-1}], \quad \Delta_K(t) = \Delta_K(t^{-1}), \quad \Delta_K(1) = 1.
+    \]
+\end{definition}
+
+\begin{example} Trefoil $V = \begin{bmatrix} 1 & 0 \\ -1 & 1 \end{bmatrix}$, $\Delta_K(t) = t^2 - t + 1 = t-1+t^{-1}$
+\end{example}
+
+
+
+
 
 \end{document}
